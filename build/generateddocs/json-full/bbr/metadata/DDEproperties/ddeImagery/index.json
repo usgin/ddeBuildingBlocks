@@ -27,26 +27,26 @@
     "dde.bbr.metadata.DDEproperties.ddeImagery": [
       "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/rules.shacl"
     ],
-    "cdif.bbr.metadata.schemaorgProperties.additionalProperty": [
-      "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl"
-    ],
-    "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-      "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-    ],
-    "cdif.bbr.metadata.schemaorgProperties.identifier": [
-      "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
-    ],
     "cdif.bbr.metadata.cdifProperties.cdifProv": [
       "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifProv/rules.shacl"
     ],
     "cdif.bbr.metadata.schemaorgProperties.person": [
       "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
     ],
+    "cdif.bbr.metadata.schemaorgProperties.identifier": [
+      "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
+    ],
     "cdif.bbr.metadata.schemaorgProperties.organization": [
       "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
     ],
+    "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
+      "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
+    ],
     "cdif.bbr.metadata.provProperties.generatedBy": [
       "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.additionalProperty": [
+      "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl"
     ],
     "cdif.bbr.metadata.schemaorgProperties.spatialExtent": [
       "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
@@ -59,8 +59,8 @@
     ]
   },
   "dependsOn": [
-    "cdif.bbr.metadata.schemaorgProperties.additionalProperty",
-    "cdif.bbr.metadata.cdifProperties.cdifProv"
+    "cdif.bbr.metadata.cdifProperties.cdifProv",
+    "cdif.bbr.metadata.schemaorgProperties.additionalProperty"
   ],
   "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/context.jsonld",
   "schema": {
@@ -96,7 +96,7 @@
         },
         {
           "language": "ttl",
-          "code": "@prefix prov: <http://www.w3.org/ns/prov#> .\n@prefix schema1: <http://schema.org/> .\n\n[] schema1:additionalProperty [ a schema1:PropertyValue ;\n            schema1:name \"Processing Level\" ;\n            schema1:propertyID \"dde:processedLevel\" ;\n            schema1:value \"Level2\" ],\n        [ a schema1:PropertyValue ;\n            schema1:name \"Wavelength Range\" ;\n            schema1:propertyID \"dde:wavelength\" ;\n            schema1:value \"0.43-2.29 micrometers\" ] ;\n    prov:wasGeneratedBy [ a schema1:Action,\n                prov:Activity ;\n            schema1:endTime \"2023-06-15T03:45:12Z\" ;\n            schema1:name \"Landsat-8 OLI imagery acquisition\" ;\n            schema1:participant [ a schema1:Role ;\n                    schema1:contributor [ a schema1:Organization ;\n                            schema1:name \"USGS / NASA\" ] ;\n                    schema1:roleName \"DataCollector\" ] ;\n            schema1:startTime \"2023-06-15T03:45:00Z\" ;\n            prov:used [ schema1:instrument [ a schema1:Thing ;\n                            schema1:additionalType \"dde:platform\" ;\n                            schema1:name \"Landsat-8\" ] ],\n                [ schema1:instrument [ a schema1:Thing ;\n                            schema1:additionalType \"dde:equipment\" ;\n                            schema1:name \"Operational Land Imager (OLI)\" ] ],\n                [ schema1:instrument [ a schema1:Thing ;\n                            schema1:additionalType \"dde:signalGenerator\" ;\n                            schema1:name \"Passive solar\" ] ],\n                [ schema1:instrument [ a schema1:Thing ;\n                            schema1:additionalType \"dde:sensorType\" ;\n                            schema1:name \"Multispectral\" ] ] ] .\n\n",
+          "code": "@prefix prov: <http://www.w3.org/ns/prov#> .\n@prefix schema1: <http://schema.org/> .\n\n[] schema1:additionalProperty [ a schema1:PropertyValue ;\n            schema1:name \"Wavelength Range\" ;\n            schema1:propertyID \"dde:wavelength\" ;\n            schema1:value \"0.43-2.29 micrometers\" ],\n        [ a schema1:PropertyValue ;\n            schema1:name \"Processing Level\" ;\n            schema1:propertyID \"dde:processedLevel\" ;\n            schema1:value \"Level2\" ] ;\n    prov:wasGeneratedBy [ a schema1:Action,\n                prov:Activity ;\n            schema1:endTime \"2023-06-15T03:45:12Z\" ;\n            schema1:name \"Landsat-8 OLI imagery acquisition\" ;\n            schema1:participant [ a schema1:Role ;\n                    schema1:contributor [ a schema1:Organization ;\n                            schema1:name \"USGS / NASA\" ] ;\n                    schema1:roleName \"DataCollector\" ] ;\n            schema1:startTime \"2023-06-15T03:45:00Z\" ;\n            prov:used [ schema1:instrument [ a schema1:Thing ;\n                            schema1:additionalType \"dde:signalGenerator\" ;\n                            schema1:name \"Passive solar\" ] ],\n                [ schema1:instrument [ a schema1:Thing ;\n                            schema1:additionalType \"dde:equipment\" ;\n                            schema1:name \"Operational Land Imager (OLI)\" ] ],\n                [ schema1:instrument [ a schema1:Thing ;\n                            schema1:additionalType \"dde:platform\" ;\n                            schema1:name \"Landsat-8\" ] ],\n                [ schema1:instrument [ a schema1:Thing ;\n                            schema1:additionalType \"dde:sensorType\" ;\n                            schema1:name \"Multispectral\" ] ] ] .\n\n",
           "url": "https://usgin.github.io/ddeBuildingBlocks/build/tests/bbr/metadata/DDEproperties/ddeImagery/example_1_1.ttl"
         }
       ]

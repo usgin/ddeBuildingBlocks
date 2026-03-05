@@ -283,13 +283,13 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
             schema1:name "Geological Time Viewer screenshot" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Data Integration Synthesis" ;
-            schema1:termCode "dataIntegrationSynthesis" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Data Integration Synthesis" ;
+            schema1:termCode "dataIntegrationSynthesis" ],
         "ICS",
         "chronostratigraphy",
         "geological time",
