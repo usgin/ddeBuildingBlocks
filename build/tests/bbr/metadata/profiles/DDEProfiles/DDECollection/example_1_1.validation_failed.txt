@@ -1,0 +1,395 @@
+Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDECollection - DDE Collection profile
+Generated 2026-03-05T19:06:49.756029+00:00
+=== Files ===
+Using exampleDDECollection.json from examples
+JSON-LD context is present - uplifting
+Output JSON-LD example_1_1.jsonld created
+Output Turtle example_1_1.ttl created
+=== End Files ===
+
+=== JSON Schema ===
+
+** Validation error **
+ValidationError: [{'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDECollection'}] is too short
+
+Failed validating 'minItems' in schema['allOf'][0]['allOf'][2]['allOf'][1]['properties']['schema:subjectOf']['allOf'][1]['properties']['dcterms:conformsTo']:
+    {'contains': {'properties': {'@id': {'const': 'cdif:profile_ddeCDIF'}},
+                  'required': ['@id'],
+                  'type': 'object'},
+     'items': {'$ref': 'https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifCatalogRecord/schema.yaml#/$defs/conformsTo_item'},
+     'minContains': 1,
+     'minItems': 2,
+     'type': 'array'}
+
+On instance['schema:subjectOf']['dcterms:conformsTo']:
+    [{'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDECollection'}]
+=== End JSON Schema ===
+
+=== SHACL ===
+
+** Validation error **
+Validation result for _sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl:
+  Validation Report
+  Conforms: False
+  Results (1):
+  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
+  	Severity: sh:Violation
+  	Source Shape: [ sh:message Literal("DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF") ; sh:minCount Literal("2", datatype=xsd:integer) ; sh:path dcterms:conformsTo ]
+  	Focus Node: <urn:uuid:dde-collection-catalog-record>
+  	Result Path: dcterms:conformsTo
+  	Message: DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF
+  
+Focus nodes for _sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl:
+ - Shape cdifd:DDEImageObjectShape: <urn:dde:example-onegeology-collection>/schema1:image
+ - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first: *none*
+ - Shape _:n0c3b1f5dc6d14db284a7e609741aa501b9: *none*
+ - Shape _:n0c3b1f5dc6d14db284a7e609741aa501b11: *none*
+ - Shape cdifd:DDECatalogRecordShape: *none*
+ - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:first: *none*
+ - Shape _:n0c3b1f5dc6d14db284a7e609741aa501b22: *none*
+ - Shape cdifd:rightsProperty/sh:or/rdf:first: *none*
+ - Shape cdifd:DDEDatasetMandatoryShape: *none*
+ - Shape cdifd:rightsProperty/sh:or/rdf:rest/rdf:first: *none*
+
+
+** Validation error **
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl:
+  Validation Report
+  Conforms: False
+  Results (1):
+  Validation Result in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
+  	Severity: sh:Warning
+  	Source Shape: [ sh:message Literal("A dataset should identify its creator(s) (schema:creator).") ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:path schema1:creator ; sh:severity sh:Warning ]
+  	Focus Node: <urn:dde:example-onegeology-collection>
+  	Result Path: schema1:creator
+  	Message: A dataset should identify its creator(s) (schema:creator).
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl:
+ - Shape _:n284fad90634147c283752cca31c85715b7: *none*
+ - Shape cdifd:creatorListValidation: <urn:uuid:dde-collection-catalog-record>,<urn:dde:example-onegeology-collection>
+ - Shape cdifd:relatedResourceProperty/sh:property/sh:or/rdf:first: *none*
+ - Shape _:n284fad90634147c283752cca31c85715b13: *none*
+ - Shape cdifd:CDIFDatasetOptionalShape: *none*
+ - Shape cdifd:cdifOptionalProvWarningShape: <urn:uuid:dde-collection-catalog-record>,<urn:dde:example-onegeology-collection>
+ - Shape _:n284fad90634147c283752cca31c85715b14: *none*
+ - Shape cdifd:keywordsNoCommaTest/sh:or/rdf:rest/rdf:first: *none*
+ - Shape cdifd:keywordsNoCommaTest/sh:or/rdf:first: *none*
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl:
+ - Shape cdifd:webAPINode/sh:property/sh:or/rdf:first: *none*
+ - Shape cdifd:webAPINode/sh:property/sh:or/rdf:first: *none*
+ - Shape _:n38ae3717c5294c06a1248d1dbba3feb3b17: *none*
+ - Shape _:n38ae3717c5294c06a1248d1dbba3feb3b21: *none*
+ - Shape _:n38ae3717c5294c06a1248d1dbba3feb3b4: *none*
+ - Shape _:n38ae3717c5294c06a1248d1dbba3feb3b26: *none*
+ - Shape _:n38ae3717c5294c06a1248d1dbba3feb3b3: *none*
+ - Shape _:n38ae3717c5294c06a1248d1dbba3feb3b24: *none*
+ - Shape _:n38ae3717c5294c06a1248d1dbba3feb3b20: *none*
+ - Shape _:n38ae3717c5294c06a1248d1dbba3feb3b10: *none*
+ - Shape _:n38ae3717c5294c06a1248d1dbba3feb3b18: *none*
+ - Shape _:n38ae3717c5294c06a1248d1dbba3feb3b22: *none*
+ - Shape _:n38ae3717c5294c06a1248d1dbba3feb3b19: *none*
+ - Shape cdifd:webAPINode: *none*
+ - Shape _:n38ae3717c5294c06a1248d1dbba3feb3b11: *none*
+ - Shape _:n38ae3717c5294c06a1248d1dbba3feb3b23: *none*
+ - Shape cdifd:webAPINode/sh:property/sh:or/rdf:first: *none*
+ - Shape _:n38ae3717c5294c06a1248d1dbba3feb3b25: *none*
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl:
+ - Shape _:nc0910866649e424eba218bf8ac57e33ab6: *none*
+ - Shape _:nc0910866649e424eba218bf8ac57e33ab4: *none*
+ - Shape _:nc0910866649e424eba218bf8ac57e33ab8: *none*
+ - Shape _:nc0910866649e424eba218bf8ac57e33ab7: *none*
+ - Shape _:nc0910866649e424eba218bf8ac57e33ab19: *none*
+ - Shape _:nc0910866649e424eba218bf8ac57e33ab5: *none*
+ - Shape _:nc0910866649e424eba218bf8ac57e33ab10: *none*
+ - Shape _:nc0910866649e424eba218bf8ac57e33ab26: *none*
+ - Shape cdifd:CDIFDefinedTermShape: *none*
+ - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:first: *none*
+ - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:rest/rdf:first: *none*
+ - Shape cdifd:CDIFDefinedTermShape/sh:property/sh:or/rdf:first: *none*
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl:
+ - Shape cdifd:CDIFIdentifierShape/sh:property/sh:or/rdf:first: *none*
+ - Shape cdifd:CDIFIdentifierShape: *none*
+ - Shape _:n99f33f74d4314bea873d388f51aa89e0b11: *none*
+ - Shape _:n99f33f74d4314bea873d388f51aa89e0b10: *none*
+ - Shape cdifd:CDIFIdentifierShape/sh:or/rdf:rest/rdf:first: *none*
+ - Shape cdifd:CDIFIdentifierShape/sh:or/rdf:first: *none*
+ - Shape _:n99f33f74d4314bea873d388f51aa89e0b20: *none*
+ - Shape _:n99f33f74d4314bea873d388f51aa89e0b25: *none*
+ - Shape cdifd:CDIFIdentifierTypeTermShape: *none*
+ - Shape cdifd:CDIFIdentifierTypeTermShape/sh:property/sh:or/rdf:first: *none*
+ - Shape _:n99f33f74d4314bea873d388f51aa89e0b21: *none*
+ - Shape _:n99f33f74d4314bea873d388f51aa89e0b22: *none*
+ - Shape _:n99f33f74d4314bea873d388f51aa89e0b23: *none*
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl:
+ - Shape cdifd:CDIFActionShape: *none*
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl:
+ - Shape _:n3c0918a1d0cb460e866dde10d4151b57b5: *none*
+ - Shape _:n3c0918a1d0cb460e866dde10d4151b57b52: *none*
+ - Shape _:n3c0918a1d0cb460e866dde10d4151b57b7: *none*
+ - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*
+ - Shape _:n3c0918a1d0cb460e866dde10d4151b57b14: *none*
+ - Shape _:n3c0918a1d0cb460e866dde10d4151b57b29: *none*
+ - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*
+ - Shape _:n3c0918a1d0cb460e866dde10d4151b57b44: *none*
+ - Shape cdifd:CDIFVariableMeasuredShape: *none*
+ - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*
+ - Shape _:n3c0918a1d0cb460e866dde10d4151b57b4: *none*
+ - Shape _:n3c0918a1d0cb460e866dde10d4151b57b11: *none*
+ - Shape _:n3c0918a1d0cb460e866dde10d4151b57b38: *none*
+ - Shape _:n3c0918a1d0cb460e866dde10d4151b57b9: *none*
+ - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*
+ - Shape _:n3c0918a1d0cb460e866dde10d4151b57b12: *none*
+ - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*
+ - Shape _:n3c0918a1d0cb460e866dde10d4151b57b10: *none*
+ - Shape _:n3c0918a1d0cb460e866dde10d4151b57b45: *none*
+ - Shape _:n3c0918a1d0cb460e866dde10d4151b57b51: *none*
+ - Shape _:n3c0918a1d0cb460e866dde10d4151b57b37: *none*
+ - Shape _:n3c0918a1d0cb460e866dde10d4151b57b8: *none*
+ - Shape _:n3c0918a1d0cb460e866dde10d4151b57b30: *none*
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl:
+ - Shape cdifd:CDIFLabeledLinkShape: <urn:dde:example-onegeology-collection>/schema1:hasPart,<urn:dde:example-onegeology-collection>/schema1:hasPart,<urn:dde:example-onegeology-collection>/schema1:license,<urn:dde:example-onegeology-collection>/schema1:hasPart
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl:
+ - Shape cdifd:CDIFDataDownloadShape: *none*
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl:
+ - Shape cdifd:maintainerOrProviderContactPointShape/sh:property/sh:or/rdf:first: *none*
+ - Shape cdifd:CDIFContactPointShape: *none*
+ - Shape cdifd:CDIFPersonShape/sh:or/rdf:first: *none*
+ - Shape cdifd:affiliationProperty/sh:or/rdf:rest/rdf:first: *none*
+ - Shape cdifd:affiliationProperty/sh:or/rdf:first: *none*
+ - Shape cdifd:CDIFPersonShape: *none*
+ - Shape _:n814e0c7838bd4d3ab8301681ed89480bb14: *none*
+ - Shape cdifd:contactPointProperty/sh:or/rdf:rest/rdf:first: *none*
+ - Shape cdifd:CDIFPersonShape/sh:or/rdf:rest/rdf:first: *none*
+ - Shape cdifd:contactPointProperty/sh:or/rdf:first: *none*
+ - Shape cdifd:maintainerOrProviderContactPointShape: *none*
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl:
+ - Shape cdifd:CDIFOrganizationShape/sh:or/rdf:first: *none*
+ - Shape cdifd:CDIFOrganizationShape/sh:or/rdf:rest/rdf:first: *none*
+ - Shape cdifd:CDIFOrganizationShape: *none*
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl:
+ - Shape cdifd:generatedByNode/sh:property/sh:or/rdf:first: *none*
+ - Shape _:nfccc7d52d1f54d69b4bee7670dcc658bb5: *none*
+ - Shape _:nfccc7d52d1f54d69b4bee7670dcc658bb4: *none*
+ - Shape cdifd:generatedByNode: *none*
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl:
+ - Shape cdifd:qualityMeasurementNode/sh:property/sh:or/rdf:first: *none*
+ - Shape _:nc274f162c7c44de38f6df6003c78ed7cb5: *none*
+ - Shape _:nc274f162c7c44de38f6df6003c78ed7cb11: *none*
+ - Shape cdifd:qualityMeasurementNode/sh:property/sh:or/rdf:first: *none*
+ - Shape cdifd:qualityMeasurementNode: *none*
+ - Shape _:nc274f162c7c44de38f6df6003c78ed7cb4: *none*
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl:
+ - Shape _:ndd76a85a00404c4896c9865db4ff687db12: *none*
+ - Shape _:ndd76a85a00404c4896c9865db4ff687db17: *none*
+ - Shape cdifd:fundingShape/sh:or/rdf:first: *none*
+ - Shape _:ndd76a85a00404c4896c9865db4ff687db11: *none*
+ - Shape _:ndd76a85a00404c4896c9865db4ff687db26: *none*
+ - Shape _:ndd76a85a00404c4896c9865db4ff687db4: *none*
+ - Shape _:ndd76a85a00404c4896c9865db4ff687db5: *none*
+ - Shape _:ndd76a85a00404c4896c9865db4ff687db25: *none*
+ - Shape cdifd:fundingShape: *none*
+ - Shape _:ndd76a85a00404c4896c9865db4ff687db14: *none*
+ - Shape _:ndd76a85a00404c4896c9865db4ff687db15: *none*
+ - Shape _:ndd76a85a00404c4896c9865db4ff687db3: *none*
+ - Shape _:ndd76a85a00404c4896c9865db4ff687db13: *none*
+ - Shape cdifd:fundingShape/sh:or/rdf:rest/rdf:first: *none*
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl:
+ - Shape _:nf78c9b4da07b4386bbd3d510dd5bb50eb4: *none*
+ - Shape cdifd:derivedFromProperty/sh:or/rdf:first: *none*
+ - Shape cdifd:derivedFromProperty: *none*
+ - Shape cdifd:derivedFromProperty/sh:or/rdf:rest/rdf:first: *none*
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl:
+ - Shape cdifd:spatialExtentProperty/sh:or/rdf:first: *none*
+ - Shape _:n82ed4cc202a34d9a86970b938a1fbfacb22: *none*
+ - Shape _:n82ed4cc202a34d9a86970b938a1fbfacb37: *none*
+ - Shape cdifd:spatialExtentProperty: <urn:dde:example-onegeology-collection>/schema1:spatialCoverage
+ - Shape _:n82ed4cc202a34d9a86970b938a1fbfacb32: *none*
+ - Shape _:n82ed4cc202a34d9a86970b938a1fbfacb9: *none*
+ - Shape _:n82ed4cc202a34d9a86970b938a1fbfacb34: *none*
+ - Shape cdifd:CDIFDefinedTermShape: <urn:dde:example-onegeology-collection>/schema1:keywords,<urn:dde:example-onegeology-collection>/schema1:keywords,<urn:dde:example-onegeology-collection>/schema1:additionalType,<urn:dde:example-onegeology-collection>/schema1:additionalType
+ - Shape cdifd:geoCoordinatesNode/sh:property/sh:or/rdf:first: *none*
+ - Shape _:n82ed4cc202a34d9a86970b938a1fbfacb35: *none*
+ - Shape cdifd:geoShapeNode: <urn:dde:example-onegeology-collection>/schema1:spatialCoverage/schema1:geo
+ - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:rest/rdf:first: *none*
+ - Shape _:n82ed4cc202a34d9a86970b938a1fbfacb10: *none*
+ - Shape _:n82ed4cc202a34d9a86970b938a1fbfacb33: *none*
+ - Shape _:n82ed4cc202a34d9a86970b938a1fbfacb31: *none*
+ - Shape _:n82ed4cc202a34d9a86970b938a1fbfacb3: *none*
+ - Shape cdifd:geoCoordinatesNode/sh:property/sh:or/rdf:first: *none*
+ - Shape cdifd:geoCoordinatesNode: *none*
+ - Shape _:n82ed4cc202a34d9a86970b938a1fbfacb17: *none*
+ - Shape cdifd:spatialExtentProperty/sh:or/rdf:rest/rdf:first: *none*
+ - Shape _:n82ed4cc202a34d9a86970b938a1fbfacb4: *none*
+ - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:first: *none*
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl:
+ - Shape cdifd:roleNameProperty/sh:or/rdf:first: *none*
+ - Shape _:n53ae8863f7db4195b3d67f6b97b197f9b13: *none*
+ - Shape _:n53ae8863f7db4195b3d67f6b97b197f9b18: *none*
+ - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:first: *none*
+ - Shape _:n53ae8863f7db4195b3d67f6b97b197f9b15: *none*
+ - Shape _:n53ae8863f7db4195b3d67f6b97b197f9b3: *none*
+ - Shape _:n53ae8863f7db4195b3d67f6b97b197f9b12: *none*
+ - Shape cdifd:CDIFDefinedTermShape: <urn:dde:example-onegeology-collection>/schema1:keywords,<urn:dde:example-onegeology-collection>/schema1:keywords,<urn:dde:example-onegeology-collection>/schema1:additionalType,<urn:dde:example-onegeology-collection>/schema1:additionalType
+ - Shape _:n53ae8863f7db4195b3d67f6b97b197f9b16: *none*
+ - Shape _:n53ae8863f7db4195b3d67f6b97b197f9b14: *none*
+ - Shape cdifd:roleNameProperty/sh:or/rdf:rest/rdf:first: *none*
+ - Shape cdifd:CDIFRoleShape/sh:property/sh:or/rdf:first: *none*
+ - Shape cdifd:CDIFRoleShape: *none*
+ - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:rest/rdf:first: *none*
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl:
+ - Shape _:n0e0ce92b63e841a58e91a276f69f40b3b17: *none*
+ - Shape cdifd:temporalExtentProperty/sh:or/rdf:first: *none*
+ - Shape cdifd:timeIntervalNode: *none*
+ - Shape cdifd:timePositionNode: *none*
+ - Shape cdifd:temporalExtentProperty/sh:or/rdf:rest/rdf:first: *none*
+ - Shape _:n0e0ce92b63e841a58e91a276f69f40b3b5: *none*
+ - Shape _:n0e0ce92b63e841a58e91a276f69f40b3b4: *none*
+ - Shape _:n0e0ce92b63e841a58e91a276f69f40b3b3: *none*
+ - Shape cdifd:timePositionNode/sh:property/sh:or/rdf:first: *none*
+ - Shape cdifd:timeInstantNode: *none*
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl:
+ - Shape soso:DatasetNS1Shape: *none*
+ - Shape soso:DatasetNS2Shape: *none*
+ - Shape _:ne605307a3bd649d4ac3a75ffec1cf476b18: *none*
+ - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:first: *none*
+ - Shape cdifd:CDIFDatasetMandatoryShape: *none*
+ - Shape _:ne605307a3bd649d4ac3a75ffec1cf476b7: *none*
+ - Shape _:ne605307a3bd649d4ac3a75ffec1cf476b5: *none*
+ - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first: *none*
+ - Shape cdifd:rightsProperty/sh:or/rdf:rest/rdf:first: *none*
+ - Shape soso:DatasetNS3Shape: *none*
+ - Shape cdifd:CDIFCatalogRecordShape: *none*
+ - Shape cdifd:rightsProperty/sh:or/rdf:first: *none*
+
+Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl:
+ - Shape cdifd:CDIFCatalogRecordShape: *none*
+
+Validation result for _sources/DDEproperties/ddeOptional/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/DDEproperties/ddeOptional/rules.shacl:
+ - Shape cdifd:DDEOptionalDatasetShape: *none*
+
+Validation result for _sources/DDEproperties/ddeRequired/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/DDEproperties/ddeRequired/rules.shacl:
+ - Shape cdifd:DDEImageObjectShape: <urn:dde:example-onegeology-collection>/schema1:image
+ - Shape cdifd:DDERequiredDatasetShape: *none*
+
+
+** Validation error **
+Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:
+  Validation Report
+  Conforms: False
+  Results (1):
+  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
+  	Severity: sh:Violation
+  	Source Shape: [ sh:message Literal("DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF") ; sh:minCount Literal("2", datatype=xsd:integer) ; sh:path dcterms:conformsTo ]
+  	Focus Node: <urn:uuid:dde-collection-catalog-record>
+  	Result Path: dcterms:conformsTo
+  	Message: DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF
+  
+Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:
+ - Shape cdifd:DDECatalogRecordShape: *none*
+
+Validation result for _sources/DDEproperties/ddeResourceType/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/DDEproperties/ddeResourceType/rules.shacl:
+ - Shape cdifd:DDEResourceTypeShape: *none*
+
+=== End SHACL ===
+

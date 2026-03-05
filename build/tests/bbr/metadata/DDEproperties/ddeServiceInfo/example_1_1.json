@@ -1,0 +1,85 @@
+{
+  "schema:distribution": [
+    {
+      "@type": [
+        "schema:WebAPI"
+      ],
+      "schema:name": "Arizona Geologic Unit View WFS",
+      "schema:description": "OGC WFS service providing vector feature access to Arizona geologic unit data",
+      "schema:serviceType": {
+        "@type": "schema:DefinedTerm",
+        "schema:name": "Data Access Service",
+        "schema:termCode": "DataService>DataAccess",
+        "schema:inDefinedTermSet": "dde:codelist/ServiceTypeCode"
+      },
+      "schema:potentialAction": [
+        {
+          "@type": "schema:SearchAction",
+          "schema:name": "GetCapabilities",
+          "schema:target": {
+            "@type": "schema:EntryPoint",
+            "schema:urlTemplate": "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology_WFS/MapServer/WFSServer?service=WFS&request=GetCapabilities",
+            "schema:httpMethod": "GET"
+          }
+        },
+        {
+          "@type": "schema:SearchAction",
+          "schema:name": "GetFeature",
+          "schema:description": "Retrieve geologic unit features by bounding box or attribute filter",
+          "schema:target": {
+            "@type": "schema:EntryPoint",
+            "schema:urlTemplate": "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology_WFS/MapServer/WFSServer?service=WFS&request=GetFeature&typeName={typeName}&bbox={bbox}",
+            "schema:httpMethod": "GET"
+          }
+        }
+      ],
+      "schema:documentation": {
+        "@type": "schema:CreativeWork",
+        "schema:name": "WFS Capabilities Document",
+        "schema:url": "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology_WFS/MapServer/WFSServer?service=WFS&request=GetCapabilities",
+        "schema:encodingFormat": [
+          "application/xml"
+        ]
+      }
+    },
+    {
+      "@type": [
+        "schema:WebAPI"
+      ],
+      "schema:name": "Arizona Lithostratigraphy WMS",
+      "schema:description": "OGC WMS service providing map tile views of Arizona lithostratigraphy",
+      "schema:serviceType": {
+        "@type": "schema:DefinedTerm",
+        "schema:name": "Map View Service",
+        "schema:termCode": "DataService>MapView",
+        "schema:inDefinedTermSet": "dde:codelist/ServiceTypeCode"
+      },
+      "schema:potentialAction": [
+        {
+          "@type": "schema:SearchAction",
+          "schema:name": "GetMap",
+          "schema:description": "Retrieve rendered map tiles for a given bounding box and layers",
+          "schema:target": {
+            "@type": "schema:EntryPoint",
+            "schema:urlTemplate": "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology/MapServer/WMSServer?service=WMS&request=GetMap&layers={layers}&bbox={bbox}&width={width}&height={height}&srs={srs}&format={format}",
+            "schema:httpMethod": "GET"
+          }
+        }
+      ]
+    }
+  ],
+  "schema:dataset": [
+    {
+      "@type": "schema:PropertyValue",
+      "schema:propertyID": "schema:identifier",
+      "schema:name": "Arizona Geologic Units (Shapefile)",
+      "schema:value": "urn:azgs:geologic-units-shp"
+    },
+    {
+      "@type": "schema:PropertyValue",
+      "schema:propertyID": "schema:identifier",
+      "schema:name": "Arizona Geologic Units (GeoJSON)",
+      "schema:url": "https://data.azgs.az.gov/geologic-units.geojson"
+    }
+  ]
+}

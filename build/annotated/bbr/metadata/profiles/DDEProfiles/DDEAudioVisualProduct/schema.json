@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "DDE AudioVisual Product profile",
+  "description": "DDE profile for audiovisual resources (movie, sound). Extends DDEDiscovery with resource type constraint and schema:duration.",
+  "allOf": [
+    {
+      "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/schema.json"
+    },
+    {
+      "properties": {
+        "schema:additionalType": {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "@type": {
+                "const": "schema:DefinedTerm"
+              },
+              "schema:inDefinedTermSet": {
+                "const": "dde:codelist/ResourceTypeCode"
+              },
+              "schema:termCode": {
+                "type": "string",
+                "enum": [
+                  "movie",
+                  "sound"
+                ]
+              }
+            },
+            "required": [
+              "@type",
+              "schema:inDefinedTermSet",
+              "schema:termCode"
+            ]
+          },
+          "minContains": 1
+        },
+        "schema:duration": {
+          "type": "string",
+          "description": "Duration in ISO 8601 format (e.g., PT1H30M, PT45S)."
+        }
+      }
+    }
+  ],
+  "x-jsonld-prefixes": {
+    "schema": "http://schema.org/",
+    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "geosparql": "http://www.opengis.net/ont/geosparql#",
+    "spdx": "http://spdx.org/rdf/terms#",
+    "time": "http://www.w3.org/2006/time#",
+    "dde": "https://www.ddeworld.org/resource/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dqv": "http://www.w3.org/ns/dqv#"
+  }
+}

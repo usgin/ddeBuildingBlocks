@@ -1,0 +1,2554 @@
+{
+  "x-defs": {
+    "dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery": {
+      "type": "object",
+      "title": "DDE Geoscience Discovery metadata schema",
+      "description": "JSON schema for JSON-LD documents that describe geoscience datasets for the DDE Discovery profile. Composes CDIF mandatory and optional properties with DDE-specific required and optional extensions. DDE adds resource typing from the DDE ResourceTypeCode codelist, topic category and acquisition type keywords from DDE codelists, browse graphics, DDE profile conformance, alternate names, and measurement techniques. Conditional extensions for imagery (ddeImagery) and services (ddeServiceInfo) are NOT included in the base profile.",
+      "allOf": [
+        {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifMandatory"
+        },
+        {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional"
+        },
+        {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeRequired"
+        },
+        {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeOptional"
+        }
+      ],
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/",
+        "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "geosparql": "http://www.opengis.net/ont/geosparql#",
+        "spdx": "http://spdx.org/rdf/terms#",
+        "time": "http://www.w3.org/2006/time#",
+        "skos": "http://www.w3.org/2004/02/skos/core#",
+        "dde": "https://www.ddeworld.org/resource/",
+        "dcat": "http://www.w3.org/ns/dcat#",
+        "prov": "http://www.w3.org/ns/prov#",
+        "dqv": "http://www.w3.org/ns/dqv#"
+      },
+      "x-schema-source": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/schema.json",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.cdifProperties.cdifMandatory": {
+      "type": "object",
+      "title": "Optional properties for CDIF Discovery metadata schema, with schema: prefixes",
+      "description": "Building block specifies properties for minimal CDIF schama.org discovery record",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "description": "The URI for the resource should be the @id value for the root of the JSON instance document tree. Must be an IRI (e.g. https://doi.org/..., urn:..., or a relative URI like #localid). Note that this identifier can be interpreted to identify the resource that is the subject of this metadata record, or the JSON-LD object that is the digital object containing the metadata information."
+        },
+        "@type": {
+          "description": "a schema.org Class that specifies the expected information content for the metadata record. For CDIF, 'schema:Dataset' is required, but other possible values (e.g. CreativeWork, SoftwareApplication, Product, WebAPI) are sometimes included to enable the schema.org properties used to describe the resource without schema.org validation errors. The array must include at least one value from the known set, but can also include other strings for extensibility.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": [
+              "schema:CreativeWork",
+              "schema:SoftwareApplication",
+              "schema:SoftwareSourceCode",
+              "schema:Product",
+              "schema:WebAPI",
+              "schema:Dataset",
+              "schema:DigitalDocument",
+              "schema:Collection",
+              "schema:ImageObject",
+              "schema:DataCatalog",
+              "schema:DefinedTermSet",
+              "schema:MediaObject"
+            ]
+          },
+          "default": "schema:Dataset",
+          "minItems": 1
+        },
+        "schema:name": {
+          "type": "string",
+          "description": "A descriptive name of a dataset (e.g., 'Snow depth in Northern Hemisphere'). The name should uniquely identify the described resource for human use, in the scope of the metadata catalog containing this metadata record."
+        },
+        "schema:identifier": {
+          "description": "The primary identifier for the dataset; other identifiers should be listed in the sameAs field. Schema.org has three ways of encoding identifiers-- a text description, a URL, or by using the schema:PropertyValue field. The Science on Schema.org guidance strongly recommends using the PropertyValue approach. see https://github.com/ESIPFed/science-on-schema.org   .... Dataset.md#identifier.  Ideally, for any given data provided they would provide identifiers either all as strings or all as identifier_type.",
+          "anyOf": [
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifMandatory/$defs/Identifier"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "schema:dateModified": {
+          "type": "string",
+          "description": "ISO8601 formatted date (and optional time if relevant) when Dataset was last updated"
+        },
+        "schema:conditionsOfAccess": {
+          "description": "text statement of conditions for use and access; if an online resource documents the restrictions or a URI is used to identify the conditions, recommend using schema:CreativeWork to provide a label (name) and an identifier (URI or URL). ",
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "type": "string",
+                    "description": "a reference to a resource defining conditions of Access"
+                  }
+                }
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifMandatory/$defs/LabeledLink"
+              }
+            ]
+          }
+        },
+        "schema:license": {
+          "description": "legal statement of conditions for use and access; recommend using schema:CreativeWork to provide a label (name) for the license, and an identifier. Sources of license identifiers: https://opensource.org/licenses/, https://creativecommons.org/about/cclicenses/, https://spdx.org/licenses/, http://cor.esipfed.org/ont/earthcube/swl. If only a string is provided, it should be an identifier for the license, ideally a resolvable URI",
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "type": "string",
+                    "description": "a reference to a license defintion"
+                  }
+                }
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifMandatory/$defs/LabeledLink"
+              }
+            ]
+          }
+        },
+        "schema:url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Web Location of a page describing the dataset (landing page), typically providing links or instructions to get the actual resource content; analogous to dcat:accessURL. If a direct link is available to get the data, put in distribution/contentUrl"
+        },
+        "schema:distribution": {
+          "description": "specifies how to download the data in a specific format or access via a web API. This property describes where to get the data and in what format by using the schema:DataDownload type. If user must access data through a landing page, provide link to landing page in the 'url' property for the dataset",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifMandatory/$defs/DataDownload"
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifMandatory/$defs/WebAPI"
+              }
+            ]
+          }
+        },
+        "schema:subjectOf": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifMandatory/$defs/CdifCatalogRecord"
+        }
+      },
+      "allOf": [
+        {
+          "required": [
+            "@id",
+            "@type",
+            "@context",
+            "schema:name",
+            "schema:identifier",
+            "schema:dateModified",
+            "schema:subjectOf"
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "required": [
+                "schema:license"
+              ]
+            },
+            {
+              "required": [
+                "schema:conditionsOfAccess"
+              ]
+            }
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "required": [
+                "schema:url"
+              ]
+            },
+            {
+              "required": [
+                "schema:distribution"
+              ]
+            }
+          ]
+        }
+      ],
+      "$defs": {
+        "LabeledLink": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.labeledLink"
+        },
+        "Identifier": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier"
+        },
+        "DefinedTerm": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm"
+        },
+        "DataDownload": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.dataDownload"
+        },
+        "WebAPI": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI"
+        },
+        "CdifCatalogRecord": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord"
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifMandatory/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.cdifProperties.cdifOptional": {
+      "type": "object",
+      "title": "Optional properties for CDIF discovery metadata schema, with schema: prefixes",
+      "description": "Building block specifies properties for CDIF schama.org discovery record",
+      "properties": {
+        "schema:description": {
+          "type": "string",
+          "description": "A short summary describing a dataset. This text will be indexed by search applications, so the more information here, the better."
+        },
+        "schema:additionalType": {
+          "description": "identifiers for datatypes from other vocabularies (not schema.org) that apply to this metadata.",
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/DefinedTerm"
+              }
+            ]
+          }
+        },
+        "schema:sameAs": {
+          "description": "The other identifiers for the dataset. Schema.org has three ways of encoding identifiers-- a text description, a URL, or by using the schema:PropertyValue field. The Science on Schema.org guidance strongly recommends using the PropertyValue approach. see https://github.com/ESIPFed/science-on-schema.org   .... Dataset.md#identifier.",
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Identifier"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "schema:version": {
+          "description": "The version number or identifier for this dataset (text or numeric). The values should sort from oldest to newest using an alphanumeric sort on version strings",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "schema:inLanguage": {
+          "type": "string",
+          "description": "the language of the dataset content"
+        },
+        "schema:datePublished": {
+          "type": "string",
+          "description": "ISO8601 formatted date (and optional time if relevant) when Dataset was made public."
+        },
+        "schema:relatedLink": {
+          "type": "array",
+          "description": "links to related resources; linkRelationship specifies how the resource is related.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "@type": {
+                "type": "string",
+                "enum": [
+                  "schema:LinkRole"
+                ]
+              },
+              "schema:linkRelationship": {
+                "anyOf": [
+                  {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/DefinedTerm"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "target": {
+                "type": "object",
+                "properties": {
+                  "@type": {
+                    "type": "string",
+                    "enum": [
+                      "schema:EntryPoint"
+                    ]
+                  },
+                  "schema:encodingFormat": {
+                    "type": "string",
+                    "description": "registered MIME types are expected"
+                  },
+                  "schema:name": {
+                    "type": "string"
+                  },
+                  "schema:url": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "schema:publishingPrinciples": {
+          "description": "FDOF digitalObjectMutability, RDA digitalObjectPolicy, FDOF PersistencyPolicy. Policies related to maintenance, update, expected time to live. If an online resource documents the policies or a URI is used to identify the conditions, recommend using schema:CreativeWork to provide a label (name) and an identifier (URI or URL).",
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "type": "string",
+                    "description": "a reference to a publishing principles statement"
+                  }
+                }
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/LabeledLink"
+              }
+            ]
+          }
+        },
+        "schema:keywords": {
+          "description": "Keywords are an array of strings, an array of schema:DefinedTerms, or some combination of these. If you have information about a controlled vocabulary from which keywords come from, use schema:DefinedTerm to descibe that keyword. This allowed variability makes parsing metadata hard; recommend using DefinedTerm for all keywords if any of them are from a known vocabulary, otherwise an array of strings.",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/DefinedTerm"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "schema:creator": {
+          "description": "author or orginator of intellectual content of dataset. Uset the JSON-LD @list construct to preserve author order. Use contributor with the Role property to specify other roles related to creation or stewardship of the resource.",
+          "type": "object",
+          "properties": {
+            "@list": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "@id": {
+                        "type": "string",
+                        "description": "a identifier for an agent defined in this metadata, or externally; must be dereferenceable"
+                      }
+                    }
+                  },
+                  {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Person"
+                  },
+                  {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Organization"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "schema:contributor": {
+          "description": "other parties who played a role in production of dataset",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "type": "string",
+                    "description": "a identifier for an agent defined in this metadata, or externally; must be dereferenceable"
+                  }
+                }
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Person"
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Organization"
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Contributor"
+              }
+            ]
+          }
+        },
+        "schema:publisher": {
+          "description": "Party who made the dataset publicly available",
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "type": "string",
+                  "description": "a identifier for an agent defined in this metadata, or externally; must be dereferenceable"
+                }
+              }
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Person"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Organization"
+            }
+          ]
+        },
+        "schema:provider": {
+          "description": "Party who maintains the distribution options for the dataset. If there are multiple distributions from different providers, use the provider property on distribution/DataDownload",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "type": "string",
+                    "description": "a identifier for an agent defined in this metadata, or externally; must be dereferenceable"
+                  }
+                }
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Person"
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Organization"
+              }
+            ]
+          }
+        },
+        "schema:funding": {
+          "type": "array",
+          "items": {
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Funder"
+          }
+        },
+        "schema:variableMeasured": {
+          "description": "What does the dataset measure? (e.g., temperature, pressure)",
+          "type": "array",
+          "items": {
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/VariableMeasured"
+          }
+        },
+        "schema:spatialCoverage": {
+          "description": "To specify location that is the subject of resource content; use schema.org place names, bounding box, point or optional OGC WKT gemetry.",
+          "type": "array",
+          "items": {
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/SpatialExtent"
+          }
+        },
+        "schema:temporalCoverage": {
+          "description": "The time interval during which data was collected or observations were made; or a time period that an activity or collection is linked to intellectually or thematically (for example, 1997 to 1998; the 18th century) (see https://documentation.ardc.edu.au/display/DOC/Temporal+coverage). For documentation of Earth Science, Paleobiology or Paleontology datasets, we are interested in the second case-- the time period that data are linked to thematically.",
+          "type": "array",
+          "items": {
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/TemporalExtent"
+          }
+        },
+        "prov:wasGeneratedBy": {
+          "description": "Brief information about instruments, software or experimental protocols used",
+          "type": "array",
+          "items": {
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/GeneratedBy"
+          }
+        },
+        "prov:wasDerivedFrom": {
+          "description": "Brief information about sources of data used in aggregate datasets",
+          "type": "array",
+          "items": {
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/DerivedFrom"
+          }
+        },
+        "dqv:hasQualityMeasurement": {
+          "description": "Brief information quality measurements reported to assess the resource",
+          "type": "array",
+          "items": {
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/QualityMeasure"
+          }
+        },
+        "schema:distribution": {
+          "description": "Distribution with dual typing for structured or tabular data; extends the CDIFMandatory distribution by requiring a CDI dataset type alongside schema:DataDownload.",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/DataDownload"
+              },
+              {
+                "description": "Distribution with CDIF dual typing for structured or tabular data",
+                "allOf": [
+                  {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/DataDownload"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "@type": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "contains": {
+                          "enum": [
+                            "cdi:StructuredDataSet",
+                            "cdi:TabularTextDataSet"
+                          ]
+                        },
+                        "minItems": 2
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/WebAPI"
+              }
+            ]
+          }
+        }
+      },
+      "$defs": {
+        "LabeledLink": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.labeledLink"
+        },
+        "Identifier": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier"
+        },
+        "DefinedTerm": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm"
+        },
+        "Person": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.person"
+        },
+        "Organization": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization"
+        },
+        "Contributor": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.agentInRole"
+        },
+        "Funder": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.funder"
+        },
+        "VariableMeasured": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured"
+        },
+        "SpatialExtent": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.spatialExtent"
+        },
+        "TemporalExtent": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.temporalExtent"
+        },
+        "GeneratedBy": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.provProperties.generatedBy"
+        },
+        "DerivedFrom": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.provProperties.derivedFrom"
+        },
+        "QualityMeasure": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.qualityProperties.qualityMeasure"
+        },
+        "DataDownload": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.dataDownload"
+        },
+        "WebAPI": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI"
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifOptional/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "dde.bbr.metadata.DDEproperties.ddeRequired": {
+      "title": "DDE Required metadata properties",
+      "description": "Extends CDIF mandatory metadata with DDE-specific required fields.",
+      "allOf": [
+        {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeRequired/$defs/CdifMandatory"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema:subjectOf": {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeRequired/$defs/DdeSubject"
+            },
+            "schema:additionalType": {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeResourceType/properties/schema:additionalType"
+            },
+            "schema:keywords": {
+              "type": "array",
+              "description": "Extends base CDIF keyword schema to require DefinedTerms from both the DDE TopicCategoryCode and AcquisitionTypeCode codelists.",
+              "minItems": 2,
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeRequired/$defs/DefinedTerm"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "allOf": [
+                {
+                  "contains": {
+                    "type": "object",
+                    "properties": {
+                      "@type": {
+                        "enum": [
+                          "schema:DefinedTerm"
+                        ]
+                      },
+                      "schema:inDefinedTermSet": {
+                        "enum": [
+                          "dde:codelist/TopicCategoryCode"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "@type",
+                      "schema:inDefinedTermSet"
+                    ]
+                  },
+                  "minContains": 1
+                },
+                {
+                  "contains": {
+                    "type": "object",
+                    "properties": {
+                      "@type": {
+                        "enum": [
+                          "schema:DefinedTerm"
+                        ]
+                      },
+                      "schema:inDefinedTermSet": {
+                        "enum": [
+                          "dde:codelist/AcquisitionTypeCode"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "@type",
+                      "schema:inDefinedTermSet"
+                    ]
+                  },
+                  "minContains": 1
+                }
+              ]
+            },
+            "schema:image": {
+              "type": "array",
+              "description": "Browse graphics for the resource. At least one ImageObject is required for DDE metadata.",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "@type": {
+                    "enum": [
+                      "schema:ImageObject"
+                    ]
+                  },
+                  "schema:contentUrl": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "URL to the image file"
+                  },
+                  "schema:name": {
+                    "type": "string",
+                    "description": "Caption or title for the browse graphic"
+                  },
+                  "schema:encodingFormat": {
+                    "type": "string",
+                    "description": "MIME type of the image"
+                  }
+                },
+                "required": [
+                  "@type",
+                  "schema:contentUrl"
+                ]
+              }
+            }
+          },
+          "required": [
+            "schema:additionalType",
+            "schema:keywords",
+            "schema:image"
+          ]
+        }
+      ],
+      "$defs": {
+        "CdifMandatory": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifMandatory"
+        },
+        "DefinedTerm": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm"
+        },
+        "DdeSubject": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeSubject"
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/",
+        "dde": "https://www.ddeworld.org/resource/",
+        "dcterms": "http://purl.org/dc/terms/"
+      },
+      "x-schema-source": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeRequired/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "dde.bbr.metadata.DDEproperties.ddeOptional": {
+      "type": "object",
+      "title": "DDE Optional metadata properties",
+      "description": "Optional DDE-specific properties that extend CDIF optional metadata.",
+      "properties": {
+        "schema:alternateName": {
+          "description": "Alternative names or aliases for the resource.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "schema:measurementTechnique": {
+          "description": "Techniques, methods, or instruments used in the measurement or creation of the data.",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeOptional/$defs/DefinedTerm"
+              }
+            ]
+          }
+        },
+        "schema:keywords": {
+          "description": "Additional keywords beyond the required DDE vocabulary-constrained keywords.",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeOptional/$defs/DefinedTerm"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "schema:additionalType": {
+          "description": "Additional type classifications beyond the required DDE resource type.",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeOptional/$defs/DefinedTerm"
+              }
+            ]
+          }
+        }
+      },
+      "$defs": {
+        "DefinedTerm": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm"
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/",
+        "dde": "https://www.ddeworld.org/resource/"
+      },
+      "x-schema-source": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.labeledLink": {
+      "description": "schema for a labeled link, a profile of schema.org/CreativeWork",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string",
+          "default": "schema:CreativeWork",
+          "enum": [
+            "schema:CreativeWork"
+          ]
+        },
+        "schema:name": {
+          "type": "string"
+        },
+        "schema:description": {
+          "type": "string"
+        },
+        "schema:url": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "@type",
+        "schema:url"
+      ],
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/labeledLink/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.identifier": {
+      "description": "Properties for a schema.org identifier",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string",
+          "enum": [
+            "schema:PropertyValue"
+          ]
+        },
+        "schema:propertyID": {
+          "type": "string",
+          "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
+        },
+        "schema:value": {
+          "type": "string",
+          "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
+        },
+        "schema:url": {
+          "type": "string",
+          "format": "uri",
+          "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
+        }
+      },
+      "allOf": [
+        {
+          "required": [
+            "@type"
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "required": [
+                "schema:value"
+              ]
+            },
+            {
+              "required": [
+                "schema:url"
+              ]
+            }
+          ]
+        }
+      ],
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.definedTerm": {
+      "description": "schema.org Defined Term schema",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "enum": [
+            "schema:DefinedTerm"
+          ]
+        },
+        "schema:name": {
+          "type": "string",
+          "description": "text label for the term that is useful to human user"
+        },
+        "schema:identifier": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier"
+            }
+          ]
+        },
+        "schema:inDefinedTermSet": {
+          "type": "string",
+          "description": "Identifier for the controlled vocabulary responsible for this keyword."
+        },
+        "schema:termCode": {
+          "type": "string",
+          "description": "A representative code for this keyword in the controlled vocabulary (Optional).  Analogous to skos:Notation"
+        }
+      },
+      "allOf": [
+        {
+          "required": [
+            "@type"
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "required": [
+                "schema:name"
+              ]
+            },
+            {
+              "required": [
+                "schema:identifier"
+              ]
+            },
+            {
+              "required": [
+                "schema:termCode"
+              ]
+            }
+          ]
+        }
+      ],
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.dataDownload": {
+      "description": "schema to document file-based access to a resoruce via URL, based on schema.org/DataDownload",
+      "type": "object",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "@type": {
+          "type": "array",
+          "description": "implement as array because extensions might need to add additional types",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": [
+              "schema:DataDownload"
+            ]
+          },
+          "minItems": 1
+        },
+        "schema:name": {
+          "type": "string"
+        },
+        "schema:contentUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "schema:encodingFormat": {
+          "type": "array",
+          "description": "MIME type with extension; should indicate the serialization scheme in sufficient detail that machine can know how to parse.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "spdx:checksum": {
+          "type": "object",
+          "description": "A string value calculated from the content of the resource representation, used to test if content has been modified. The checksum is a property of a particular distribution/DataDownload.",
+          "properties": {
+            "@type": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "spdx:Checksum"
+                  ]
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "contains": {
+                    "enum": [
+                      "spdx:Checksum"
+                    ]
+                  }
+                }
+              ]
+            },
+            "spdx:algorithm": {
+              "type": "string"
+            },
+            "spdx:checksumValue": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "@type"
+          ]
+        },
+        "schema:provider": {
+          "type": "array",
+          "description": "Party who maintains this particular distribution option for the dataset. Use this property if there are multiple distributions from different providers",
+          "items": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "type": "string",
+                    "description": "a identifier for an agent defined in this metadata, or externally; must be dereferenceable"
+                  }
+                }
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.person"
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "schema:contentUrl",
+        "@type"
+      ],
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/dataDownload/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.webAPI": {
+      "title": "Direct data access to a resource via web servcie",
+      "description": "use schema.org Action to document url or url template and parameters to request data through a web accessible location. At this point, schema is set up for one action-- an HTTP Get that requests data. The url template parameters (in curly brackets '{}') specify query paramters to filter the source data, request particular output formats or other aspects of data.",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": [
+              "schema:WebAPI"
+            ]
+          },
+          "minItems": 1
+        },
+        "schema:serviceType": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI/$defs/DefinedTerm"
+            }
+          ],
+          "description": "specify the kind of service. Ideally this should be a resolvable identifier. Currently there is no widely adopted registry for serviceType identifiers, in large part because services might be defined at different levels of granularity, and classifications might focus on function, data formats, thematic content, security, or other aspects of the service definition. For interoperability, there must be an external arrangement between data providers and consumers on the strings that will be used to specify service types."
+        },
+        "schema:termsOfService": {
+          "description": "Description of access privileges required to use the API, e.g. registration, licensing, payments. Note that access constraints applying to all distributions of the resource should be specified in the access constraints for the resource description as a whole.",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI/$defs/LabeledLink"
+            }
+          ]
+        },
+        "schema:documentation": {
+          "description": "a document that provides a machine-actionable description of a service instance. Examples include OpenAPI documents, OGC Capabilities documents. Software designed to utilise a particular service type will typically include functionality to parse such a description document and engage with the service endpoint. If such a document is available for the service instance providing the resource distribution, it should be included in the distribution metadata.",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI/$defs/LabeledLink"
+            }
+          ]
+        },
+        "schema:potentialAction": {
+          "type": "array",
+          "description": "actions that can be invoked via the API",
+          "items": {
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI/$defs/Action"
+          }
+        }
+      },
+      "required": [
+        "schema:serviceType",
+        "schema:potentialAction"
+      ],
+      "$defs": {
+        "LabeledLink": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.labeledLink"
+        },
+        "DefinedTerm": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm"
+        },
+        "Action": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.action"
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/webAPI/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord": {
+      "type": "object",
+      "description": "see https://github.com/Cross-Domain-Interoperability-Framework/Discovery/issues/13 for discussion on how to make assertion about the sample registration and metadata distinct from statements about the physical object",
+      "properties": {
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": [
+              "schema:Dataset"
+            ]
+          },
+          "minItems": 1
+        },
+        "schema:additionalType": {
+          "type": "array",
+          "description": "additional type assertions for the catalog record node. dcat:CatalogRecord is required.",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": [
+              "dcat:CatalogRecord"
+            ]
+          },
+          "minItems": 1
+        },
+        "@id": {
+          "type": "string",
+          "description": "identifier for the metadata record"
+        },
+        "schema:about": {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "type": "string",
+              "description": "this must be the @id value of the node containing the resource description metadata"
+            }
+          }
+        },
+        "dcterms:conformsTo": {
+          "type": "array",
+          "items": {
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/conformsTo_item"
+          },
+          "minItems": 1,
+          "description": "uri for specifications that this metadata record conforms to. Minimimally should specify uri for CDIF discovery profile.  Implement as $def to facilitate extension for profiles that need to add conformance statements"
+        },
+        "schema:maintainer": {
+          "description": "iSamples Registrant. identification of the agent that registered the sample, with contact information. Should include person name and affiliation, or position name and affiliation, or just organization name. e-mail address is preferred contact information.",
+          "anyOf": [
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/Person"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/Organization"
+            }
+          ]
+        },
+        "schema:sdDatePublished": {
+          "description": "date of most recent update to the metadata content, extends iSamples schema",
+          "type": "string",
+          "format": "date"
+        },
+        "schema:includedInDataCatalog": {
+          "type": "object",
+          "description": "identify the data collection or repository that contains the described dataset. The value is expected to be a schema:DataCatalog",
+          "properties": {
+            "@id": {
+              "type": "string",
+              "description": "identifier for the containing catalog or repository; example data at https://github.com/ESIPFed/science-on-schema.org/blob/develop/guides/Dataset.md#catalog puts identifier here"
+            },
+            "@type": {
+              "type": "string",
+              "default": "schema:DataCatalog",
+              "enum": [
+                "schema:DataCatalog"
+              ]
+            },
+            "schema:name": {
+              "type": "string"
+            },
+            "schema:url": {
+              "type": "string",
+              "format": "uri",
+              "description": "locator to access a landing page for the collection or catalog"
+            },
+            "schema:identifier": {
+              "description": "identifier for the collection or catalog; use identifier_type to provide information on identifier scheme and context for identifier",
+              "allOf": [
+                {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/Identifier"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "required": [
+        "schema:about",
+        "dcterms:conformsTo",
+        "schema:additionalType",
+        "@type",
+        "@id"
+      ],
+      "$defs": {
+        "Identifier": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier"
+        },
+        "Person": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.person"
+        },
+        "Organization": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization"
+        },
+        "conformsTo_item": {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "type": "string",
+              "description": "uri for specifications that this metadata record conforms to"
+            }
+          }
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/",
+        "ex": "https://example.org/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "dcterms": "http://purl.org/dc/terms/",
+        "dcat": "http://www.w3.org/ns/dcat#"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifCatalogRecord/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.person": {
+      "description": "schema for cdif profile of schema.org/Person",
+      "type": "object",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "@type": {
+          "type": "string",
+          "enum": [
+            "schema:Person"
+          ]
+        },
+        "schema:name": {
+          "type": "string",
+          "description": "string label for person that is meaningful for human users"
+        },
+        "schema:description": {
+          "type": "string"
+        },
+        "schema:identifier": {
+          "description": "identifier for person, recommend ORCID",
+          "anyOf": [
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "schema:alternateName": {
+          "type": "string",
+          "description": "other labels by which the person might be known"
+        },
+        "schema:affiliation": {
+          "description": "if affiliation is present, value must be a schema:Organization.",
+          "allOf": [
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization"
+            }
+          ]
+        },
+        "schema:contactPoint": {
+          "type": "object",
+          "properties": {
+            "@type": {
+              "type": "string",
+              "default": "schema:ContactPoint",
+              "enum": [
+                "schema:ContactPoint"
+              ]
+            },
+            "schema:email": {
+              "type": "string"
+            }
+          },
+          "description": "restrict to email only. Schema.org allows telephone and postal contacts as well"
+        },
+        "schema:sameAs": {
+          "type": "array",
+          "description": "other identifiers for the person",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "required": [
+            "@type"
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "required": [
+                "schema:name"
+              ]
+            },
+            {
+              "required": [
+                "schema:identifier"
+              ]
+            }
+          ]
+        }
+      ],
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/person/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.organization": {
+      "type": "object",
+      "properties": {
+        "@id": {
+          "type": "string"
+        },
+        "@type": {
+          "type": "string",
+          "default": "schema:Organization",
+          "enum": [
+            "schema:Organization"
+          ]
+        },
+        "schema:additionalType": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "schema:FundingAgency",
+                  "schema:Consortium",
+                  "schema:Corporation",
+                  "schema:EducationalOrganization",
+                  "schema:FundingScheme",
+                  "schema:GovernmentOrganization",
+                  "schema:NGO",
+                  "schema:Project",
+                  "schema:ResearchOrganization"
+                ]
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "schema:name": {
+          "type": "string",
+          "description": "string label for organization that is meaningful for human users"
+        },
+        "schema:alternateName": {
+          "type": "string",
+          "description": "other labels by which the organization might be known"
+        },
+        "schema:description": {
+          "type": "string"
+        },
+        "schema:identifier": {
+          "description": "identifier for organization",
+          "anyOf": [
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "schema:sameAs": {
+          "type": "array",
+          "description": "other identifiers for the organization",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "required": [
+            "@type"
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "required": [
+                "schema:name"
+              ]
+            },
+            {
+              "required": [
+                "schema:identifier"
+              ]
+            }
+          ]
+        }
+      ],
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/organization/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.agentInRole": {
+      "description": "For more granularity on how a person contributed to a Dataset, use schema:Role. The schema.org documentation does not state that the Role type is an expected data type of author, creator and contributor, but that is addressed in this blog post (http://blog.schema.org/2014/06/introducing-role.html). see https://github.com/ESIPFed/science-on-schema.org/blob/develop/guides/Dataset.md#roles-of-people",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string",
+          "default": "schema:Role",
+          "enum": [
+            "schema:Role"
+          ]
+        },
+        "schema:roleName": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm"
+            }
+          ]
+        },
+        "schema:contributor": {
+          "oneOf": [
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.person"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schema:roleName",
+        "schema:contributor"
+      ],
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/agentInRole/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.funder": {
+      "description": "Funding acknowledgement properties, profile of schema.org/MonetaryGrant",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string",
+          "default": "schema:MonetaryGrant",
+          "enum": [
+            "schema:MonetaryGrant"
+          ]
+        },
+        "schema:identifier": {
+          "description": "identifier for a particular grant",
+          "allOf": [
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.funder/$defs/Identifier"
+            }
+          ]
+        },
+        "schema:description": {
+          "type": "string",
+          "description": "description of the funding or grant"
+        },
+        "schema:name": {
+          "type": "string",
+          "description": "title of the grant"
+        },
+        "schema:funder": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "type": "string",
+                  "description": "a identifier for an agent defined in this metadata, or externally; must be dereferenceable"
+                }
+              }
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.funder/$defs/Person"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.funder/$defs/Organization"
+            }
+          ]
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "schema:funder"
+          ]
+        },
+        {
+          "required": [
+            "schema:identifier"
+          ]
+        },
+        {
+          "required": [
+            "schema:name"
+          ]
+        },
+        {
+          "required": [
+            "schema:description"
+          ]
+        }
+      ],
+      "$defs": {
+        "Person": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.person"
+        },
+        "Organization": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization"
+        },
+        "Identifier": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier"
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/funder/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.variableMeasured": {
+      "description": "CDIF schema.org implemenation of PropertyValue to use as values for variableMeasured",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": [
+              "schema:PropertyValue"
+            ]
+          },
+          "minItems": 1
+        },
+        "@id": {
+          "type": "string"
+        },
+        "schema:name": {
+          "type": "string",
+          "description": "this is the string label that is expected to be associated with the variable in the dataset serialization"
+        },
+        "schema:description": {
+          "type": "string",
+          "default": "missing"
+        },
+        "schema:alternateName": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "human intelligible name for variable that conveys semantics"
+          }
+        },
+        "schema:propertyID": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "type": "string",
+                    "description": "reference to a skos concept for the property"
+                  }
+                }
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured/$defs/DefinedTerm"
+              }
+            ]
+          },
+          "description": "identifier or name for the property concept quantified by the values in this variable slot. Multiple values can specify the property at different levels of granularity."
+        },
+        "schema:measurementTechnique": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "type": "string",
+                  "description": "reference to a skos concept for the property"
+                }
+              }
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured/$defs/DefinedTerm"
+            }
+          ],
+          "description": "A text description of the measurement method used to determine values for this variable. If standard measurement protocols are defined and registered, these can be identified via http URI's."
+        },
+        "schema:unitText": {
+          "type": "string",
+          "description": "A string that identifies a unit of measurement that applies to all values for this variable."
+        },
+        "schema:unitCode": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "type": "string",
+                  "description": "reference to a skos concept for the property"
+                }
+              }
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured/$defs/DefinedTerm"
+            }
+          ],
+          "description": "Value is expected to be TEXT or URL. We recommend providing an HTTP URI that identifies a unit of measure from a vocabulary accessible on the web. The QUDT unit vocabulary provides and extensive set of registered units of measure that can be used to populate the schema:unitCode property to specify the units of measure used to report datavalues when that is appropriate."
+        },
+        "schema:minValue": {
+          "type": "number",
+          "description": " If the value for the variable is numeric, this is the minimum value that occurs in the dataset. Not useful for other value types."
+        },
+        "schema:maxValue": {
+          "type": "number",
+          "description": " If the value for the variable is numeric, this is the maximum value that occurs in the dataset. Not useful for other value types."
+        },
+        "schema:url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Any schema:Thing can have a URL property, but because the value is simply a url the relationship of the linked resource can not be expressed. Usage is optional. The recommendation is that schema:url should link to a web page that would be useful for a person to interpret the variable, but is not intended to be machine-actionable."
+        }
+      },
+      "$defs": {
+        "DefinedTerm": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm"
+        }
+      },
+      "allOf": [
+        {
+          "required": [
+            "@type",
+            "schema:name",
+            "schema:description"
+          ]
+        }
+      ],
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/variableMeasured/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.spatialExtent": {
+      "description": "Spatial Extent description for CDIF discovery profile.  Note required prefix declaration for geoSparql ( http://www.opengis.net/ont/geosparql#) and OGC simple features (sf: http://www.opengis.net/ont/sf#)",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string",
+          "default": "schema:Place",
+          "enum": [
+            "schema:Place"
+          ]
+        },
+        "schema:name": {
+          "description": "multiple place names or DefinedTerms that have a place name and URI for the location",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.spatialExtent/$defs/DefinedTerm"
+              }
+            ]
+          }
+        },
+        "schema:geo": {
+          "description": "Either a bounding box or a point location.",
+          "anyOf": [
+            {
+              "type": "object",
+              "description": "A point location. Point locations are recommended for data that is associated with specific sample locations, particularly if these are widely spaced such that an enclosing bounding box would be a misleading representation of the spatial location. Be aware that some client applications might only index or display bounding box extents or a single point location.",
+              "properties": {
+                "@type": {
+                  "type": "string",
+                  "default": "schema:GeoCoordinates",
+                  "enum": [
+                    "schema:GeoCoordinates"
+                  ]
+                },
+                "schema:latitude": {
+                  "type": "number"
+                },
+                "schema:longitude": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "@type",
+                "schema:latitude",
+                "schema:longitude"
+              ]
+            },
+            {
+              "type": "object",
+              "description": "A schema:GeoShape bounding box. The geometry is described with a set of latitude/longitude pairs (in that order).The documentation for schema:GeoShape states 'Either whitespace or commas can be used to separate latitude and longitude; whitespace should be used when writing a list of several such points.'",
+              "properties": {
+                "@type": {
+                  "type": "string",
+                  "default": "schema:GeoShape",
+                  "enum": [
+                    "schema:GeoShape"
+                  ]
+                },
+                "schema:box": {
+                  "type": "string",
+                  "description": "A GeoShape box defines an area on the surface of the earth defined by point locations of the southwest corner and northeast corner of the rectangle in latitude-longitude coordinates. A space should be used to separate the latitude and longitude values. The two corner coordinate points are separated by a space. 'East longitude' means positive longitude values are east of the prime (Greenwich) meridian."
+                }
+              },
+              "required": [
+                "@type",
+                "schema:box"
+              ]
+            },
+            {
+              "type": "object",
+              "description": "A schema:GeoShape curvilinear trace, for resource related to a linear trace like a ship track or airplane flight line",
+              "properties": {
+                "@type": {
+                  "type": "string",
+                  "default": "schema:GeoShape",
+                  "enum": [
+                    "schema:GeoShape"
+                  ]
+                },
+                "schema:line": {
+                  "type": "string",
+                  "description": "A GeoShape box defines a curvilinear geometry as a string of latitude-longitude coordinates. A space should be used to separate the latitude and longitude values. The coordinate point pairs are also separated by a space. 'East longitude' means positive longitude values are east of the prime (Greenwich) meridian. e.g. '39.33 120.77 40.44 123.96 41.00 121.34' "
+                }
+              },
+              "required": [
+                "@type",
+                "schema:line"
+              ]
+            }
+          ]
+        },
+        "geosparql:hasGeometry": {
+          "type": "object",
+          "description": "Optional geographic extent using wkt geometry, see Ocean InfoHub (https://book.oceaninfohub.org/thematics/spatial/README.html#simple-geosparql-wkt). Other geometry schemes might be specified in a specific domain profile, e.g. for atmospheric, subsurface data, or local coordinate systems. NOTE that the location specified here should be the same as the schema.org point or contained within the specified bounding box.",
+          "properties": {
+            "@type": {
+              "type": "string",
+              "description": "MUST be sf: (<http://www.opengis.net/ont/sf#>) SimpleFeature geometry type. See https://opengeospatial.github.io/ogc-geosparql/geosparql11/sf_geometries.ttl"
+            },
+            "geosparql:asWKT": {
+              "type": "object",
+              "properties": {
+                "@type": {
+                  "type": "string",
+                  "enum": [
+                    "geosparql:wktLiteral"
+                  ]
+                },
+                "@value": {
+                  "type": "string",
+                  "description": "a WKT geometry description string, e.g. 'POINT(-76 -18)'"
+                }
+              }
+            },
+            "geosparql:crs": {
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "type": "string",
+                  "description": "identifier string for coordinate reference system, e.g., 'CRS84'"
+                }
+              }
+            }
+          }
+        }
+      },
+      "$defs": {
+        "DefinedTerm": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm"
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/spatialExtent/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.temporalExtent": {
+      "description": "The time interval during which data was collected or observations were made; or a time period that an activity or collection is linked to intellectually or thematically (for example, 1997 to 1998; the 18th century) (see https://documentation.ardc.edu.au/display/DOC/Temporal+coverage). For documentation of Earth Science, Paleobiology or Paleontology datasets, we are interested in the second case-- the time period that data are linked to thematically. NOTE-- context must include \"time\": \"http://www.w3.org/2006/time#\"}",
+      "anyOf": [
+        {
+          "type": "object",
+          "description": "a w3c time proper interval with bounds that are named time ordinal eras with identifier, e.g. geologic age. This is a SOSO schema.org extension",
+          "properties": {
+            "@type": {
+              "type": "string",
+              "default": "time:ProperInterval",
+              "enum": [
+                "time:ProperInterval"
+              ]
+            },
+            "schema:description": {
+              "type": "string",
+              "description": "free text description of the temporal interval"
+            },
+            "time:intervalStartedBy": {
+              "type": "string",
+              "format": "uri",
+              "description": "identifier for a named time ordinal era that is older bound of time interval, e.g. 'isc:LowerDevonian' "
+            },
+            "time:intervalFinishedBy": {
+              "type": "string",
+              "format": "uri",
+              "description": "identifier for a named time ordinal era that is younger bound of time interval, e.g. 'isc:LowerDevonian' "
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "a w3c time proper interval with bounds that numeric ages.",
+          "properties": {
+            "@context": {
+              "type": "object",
+              "properties": {
+                "time": {
+                  "type": "string",
+                  "enum": [
+                    "http://www.w3.org/2006/time#"
+                  ]
+                },
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "http://schema.org/"
+                  ]
+                }
+              },
+              "required": [
+                "time",
+                "schema"
+              ],
+              "additionalProperties": true,
+              "description": "Must exactly match the specified @context object."
+            },
+            "@type": {
+              "type": "string",
+              "default": "time:ProperInterval",
+              "enum": [
+                "time:ProperInterval"
+              ]
+            },
+            "schema:description": {
+              "type": "string",
+              "description": "free text description of the temporal interval"
+            },
+            "time:hasBeginning": {
+              "type": "object",
+              "properties": {
+                "@type": {
+                  "type": "string",
+                  "enum": [
+                    "time:Instant"
+                  ]
+                },
+                "time:inTimePosition": {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.temporalExtent/$defs/timePosition_type"
+                }
+              }
+            },
+            "time:hasEnd": {
+              "type": "object",
+              "properties": {
+                "@type": {
+                  "type": "string",
+                  "enum": [
+                    "time:Instant"
+                  ]
+                },
+                "time:inTimePosition": {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.temporalExtent/$defs/timePosition_type"
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "string",
+          "description": "Simple ISO8601 encoding of calendar date, dateTime, or time interval with calendar date bounds"
+        }
+      ],
+      "$defs": {
+        "timePosition_type": {
+          "type": "object",
+          "properties": {
+            "@type": {
+              "type": "string",
+              "default": "time:TimePosition",
+              "enum": [
+                "time:TimePosition"
+              ]
+            },
+            "time:hasTRS": {
+              "type": "string",
+              "description": "identifier for a temporal reference system; default is million years before prsent as a decimal number",
+              "default": "http://www.opengis.net/def/crs/OGC/0/ChronometricGeologicTime"
+            },
+            "time:numericPosition": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/",
+        "time": "http://www.w3.org/2006/time#"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/temporalExtent/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.provProperties.generatedBy": {
+      "title": "very simple links or names of software or instruments used to generate a resource.",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "contains": {
+            "enum": [
+              "prov:Activity"
+            ]
+          }
+        },
+        "prov:used": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "type": "string",
+                    "description": "a resolvable reference to a representation of the software or instrument used"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/provProperties/generatedBy/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.provProperties.derivedFrom": {
+      "title": "very simple links or names of data sources used to generate the described resource.",
+      "type": "object",
+      "properties": {
+        "prov:wasDerivedFrom": {
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "type": "string",
+                    "description": "a resolvable reference to a representation of the software or instrument used"
+                  }
+                }
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.provProperties.derivedFrom/$defs/LabeledLink"
+              }
+            ]
+          }
+        }
+      },
+      "$defs": {
+        "LabeledLink": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.labeledLink"
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/provProperties/derivedFrom/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.qualityProperties.qualityMeasure": {
+      "title": "definitions for simple quality measure property",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "enum": [
+            "dqv:QualityMeasurement"
+          ]
+        },
+        "dqv:isMeasurementOf": {
+          "description": "specify the quality measure that is reported, by name, with an ID ref, or as a Defined Term",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "type": "string",
+                  "description": "a resolvable reference to a representation of a quality measure"
+                }
+              }
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.qualityProperties.qualityMeasure/$defs/DefinedTerm"
+            }
+          ]
+        },
+        "dqv:value": {
+          "description": "the reported result of the quality measure, either as a string or a defined term from a vocabulary",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.qualityProperties.qualityMeasure/$defs/DefinedTerm"
+            }
+          ]
+        }
+      },
+      "required": [
+        "dqv:isMeasurementOf",
+        "dqv:value"
+      ],
+      "$defs": {
+        "DefinedTerm": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm"
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/qualityProperties/qualityMeasure/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "dde.bbr.metadata.DDEproperties.ddeResourceType": {
+      "title": "DDE Resource Type constraint",
+      "description": "Constrains schema:additionalType to require at least one DefinedTerm from the DDE ResourceTypeCode codelist (32 resource types from DDE spec Table 18).",
+      "type": "object",
+      "properties": {
+        "schema:additionalType": {
+          "type": "array",
+          "description": "Must include at least one DefinedTerm from the DDE ResourceTypeCode codelist.",
+          "minItems": 1,
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeResourceType/$defs/DefinedTerm"
+              }
+            ]
+          },
+          "contains": {
+            "type": "object",
+            "properties": {
+              "@type": {
+                "enum": [
+                  "schema:DefinedTerm"
+                ]
+              },
+              "schema:inDefinedTermSet": {
+                "enum": [
+                  "dde:codelist/ResourceTypeCode"
+                ]
+              },
+              "schema:termCode": {
+                "type": "string",
+                "enum": [
+                  "aggregate",
+                  "application",
+                  "webApplication",
+                  "collection",
+                  "dataset",
+                  "dataCatalog",
+                  "geographicDataset",
+                  "nonGeographicDataset",
+                  "document",
+                  "article",
+                  "thesis",
+                  "book",
+                  "poster",
+                  "webPage",
+                  "image",
+                  "map",
+                  "photograph",
+                  "explanatoryFigure",
+                  "initiative",
+                  "fieldSession",
+                  "learningResource",
+                  "guide",
+                  "model",
+                  "movie",
+                  "repository",
+                  "semanticResource",
+                  "definedTermSet",
+                  "series",
+                  "service",
+                  "webAPI",
+                  "software",
+                  "sound"
+                ]
+              }
+            },
+            "required": [
+              "@type",
+              "schema:inDefinedTermSet",
+              "schema:termCode"
+            ]
+          },
+          "minContains": 1
+        }
+      },
+      "$defs": {
+        "DefinedTerm": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm"
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/",
+        "dde": "https://www.ddeworld.org/resource/"
+      },
+      "x-schema-source": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "dde.bbr.metadata.DDEproperties.ddeSubject": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord"
+        },
+        {
+          "properties": {
+            "dcterms:conformsTo": {
+              "type": "array",
+              "items": {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/conformsTo_item"
+              },
+              "minItems": 2,
+              "contains": {
+                "type": "object",
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "cdif:profile_ddeCDIF"
+                    ]
+                  }
+                },
+                "required": [
+                  "@id"
+                ]
+              },
+              "minContains": 1
+            }
+          }
+        }
+      ],
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-schema-source": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.action": {
+      "title": "Action ",
+      "type": "object",
+      "description": "this element defines an action (operation) that can be invoked via messages using the protocol defined. In most cases this will be an http request via TCP/IP, but in desktop or LAN environments, other protocols might be used. The target property defines the endpoint and syntax for invoking the action. Result specifies the encoding format for the (possible) response(s) when the action is invoked. Object specifies the information model for the resource that is the object of the action. This approach is an adoptation of the Action Blog Post from schema.org (see https://schema.org/docs/actions.html, and https://github.com/schemaorg/suggestions-questions-brainstorming/issues/62) ",
+      "properties": {
+        "@type": {
+          "type": "string",
+          "description": "The type of action. Must be schema:Action or one of its subtypes.",
+          "default": "schema:Action",
+          "enum": [
+            "schema:Action",
+            "schema:AssessAction",
+            "schema:ConsumeAction",
+            "schema:ControlAction",
+            "schema:CreateAction",
+            "schema:FindAction",
+            "schema:InteractAction",
+            "schema:MoveAction",
+            "schema:PlayAction",
+            "schema:SearchAction",
+            "schema:TransferAction",
+            "schema:UpdateAction"
+          ]
+        },
+        "schema:name": {
+          "type": "string",
+          "description": "text label for the action"
+        },
+        "schema:target": {
+          "description": "specifies the request target location and request syntax",
+          "allOf": [
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.action/$defs/target_type"
+            }
+          ]
+        },
+        "schema:result": {
+          "description": "specifies the serialization scheme (encoding format, information model) for expected representation of the data",
+          "allOf": [
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.action/$defs/result_type"
+            }
+          ]
+        },
+        "schema:object": {
+          "description": "specification of information model/schema for target resource. Only necessary if the request allow specifying the fields to include in the response",
+          "allOf": [
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.action/$defs/object_type"
+            }
+          ]
+        },
+        "schema:query-input": {
+          "description": "set of explanations of the parameters in the URL template for the target.",
+          "allOf": [
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.action/$defs/query-input_type"
+            }
+          ]
+        }
+      },
+      "required": [
+        "schema:name",
+        "schema:target"
+      ],
+      "$defs": {
+        "target_type": {
+          "type": "object",
+          "description": "documentation of the URL end point and syntax to invoke the service. This schema doesn't handle post requests",
+          "properties": {
+            "@type": {
+              "type": "string",
+              "default": "schema:EntryPoint",
+              "enum": [
+                "schema:EntryPoint"
+              ]
+            },
+            "schema:description": {
+              "type": "string"
+            },
+            "schema:urlTemplate": {
+              "type": "string",
+              "description": "a templated URL; parameters are enclosed in curly braces ({..}); parameters are not required. If included, parameters MUST be documented in the query-input element. Template should be consitent with URI Template (https://datatracker.ietf.org/doc/html/rfc6570) examples: - http://portal.chordsrt.com/api/v1/data.{encoding}; single parameter - http://portal.chordsrt.com/api/v1/data.{encoding}?instruments={instruments}&start={start}&end={end} ; multiple parameters - {endpoint}{encoding}; endpoint URL path is a parameter,should only appear in potential actions for API specification descriptions, which are generic-not specific to a particular endpoint."
+            },
+            "schema:httpMethod": {
+              "title": "HTTP Method",
+              "description": "only applicable if protocol is http or a protocol that tunnels on http",
+              "type": "array",
+              "items": {
+                "type": "string",
+                "default": "GET",
+                "enum": [
+                  "GET",
+                  "PUT",
+                  "POST",
+                  "PATCH",
+                  "DELETE",
+                  "COPY",
+                  "HEAD",
+                  "OPTIONS",
+                  "PROPFIND"
+                ]
+              }
+            },
+            "schema:contentType": {
+              "type": "array",
+              "description": "The supported content type(s) for an EntryPoint response. a MIME type (https://www.iana.org/assignments/media-types/media-types.xhtml) that specifies the content type for messages in resonses from the service endpoint. This is a schema.org property, and is redundant with encodingFormat in the result property for the Action.",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "schema:urlTemplate"
+          ]
+        },
+        "result_type": {
+          "type": "object",
+          "description": "documentation of the serialization format for the API response, i.e. an implementation of the structure specified in the object type field",
+          "properties": {
+            "@type": {
+              "type": "array",
+              "description": "Type of result object. Typically schema:DataDownload, but may include additional types.",
+              "items": {
+                "type": "string"
+              },
+              "contains": {
+                "enum": [
+                  "schema:DataDownload"
+                ]
+              },
+              "minItems": 1
+            },
+            "schema:encodingFormat": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "schema:description": {
+              "type": "string"
+            }
+          }
+        },
+        "query-input_type": {
+          "type": "array",
+          "description": "object that maps the parameters (in braces {  } in the url template to specifications for the kind of value expected. parameters must all be strings in the URL",
+          "minItems": 0,
+          "items": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "type": "string"
+              },
+              "@type": {
+                "type": "string",
+                "default": "schema:PropertyValueSpecification",
+                "enum": [
+                  "schema:PropertyValueSpecification"
+                ]
+              },
+              "schema:valueName": {
+                "type": "string"
+              },
+              "schema:description": {
+                "type": "string"
+              },
+              "schema:valueRequired": {
+                "type": "boolean",
+                "default": true
+              },
+              "schema:valuePattern": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "schema:valueName",
+              "schema:description"
+            ]
+          }
+        },
+        "object_type": {
+          "type": "object",
+          "description": "description of the data structure of the return object",
+          "properties": {
+            "@type": {
+              "type": "string",
+              "default": "schema:DataFeed",
+              "enum": [
+                "schema:DataFeed"
+              ]
+            },
+            "schema:description": {
+              "type": "string"
+            },
+            "schema:variableMeasured": {
+              "type": "array",
+              "items": {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.action/$defs/VariableMeasured"
+              }
+            }
+          }
+        },
+        "VariableMeasured": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured"
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-schema-source": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/action/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    }
+  },
+  "type": "object",
+  "title": "DDE Event profile",
+  "description": "DDE profile for event resources (initiative, fieldSession). Extends DDEDiscovery with resource type constraint and requires schema:temporalCoverage (mandatory temporal extent for events).",
+  "allOf": [
+    {
+      "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema-oas3.0.json#/x-defs/dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery"
+    },
+    {
+      "properties": {
+        "schema:additionalType": {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "@type": {
+                "enum": [
+                  "schema:DefinedTerm"
+                ]
+              },
+              "schema:inDefinedTermSet": {
+                "enum": [
+                  "dde:codelist/ResourceTypeCode"
+                ]
+              },
+              "schema:termCode": {
+                "type": "string",
+                "enum": [
+                  "initiative",
+                  "fieldSession"
+                ]
+              }
+            },
+            "required": [
+              "@type",
+              "schema:inDefinedTermSet",
+              "schema:termCode"
+            ]
+          },
+          "minContains": 1
+        }
+      },
+      "required": [
+        "schema:temporalCoverage"
+      ]
+    }
+  ],
+  "x-jsonld-prefixes": {
+    "schema": "http://schema.org/",
+    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "geosparql": "http://www.opengis.net/ont/geosparql#",
+    "spdx": "http://spdx.org/rdf/terms#",
+    "time": "http://www.w3.org/2006/time#",
+    "dde": "https://www.ddeworld.org/resource/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "dqv": "http://www.w3.org/ns/dqv#"
+  },
+  "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+}

@@ -1,0 +1,42 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+title: DDE Optional metadata properties
+description: Optional DDE-specific properties that extend CDIF optional metadata.
+properties:
+  schema:alternateName:
+    description: Alternative names or aliases for the resource.
+    anyOf:
+    - type: string
+    - type: array
+      items:
+        type: string
+  schema:measurementTechnique:
+    description: Techniques, methods, or instruments used in the measurement or creation
+      of the data.
+    type: array
+    items:
+      anyOf:
+      - type: string
+      - $ref: '#/$defs/DefinedTerm'
+  schema:keywords:
+    description: Additional keywords beyond the required DDE vocabulary-constrained
+      keywords.
+    type: array
+    items:
+      anyOf:
+      - $ref: '#/$defs/DefinedTerm'
+      - type: string
+  schema:additionalType:
+    description: Additional type classifications beyond the required DDE resource
+      type.
+    type: array
+    items:
+      anyOf:
+      - type: string
+      - $ref: '#/$defs/DefinedTerm'
+$defs:
+  DefinedTerm:
+    $ref: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml
+x-jsonld-prefixes:
+  schema: http://schema.org/
+  dde: https://www.ddeworld.org/resource/

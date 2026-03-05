@@ -1,0 +1,164 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+title: DDE Geographic Dataset properties
+description: Conditional extension for geographic dataset resources. Implements MD_SpatialRepresentation
+  entity (DDE spec Table 5) with spatialCoverage (mandatory), spatialRepresentationType
+  (SpatialRepresentationTypeCode enum), spatialResolution (string), referenceSystemType
+  (ReferenceSystemTypeCode enum), and referenceSystemIdentifier (MD_Identifier pattern).
+type: object
+properties:
+  schema:spatialCoverage:
+    description: Spatial extent of the geographic dataset. Mandatory for geographicDataset
+      resource type.
+    $ref: '#/$defs/SpatialExtent'
+  schema:additionalProperty:
+    type: array
+    description: Spatial representation properties using DDE propertyIDs. Each item
+      is a PropertyValue with a DDE propertyID and a value whose type depends on the
+      property.
+    items:
+      anyOf:
+      - $ref: '#/$defs/SpatialRepresentationTypePV'
+      - $ref: '#/$defs/SpatialResolutionPV'
+      - $ref: '#/$defs/ReferenceSystemTypePV'
+      - $ref: '#/$defs/ReferenceSystemIdentifierPV'
+      - $ref: '#/$defs/AdditionalProperty'
+required:
+- schema:spatialCoverage
+$defs:
+  SpatialExtent:
+    $ref: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/spatialExtent/schema.yaml
+  AdditionalProperty:
+    $ref: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.yaml
+  Identifier:
+    $ref: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.yaml
+  SpatialRepresentationTypePV:
+    type: object
+    description: Method used to represent geographic information in the resource.
+      Value from SpatialRepresentationTypeCode (XSD).
+    properties:
+      '@type':
+        const: schema:PropertyValue
+      schema:propertyID:
+        type: array
+        contains:
+          const: dde:spatialRepresentationType
+        minItems: 1
+      schema:name:
+        type: string
+      schema:value:
+        type: string
+        enum:
+        - vector
+        - grid
+        - textTable
+        - tin
+        - stereoModel
+        - video
+    required:
+    - schema:propertyID
+    - schema:name
+    - schema:value
+  SpatialResolutionPV:
+    type: object
+    description: Spatial resolution of the dataset (free text, e.g. "1:1000000", "30m").
+      Value is a string (CharacterString_Type in XSD).
+    properties:
+      '@type':
+        const: schema:PropertyValue
+      schema:propertyID:
+        type: array
+        contains:
+          const: dde:spatialResolution
+        minItems: 1
+      schema:name:
+        type: string
+      schema:value:
+        type: string
+    required:
+    - schema:propertyID
+    - schema:name
+    - schema:value
+  ReferenceSystemTypePV:
+    type: object
+    description: Type of coordinate reference system. Value from ReferenceSystemTypeCode
+      (XSD, 28 values).
+    properties:
+      '@type':
+        const: schema:PropertyValue
+      schema:propertyID:
+        type: array
+        contains:
+          const: dde:referenceSystemType
+        minItems: 1
+      schema:name:
+        type: string
+      schema:value:
+        type: string
+        enum:
+        - compoundEngineeringParametric
+        - compoundEngineeringParametricTemporal
+        - compoundEngineeringTemporal
+        - compoundEngineeringVertical
+        - compoundEngineeringVerticalTemporal
+        - compoundGeographic2DParametric
+        - compoundGeographic2DParametricTemporal
+        - compoundGeographic2DTemporal
+        - compoundGeographic2DVertical
+        - compoundGeographicVerticalTemporal
+        - compoundGeographic3DTemporal
+        - compoundProjected2DParametric
+        - compoundProjected2DParametricTemporal
+        - compoundProjectedTemporal
+        - compoundProjectedVertical
+        - compoundProjectedVerticalTemporal
+        - engineering
+        - engineeringDesign
+        - engineeringImage
+        - geodeticGeocentric
+        - geodeticGeographic2D
+        - geodeticGeographic3D
+        - geographicIdentifier
+        - linear
+        - parametric
+        - projected
+        - temporal
+        - vertical
+    required:
+    - schema:propertyID
+    - schema:name
+    - schema:value
+  ReferenceSystemIdentifierPV:
+    type: object
+    description: Identifier for the coordinate reference system. Follows the MD_Identifier
+      pattern from the XSD (code + optional codeSpace, version, url). Value is the
+      identifier code string (e.g. "EPSG:4326"), with optional schema:url for the
+      resolvable form.
+    properties:
+      '@type':
+        const: schema:PropertyValue
+      schema:propertyID:
+        type: array
+        contains:
+          const: dde:referenceSystemIdentifier
+        minItems: 1
+      schema:name:
+        type: string
+      schema:value:
+        type: string
+        description: The reference system identifier code (e.g. "EPSG:4326", "urn:ogc:def:crs:EPSG::4326").
+      schema:url:
+        type: string
+        format: uri
+        description: Resolvable URL for the reference system identifier (e.g. "https://epsg.io/4326").
+    allOf:
+    - required:
+      - schema:propertyID
+      - schema:name
+    - anyOf:
+      - required:
+        - schema:value
+      - required:
+        - schema:url
+x-jsonld-prefixes:
+  schema: http://schema.org/
+  dde: https://www.ddeworld.org/resource/

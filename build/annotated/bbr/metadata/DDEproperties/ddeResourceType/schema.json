@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DDE Resource Type constraint",
+  "description": "Constrains schema:additionalType to require at least one DefinedTerm from the DDE ResourceTypeCode codelist (32 resource types from DDE spec Table 18).",
+  "type": "object",
+  "properties": {
+    "schema:additionalType": {
+      "type": "array",
+      "description": "Must include at least one DefinedTerm from the DDE ResourceTypeCode codelist.",
+      "minItems": 1,
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "$ref": "#/$defs/DefinedTerm"
+          }
+        ]
+      },
+      "contains": {
+        "type": "object",
+        "properties": {
+          "@type": {
+            "const": "schema:DefinedTerm"
+          },
+          "schema:inDefinedTermSet": {
+            "const": "dde:codelist/ResourceTypeCode"
+          },
+          "schema:termCode": {
+            "type": "string",
+            "enum": [
+              "aggregate",
+              "application",
+              "webApplication",
+              "collection",
+              "dataset",
+              "dataCatalog",
+              "geographicDataset",
+              "nonGeographicDataset",
+              "document",
+              "article",
+              "thesis",
+              "book",
+              "poster",
+              "webPage",
+              "image",
+              "map",
+              "photograph",
+              "explanatoryFigure",
+              "initiative",
+              "fieldSession",
+              "learningResource",
+              "guide",
+              "model",
+              "movie",
+              "repository",
+              "semanticResource",
+              "definedTermSet",
+              "series",
+              "service",
+              "webAPI",
+              "software",
+              "sound"
+            ]
+          }
+        },
+        "required": [
+          "@type",
+          "schema:inDefinedTermSet",
+          "schema:termCode"
+        ]
+      },
+      "minContains": 1
+    }
+  },
+  "$defs": {
+    "DefinedTerm": {
+      "$ref": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.json"
+    }
+  },
+  "x-jsonld-prefixes": {
+    "schema": "http://schema.org/",
+    "dde": "https://www.ddeworld.org/resource/"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifCatalogRecord/schema.json"
+    },
+    {
+      "properties": {
+        "dcterms:conformsTo": {
+          "type": "array",
+          "items": {
+            "$ref": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifCatalogRecord/schema.json#/$defs/conformsTo_item"
+          },
+          "minItems": 2,
+          "contains": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "const": "cdif:profile_ddeCDIF"
+              }
+            },
+            "required": [
+              "@id"
+            ]
+          },
+          "minContains": 1
+        }
+      }
+    }
+  ],
+  "x-jsonld-prefixes": {
+    "schema": "http://schema.org/"
+  }
+}

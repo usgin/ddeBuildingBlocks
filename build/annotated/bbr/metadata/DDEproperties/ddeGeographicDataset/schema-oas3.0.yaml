@@ -1,0 +1,407 @@
+x-defs:
+  cdif.bbr.metadata.schemaorgProperties.spatialExtent:
+    description: 'Spatial Extent description for CDIF discovery profile.  Note required
+      prefix declaration for geoSparql ( http://www.opengis.net/ont/geosparql#) and
+      OGC simple features (sf: http://www.opengis.net/ont/sf#)'
+    type: object
+    properties:
+      '@type':
+        type: string
+        default: schema:Place
+        enum:
+        - schema:Place
+      schema:name:
+        description: multiple place names or DefinedTerms that have a place name and
+          URI for the location
+        type: array
+        items:
+          anyOf:
+          - type: string
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.spatialExtent/$defs/DefinedTerm
+      schema:geo:
+        description: Either a bounding box or a point location.
+        anyOf:
+        - type: object
+          description: A point location. Point locations are recommended for data
+            that is associated with specific sample locations, particularly if these
+            are widely spaced such that an enclosing bounding box would be a misleading
+            representation of the spatial location. Be aware that some client applications
+            might only index or display bounding box extents or a single point location.
+          properties:
+            '@type':
+              type: string
+              default: schema:GeoCoordinates
+              enum:
+              - schema:GeoCoordinates
+            schema:latitude:
+              type: number
+            schema:longitude:
+              type: number
+          required:
+          - '@type'
+          - schema:latitude
+          - schema:longitude
+        - type: object
+          description: A schema:GeoShape bounding box. The geometry is described with
+            a set of latitude/longitude pairs (in that order).The documentation for
+            schema:GeoShape states 'Either whitespace or commas can be used to separate
+            latitude and longitude; whitespace should be used when writing a list
+            of several such points.'
+          properties:
+            '@type':
+              type: string
+              default: schema:GeoShape
+              enum:
+              - schema:GeoShape
+            schema:box:
+              type: string
+              description: A GeoShape box defines an area on the surface of the earth
+                defined by point locations of the southwest corner and northeast corner
+                of the rectangle in latitude-longitude coordinates. A space should
+                be used to separate the latitude and longitude values. The two corner
+                coordinate points are separated by a space. 'East longitude' means
+                positive longitude values are east of the prime (Greenwich) meridian.
+          required:
+          - '@type'
+          - schema:box
+        - type: object
+          description: A schema:GeoShape curvilinear trace, for resource related to
+            a linear trace like a ship track or airplane flight line
+          properties:
+            '@type':
+              type: string
+              default: schema:GeoShape
+              enum:
+              - schema:GeoShape
+            schema:line:
+              type: string
+              description: 'A GeoShape box defines a curvilinear geometry as a string
+                of latitude-longitude coordinates. A space should be used to separate
+                the latitude and longitude values. The coordinate point pairs are
+                also separated by a space. ''East longitude'' means positive longitude
+                values are east of the prime (Greenwich) meridian. e.g. ''39.33 120.77
+                40.44 123.96 41.00 121.34'' '
+          required:
+          - '@type'
+          - schema:line
+      geosparql:hasGeometry:
+        type: object
+        description: Optional geographic extent using wkt geometry, see Ocean InfoHub
+          (https://book.oceaninfohub.org/thematics/spatial/README.html#simple-geosparql-wkt).
+          Other geometry schemes might be specified in a specific domain profile,
+          e.g. for atmospheric, subsurface data, or local coordinate systems. NOTE
+          that the location specified here should be the same as the schema.org point
+          or contained within the specified bounding box.
+        properties:
+          '@type':
+            type: string
+            description: 'MUST be sf: (<http://www.opengis.net/ont/sf#>) SimpleFeature
+              geometry type. See https://opengeospatial.github.io/ogc-geosparql/geosparql11/sf_geometries.ttl'
+          geosparql:asWKT:
+            type: object
+            properties:
+              '@type':
+                type: string
+                enum:
+                - geosparql:wktLiteral
+              '@value':
+                type: string
+                description: a WKT geometry description string, e.g. 'POINT(-76 -18)'
+          geosparql:crs:
+            type: object
+            properties:
+              '@id':
+                type: string
+                description: identifier string for coordinate reference system, e.g.,
+                  'CRS84'
+    $defs:
+      DefinedTerm:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
+    x-jsonld-prefixes:
+      schema: http://schema.org/
+    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/spatialExtent/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  cdif.bbr.metadata.schemaorgProperties.additionalProperty:
+    type: object
+    title: additionalProperty PropertyValue
+    description: 'PropertyValue values required to define a soft-typed property with
+      a value. '
+    properties:
+      '@type':
+        type: string
+        enum:
+        - schema:PropertyValue
+      schema:propertyID:
+        type: array
+        items:
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/propertyID_item
+        minItems: 1
+        description: identifier or name for the property concept quantified by the
+          values in this variable slot. Multiple values can specify the property at
+          different levels of granularity.
+      schema:name:
+        type: string
+      schema:value:
+        type: string
+    required:
+    - schema:name
+    - schema:value
+    $defs:
+      DefinedTerm:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
+      propertyID_item:
+        anyOf:
+        - type: string
+        - type: object
+          properties:
+            '@id':
+              type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/DefinedTerm
+    x-jsonld-prefixes:
+      schema: http://schema.org/
+      nxs: http://purl.org/nexusformat/definitions/
+    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  cdif.bbr.metadata.schemaorgProperties.identifier:
+    description: Properties for a schema.org identifier
+    type: object
+    properties:
+      '@type':
+        type: string
+        enum:
+        - schema:PropertyValue
+      schema:propertyID:
+        type: string
+        description: In this context for the schema:PropertyValue, this field is an
+          identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/
+          for interoperability
+      schema:value:
+        type: string
+        description: the identifier string. E.g. 10.5066/F7VX0DMQ
+      schema:url:
+        type: string
+        format: uri
+        description: 'web-resolveable string for the identifier; host name part is
+          location of a resolver that will return some representation for the given
+          identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ '
+    allOf:
+    - required:
+      - '@type'
+    - anyOf:
+      - required:
+        - schema:value
+      - required:
+        - schema:url
+    x-jsonld-prefixes:
+      schema: http://schema.org/
+    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  cdif.bbr.metadata.schemaorgProperties.definedTerm:
+    description: schema.org Defined Term schema
+    type: object
+    properties:
+      '@type':
+        enum:
+        - schema:DefinedTerm
+      schema:name:
+        type: string
+        description: text label for the term that is useful to human user
+      schema:identifier:
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+      schema:inDefinedTermSet:
+        type: string
+        description: Identifier for the controlled vocabulary responsible for this
+          keyword.
+      schema:termCode:
+        type: string
+        description: A representative code for this keyword in the controlled vocabulary
+          (Optional).  Analogous to skos:Notation
+    allOf:
+    - required:
+      - '@type'
+    - anyOf:
+      - required:
+        - schema:name
+      - required:
+        - schema:identifier
+      - required:
+        - schema:termCode
+    x-jsonld-prefixes:
+      schema: http://schema.org/
+    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+title: DDE Geographic Dataset properties
+description: Conditional extension for geographic dataset resources. Implements MD_SpatialRepresentation
+  entity (DDE spec Table 5) with spatialCoverage (mandatory), spatialRepresentationType
+  (SpatialRepresentationTypeCode enum), spatialResolution (string), referenceSystemType
+  (ReferenceSystemTypeCode enum), and referenceSystemIdentifier (MD_Identifier pattern).
+type: object
+properties:
+  schema:spatialCoverage:
+    description: Spatial extent of the geographic dataset. Mandatory for geographicDataset
+      resource type.
+    allOf:
+    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/$defs/SpatialExtent
+  schema:additionalProperty:
+    type: array
+    description: Spatial representation properties using DDE propertyIDs. Each item
+      is a PropertyValue with a DDE propertyID and a value whose type depends on the
+      property.
+    items:
+      anyOf:
+      - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/$defs/SpatialRepresentationTypePV
+      - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/$defs/SpatialResolutionPV
+      - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/$defs/ReferenceSystemTypePV
+      - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/$defs/ReferenceSystemIdentifierPV
+      - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/$defs/AdditionalProperty
+required:
+- schema:spatialCoverage
+$defs:
+  SpatialExtent:
+    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.spatialExtent
+  AdditionalProperty:
+    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty
+  Identifier:
+    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+  SpatialRepresentationTypePV:
+    type: object
+    description: Method used to represent geographic information in the resource.
+      Value from SpatialRepresentationTypeCode (XSD).
+    properties:
+      '@type':
+        enum:
+        - schema:PropertyValue
+      schema:propertyID:
+        type: array
+        contains:
+          enum:
+          - dde:spatialRepresentationType
+        minItems: 1
+      schema:name:
+        type: string
+      schema:value:
+        type: string
+        enum:
+        - vector
+        - grid
+        - textTable
+        - tin
+        - stereoModel
+        - video
+    required:
+    - schema:propertyID
+    - schema:name
+    - schema:value
+  SpatialResolutionPV:
+    type: object
+    description: Spatial resolution of the dataset (free text, e.g. "1:1000000", "30m").
+      Value is a string (CharacterString_Type in XSD).
+    properties:
+      '@type':
+        enum:
+        - schema:PropertyValue
+      schema:propertyID:
+        type: array
+        contains:
+          enum:
+          - dde:spatialResolution
+        minItems: 1
+      schema:name:
+        type: string
+      schema:value:
+        type: string
+    required:
+    - schema:propertyID
+    - schema:name
+    - schema:value
+  ReferenceSystemTypePV:
+    type: object
+    description: Type of coordinate reference system. Value from ReferenceSystemTypeCode
+      (XSD, 28 values).
+    properties:
+      '@type':
+        enum:
+        - schema:PropertyValue
+      schema:propertyID:
+        type: array
+        contains:
+          enum:
+          - dde:referenceSystemType
+        minItems: 1
+      schema:name:
+        type: string
+      schema:value:
+        type: string
+        enum:
+        - compoundEngineeringParametric
+        - compoundEngineeringParametricTemporal
+        - compoundEngineeringTemporal
+        - compoundEngineeringVertical
+        - compoundEngineeringVerticalTemporal
+        - compoundGeographic2DParametric
+        - compoundGeographic2DParametricTemporal
+        - compoundGeographic2DTemporal
+        - compoundGeographic2DVertical
+        - compoundGeographicVerticalTemporal
+        - compoundGeographic3DTemporal
+        - compoundProjected2DParametric
+        - compoundProjected2DParametricTemporal
+        - compoundProjectedTemporal
+        - compoundProjectedVertical
+        - compoundProjectedVerticalTemporal
+        - engineering
+        - engineeringDesign
+        - engineeringImage
+        - geodeticGeocentric
+        - geodeticGeographic2D
+        - geodeticGeographic3D
+        - geographicIdentifier
+        - linear
+        - parametric
+        - projected
+        - temporal
+        - vertical
+    required:
+    - schema:propertyID
+    - schema:name
+    - schema:value
+  ReferenceSystemIdentifierPV:
+    type: object
+    description: Identifier for the coordinate reference system. Follows the MD_Identifier
+      pattern from the XSD (code + optional codeSpace, version, url). Value is the
+      identifier code string (e.g. "EPSG:4326"), with optional schema:url for the
+      resolvable form.
+    properties:
+      '@type':
+        enum:
+        - schema:PropertyValue
+      schema:propertyID:
+        type: array
+        contains:
+          enum:
+          - dde:referenceSystemIdentifier
+        minItems: 1
+      schema:name:
+        type: string
+      schema:value:
+        type: string
+        description: The reference system identifier code (e.g. "EPSG:4326", "urn:ogc:def:crs:EPSG::4326").
+      schema:url:
+        type: string
+        format: uri
+        description: Resolvable URL for the reference system identifier (e.g. "https://epsg.io/4326").
+    allOf:
+    - required:
+      - schema:propertyID
+      - schema:name
+    - anyOf:
+      - required:
+        - schema:value
+      - required:
+        - schema:url
+x-jsonld-prefixes:
+  schema: http://schema.org/
+  dde: https://www.ddeworld.org/resource/
+x-schema-version: https://json-schema.org/draft/2020-12/schema

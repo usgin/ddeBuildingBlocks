@@ -1,0 +1,1128 @@
+{
+  "title": "Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDEImage - DDE Image profile",
+  "bblockName": "DDE Image profile",
+  "bblockId": "dde.bbr.metadata.profiles.DDEProfiles.DDEImage",
+  "generated": "2026-03-05T19:06:59.275638+00:00",
+  "result": false,
+  "items": [
+    {
+      "source": {
+        "type": "EXAMPLE",
+        "requireFail": false,
+        "filename": "build/tests/bbr/metadata/profiles/DDEProfiles/DDEImage/example_1_1.json",
+        "url": "https://usgin.github.io/ddeBuildingBlocks/build/tests/bbr/metadata/profiles/DDEProfiles/DDEImage/example_1_1.json",
+        "exampleIndex": 1,
+        "snippetIndex": 1,
+        "language": "application/json"
+      },
+      "result": false,
+      "sections": [
+        {
+          "name": "FILES",
+          "title": "Files",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using exampleDDEImage.json from examples"
+            },
+            {
+              "op": "jsonld-uplift",
+              "isError": false,
+              "message": "JSON-LD context is present - uplifting"
+            },
+            {
+              "op": "jsonld-create",
+              "filename": "example_1_1.jsonld",
+              "isError": false,
+              "message": "Output JSON-LD example_1_1.jsonld created"
+            },
+            {
+              "op": "ttl-create",
+              "empty": false,
+              "filename": "example_1_1.ttl",
+              "size": 91,
+              "isError": false,
+              "message": "Output Turtle example_1_1.ttl created"
+            }
+          ]
+        },
+        {
+          "name": "JSON_SCHEMA",
+          "title": "JSON Schema",
+          "entries": [
+            {
+              "op": "validation",
+              "result": false,
+              "exception": "ValidationError",
+              "errorMessage": "[{'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEImage'}] is too short",
+              "isError": true,
+              "message": "ValidationError: [{'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEImage'}] is too short\n\nFailed validating 'minItems' in schema['allOf'][0]['allOf'][2]['allOf'][1]['properties']['schema:subjectOf']['allOf'][1]['properties']['dcterms:conformsTo']:\n    {'contains': {'properties': {'@id': {'const': 'cdif:profile_ddeCDIF'}},\n                  'required': ['@id'],\n                  'type': 'object'},\n     'items': {'$ref': 'https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifCatalogRecord/schema.yaml#/$defs/conformsTo_item'},\n     'minContains': 1,\n     'minItems': 2,\n     'type': 'array'}\n\nOn instance['schema:subjectOf']['dcterms:conformsTo']:\n    [{'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEImage'}]"
+            }
+          ]
+        },
+        {
+          "name": "SHACL",
+          "title": "SHACL",
+          "entries": [
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl",
+              "graph": "@prefix dcterms: <http://purl.org/dc/terms/> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode <urn:uuid:dde-image-catalog-record> ;\n            sh:resultMessage \"DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\" ;\n            sh:resultPath dcterms:conformsTo ;\n            sh:resultSeverity sh:Violation ;\n            sh:sourceConstraintComponent sh:MinCountConstraintComponent ;\n            sh:sourceShape [ sh:message \"DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\" ;\n                    sh:minCount 2 ;\n                    sh:path dcterms:conformsTo ] ] .\n\n",
+              "isError": true,
+              "message": "Validation result for _sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl:\n  Validation Report\n  Conforms: False\n  Results (1):\n  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):\n  \tSeverity: sh:Violation\n  \tSource Shape: [ sh:message Literal(\"DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\") ; sh:minCount Literal(\"2\", datatype=xsd:integer) ; sh:path dcterms:conformsTo ]\n  \tFocus Node: <urn:uuid:dde-image-catalog-record>\n  \tResult Path: dcterms:conformsTo\n  \tMessage: DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\n  "
+            },
+            {
+              "shaclFile": "_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl",
+              "focusNodes": {
+                "cdifd:resourceIdentifierProperty/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:DDEImageObjectShape": {
+                  "nodes": [
+                    "<urn:dde:example-landsat8-tibet>/schema1:image"
+                  ]
+                },
+                "_:n74569fc647924292a834264441da4532b9": {
+                  "nodes": []
+                },
+                "cdifd:DDECatalogRecordShape": {
+                  "nodes": []
+                },
+                "_:n74569fc647924292a834264441da4532b22": {
+                  "nodes": []
+                },
+                "cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:rightsProperty/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:DDEDatasetMandatoryShape": {
+                  "nodes": []
+                },
+                "_:n74569fc647924292a834264441da4532b11": {
+                  "nodes": []
+                },
+                "cdifd:rightsProperty/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl:\n - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:first: *none*\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-landsat8-tibet>/schema1:image\n - Shape _:n74569fc647924292a834264441da4532b9: *none*\n - Shape cdifd:DDECatalogRecordShape: *none*\n - Shape _:n74569fc647924292a834264441da4532b22: *none*\n - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape cdifd:rightsProperty/sh:or/rdf:first: *none*\n - Shape cdifd:DDEDatasetMandatoryShape: *none*\n - Shape _:n74569fc647924292a834264441da4532b11: *none*\n - Shape cdifd:rightsProperty/sh:or/rdf:rest/rdf:first: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl",
+              "graph": "@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix schema1: <http://schema.org/> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode <urn:dde:example-landsat8-tibet> ;\n            sh:resultMessage \"A dataset should identify its creator(s) (schema:creator).\" ;\n            sh:resultPath schema1:creator ;\n            sh:resultSeverity sh:Warning ;\n            sh:sourceConstraintComponent sh:MinCountConstraintComponent ;\n            sh:sourceShape [ sh:message \"A dataset should identify its creator(s) (schema:creator).\" ;\n                    sh:minCount 1 ;\n                    sh:path schema1:creator ;\n                    sh:severity sh:Warning ] ],\n        [ a sh:ValidationResult ;\n            sh:focusNode <urn:dde:example-landsat8-tibet> ;\n            sh:resultMessage \"Activity contains instrument objects (schema:instrument); this suggests cdifProv-level provenance. Consider declaring conformance to CDIFcomplete or a domain-specific profile.\" ;\n            sh:resultSeverity sh:Violation ;\n            sh:sourceConstraint [ a sh:SPARQLConstraint ;\n                    sh:message \"Activity contains instrument objects (schema:instrument); this suggests cdifProv-level provenance. Consider declaring conformance to CDIFcomplete or a domain-specific profile.\" ;\n                    sh:prefixes ( [ sh:namespace \"http://schema.org/\" ;\n                                sh:prefix \"schema\" ] [ sh:namespace \"http://www.w3.org/ns/prov#\" ;\n                                sh:prefix \"prov\" ] ) ;\n                    sh:select \"\"\"\n\t\t\tPREFIX schema: <http://schema.org/>\n\t\t\tPREFIX prov: <http://www.w3.org/ns/prov#>\n\t\t\tSELECT $this WHERE {\n\t\t\t\t$this prov:wasGeneratedBy ?activity .\n\t\t\t\t?activity prov:used ?usedItem .\n\t\t\t\t?usedItem schema:instrument ?inst .\n\t\t\t}\n\t\t\"\"\" ;\n                    sh:severity sh:Warning ] ;\n            sh:sourceConstraintComponent sh:SPARQLConstraintComponent ;\n            sh:sourceShape cdifd:cdifOptionalProvWarningShape ;\n            sh:value <urn:dde:example-landsat8-tibet> ] .\n\n",
+              "isError": true,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl:\n  Validation Report\n  Conforms: False\n  Results (2):\n  Validation Result in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):\n  \tSeverity: sh:Warning\n  \tSource Shape: [ sh:message Literal(\"A dataset should identify its creator(s) (schema:creator).\") ; sh:minCount Literal(\"1\", datatype=xsd:integer) ; sh:path schema1:creator ; sh:severity sh:Warning ]\n  \tFocus Node: <urn:dde:example-landsat8-tibet>\n  \tResult Path: schema1:creator\n  \tMessage: A dataset should identify its creator(s) (schema:creator).\n  Constraint Violation in SPARQLConstraintComponent (http://www.w3.org/ns/shacl#SPARQLConstraintComponent):\n  \tSeverity: sh:Violation\n  \tSource Shape: cdifd:cdifOptionalProvWarningShape\n  \tFocus Node: <urn:dde:example-landsat8-tibet>\n  \tValue Node: <urn:dde:example-landsat8-tibet>\n  \tSource Constraint: [ rdf:type sh:SPARQLConstraint ; sh:message Literal(\"Activity contains instrument objects (schema:instrument); this suggests cdifProv-level provenance. Consider declaring conformance to CDIFcomplete or a domain-specific profile.\") ; sh:prefixes ( [ sh:namespace Literal(\"http://schema.org/\") ; sh:prefix Literal(\"schema\") ] [ sh:namespace Literal(\"http://www.w3.org/ns/prov#\") ; sh:prefix Literal(\"prov\") ] ) ; sh:select Literal(\"\n  \t\t\tPREFIX schema: <http://schema.org/>\n  \t\t\tPREFIX prov: <http://www.w3.org/ns/prov#>\n  \t\t\tSELECT $this WHERE {\n  \t\t\t\t$this prov:wasGeneratedBy ?activity .\n  \t\t\t\t?activity prov:used ?usedItem .\n  \t\t\t\t?usedItem schema:instrument ?inst .\n  \t\t\t}\n  \t\t\") ; sh:severity sh:Warning ]\n  \tMessage: Activity contains instrument objects (schema:instrument); this suggests cdifProv-level provenance. Consider declaring conformance to CDIFcomplete or a domain-specific profile.\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl",
+              "focusNodes": {
+                "cdifd:creatorListValidation": {
+                  "nodes": [
+                    "<urn:uuid:dde-image-catalog-record>",
+                    "<urn:dde:example-landsat8-tibet>"
+                  ]
+                },
+                "cdifd:relatedResourceProperty/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "_:nb72f039ae6b5491eb6353f7b1d91c818b14": {
+                  "nodes": []
+                },
+                "_:nb72f039ae6b5491eb6353f7b1d91c818b13": {
+                  "nodes": []
+                },
+                "cdifd:CDIFDatasetOptionalShape": {
+                  "nodes": []
+                },
+                "cdifd:cdifOptionalProvWarningShape": {
+                  "nodes": [
+                    "<urn:uuid:dde-image-catalog-record>",
+                    "<urn:dde:example-landsat8-tibet>"
+                  ]
+                },
+                "cdifd:keywordsNoCommaTest/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:keywordsNoCommaTest/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "_:nb72f039ae6b5491eb6353f7b1d91c818b7": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl:\n - Shape cdifd:creatorListValidation: <urn:uuid:dde-image-catalog-record>,<urn:dde:example-landsat8-tibet>\n - Shape cdifd:relatedResourceProperty/sh:property/sh:or/rdf:first: *none*\n - Shape _:nb72f039ae6b5491eb6353f7b1d91c818b14: *none*\n - Shape _:nb72f039ae6b5491eb6353f7b1d91c818b13: *none*\n - Shape cdifd:CDIFDatasetOptionalShape: *none*\n - Shape cdifd:cdifOptionalProvWarningShape: <urn:uuid:dde-image-catalog-record>,<urn:dde:example-landsat8-tibet>\n - Shape cdifd:keywordsNoCommaTest/sh:or/rdf:first: *none*\n - Shape cdifd:keywordsNoCommaTest/sh:or/rdf:rest/rdf:first: *none*\n - Shape _:nb72f039ae6b5491eb6353f7b1d91c818b7: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl",
+              "focusNodes": {
+                "cdifd:webAPINode/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "_:n41774d6e31c64a1db38c231390f7bc49b25": {
+                  "nodes": []
+                },
+                "_:n41774d6e31c64a1db38c231390f7bc49b23": {
+                  "nodes": []
+                },
+                "_:n41774d6e31c64a1db38c231390f7bc49b26": {
+                  "nodes": []
+                },
+                "_:n41774d6e31c64a1db38c231390f7bc49b24": {
+                  "nodes": []
+                },
+                "_:n41774d6e31c64a1db38c231390f7bc49b11": {
+                  "nodes": []
+                },
+                "_:n41774d6e31c64a1db38c231390f7bc49b22": {
+                  "nodes": []
+                },
+                "_:n41774d6e31c64a1db38c231390f7bc49b10": {
+                  "nodes": []
+                },
+                "_:n41774d6e31c64a1db38c231390f7bc49b4": {
+                  "nodes": []
+                },
+                "_:n41774d6e31c64a1db38c231390f7bc49b20": {
+                  "nodes": []
+                },
+                "cdifd:webAPINode": {
+                  "nodes": []
+                },
+                "_:n41774d6e31c64a1db38c231390f7bc49b17": {
+                  "nodes": []
+                },
+                "_:n41774d6e31c64a1db38c231390f7bc49b18": {
+                  "nodes": []
+                },
+                "_:n41774d6e31c64a1db38c231390f7bc49b3": {
+                  "nodes": []
+                },
+                "_:n41774d6e31c64a1db38c231390f7bc49b19": {
+                  "nodes": []
+                },
+                "_:n41774d6e31c64a1db38c231390f7bc49b21": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl:\n - Shape cdifd:webAPINode/sh:property/sh:or/rdf:first: *none*\n - Shape _:n41774d6e31c64a1db38c231390f7bc49b25: *none*\n - Shape _:n41774d6e31c64a1db38c231390f7bc49b23: *none*\n - Shape _:n41774d6e31c64a1db38c231390f7bc49b26: *none*\n - Shape _:n41774d6e31c64a1db38c231390f7bc49b24: *none*\n - Shape _:n41774d6e31c64a1db38c231390f7bc49b11: *none*\n - Shape _:n41774d6e31c64a1db38c231390f7bc49b22: *none*\n - Shape _:n41774d6e31c64a1db38c231390f7bc49b10: *none*\n - Shape _:n41774d6e31c64a1db38c231390f7bc49b4: *none*\n - Shape _:n41774d6e31c64a1db38c231390f7bc49b20: *none*\n - Shape cdifd:webAPINode: *none*\n - Shape _:n41774d6e31c64a1db38c231390f7bc49b17: *none*\n - Shape cdifd:webAPINode/sh:property/sh:or/rdf:first: *none*\n - Shape _:n41774d6e31c64a1db38c231390f7bc49b18: *none*\n - Shape _:n41774d6e31c64a1db38c231390f7bc49b3: *none*\n - Shape cdifd:webAPINode/sh:property/sh:or/rdf:first: *none*\n - Shape _:n41774d6e31c64a1db38c231390f7bc49b19: *none*\n - Shape _:n41774d6e31c64a1db38c231390f7bc49b21: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl",
+              "focusNodes": {
+                "_:n702cae6c20bc44c3b6ad80edfa6258d8b19": {
+                  "nodes": []
+                },
+                "_:n702cae6c20bc44c3b6ad80edfa6258d8b26": {
+                  "nodes": []
+                },
+                "_:n702cae6c20bc44c3b6ad80edfa6258d8b6": {
+                  "nodes": []
+                },
+                "cdifd:CDIFDefinedTermShape/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "_:n702cae6c20bc44c3b6ad80edfa6258d8b8": {
+                  "nodes": []
+                },
+                "_:n702cae6c20bc44c3b6ad80edfa6258d8b7": {
+                  "nodes": []
+                },
+                "cdifd:CDIFDefinedTermShape/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:CDIFDefinedTermShape/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "_:n702cae6c20bc44c3b6ad80edfa6258d8b5": {
+                  "nodes": []
+                },
+                "_:n702cae6c20bc44c3b6ad80edfa6258d8b4": {
+                  "nodes": []
+                },
+                "cdifd:CDIFDefinedTermShape": {
+                  "nodes": []
+                },
+                "_:n702cae6c20bc44c3b6ad80edfa6258d8b10": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl:\n - Shape _:n702cae6c20bc44c3b6ad80edfa6258d8b19: *none*\n - Shape _:n702cae6c20bc44c3b6ad80edfa6258d8b26: *none*\n - Shape _:n702cae6c20bc44c3b6ad80edfa6258d8b6: *none*\n - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:first: *none*\n - Shape _:n702cae6c20bc44c3b6ad80edfa6258d8b8: *none*\n - Shape _:n702cae6c20bc44c3b6ad80edfa6258d8b7: *none*\n - Shape cdifd:CDIFDefinedTermShape/sh:property/sh:or/rdf:first: *none*\n - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape _:n702cae6c20bc44c3b6ad80edfa6258d8b5: *none*\n - Shape _:n702cae6c20bc44c3b6ad80edfa6258d8b4: *none*\n - Shape cdifd:CDIFDefinedTermShape: *none*\n - Shape _:n702cae6c20bc44c3b6ad80edfa6258d8b10: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl",
+              "focusNodes": {
+                "_:nf117ed8342d247278d41b72617cb61bbb23": {
+                  "nodes": []
+                },
+                "cdifd:CDIFIdentifierShape/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:CDIFIdentifierShape/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:CDIFIdentifierShape": {
+                  "nodes": []
+                },
+                "_:nf117ed8342d247278d41b72617cb61bbb20": {
+                  "nodes": []
+                },
+                "_:nf117ed8342d247278d41b72617cb61bbb21": {
+                  "nodes": []
+                },
+                "cdifd:CDIFIdentifierTypeTermShape": {
+                  "nodes": []
+                },
+                "_:nf117ed8342d247278d41b72617cb61bbb22": {
+                  "nodes": []
+                },
+                "cdifd:CDIFIdentifierTypeTermShape/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "_:nf117ed8342d247278d41b72617cb61bbb10": {
+                  "nodes": []
+                },
+                "_:nf117ed8342d247278d41b72617cb61bbb11": {
+                  "nodes": []
+                },
+                "cdifd:CDIFIdentifierShape/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "_:nf117ed8342d247278d41b72617cb61bbb25": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl:\n - Shape _:nf117ed8342d247278d41b72617cb61bbb23: *none*\n - Shape cdifd:CDIFIdentifierShape/sh:property/sh:or/rdf:first: *none*\n - Shape cdifd:CDIFIdentifierShape/sh:or/rdf:first: *none*\n - Shape cdifd:CDIFIdentifierShape: *none*\n - Shape _:nf117ed8342d247278d41b72617cb61bbb20: *none*\n - Shape _:nf117ed8342d247278d41b72617cb61bbb21: *none*\n - Shape cdifd:CDIFIdentifierTypeTermShape: *none*\n - Shape _:nf117ed8342d247278d41b72617cb61bbb22: *none*\n - Shape cdifd:CDIFIdentifierTypeTermShape/sh:property/sh:or/rdf:first: *none*\n - Shape _:nf117ed8342d247278d41b72617cb61bbb10: *none*\n - Shape _:nf117ed8342d247278d41b72617cb61bbb11: *none*\n - Shape cdifd:CDIFIdentifierShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape _:nf117ed8342d247278d41b72617cb61bbb25: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl",
+              "focusNodes": {
+                "cdifd:CDIFActionShape": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl:\n - Shape cdifd:CDIFActionShape: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl",
+              "focusNodes": {
+                "_:na1e868cf7ef549c8b5cccb0d1ec54a6ab51": {
+                  "nodes": []
+                },
+                "_:na1e868cf7ef549c8b5cccb0d1ec54a6ab38": {
+                  "nodes": []
+                },
+                "cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "_:na1e868cf7ef549c8b5cccb0d1ec54a6ab8": {
+                  "nodes": []
+                },
+                "_:na1e868cf7ef549c8b5cccb0d1ec54a6ab14": {
+                  "nodes": []
+                },
+                "_:na1e868cf7ef549c8b5cccb0d1ec54a6ab37": {
+                  "nodes": []
+                },
+                "_:na1e868cf7ef549c8b5cccb0d1ec54a6ab52": {
+                  "nodes": []
+                },
+                "_:na1e868cf7ef549c8b5cccb0d1ec54a6ab4": {
+                  "nodes": []
+                },
+                "cdifd:CDIFVariableMeasuredShape": {
+                  "nodes": []
+                },
+                "_:na1e868cf7ef549c8b5cccb0d1ec54a6ab44": {
+                  "nodes": []
+                },
+                "_:na1e868cf7ef549c8b5cccb0d1ec54a6ab7": {
+                  "nodes": []
+                },
+                "_:na1e868cf7ef549c8b5cccb0d1ec54a6ab5": {
+                  "nodes": []
+                },
+                "_:na1e868cf7ef549c8b5cccb0d1ec54a6ab30": {
+                  "nodes": []
+                },
+                "_:na1e868cf7ef549c8b5cccb0d1ec54a6ab12": {
+                  "nodes": []
+                },
+                "_:na1e868cf7ef549c8b5cccb0d1ec54a6ab29": {
+                  "nodes": []
+                },
+                "_:na1e868cf7ef549c8b5cccb0d1ec54a6ab11": {
+                  "nodes": []
+                },
+                "_:na1e868cf7ef549c8b5cccb0d1ec54a6ab9": {
+                  "nodes": []
+                },
+                "_:na1e868cf7ef549c8b5cccb0d1ec54a6ab10": {
+                  "nodes": []
+                },
+                "_:na1e868cf7ef549c8b5cccb0d1ec54a6ab45": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl:\n - Shape _:na1e868cf7ef549c8b5cccb0d1ec54a6ab51: *none*\n - Shape _:na1e868cf7ef549c8b5cccb0d1ec54a6ab38: *none*\n - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*\n - Shape _:na1e868cf7ef549c8b5cccb0d1ec54a6ab8: *none*\n - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*\n - Shape _:na1e868cf7ef549c8b5cccb0d1ec54a6ab14: *none*\n - Shape _:na1e868cf7ef549c8b5cccb0d1ec54a6ab37: *none*\n - Shape _:na1e868cf7ef549c8b5cccb0d1ec54a6ab52: *none*\n - Shape _:na1e868cf7ef549c8b5cccb0d1ec54a6ab4: *none*\n - Shape cdifd:CDIFVariableMeasuredShape: *none*\n - Shape _:na1e868cf7ef549c8b5cccb0d1ec54a6ab44: *none*\n - Shape _:na1e868cf7ef549c8b5cccb0d1ec54a6ab7: *none*\n - Shape _:na1e868cf7ef549c8b5cccb0d1ec54a6ab5: *none*\n - Shape _:na1e868cf7ef549c8b5cccb0d1ec54a6ab30: *none*\n - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*\n - Shape _:na1e868cf7ef549c8b5cccb0d1ec54a6ab12: *none*\n - Shape _:na1e868cf7ef549c8b5cccb0d1ec54a6ab29: *none*\n - Shape _:na1e868cf7ef549c8b5cccb0d1ec54a6ab11: *none*\n - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*\n - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*\n - Shape _:na1e868cf7ef549c8b5cccb0d1ec54a6ab9: *none*\n - Shape _:na1e868cf7ef549c8b5cccb0d1ec54a6ab10: *none*\n - Shape _:na1e868cf7ef549c8b5cccb0d1ec54a6ab45: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl",
+              "focusNodes": {
+                "cdifd:CDIFLabeledLinkShape": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl:\n - Shape cdifd:CDIFLabeledLinkShape: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl",
+              "focusNodes": {
+                "cdifd:CDIFDataDownloadShape": {
+                  "nodes": [
+                    "<urn:dde:example-landsat8-tibet>/schema1:distribution"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl:\n - Shape cdifd:CDIFDataDownloadShape: <urn:dde:example-landsat8-tibet>/schema1:distribution\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl",
+              "focusNodes": {
+                "cdifd:CDIFContactPointShape": {
+                  "nodes": []
+                },
+                "cdifd:CDIFPersonShape": {
+                  "nodes": []
+                },
+                "cdifd:maintainerOrProviderContactPointShape/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:CDIFPersonShape/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "_:n868573ef96b44ee1b686f755d153b1aab14": {
+                  "nodes": []
+                },
+                "cdifd:affiliationProperty/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:affiliationProperty/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:contactPointProperty/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:contactPointProperty/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:CDIFPersonShape/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:maintainerOrProviderContactPointShape": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl:\n - Shape cdifd:CDIFContactPointShape: *none*\n - Shape cdifd:CDIFPersonShape: *none*\n - Shape cdifd:maintainerOrProviderContactPointShape/sh:property/sh:or/rdf:first: *none*\n - Shape cdifd:CDIFPersonShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape _:n868573ef96b44ee1b686f755d153b1aab14: *none*\n - Shape cdifd:affiliationProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape cdifd:affiliationProperty/sh:or/rdf:first: *none*\n - Shape cdifd:contactPointProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape cdifd:contactPointProperty/sh:or/rdf:first: *none*\n - Shape cdifd:CDIFPersonShape/sh:or/rdf:first: *none*\n - Shape cdifd:maintainerOrProviderContactPointShape: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl",
+              "focusNodes": {
+                "cdifd:CDIFOrganizationShape/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:CDIFOrganizationShape/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:CDIFOrganizationShape": {
+                  "nodes": [
+                    "<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/schema1:participant/schema1:contributor"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl:\n - Shape cdifd:CDIFOrganizationShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape cdifd:CDIFOrganizationShape/sh:or/rdf:first: *none*\n - Shape cdifd:CDIFOrganizationShape: <urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/schema1:participant/schema1:contributor\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl",
+              "focusNodes": {
+                "cdifd:generatedByNode/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "_:n64145af82f1b41838fb8bd897db3bcbcb4": {
+                  "nodes": []
+                },
+                "_:n64145af82f1b41838fb8bd897db3bcbcb5": {
+                  "nodes": []
+                },
+                "cdifd:generatedByNode": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl:\n - Shape cdifd:generatedByNode/sh:property/sh:or/rdf:first: *none*\n - Shape _:n64145af82f1b41838fb8bd897db3bcbcb4: *none*\n - Shape _:n64145af82f1b41838fb8bd897db3bcbcb5: *none*\n - Shape cdifd:generatedByNode: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl",
+              "focusNodes": {
+                "cdifd:qualityMeasurementNode/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "_:n1ec883961cfc40b7bd17002abee2119cb5": {
+                  "nodes": []
+                },
+                "cdifd:qualityMeasurementNode": {
+                  "nodes": []
+                },
+                "_:n1ec883961cfc40b7bd17002abee2119cb4": {
+                  "nodes": []
+                },
+                "_:n1ec883961cfc40b7bd17002abee2119cb11": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl:\n - Shape cdifd:qualityMeasurementNode/sh:property/sh:or/rdf:first: *none*\n - Shape cdifd:qualityMeasurementNode/sh:property/sh:or/rdf:first: *none*\n - Shape _:n1ec883961cfc40b7bd17002abee2119cb5: *none*\n - Shape cdifd:qualityMeasurementNode: *none*\n - Shape _:n1ec883961cfc40b7bd17002abee2119cb4: *none*\n - Shape _:n1ec883961cfc40b7bd17002abee2119cb11: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl",
+              "focusNodes": {
+                "cdifd:fundingShape/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "_:n91f254c6f4384178a7383948254fd117b12": {
+                  "nodes": []
+                },
+                "_:n91f254c6f4384178a7383948254fd117b25": {
+                  "nodes": []
+                },
+                "cdifd:fundingShape/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "_:n91f254c6f4384178a7383948254fd117b17": {
+                  "nodes": []
+                },
+                "_:n91f254c6f4384178a7383948254fd117b4": {
+                  "nodes": []
+                },
+                "_:n91f254c6f4384178a7383948254fd117b13": {
+                  "nodes": []
+                },
+                "_:n91f254c6f4384178a7383948254fd117b26": {
+                  "nodes": []
+                },
+                "_:n91f254c6f4384178a7383948254fd117b3": {
+                  "nodes": []
+                },
+                "_:n91f254c6f4384178a7383948254fd117b15": {
+                  "nodes": []
+                },
+                "cdifd:fundingShape": {
+                  "nodes": []
+                },
+                "_:n91f254c6f4384178a7383948254fd117b14": {
+                  "nodes": []
+                },
+                "_:n91f254c6f4384178a7383948254fd117b5": {
+                  "nodes": []
+                },
+                "_:n91f254c6f4384178a7383948254fd117b11": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl:\n - Shape cdifd:fundingShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape _:n91f254c6f4384178a7383948254fd117b12: *none*\n - Shape _:n91f254c6f4384178a7383948254fd117b25: *none*\n - Shape cdifd:fundingShape/sh:or/rdf:first: *none*\n - Shape _:n91f254c6f4384178a7383948254fd117b17: *none*\n - Shape _:n91f254c6f4384178a7383948254fd117b4: *none*\n - Shape _:n91f254c6f4384178a7383948254fd117b13: *none*\n - Shape _:n91f254c6f4384178a7383948254fd117b26: *none*\n - Shape _:n91f254c6f4384178a7383948254fd117b3: *none*\n - Shape _:n91f254c6f4384178a7383948254fd117b15: *none*\n - Shape cdifd:fundingShape: *none*\n - Shape _:n91f254c6f4384178a7383948254fd117b14: *none*\n - Shape _:n91f254c6f4384178a7383948254fd117b5: *none*\n - Shape _:n91f254c6f4384178a7383948254fd117b11: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl",
+              "focusNodes": {
+                "cdifd:derivedFromProperty/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:derivedFromProperty/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:derivedFromProperty": {
+                  "nodes": []
+                },
+                "_:ne171e25cbf9b422ba6bed47340b64e71b4": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl:\n - Shape cdifd:derivedFromProperty/sh:or/rdf:first: *none*\n - Shape cdifd:derivedFromProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape cdifd:derivedFromProperty: *none*\n - Shape _:ne171e25cbf9b422ba6bed47340b64e71b4: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl",
+              "focusNodes": {
+                "_:ne0ccd77cf5f8441c880bdff3ce46f4c9b34": {
+                  "nodes": []
+                },
+                "_:ne0ccd77cf5f8441c880bdff3ce46f4c9b4": {
+                  "nodes": []
+                },
+                "cdifd:geoCoordinatesNode/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "_:ne0ccd77cf5f8441c880bdff3ce46f4c9b9": {
+                  "nodes": []
+                },
+                "_:ne0ccd77cf5f8441c880bdff3ce46f4c9b3": {
+                  "nodes": []
+                },
+                "cdifd:spatialExtentProperty": {
+                  "nodes": [
+                    "<urn:dde:example-landsat8-tibet>/schema1:spatialCoverage"
+                  ]
+                },
+                "cdifd:CDIFDefinedTermShape/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:CDIFDefinedTermShape": {
+                  "nodes": [
+                    "<urn:dde:example-landsat8-tibet>/schema1:keywords",
+                    "<urn:dde:example-landsat8-tibet>/schema1:additionalType",
+                    "<urn:dde:example-landsat8-tibet>/schema1:keywords"
+                  ]
+                },
+                "_:ne0ccd77cf5f8441c880bdff3ce46f4c9b10": {
+                  "nodes": []
+                },
+                "_:ne0ccd77cf5f8441c880bdff3ce46f4c9b31": {
+                  "nodes": []
+                },
+                "_:ne0ccd77cf5f8441c880bdff3ce46f4c9b32": {
+                  "nodes": []
+                },
+                "cdifd:geoShapeNode": {
+                  "nodes": [
+                    "<urn:dde:example-landsat8-tibet>/schema1:spatialCoverage/schema1:geo"
+                  ]
+                },
+                "_:ne0ccd77cf5f8441c880bdff3ce46f4c9b35": {
+                  "nodes": []
+                },
+                "cdifd:geoCoordinatesNode": {
+                  "nodes": []
+                },
+                "_:ne0ccd77cf5f8441c880bdff3ce46f4c9b17": {
+                  "nodes": []
+                },
+                "_:ne0ccd77cf5f8441c880bdff3ce46f4c9b33": {
+                  "nodes": []
+                },
+                "cdifd:spatialExtentProperty/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "_:ne0ccd77cf5f8441c880bdff3ce46f4c9b37": {
+                  "nodes": []
+                },
+                "cdifd:CDIFDefinedTermShape/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:spatialExtentProperty/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "_:ne0ccd77cf5f8441c880bdff3ce46f4c9b22": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl:\n - Shape _:ne0ccd77cf5f8441c880bdff3ce46f4c9b34: *none*\n - Shape _:ne0ccd77cf5f8441c880bdff3ce46f4c9b4: *none*\n - Shape cdifd:geoCoordinatesNode/sh:property/sh:or/rdf:first: *none*\n - Shape _:ne0ccd77cf5f8441c880bdff3ce46f4c9b9: *none*\n - Shape _:ne0ccd77cf5f8441c880bdff3ce46f4c9b3: *none*\n - Shape cdifd:spatialExtentProperty: <urn:dde:example-landsat8-tibet>/schema1:spatialCoverage\n - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape cdifd:CDIFDefinedTermShape: <urn:dde:example-landsat8-tibet>/schema1:keywords,<urn:dde:example-landsat8-tibet>/schema1:additionalType,<urn:dde:example-landsat8-tibet>/schema1:keywords\n - Shape _:ne0ccd77cf5f8441c880bdff3ce46f4c9b10: *none*\n - Shape _:ne0ccd77cf5f8441c880bdff3ce46f4c9b31: *none*\n - Shape _:ne0ccd77cf5f8441c880bdff3ce46f4c9b32: *none*\n - Shape cdifd:geoShapeNode: <urn:dde:example-landsat8-tibet>/schema1:spatialCoverage/schema1:geo\n - Shape _:ne0ccd77cf5f8441c880bdff3ce46f4c9b35: *none*\n - Shape cdifd:geoCoordinatesNode: *none*\n - Shape _:ne0ccd77cf5f8441c880bdff3ce46f4c9b17: *none*\n - Shape _:ne0ccd77cf5f8441c880bdff3ce46f4c9b33: *none*\n - Shape cdifd:spatialExtentProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape cdifd:geoCoordinatesNode/sh:property/sh:or/rdf:first: *none*\n - Shape _:ne0ccd77cf5f8441c880bdff3ce46f4c9b37: *none*\n - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:first: *none*\n - Shape cdifd:spatialExtentProperty/sh:or/rdf:first: *none*\n - Shape _:ne0ccd77cf5f8441c880bdff3ce46f4c9b22: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl",
+              "focusNodes": {
+                "_:n89fb3abe74c240689897022b0048ecfcb3": {
+                  "nodes": []
+                },
+                "_:n89fb3abe74c240689897022b0048ecfcb15": {
+                  "nodes": []
+                },
+                "cdifd:CDIFDefinedTermShape/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "_:n89fb3abe74c240689897022b0048ecfcb12": {
+                  "nodes": []
+                },
+                "_:n89fb3abe74c240689897022b0048ecfcb13": {
+                  "nodes": []
+                },
+                "_:n89fb3abe74c240689897022b0048ecfcb18": {
+                  "nodes": []
+                },
+                "cdifd:CDIFDefinedTermShape": {
+                  "nodes": [
+                    "<urn:dde:example-landsat8-tibet>/schema1:keywords",
+                    "<urn:dde:example-landsat8-tibet>/schema1:additionalType",
+                    "<urn:dde:example-landsat8-tibet>/schema1:keywords"
+                  ]
+                },
+                "cdifd:roleNameProperty/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "_:n89fb3abe74c240689897022b0048ecfcb14": {
+                  "nodes": []
+                },
+                "cdifd:roleNameProperty/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:CDIFRoleShape": {
+                  "nodes": [
+                    "<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/schema1:participant"
+                  ]
+                },
+                "cdifd:CDIFRoleShape/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:CDIFDefinedTermShape/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "_:n89fb3abe74c240689897022b0048ecfcb16": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl:\n - Shape _:n89fb3abe74c240689897022b0048ecfcb3: *none*\n - Shape _:n89fb3abe74c240689897022b0048ecfcb15: *none*\n - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:rest/rdf:first: *none*\n - Shape _:n89fb3abe74c240689897022b0048ecfcb12: *none*\n - Shape _:n89fb3abe74c240689897022b0048ecfcb13: *none*\n - Shape _:n89fb3abe74c240689897022b0048ecfcb18: *none*\n - Shape cdifd:CDIFDefinedTermShape: <urn:dde:example-landsat8-tibet>/schema1:keywords,<urn:dde:example-landsat8-tibet>/schema1:additionalType,<urn:dde:example-landsat8-tibet>/schema1:keywords\n - Shape cdifd:roleNameProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape _:n89fb3abe74c240689897022b0048ecfcb14: *none*\n - Shape cdifd:roleNameProperty/sh:or/rdf:first: *none*\n - Shape cdifd:CDIFRoleShape: <urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/schema1:participant\n - Shape cdifd:CDIFRoleShape/sh:property/sh:or/rdf:first: *none*\n - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:first: *none*\n - Shape _:n89fb3abe74c240689897022b0048ecfcb16: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl",
+              "focusNodes": {
+                "_:n6dceb0c274dd4af790d8a8fd3acef86bb5": {
+                  "nodes": []
+                },
+                "cdifd:timeIntervalNode": {
+                  "nodes": []
+                },
+                "cdifd:timePositionNode": {
+                  "nodes": []
+                },
+                "_:n6dceb0c274dd4af790d8a8fd3acef86bb4": {
+                  "nodes": []
+                },
+                "_:n6dceb0c274dd4af790d8a8fd3acef86bb17": {
+                  "nodes": []
+                },
+                "_:n6dceb0c274dd4af790d8a8fd3acef86bb3": {
+                  "nodes": []
+                },
+                "cdifd:timePositionNode/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:temporalExtentProperty/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:temporalExtentProperty/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:timeInstantNode": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl:\n - Shape _:n6dceb0c274dd4af790d8a8fd3acef86bb5: *none*\n - Shape cdifd:timeIntervalNode: *none*\n - Shape cdifd:timePositionNode: *none*\n - Shape _:n6dceb0c274dd4af790d8a8fd3acef86bb4: *none*\n - Shape _:n6dceb0c274dd4af790d8a8fd3acef86bb17: *none*\n - Shape _:n6dceb0c274dd4af790d8a8fd3acef86bb3: *none*\n - Shape cdifd:timePositionNode/sh:property/sh:or/rdf:first: *none*\n - Shape cdifd:temporalExtentProperty/sh:or/rdf:first: *none*\n - Shape cdifd:temporalExtentProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape cdifd:timeInstantNode: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl",
+              "focusNodes": {
+                "soso:DatasetNS1Shape": {
+                  "nodes": []
+                },
+                "soso:DatasetNS2Shape": {
+                  "nodes": []
+                },
+                "_:nc185e9d612aa49cd8912c2718649c50fb5": {
+                  "nodes": []
+                },
+                "_:nc185e9d612aa49cd8912c2718649c50fb18": {
+                  "nodes": []
+                },
+                "cdifd:resourceIdentifierProperty/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:rightsProperty/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:CDIFDatasetMandatoryShape": {
+                  "nodes": []
+                },
+                "_:nc185e9d612aa49cd8912c2718649c50fb7": {
+                  "nodes": []
+                },
+                "cdifd:rightsProperty/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first": {
+                  "nodes": []
+                },
+                "soso:DatasetNS3Shape": {
+                  "nodes": []
+                },
+                "cdifd:CDIFCatalogRecordShape": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl:\n - Shape soso:DatasetNS1Shape: *none*\n - Shape soso:DatasetNS2Shape: *none*\n - Shape _:nc185e9d612aa49cd8912c2718649c50fb5: *none*\n - Shape _:nc185e9d612aa49cd8912c2718649c50fb18: *none*\n - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:first: *none*\n - Shape cdifd:rightsProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape cdifd:CDIFDatasetMandatoryShape: *none*\n - Shape _:nc185e9d612aa49cd8912c2718649c50fb7: *none*\n - Shape cdifd:rightsProperty/sh:or/rdf:first: *none*\n - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape soso:DatasetNS3Shape: *none*\n - Shape cdifd:CDIFCatalogRecordShape: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl",
+              "focusNodes": {
+                "cdifd:CDIFCatalogRecordShape": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl:\n - Shape cdifd:CDIFCatalogRecordShape: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/DDEproperties/ddeOptional/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/DDEproperties/ddeOptional/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/DDEproperties/ddeOptional/rules.shacl",
+              "focusNodes": {
+                "cdifd:DDEOptionalDatasetShape": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/DDEproperties/ddeOptional/rules.shacl:\n - Shape cdifd:DDEOptionalDatasetShape: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/DDEproperties/ddeRequired/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/DDEproperties/ddeRequired/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/DDEproperties/ddeRequired/rules.shacl",
+              "focusNodes": {
+                "cdifd:DDEImageObjectShape": {
+                  "nodes": [
+                    "<urn:dde:example-landsat8-tibet>/schema1:image"
+                  ]
+                },
+                "cdifd:DDERequiredDatasetShape": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/DDEproperties/ddeRequired/rules.shacl:\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-landsat8-tibet>/schema1:image\n - Shape cdifd:DDERequiredDatasetShape: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/DDEproperties/ddeSubject/rules.shacl",
+              "graph": "@prefix dcterms: <http://purl.org/dc/terms/> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode <urn:uuid:dde-image-catalog-record> ;\n            sh:resultMessage \"DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\" ;\n            sh:resultPath dcterms:conformsTo ;\n            sh:resultSeverity sh:Violation ;\n            sh:sourceConstraintComponent sh:MinCountConstraintComponent ;\n            sh:sourceShape [ sh:message \"DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\" ;\n                    sh:minCount 2 ;\n                    sh:path dcterms:conformsTo ] ] .\n\n",
+              "isError": true,
+              "message": "Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:\n  Validation Report\n  Conforms: False\n  Results (1):\n  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):\n  \tSeverity: sh:Violation\n  \tSource Shape: [ sh:message Literal(\"DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\") ; sh:minCount Literal(\"2\", datatype=xsd:integer) ; sh:path dcterms:conformsTo ]\n  \tFocus Node: <urn:uuid:dde-image-catalog-record>\n  \tResult Path: dcterms:conformsTo\n  \tMessage: DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\n  "
+            },
+            {
+              "shaclFile": "_sources/DDEproperties/ddeSubject/rules.shacl",
+              "focusNodes": {
+                "cdifd:DDECatalogRecordShape": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:\n - Shape cdifd:DDECatalogRecordShape: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/DDEproperties/ddeResourceType/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/DDEproperties/ddeResourceType/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/DDEproperties/ddeResourceType/rules.shacl",
+              "focusNodes": {
+                "cdifd:DDEResourceTypeShape": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/DDEproperties/ddeResourceType/rules.shacl:\n - Shape cdifd:DDEResourceTypeShape: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/DDEproperties/ddeImagery/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/DDEproperties/ddeImagery/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/DDEproperties/ddeImagery/rules.shacl",
+              "focusNodes": {
+                "cdifd:DDEImageryPropertyShape": {
+                  "nodes": [
+                    "<urn:dde:example-landsat8-tibet>/schema1:additionalProperty",
+                    "<urn:dde:example-landsat8-tibet>/schema1:additionalProperty"
+                  ]
+                },
+                "cdifd:DDEImageryInstrumentShape": {
+                  "nodes": [
+                    "<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument",
+                    "<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument",
+                    "<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument",
+                    "<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/DDEproperties/ddeImagery/rules.shacl:\n - Shape cdifd:DDEImageryPropertyShape: <urn:dde:example-landsat8-tibet>/schema1:additionalProperty,<urn:dde:example-landsat8-tibet>/schema1:additionalProperty\n - Shape cdifd:DDEImageryInstrumentShape: <urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument,<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument,<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument,<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl",
+              "focusNodes": {
+                "_:n5ef244d2f93e40f5bc0dd5a35f5a5365b19": {
+                  "nodes": []
+                },
+                "cdifd:CDIFAddPropertyTermShape": {
+                  "nodes": []
+                },
+                "_:n5ef244d2f93e40f5bc0dd5a35f5a5365b14": {
+                  "nodes": []
+                },
+                "cdifd:CDIFadditionalPropertyShape/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "cdifd:CDIFadditionalPropertyShape": {
+                  "nodes": []
+                },
+                "_:n5ef244d2f93e40f5bc0dd5a35f5a5365b7": {
+                  "nodes": []
+                },
+                "_:n5ef244d2f93e40f5bc0dd5a35f5a5365b17": {
+                  "nodes": []
+                },
+                "cdifd:CDIFAddPropertyTermShape/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "_:n5ef244d2f93e40f5bc0dd5a35f5a5365b15": {
+                  "nodes": []
+                },
+                "_:n5ef244d2f93e40f5bc0dd5a35f5a5365b16": {
+                  "nodes": []
+                },
+                "_:n5ef244d2f93e40f5bc0dd5a35f5a5365b6": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl:\n - Shape _:n5ef244d2f93e40f5bc0dd5a35f5a5365b19: *none*\n - Shape cdifd:CDIFAddPropertyTermShape: *none*\n - Shape _:n5ef244d2f93e40f5bc0dd5a35f5a5365b14: *none*\n - Shape cdifd:CDIFadditionalPropertyShape/sh:property/sh:or/rdf:first: *none*\n - Shape cdifd:CDIFadditionalPropertyShape: *none*\n - Shape _:n5ef244d2f93e40f5bc0dd5a35f5a5365b7: *none*\n - Shape _:n5ef244d2f93e40f5bc0dd5a35f5a5365b17: *none*\n - Shape cdifd:CDIFAddPropertyTermShape/sh:property/sh:or/rdf:first: *none*\n - Shape _:n5ef244d2f93e40f5bc0dd5a35f5a5365b15: *none*\n - Shape _:n5ef244d2f93e40f5bc0dd5a35f5a5365b16: *none*\n - Shape _:n5ef244d2f93e40f5bc0dd5a35f5a5365b6: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifProv/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifProv/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifProv/rules.shacl",
+              "focusNodes": {
+                "cdifd:cdifProvActivityShape/sh:property/sh:or/rdf:first": {
+                  "nodes": []
+                },
+                "_:n2274633c72f546f3ac56e0ea03d4bc64b5": {
+                  "nodes": []
+                },
+                "_:n2274633c72f546f3ac56e0ea03d4bc64b35": {
+                  "nodes": []
+                },
+                "cdifd:cdifProvActivityShape": {
+                  "nodes": []
+                },
+                "cdifd:cdifProvHowToStepShape": {
+                  "nodes": []
+                },
+                "_:n2274633c72f546f3ac56e0ea03d4bc64b36": {
+                  "nodes": []
+                },
+                "cdifd:cdifProvHowToShape": {
+                  "nodes": []
+                },
+                "_:n2274633c72f546f3ac56e0ea03d4bc64b21": {
+                  "nodes": []
+                },
+                "_:n2274633c72f546f3ac56e0ea03d4bc64b13": {
+                  "nodes": []
+                },
+                "_:n2274633c72f546f3ac56e0ea03d4bc64b12": {
+                  "nodes": []
+                },
+                "_:n2274633c72f546f3ac56e0ea03d4bc64b22": {
+                  "nodes": []
+                },
+                "_:n2274633c72f546f3ac56e0ea03d4bc64b4": {
+                  "nodes": []
+                },
+                "_:n2274633c72f546f3ac56e0ea03d4bc64b23": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifProv/rules.shacl:\n - Shape cdifd:cdifProvActivityShape/sh:property/sh:or/rdf:first: *none*\n - Shape _:n2274633c72f546f3ac56e0ea03d4bc64b5: *none*\n - Shape cdifd:cdifProvActivityShape/sh:property/sh:or/rdf:first: *none*\n - Shape _:n2274633c72f546f3ac56e0ea03d4bc64b35: *none*\n - Shape cdifd:cdifProvActivityShape: *none*\n - Shape cdifd:cdifProvHowToStepShape: *none*\n - Shape _:n2274633c72f546f3ac56e0ea03d4bc64b36: *none*\n - Shape cdifd:cdifProvActivityShape/sh:property/sh:or/rdf:first: *none*\n - Shape cdifd:cdifProvHowToShape: *none*\n - Shape _:n2274633c72f546f3ac56e0ea03d4bc64b21: *none*\n - Shape _:n2274633c72f546f3ac56e0ea03d4bc64b13: *none*\n - Shape _:n2274633c72f546f3ac56e0ea03d4bc64b12: *none*\n - Shape _:n2274633c72f546f3ac56e0ea03d4bc64b22: *none*\n - Shape _:n2274633c72f546f3ac56e0ea03d4bc64b4: *none*\n - Shape cdifd:cdifProvActivityShape/sh:property/sh:or/rdf:first: *none*\n - Shape _:n2274633c72f546f3ac56e0ea03d4bc64b23: *none*\n"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "globalErrors": {},
+  "counts": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1
+  }
+}

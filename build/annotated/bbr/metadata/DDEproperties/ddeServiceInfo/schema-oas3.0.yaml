@@ -1,0 +1,259 @@
+x-defs:
+  cdif.bbr.metadata.schemaorgProperties.additionalProperty:
+    type: object
+    title: additionalProperty PropertyValue
+    description: 'PropertyValue values required to define a soft-typed property with
+      a value. '
+    properties:
+      '@type':
+        type: string
+        enum:
+        - schema:PropertyValue
+      schema:propertyID:
+        type: array
+        items:
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeServiceInfo/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/propertyID_item
+        minItems: 1
+        description: identifier or name for the property concept quantified by the
+          values in this variable slot. Multiple values can specify the property at
+          different levels of granularity.
+      schema:name:
+        type: string
+      schema:value:
+        type: string
+    required:
+    - schema:name
+    - schema:value
+    $defs:
+      DefinedTerm:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeServiceInfo/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
+      propertyID_item:
+        anyOf:
+        - type: string
+        - type: object
+          properties:
+            '@id':
+              type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeServiceInfo/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/DefinedTerm
+    x-jsonld-prefixes:
+      schema: http://schema.org/
+      nxs: http://purl.org/nexusformat/definitions/
+    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  cdif.bbr.metadata.schemaorgProperties.definedTerm:
+    description: schema.org Defined Term schema
+    type: object
+    properties:
+      '@type':
+        enum:
+        - schema:DefinedTerm
+      schema:name:
+        type: string
+        description: text label for the term that is useful to human user
+      schema:identifier:
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeServiceInfo/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+      schema:inDefinedTermSet:
+        type: string
+        description: Identifier for the controlled vocabulary responsible for this
+          keyword.
+      schema:termCode:
+        type: string
+        description: A representative code for this keyword in the controlled vocabulary
+          (Optional).  Analogous to skos:Notation
+    allOf:
+    - required:
+      - '@type'
+    - anyOf:
+      - required:
+        - schema:name
+      - required:
+        - schema:identifier
+      - required:
+        - schema:termCode
+    x-jsonld-prefixes:
+      schema: http://schema.org/
+    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  cdif.bbr.metadata.schemaorgProperties.identifier:
+    description: Properties for a schema.org identifier
+    type: object
+    properties:
+      '@type':
+        type: string
+        enum:
+        - schema:PropertyValue
+      schema:propertyID:
+        type: string
+        description: In this context for the schema:PropertyValue, this field is an
+          identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/
+          for interoperability
+      schema:value:
+        type: string
+        description: the identifier string. E.g. 10.5066/F7VX0DMQ
+      schema:url:
+        type: string
+        format: uri
+        description: 'web-resolveable string for the identifier; host name part is
+          location of a resolver that will return some representation for the given
+          identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ '
+    allOf:
+    - required:
+      - '@type'
+    - anyOf:
+      - required:
+        - schema:value
+      - required:
+        - schema:url
+    x-jsonld-prefixes:
+      schema: http://schema.org/
+    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+title: DDE Service Information properties
+description: Conditional extension for service resources with DDE service type constraints.
+  Implements SV_ServiceIdentification entity (DDE spec Table 2) with serviceType,
+  containsOperations, accessProperties, operatedDataset, and endpointDescription.
+type: object
+properties:
+  schema:distribution:
+    type: array
+    description: Must contain at least one WebAPI with a serviceType from the DDE
+      ServiceTypeCode codelist.
+    contains:
+      type: object
+      properties:
+        '@type':
+          type: array
+          items:
+            type: string
+          contains:
+            enum:
+            - schema:WebAPI
+          minItems: 1
+        schema:serviceType:
+          type: object
+          properties:
+            '@type':
+              enum:
+              - schema:DefinedTerm
+            schema:inDefinedTermSet:
+              enum:
+              - dde:codelist/ServiceTypeCode
+            schema:termCode:
+              type: string
+              enum:
+              - DataService>DataAccess
+              - DataService>DataWorkflow
+              - DataService>DataProcessing
+              - DataService>MapView
+              - DataService>Other
+              - DDE_GeoscienceKnowledgeDirectory
+              - DDE_GeoscienceKnowledgeContent
+              - DDE_KnowledgeReasoning
+              - DDE_DeepShovel
+              - DDE_Scholar
+              - DDE_OtherKnowledge
+              - DDE_PlatformCatalogue
+              - DDE_PlatformRegistry
+              - DDE_PlatformModel
+              - DDE_PlatformCloudComputing
+              - DDE_PlatformAnnotation
+              - DDE_API_Information
+              - DDE_EarthExplorer
+              - DDE_Platform>DataEvaluation
+              - DDE_Platform>DataIdentifier
+              - DDE_Platform>Other
+              - Theme>MineralResourceAssessment
+              - Theme>GeologicMapping
+              - Theme>GeologicalTime
+              - Theme>GeologicalOccurrence
+              - Theme>Dinosaur
+              - Theme>GeographicName
+              - Theme>GeomorphologyMapping
+              - Theme>GeoscienceStandard
+              - Theme>Other
+              - VocabularyService
+              - RegistryService
+              - DiscoveryService
+              - ViewService
+              - OtherService
+          required:
+          - '@type'
+          - schema:inDefinedTermSet
+          - schema:termCode
+        schema:potentialAction:
+          type: array
+          description: Operations available on the service (containsOperations).
+          items:
+            type: object
+            properties:
+              '@type':
+                type: string
+              schema:name:
+                type: string
+              schema:description:
+                type: string
+            required:
+            - schema:name
+        schema:termsOfService:
+          description: Access properties and constraints for the service.
+          anyOf:
+          - type: string
+          - type: object
+            properties:
+              '@type':
+                enum:
+                - schema:CreativeWork
+              schema:name:
+                type: string
+              schema:url:
+                type: string
+                format: uri
+        schema:documentation:
+          description: Endpoint description document URL or reference.
+          anyOf:
+          - type: string
+            format: uri
+          - type: object
+            properties:
+              '@type':
+                enum:
+                - schema:CreativeWork
+              schema:name:
+                type: string
+              schema:url:
+                type: string
+                format: uri
+      required:
+      - '@type'
+      - schema:serviceType
+    minContains: 1
+  schema:dataset:
+    type: array
+    description: Datasets operated on by the service (operatedDataset). XSD type is
+      MD_Identifier (code + codeSpace + version). Mapped to Identifier PropertyValue
+      pattern (value or url required).
+    items:
+      anyOf:
+      - type: string
+        format: uri
+      - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeServiceInfo/schema-oas3.0.yaml#/$defs/Identifier
+  schema:additionalProperty:
+    type: array
+    description: Optional properties for service resources.
+    items:
+      $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeServiceInfo/schema-oas3.0.yaml#/$defs/AdditionalProperty
+required:
+- schema:distribution
+$defs:
+  AdditionalProperty:
+    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeServiceInfo/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty
+  DefinedTerm:
+    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeServiceInfo/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
+  Identifier:
+    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeServiceInfo/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+x-jsonld-prefixes:
+  schema: http://schema.org/
+  dde: https://www.ddeworld.org/resource/
+x-schema-version: https://json-schema.org/draft/2020-12/schema

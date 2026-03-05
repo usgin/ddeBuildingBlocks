@@ -1,0 +1,27 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+title: DDE Geoscience Discovery metadata schema
+description: JSON schema for JSON-LD documents that describe geoscience datasets for
+  the DDE Discovery profile. Composes CDIF mandatory and optional properties with
+  DDE-specific required and optional extensions. DDE adds resource typing from the
+  DDE ResourceTypeCode codelist, topic category and acquisition type keywords from
+  DDE codelists, browse graphics, DDE profile conformance, alternate names, and measurement
+  techniques. Conditional extensions for imagery (ddeImagery) and services (ddeServiceInfo)
+  are NOT included in the base profile.
+allOf:
+- $ref: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifMandatory/schema.yaml
+- $ref: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifOptional/schema.yaml
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeRequired/schema.yaml
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
+x-jsonld-prefixes:
+  schema: http://schema.org/
+  cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/
+  dcterms: http://purl.org/dc/terms/
+  geosparql: http://www.opengis.net/ont/geosparql#
+  spdx: http://spdx.org/rdf/terms#
+  time: http://www.w3.org/2006/time#
+  skos: http://www.w3.org/2004/02/skos/core#
+  dde: https://www.ddeworld.org/resource/
+  dcat: http://www.w3.org/ns/dcat#
+  prov: http://www.w3.org/ns/prov#
+  dqv: http://www.w3.org/ns/dqv#

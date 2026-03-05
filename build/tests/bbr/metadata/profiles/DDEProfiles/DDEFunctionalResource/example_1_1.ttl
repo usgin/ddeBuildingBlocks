@@ -1,0 +1,51 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema1: <http://schema.org/> .
+
+<urn:dde:example-geological-time-viewer> a schema1:Dataset ;
+    schema1:additionalType [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
+            schema1:name "Web Application" ;
+            schema1:termCode "webApplication" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
+            schema1:name "Software" ;
+            schema1:termCode "software" ] ;
+    schema1:creator ( [ a schema1:Organization ;
+                schema1:name "Deep-time Digital Earth (DDE)" ;
+                schema1:url "https://www.ddeworld.org/" ] ) ;
+    schema1:dateModified "2024-09-01" ;
+    schema1:description "Interactive web application for exploring the International Chronostratigraphic Chart. Enables browsing of geological time divisions from Eons to Ages, viewing boundary ages, color codes, and correlations between regional and global stratigraphic schemes. Built on the DDE knowledge graph with data from the International Commission on Stratigraphy." ;
+    schema1:identifier "urn:dde:geol-time-viewer-v2" ;
+    schema1:image [ a schema1:ImageObject ;
+            schema1:contentUrl "https://deep-time.org/images/geol-time-viewer-screenshot.png" ;
+            schema1:encodingFormat "image/png" ;
+            schema1:name "Geological Time Viewer screenshot" ] ;
+    schema1:inLanguage "eng" ;
+    schema1:keywords [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Data Integration Synthesis" ;
+            schema1:termCode "dataIntegrationSynthesis" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
+        "ICS",
+        "chronostratigraphy",
+        "geological time",
+        "stratigraphy" ;
+    schema1:license [ a schema1:CreativeWork ;
+            schema1:name "Creative Commons Attribution 4.0" ;
+            schema1:url "https://creativecommons.org/licenses/by/4.0/" ] ;
+    schema1:name "DDE Geological Time Visualization Application" ;
+    schema1:relatedLink [ a schema1:LinkRole ;
+            schema1:linkRelationship "implementationSoftware" ] ;
+    schema1:subjectOf <urn:uuid:dde-funcres-catalog-record> ;
+    schema1:url "https://deep-time.org/geological-time/" .
+
+<urn:uuid:dde-funcres-catalog-record> a schema1:Dataset ;
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource> ;
+    schema1:about <urn:dde:example-geological-time-viewer> ;
+    schema1:additionalType "dcat:CatalogRecord" ;
+    schema1:sdDatePublished "2024-09-01" .
+

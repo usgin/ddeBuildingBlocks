@@ -1,0 +1,314 @@
+x-defs:
+  cdif.bbr.metadata.cdifProperties.cdifCatalogRecord:
+    type: object
+    description: see https://github.com/Cross-Domain-Interoperability-Framework/Discovery/issues/13
+      for discussion on how to make assertion about the sample registration and metadata
+      distinct from statements about the physical object
+    properties:
+      '@type':
+        type: array
+        items:
+          type: string
+        contains:
+          enum:
+          - schema:Dataset
+        minItems: 1
+      schema:additionalType:
+        type: array
+        description: additional type assertions for the catalog record node. dcat:CatalogRecord
+          is required.
+        items:
+          type: string
+        contains:
+          enum:
+          - dcat:CatalogRecord
+        minItems: 1
+      '@id':
+        type: string
+        description: identifier for the metadata record
+      schema:about:
+        type: object
+        properties:
+          '@id':
+            type: string
+            description: this must be the @id value of the node containing the resource
+              description metadata
+      dcterms:conformsTo:
+        type: array
+        items:
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/conformsTo_item
+        minItems: 1
+        description: uri for specifications that this metadata record conforms to.
+          Minimimally should specify uri for CDIF discovery profile.  Implement as
+          $def to facilitate extension for profiles that need to add conformance statements
+      schema:maintainer:
+        description: iSamples Registrant. identification of the agent that registered
+          the sample, with contact information. Should include person name and affiliation,
+          or position name and affiliation, or just organization name. e-mail address
+          is preferred contact information.
+        anyOf:
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/Person
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/Organization
+      schema:sdDatePublished:
+        description: date of most recent update to the metadata content, extends iSamples
+          schema
+        type: string
+        format: date
+      schema:includedInDataCatalog:
+        type: object
+        description: identify the data collection or repository that contains the
+          described dataset. The value is expected to be a schema:DataCatalog
+        properties:
+          '@id':
+            type: string
+            description: identifier for the containing catalog or repository; example
+              data at https://github.com/ESIPFed/science-on-schema.org/blob/develop/guides/Dataset.md#catalog
+              puts identifier here
+          '@type':
+            type: string
+            default: schema:DataCatalog
+            enum:
+            - schema:DataCatalog
+          schema:name:
+            type: string
+          schema:url:
+            type: string
+            format: uri
+            description: locator to access a landing page for the collection or catalog
+          schema:identifier:
+            description: identifier for the collection or catalog; use identifier_type
+              to provide information on identifier scheme and context for identifier
+            allOf:
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/Identifier
+    required:
+    - schema:about
+    - dcterms:conformsTo
+    - schema:additionalType
+    - '@type'
+    - '@id'
+    $defs:
+      Identifier:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+      Person:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.person
+      Organization:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization
+      conformsTo_item:
+        type: object
+        properties:
+          '@id':
+            type: string
+            description: uri for specifications that this metadata record conforms
+              to
+    x-jsonld-prefixes:
+      schema: http://schema.org/
+      ex: https://example.org/
+      xsd: http://www.w3.org/2001/XMLSchema#
+      dcterms: http://purl.org/dc/terms/
+      dcat: http://www.w3.org/ns/dcat#
+    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifCatalogRecord/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  cdif.bbr.metadata.schemaorgProperties.identifier:
+    description: Properties for a schema.org identifier
+    type: object
+    properties:
+      '@type':
+        type: string
+        enum:
+        - schema:PropertyValue
+      schema:propertyID:
+        type: string
+        description: In this context for the schema:PropertyValue, this field is an
+          identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/
+          for interoperability
+      schema:value:
+        type: string
+        description: the identifier string. E.g. 10.5066/F7VX0DMQ
+      schema:url:
+        type: string
+        format: uri
+        description: 'web-resolveable string for the identifier; host name part is
+          location of a resolver that will return some representation for the given
+          identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ '
+    allOf:
+    - required:
+      - '@type'
+    - anyOf:
+      - required:
+        - schema:value
+      - required:
+        - schema:url
+    x-jsonld-prefixes:
+      schema: http://schema.org/
+    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  cdif.bbr.metadata.schemaorgProperties.person:
+    description: schema for cdif profile of schema.org/Person
+    type: object
+    properties:
+      '@id':
+        type: string
+      '@type':
+        type: string
+        enum:
+        - schema:Person
+      schema:name:
+        type: string
+        description: string label for person that is meaningful for human users
+      schema:description:
+        type: string
+      schema:identifier:
+        description: identifier for person, recommend ORCID
+        anyOf:
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+        - type: string
+      schema:alternateName:
+        type: string
+        description: other labels by which the person might be known
+      schema:affiliation:
+        description: if affiliation is present, value must be a schema:Organization.
+        allOf:
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization
+      schema:contactPoint:
+        type: object
+        properties:
+          '@type':
+            type: string
+            default: schema:ContactPoint
+            enum:
+            - schema:ContactPoint
+          schema:email:
+            type: string
+        description: restrict to email only. Schema.org allows telephone and postal
+          contacts as well
+      schema:sameAs:
+        type: array
+        description: other identifiers for the person
+        items:
+          type: string
+    allOf:
+    - required:
+      - '@type'
+    - anyOf:
+      - required:
+        - schema:name
+      - required:
+        - schema:identifier
+    x-jsonld-prefixes:
+      schema: http://schema.org/
+    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/person/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  cdif.bbr.metadata.schemaorgProperties.organization:
+    type: object
+    properties:
+      '@id':
+        type: string
+      '@type':
+        type: string
+        default: schema:Organization
+        enum:
+        - schema:Organization
+      schema:additionalType:
+        type: array
+        items:
+          anyOf:
+          - type: string
+            enum:
+            - schema:FundingAgency
+            - schema:Consortium
+            - schema:Corporation
+            - schema:EducationalOrganization
+            - schema:FundingScheme
+            - schema:GovernmentOrganization
+            - schema:NGO
+            - schema:Project
+            - schema:ResearchOrganization
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
+          - type: string
+      schema:name:
+        type: string
+        description: string label for organization that is meaningful for human users
+      schema:alternateName:
+        type: string
+        description: other labels by which the organization might be known
+      schema:description:
+        type: string
+      schema:identifier:
+        description: identifier for organization
+        anyOf:
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+        - type: string
+      schema:sameAs:
+        type: array
+        description: other identifiers for the organization
+        items:
+          type: string
+    allOf:
+    - required:
+      - '@type'
+    - anyOf:
+      - required:
+        - schema:name
+      - required:
+        - schema:identifier
+    x-jsonld-prefixes:
+      schema: http://schema.org/
+    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/organization/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  cdif.bbr.metadata.schemaorgProperties.definedTerm:
+    description: schema.org Defined Term schema
+    type: object
+    properties:
+      '@type':
+        enum:
+        - schema:DefinedTerm
+      schema:name:
+        type: string
+        description: text label for the term that is useful to human user
+      schema:identifier:
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+      schema:inDefinedTermSet:
+        type: string
+        description: Identifier for the controlled vocabulary responsible for this
+          keyword.
+      schema:termCode:
+        type: string
+        description: A representative code for this keyword in the controlled vocabulary
+          (Optional).  Analogous to skos:Notation
+    allOf:
+    - required:
+      - '@type'
+    - anyOf:
+      - required:
+        - schema:name
+      - required:
+        - schema:identifier
+      - required:
+        - schema:termCode
+    x-jsonld-prefixes:
+      schema: http://schema.org/
+    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+type: object
+allOf:
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord
+- properties:
+    dcterms:conformsTo:
+      type: array
+      items:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/conformsTo_item
+      minItems: 2
+      contains:
+        type: object
+        properties:
+          '@id':
+            enum:
+            - cdif:profile_ddeCDIF
+        required:
+        - '@id'
+      minContains: 1
+x-jsonld-prefixes:
+  schema: http://schema.org/
+x-schema-version: https://json-schema.org/draft/2020-12/schema

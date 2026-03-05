@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DDE Imagery properties",
+  "description": "Conditional extension for imagery resources. Maps DDE imagery acquisition metadata into the CDIF provenance pattern (cdifProv). Sensor, platform, equipment, and signalGenerator become typed instruments (via schema:additionalType) under prov:wasGeneratedBy activities; collector becomes a schema:participant with DataCollector role; startTime and endTime are temporal bounds on the activity. Wavelength and processedLevel remain as dataset-level additionalProperty values. All properties are optional.",
+  "type": "object",
+  "properties": {
+    "prov:wasGeneratedBy": {
+      "type": "array",
+      "description": "Imagery acquisition activities following the cdifProv pattern. Each activity can include instruments typed with DDE categories (dde:sensorType, dde:platform, dde:equipment, dde:signalGenerator) via prov:used/schema:instrument, a data collector via schema:participant as an agentInRole, and temporal bounds via schema:startTime/schema:endTime.",
+      "items": {
+        "$ref": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifProv/schema.json"
+      }
+    },
+    "schema:additionalProperty": {
+      "type": "array",
+      "description": "Dataset-level additional properties for imagery resources. Wavelength and processedLevel describe the image product itself rather than the acquisition activity.",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/WavelengthPV"
+          },
+          {
+            "$ref": "#/$defs/ProcessedLevelPV"
+          },
+          {
+            "$ref": "#/$defs/AdditionalProperty"
+          }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "AdditionalProperty": {
+      "$ref": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.json"
+    },
+    "WavelengthPV": {
+      "type": "object",
+      "description": "Wavelength range of the imagery (e.g. \"0.45-0.52 micrometers\"). XSD type CharacterString_Type.",
+      "properties": {
+        "@type": {
+          "const": "schema:PropertyValue"
+        },
+        "schema:propertyID": {
+          "type": "array",
+          "contains": {
+            "const": "dde:wavelength"
+          },
+          "minItems": 1
+        },
+        "schema:name": {
+          "type": "string"
+        },
+        "schema:value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "schema:propertyID",
+        "schema:name",
+        "schema:value"
+      ]
+    },
+    "ProcessedLevelPV": {
+      "type": "object",
+      "description": "Processing level of the imagery. Value from ProcessingLevelCode (XSD).",
+      "properties": {
+        "@type": {
+          "const": "schema:PropertyValue"
+        },
+        "schema:propertyID": {
+          "type": "array",
+          "contains": {
+            "const": "dde:processedLevel"
+          },
+          "minItems": 1
+        },
+        "schema:name": {
+          "type": "string"
+        },
+        "schema:value": {
+          "type": "string",
+          "enum": [
+            "Level0",
+            "Level1",
+            "Level2",
+            "Level3",
+            "Level4"
+          ]
+        }
+      },
+      "required": [
+        "schema:propertyID",
+        "schema:name",
+        "schema:value"
+      ]
+    }
+  },
+  "x-jsonld-prefixes": {
+    "schema": "http://schema.org/",
+    "dde": "https://www.ddeworld.org/resource/",
+    "prov": "http://www.w3.org/ns/prov#"
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DDE Service Information properties",
+  "description": "Conditional extension for service resources with DDE service type constraints. Implements SV_ServiceIdentification entity (DDE spec Table 2) with serviceType, containsOperations, accessProperties, operatedDataset, and endpointDescription.",
+  "type": "object",
+  "properties": {
+    "schema:distribution": {
+      "type": "array",
+      "description": "Must contain at least one WebAPI with a serviceType from the DDE ServiceTypeCode codelist.",
+      "contains": {
+        "type": "object",
+        "properties": {
+          "@type": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "contains": {
+              "const": "schema:WebAPI"
+            },
+            "minItems": 1
+          },
+          "schema:serviceType": {
+            "type": "object",
+            "properties": {
+              "@type": {
+                "const": "schema:DefinedTerm"
+              },
+              "schema:inDefinedTermSet": {
+                "const": "dde:codelist/ServiceTypeCode"
+              },
+              "schema:termCode": {
+                "type": "string",
+                "enum": [
+                  "DataService>DataAccess",
+                  "DataService>DataWorkflow",
+                  "DataService>DataProcessing",
+                  "DataService>MapView",
+                  "DataService>Other",
+                  "DDE_GeoscienceKnowledgeDirectory",
+                  "DDE_GeoscienceKnowledgeContent",
+                  "DDE_KnowledgeReasoning",
+                  "DDE_DeepShovel",
+                  "DDE_Scholar",
+                  "DDE_OtherKnowledge",
+                  "DDE_PlatformCatalogue",
+                  "DDE_PlatformRegistry",
+                  "DDE_PlatformModel",
+                  "DDE_PlatformCloudComputing",
+                  "DDE_PlatformAnnotation",
+                  "DDE_API_Information",
+                  "DDE_EarthExplorer",
+                  "DDE_Platform>DataEvaluation",
+                  "DDE_Platform>DataIdentifier",
+                  "DDE_Platform>Other",
+                  "Theme>MineralResourceAssessment",
+                  "Theme>GeologicMapping",
+                  "Theme>GeologicalTime",
+                  "Theme>GeologicalOccurrence",
+                  "Theme>Dinosaur",
+                  "Theme>GeographicName",
+                  "Theme>GeomorphologyMapping",
+                  "Theme>GeoscienceStandard",
+                  "Theme>Other",
+                  "VocabularyService",
+                  "RegistryService",
+                  "DiscoveryService",
+                  "ViewService",
+                  "OtherService"
+                ]
+              }
+            },
+            "required": [
+              "@type",
+              "schema:inDefinedTermSet",
+              "schema:termCode"
+            ]
+          },
+          "schema:potentialAction": {
+            "type": "array",
+            "description": "Operations available on the service (containsOperations).",
+            "items": {
+              "type": "object",
+              "properties": {
+                "@type": {
+                  "type": "string"
+                },
+                "schema:name": {
+                  "type": "string"
+                },
+                "schema:description": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "schema:name"
+              ]
+            }
+          },
+          "schema:termsOfService": {
+            "description": "Access properties and constraints for the service.",
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@type": {
+                    "const": "schema:CreativeWork"
+                  },
+                  "schema:name": {
+                    "type": "string"
+                  },
+                  "schema:url": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                }
+              }
+            ]
+          },
+          "schema:documentation": {
+            "description": "Endpoint description document URL or reference.",
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "@type": {
+                    "const": "schema:CreativeWork"
+                  },
+                  "schema:name": {
+                    "type": "string"
+                  },
+                  "schema:url": {
+                    "type": "string",
+                    "format": "uri"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "required": [
+          "@type",
+          "schema:serviceType"
+        ]
+      },
+      "minContains": 1
+    },
+    "schema:dataset": {
+      "type": "array",
+      "description": "Datasets operated on by the service (operatedDataset). XSD type is MD_Identifier (code + codeSpace + version). Mapped to Identifier PropertyValue pattern (value or url required).",
+      "items": {
+        "anyOf": [
+          {
+            "type": "string",
+            "format": "uri"
+          },
+          {
+            "$ref": "#/$defs/Identifier"
+          }
+        ]
+      }
+    },
+    "schema:additionalProperty": {
+      "type": "array",
+      "description": "Optional properties for service resources.",
+      "items": {
+        "$ref": "#/$defs/AdditionalProperty"
+      }
+    }
+  },
+  "required": [
+    "schema:distribution"
+  ],
+  "$defs": {
+    "AdditionalProperty": {
+      "$ref": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.json"
+    },
+    "DefinedTerm": {
+      "$ref": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.json"
+    },
+    "Identifier": {
+      "$ref": "https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.json"
+    }
+  },
+  "x-jsonld-prefixes": {
+    "schema": "http://schema.org/",
+    "dde": "https://www.ddeworld.org/resource/"
+  }
+}
