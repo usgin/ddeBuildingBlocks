@@ -1,0 +1,30 @@
+---
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+title: DDE Event profile
+description: DDE profile for event resources (initiative, fieldSession).
+  Extends DDEDiscovery with resource type constraint and requires
+  schema:temporalCoverage (mandatory temporal extent for events).
+allOf:
+- $ref: ../DDEDiscovery/schema.yaml
+- properties:
+    'schema:additionalType':
+      contains:
+        type: object
+        properties:
+          '@type':
+            const: schema:DefinedTerm
+          'schema:inDefinedTermSet':
+            const: 'dde:codelist/ResourceTypeCode'
+          'schema:termCode':
+            type: string
+            enum:
+            - initiative
+            - fieldSession
+        required:
+        - '@type'
+        - 'schema:inDefinedTermSet'
+        - 'schema:termCode'
+      minContains: 1
+  required:
+  - 'schema:temporalCoverage'

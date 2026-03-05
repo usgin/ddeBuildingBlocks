@@ -1,0 +1,39 @@
+---
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+title: DDE Functional Resource profile
+description: DDE profile for functional resources (application, webApplication,
+  model). Extends DDEDiscovery with resource type constraint and requires
+  a schema:relatedLink with linkRelationship "implementationSoftware".
+allOf:
+- $ref: ../DDEDiscovery/schema.yaml
+- properties:
+    'schema:additionalType':
+      contains:
+        type: object
+        properties:
+          '@type':
+            const: schema:DefinedTerm
+          'schema:inDefinedTermSet':
+            const: 'dde:codelist/ResourceTypeCode'
+          'schema:termCode':
+            type: string
+            enum:
+            - application
+            - webApplication
+            - model
+        required:
+        - '@type'
+        - 'schema:inDefinedTermSet'
+        - 'schema:termCode'
+      minContains: 1
+    'schema:relatedLink':
+      type: array
+      contains:
+        type: object
+        properties:
+          'schema:linkRelationship':
+            const: implementationSoftware
+        required:
+        - 'schema:linkRelationship'
+      minContains: 1

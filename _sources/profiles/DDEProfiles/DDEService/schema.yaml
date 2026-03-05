@@ -1,0 +1,30 @@
+---
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+title: DDE Service profile
+description: DDE profile for service resources (repository, service, webAPI).
+  Extends DDEDiscovery with resource type constraint and ddeServiceInfo
+  conditional properties.
+allOf:
+- $ref: ../DDEDiscovery/schema.yaml
+- $ref: ../../../DDEproperties/ddeServiceInfo/schema.yaml
+- properties:
+    'schema:additionalType':
+      contains:
+        type: object
+        properties:
+          '@type':
+            const: schema:DefinedTerm
+          'schema:inDefinedTermSet':
+            const: 'dde:codelist/ResourceTypeCode'
+          'schema:termCode':
+            type: string
+            enum:
+            - repository
+            - service
+            - webAPI
+        required:
+        - '@type'
+        - 'schema:inDefinedTermSet'
+        - 'schema:termCode'
+      minContains: 1

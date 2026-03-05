@@ -1,0 +1,78 @@
+---
+$schema: https://json-schema.org/draft/2020-12/schema
+title: DDE Required metadata properties
+description: Extends CDIF mandatory metadata with DDE-specific required fields.
+allOf:
+- $ref: '#/$defs/CdifMandatory'
+- type: object
+  properties:
+    'schema:subjectOf':
+      $ref: '#/$defs/DdeSubject'
+    'schema:additionalType':
+      $ref: '../ddeResourceType/schema.yaml#/properties/schema:additionalType'
+    'schema:keywords':
+      type: array
+      description: Extends base CDIF keyword schema to require DefinedTerms from
+        both the DDE TopicCategoryCode and AcquisitionTypeCode codelists.
+      minItems: 2
+      items:
+        anyOf:
+        - $ref: '#/$defs/DefinedTerm'
+        - type: string
+      allOf:
+      - contains:
+          type: object
+          properties:
+            '@type':
+              const: schema:DefinedTerm
+            'schema:inDefinedTermSet':
+              const: 'dde:codelist/TopicCategoryCode'
+          required:
+          - '@type'
+          - 'schema:inDefinedTermSet'
+        minContains: 1
+      - contains:
+          type: object
+          properties:
+            '@type':
+              const: schema:DefinedTerm
+            'schema:inDefinedTermSet':
+              const: 'dde:codelist/AcquisitionTypeCode'
+          required:
+          - '@type'
+          - 'schema:inDefinedTermSet'
+        minContains: 1
+    'schema:image':
+      type: array
+      description: Browse graphics for the resource. At least one ImageObject is required
+        for DDE metadata.
+      minItems: 1
+      items:
+        type: object
+        properties:
+          '@type':
+            const: schema:ImageObject
+          'schema:contentUrl':
+            type: string
+            format: uri
+            description: URL to the image file
+          'schema:name':
+            type: string
+            description: Caption or title for the browse graphic
+          'schema:encodingFormat':
+            type: string
+            description: MIME type of the image
+        required:
+        - '@type'
+        - 'schema:contentUrl'
+  required:
+  - 'schema:additionalType'
+  - 'schema:keywords'
+  - 'schema:image'
+$defs:
+  CdifMandatory:
+    $ref: https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/schema.yaml
+  DefinedTerm:
+    $ref: https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml
+  DdeSubject:
+    $ref: ../ddeSubject/schema.yaml

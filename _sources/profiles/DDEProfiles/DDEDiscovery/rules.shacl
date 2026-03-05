@@ -1,0 +1,177 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix dcterms:     <http://purl.org/dc/terms/>.
+@prefix spdx:        <http://spdx.org/rdf/terms#>.
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+# rules are inherited from schemas cited in 'allOf':
+# cdifMandatory, cdifOptional, ddeRequired, ddeOptional
+
+cdifd:DDEDatasetMandatoryShape a sh:NodeShape ;
+# only apply to root Dataset nodes
+	sh:target [
+	  a sh:SPARQLTarget ;
+	  sh:prefixes (
+         [ sh:prefix "schema" ; sh:namespace "http://schema.org/" ]
+         [ sh:prefix "ex" ; sh:namespace "https://example.org/" ]
+       );
+    sh:select """
+       PREFIX schema: <http://schema.org/>
+       PREFIX ex: <https://example.org/>
+            SELECT ?this
+            WHERE {
+              ?this a schema:Dataset .
+              MINUS {
+                ?parent a schema:Dataset .
+                ?parent ?p ?this .
+                FILTER (?parent != ?this)
+                FILTER (?p != schema:about)
+              }
+            }
+          """ ;
+	] ;
+
+    sh:property
+		cdifd:resourceIdentifierProperty,
+		cdifd:nameProperty,
+		cdifd:rightsProperty,
+		cdifd:dateModifiedProperty,
+		cdifd:ddeResourceTypeProperty,
+		cdifd:ddeKeywordsProperty,
+		cdifd:ddeImageProperty
+.
+
+cdifd:resourceIdentifierProperty
+    a sh:PropertyShape ;
+    sh:path schema:identifier ;
+	sh:minCount 1 ;
+	sh:or (
+		[sh:datatype xsd:string ;]
+		[sh:class  schema:PropertyValue ;
+			sh:property
+				[sh:path schema:propertyID ;
+				  sh:datatype xsd:string ;
+				  sh:severity sh:Warning ;
+				  sh:message "If specifying an identifier via the PropertyValue, the scheme must be identified"
+				];
+			sh:or (
+			   [sh:property
+				[sh:path schema:url ;
+				  sh:datatype xsd:string ;
+				]]
+			   [sh:property
+				[sh:path schema:value ;
+				  sh:datatype xsd:string ;
+				]]
+				)
+			]
+		);
+    sh:message "An identifier for the documented resource must be provided"
+    .
+
+cdifd:nameProperty
+    a sh:PropertyShape ;
+    sh:path schema:name;
+	sh:minCount 1 ;
+    sh:datatype xsd:string ;
+	sh:minLength 5 ;
+    sh:message "a name for the resource must be provided, with at least 5 characters."
+    .
+
+cdifd:rightsProperty
+	a sh:PropertyShape ;
+	sh:path [sh:alternativePath ( schema:license  schema:conditionsOfAccess ) ];
+	sh:or (
+		[sh:nodeKind sh:IRI ]
+		[sh:datatype xsd:string ]
+		[sh:class schema:CreativeWork;
+		  sh:property
+				[
+                    sh:path schema:url ;
+                    sh:minCount 1 ;
+                    sh:datatype xsd:string ;
+                    sh:pattern "^https?:\\/\\/[^\\s]+$" ;
+                    sh:message "value must be a resolvable URL"
+                   ]
+         ]
+	);
+	sh:minCount 1 ;
+	sh:message "information about licenses or access limitations must be described"
+	.
+
+cdifd:dateModifiedProperty
+    a sh:PropertyShape ;
+    sh:path schema:dateModified;
+	sh:minCount 1 ;
+	sh:datatype xsd:string ;
+	sh:pattern "^[1-2][0-9]{3}-([0][1-9]|[1][0-2])(-([0-2][0-9]|[3][0-1])(T([0-1][0-9]|[2][0-3]):[0-5][0-9](:[0-5][0-9](Z|[+-][0-2][0-9]:[0-5][0-9])?)?)?)?$" ;
+    sh:message "Date of most recent update is required, using ISO8601 format."
+    .
+
+cdifd:ddeResourceTypeProperty
+    a sh:PropertyShape ;
+    sh:path schema:additionalType ;
+    sh:minCount 1 ;
+    sh:message "DDE metadata must include at least one resource type from the DDE ResourceTypeCode codelist via schema:additionalType" ;
+    .
+
+cdifd:ddeKeywordsProperty
+    a sh:PropertyShape ;
+    sh:path schema:keywords ;
+    sh:minCount 2 ;
+    sh:message "DDE metadata must include keywords from both DDE TopicCategoryCode and AcquisitionTypeCode codelists" ;
+    .
+
+cdifd:ddeImageProperty
+    a sh:PropertyShape ;
+    sh:path schema:image ;
+    sh:minCount 1 ;
+    sh:class schema:ImageObject ;
+    sh:message "DDE metadata must include at least one browse graphic (schema:ImageObject)" ;
+    .
+
+cdifd:DDECatalogRecordShape
+    a sh:NodeShape ;
+	sh:target [
+	  a sh:SPARQLTarget ;
+	  sh:prefixes (
+         [ sh:prefix "schema" ; sh:namespace "http://schema.org/" ]
+       );
+        sh:select  """
+            PREFIX schema: <http://schema.org/>
+            SELECT ?this
+            WHERE {
+            ?this a schema:Dataset ;
+             schema:about ?parent.
+            }
+        """;
+	] ;
+	sh:nodeKind sh:IRI ;
+	sh:property [
+        sh:path dcterms:conformsTo ;
+        sh:minCount 2 ;
+        sh:message "DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF" ;
+    ] ;
+	sh:property [
+        sh:path schema:about ;
+        sh:nodeKind sh:IRI ;
+        sh:minCount 1 ;
+        sh:message "link to the target of the metadata metadata node using the about property" ;
+    ] ;
+	.
+
+cdifd:DDEImageObjectShape
+    a sh:NodeShape ;
+    sh:targetClass schema:ImageObject ;
+    sh:property [
+        sh:path schema:contentUrl ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[a-zA-Z][a-zA-Z0-9+.-]*:[^\\s]*$" ;
+        sh:message "an ImageObject must have a contentUrl that is a valid URI" ;
+    ] ;
+    .

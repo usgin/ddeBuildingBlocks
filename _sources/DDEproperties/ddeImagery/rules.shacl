@@ -1,0 +1,43 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+# Imagery properties validation is conditional --
+# only applies when the resource is classified as an imagery type.
+# Validates dataset-level additional properties (wavelength, processedLevel).
+
+cdifd:DDEImageryPropertyShape
+    a sh:NodeShape ;
+    sh:targetClass schema:PropertyValue ;
+    sh:property [
+        sh:path schema:name ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 2 ;
+        sh:message "imagery additional properties must have a meaningful name" ;
+    ] ;
+    sh:property [
+        sh:path schema:value ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "imagery additional properties must have a value" ;
+    ] ;
+    .
+
+# Validates that instruments used in imagery acquisition activities have a name.
+
+cdifd:DDEImageryInstrumentShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Thing ;
+    sh:property [
+        sh:path schema:name ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+        sh:message "imagery instruments must have a name" ;
+    ] ;
+    .

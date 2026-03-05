@@ -1,0 +1,60 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix dcterms:     <http://purl.org/dc/terms/>.
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+# rules inherited from cdifMandatory, ddeSubject, ddeResourceType
+
+cdifd:DDERequiredDatasetShape a sh:NodeShape ;
+    sh:target [
+      a sh:SPARQLTarget ;
+      sh:prefixes (
+         [ sh:prefix "schema" ; sh:namespace "http://schema.org/" ]
+       );
+    sh:select """
+       PREFIX schema: <http://schema.org/>
+            SELECT ?this
+            WHERE {
+              ?this a schema:Dataset .
+              MINUS {
+                ?parent a schema:Dataset .
+                ?parent ?p ?this .
+                FILTER (?parent != ?this)
+                FILTER (?p != schema:about)
+              }
+            }
+          """ ;
+    ] ;
+    sh:property [
+        sh:path schema:additionalType ;
+        sh:minCount 1 ;
+        sh:message "DDE metadata must specify at least one resource type from the DDE ResourceTypeCode codelist via schema:additionalType" ;
+    ] ;
+    sh:property [
+        sh:path schema:keywords ;
+        sh:minCount 2 ;
+        sh:message "DDE metadata must include keywords from both DDE TopicCategoryCode and AcquisitionTypeCode codelists" ;
+    ] ;
+    sh:property [
+        sh:path schema:image ;
+        sh:minCount 1 ;
+        sh:class schema:ImageObject ;
+        sh:message "DDE metadata must include at least one browse graphic (schema:ImageObject) with a contentUrl" ;
+    ] ;
+    .
+
+cdifd:DDEImageObjectShape
+    a sh:NodeShape ;
+    sh:targetClass schema:ImageObject ;
+    sh:property [
+        sh:path schema:contentUrl ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:pattern "^[a-zA-Z][a-zA-Z0-9+.-]*:[^\\s]*$" ;
+        sh:message "an ImageObject must have a contentUrl that is a valid URI" ;
+    ] ;
+    .

@@ -1,0 +1,30 @@
+---
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+title: DDE Dataset profile
+description: DDE profile for dataset resources (dataset, dataCatalog, geographicDataset,
+  nonGeographicDataset). Extends DDEDiscovery with resource type constraint.
+  For geographicDataset, compose with ddeGeographicDataset building block.
+allOf:
+- $ref: ../DDEDiscovery/schema.yaml
+- properties:
+    'schema:additionalType':
+      contains:
+        type: object
+        properties:
+          '@type':
+            const: schema:DefinedTerm
+          'schema:inDefinedTermSet':
+            const: 'dde:codelist/ResourceTypeCode'
+          'schema:termCode':
+            type: string
+            enum:
+            - dataset
+            - dataCatalog
+            - geographicDataset
+            - nonGeographicDataset
+        required:
+        - '@type'
+        - 'schema:inDefinedTermSet'
+        - 'schema:termCode'
+      minContains: 1

@@ -1,0 +1,30 @@
+---
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+title: DDE AudioVisual Product profile
+description: DDE profile for audiovisual resources (movie, sound). Extends
+  DDEDiscovery with resource type constraint and schema:duration.
+allOf:
+- $ref: ../DDEDiscovery/schema.yaml
+- properties:
+    'schema:additionalType':
+      contains:
+        type: object
+        properties:
+          '@type':
+            const: schema:DefinedTerm
+          'schema:inDefinedTermSet':
+            const: 'dde:codelist/ResourceTypeCode'
+          'schema:termCode':
+            type: string
+            enum:
+            - movie
+            - sound
+        required:
+        - '@type'
+        - 'schema:inDefinedTermSet'
+        - 'schema:termCode'
+      minContains: 1
+    'schema:duration':
+      type: string
+      description: Duration in ISO 8601 format (e.g., PT1H30M, PT45S).

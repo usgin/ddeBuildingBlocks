@@ -1,0 +1,26 @@
+---
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+title: DDE Software profile
+description: DDE profile for software resources. Extends DDEDiscovery with
+  resource type constraint.
+allOf:
+- $ref: ../DDEDiscovery/schema.yaml
+- properties:
+    'schema:additionalType':
+      contains:
+        type: object
+        properties:
+          '@type':
+            const: schema:DefinedTerm
+          'schema:inDefinedTermSet':
+            const: 'dde:codelist/ResourceTypeCode'
+          'schema:termCode':
+            type: string
+            enum:
+            - software
+        required:
+        - '@type'
+        - 'schema:inDefinedTermSet'
+        - 'schema:termCode'
+      minContains: 1

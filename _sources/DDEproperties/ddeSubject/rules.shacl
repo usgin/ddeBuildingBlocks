@@ -1,0 +1,32 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix dcterms:     <http://purl.org/dc/terms/>.
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+cdifd:DDECatalogRecordShape
+    a sh:NodeShape ;
+    sh:target [
+      a sh:SPARQLTarget ;
+      sh:prefixes (
+         [ sh:prefix "schema" ; sh:namespace "http://schema.org/" ]
+         [ sh:prefix "dcterms" ; sh:namespace "http://purl.org/dc/terms/" ]
+       );
+        sh:select  """
+            PREFIX schema: <http://schema.org/>
+            SELECT ?this
+            WHERE {
+            ?this a schema:Dataset ;
+             schema:about ?parent.
+            }
+        """;
+    ] ;
+    sh:property [
+        sh:path dcterms:conformsTo ;
+        sh:minCount 2 ;
+        sh:message "DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF" ;
+    ] ;
+    .

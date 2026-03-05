@@ -1,0 +1,52 @@
+---
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+title: DDE Collection profile
+description: DDE profile for collection resources (aggregate, collection, series,
+  learningResource, guide). Extends DDEDiscovery with resource type constraint
+  and requires schema:hasPart to describe collection members.
+allOf:
+- $ref: ../DDEDiscovery/schema.yaml
+- properties:
+    'schema:additionalType':
+      contains:
+        type: object
+        properties:
+          '@type':
+            const: schema:DefinedTerm
+          'schema:inDefinedTermSet':
+            const: 'dde:codelist/ResourceTypeCode'
+          'schema:termCode':
+            type: string
+            enum:
+            - aggregate
+            - collection
+            - series
+            - learningResource
+            - guide
+        required:
+        - '@type'
+        - 'schema:inDefinedTermSet'
+        - 'schema:termCode'
+      minContains: 1
+    'schema:hasPart':
+      type: array
+      description: Members of the collection. At least one part is required.
+      minItems: 1
+      items:
+        type: object
+        properties:
+          '@type':
+            type: string
+            default: schema:CreativeWork
+          'schema:name':
+            type: string
+          'schema:description':
+            type: string
+          'schema:url':
+            type: string
+            format: uri
+        required:
+        - 'schema:name'
+  required:
+  - 'schema:hasPart'
