@@ -1,0 +1,86 @@
+name: Deploy custom bblocks-viewer
+
+on:
+  workflow_run:
+    workflows: ["Validate and process Building Blocks"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy-viewer:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get GitHub Pages URL
+        id: pages-url
+        run: |
+          URL=$(gh api repos/${{ github.repository }}/pages --jq '.html_url' 2>/dev/null || echo "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/")
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Read repo title from bblocks-config.yaml
+        id: config
+        run: |
+          TITLE=$(grep '^name:' bblocks-config.yaml | sed 's/^name: *//')
+          echo "title=$TITLE" >> "$GITHUB_OUTPUT"
+
+      - name: Generate config.js and index.html
+        run: |
+          PAGES_URL="${{ steps.pages-url.outputs.url }}"
+          TITLE="${{ steps.config.outputs.title }}"
+          BASE_PATH=$(echo "$PAGES_URL" | sed 's|https\?://[^/]*||')
+          cat > config.js << EOF
+          window.bblocksRegister = '${PAGES_URL}build/register.json';
+          window.bblocksViewer = {
+            title: "${TITLE}",
+            showImported: 0,
+            baseUrl: '${BASE_PATH}',
+          };
+          EOF
+          cat > index.html << EOF
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <link rel="icon" href="https://smrgeoinfo.github.io/bblocks-viewer/favicon.ico" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <title>OGC Location Building Blocks</title>
+            <script src="${PAGES_URL}config.js"></script>
+            <script type="module" crossorigin src="https://smrgeoinfo.github.io/bblocks-viewer/assets/index.js"></script>
+            <link rel="stylesheet" href="https://smrgeoinfo.github.io/bblocks-viewer/assets/index.css">
+          </head>
+          <body>
+            <div id="app"></div>
+          </body>
+          </html>
+          EOF
+          cp index.html 404.html
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
