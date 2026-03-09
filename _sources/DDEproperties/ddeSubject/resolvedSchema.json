@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "description": "see https://github.com/Cross-Domain-Interoperability-Framework/Discovery/issues/13 for discussion on how to make assertion about the sample registration and metadata distinct from statements about the physical object",
+  "properties": {
+    "@type": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "const": "schema:Dataset"
+      },
+      "minItems": 1
+    },
+    "schema:additionalType": {
+      "type": "array",
+      "description": "additional type assertions for the catalog record node. dcat:CatalogRecord is required.",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "const": "dcat:CatalogRecord"
+      },
+      "minItems": 1
+    },
+    "@id": {
+      "type": "string",
+      "description": "identifier for the metadata record"
+    },
+    "schema:about": {
+      "type": "object",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "description": "this must be the @id value of the node containing the resource description metadata"
+        }
+      }
+    },
+    "dcterms:conformsTo": {
+      "type": "array",
+      "items": {
+        "$comment": "could not resolve fragment /$defs/conformsTo_item in C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_e033e84u\\metadataBuildingBlocks\\_sources\\cdifProperties\\cdifCatalogRecord\\schema.yaml: \"Cannot resolve pointer /$defs/conformsTo_item at part '$defs'\""
+      },
+      "minItems": 2,
+      "contains": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "const": "cdif:profile_ddeCDIF"
+          }
+        },
+        "required": [
+          "@id"
+        ]
+      },
+      "minContains": 1
+    },
+    "schema:maintainer": {
+      "description": "iSamples Registrant. identification of the agent that registered the sample, with contact information. Should include person name and affiliation, or position name and affiliation, or just organization name. e-mail address is preferred contact information.",
+      "anyOf": [
+        {
+          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_e033e84u\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
+        },
+        {
+          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_e033e84u\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
+        }
+      ]
+    },
+    "schema:sdDatePublished": {
+      "description": "date of most recent update to the metadata content, extends iSamples schema",
+      "type": "string",
+      "format": "date"
+    },
+    "schema:includedInDataCatalog": {
+      "type": "object",
+      "description": "identify the data collection or repository that contains the described dataset. The value is expected to be a schema:DataCatalog",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "description": "identifier for the containing catalog or repository; example data at https://github.com/ESIPFed/science-on-schema.org/blob/develop/guides/Dataset.md#catalog puts identifier here"
+        },
+        "@type": {
+          "type": "string",
+          "default": "schema:DataCatalog",
+          "const": "schema:DataCatalog"
+        },
+        "schema:name": {
+          "type": "string"
+        },
+        "schema:url": {
+          "type": "string",
+          "format": "uri",
+          "description": "locator to access a landing page for the collection or catalog"
+        },
+        "schema:identifier": {
+          "description": "identifier for the collection or catalog; use identifier_type to provide information on identifier scheme and context for identifier",
+          "type": "object",
+          "properties": {
+            "@type": {
+              "type": "string",
+              "const": "schema:PropertyValue"
+            },
+            "schema:propertyID": {
+              "type": "string",
+              "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
+            },
+            "schema:value": {
+              "type": "string",
+              "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
+            },
+            "schema:url": {
+              "type": "string",
+              "format": "uri",
+              "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
+            }
+          },
+          "required": [
+            "@type"
+          ],
+          "anyOf": [
+            {
+              "required": [
+                "schema:value"
+              ]
+            },
+            {
+              "required": [
+                "schema:url"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "schema:about",
+    "dcterms:conformsTo",
+    "schema:additionalType",
+    "@type",
+    "@id"
+  ]
+}

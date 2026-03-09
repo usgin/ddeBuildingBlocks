@@ -1,0 +1,635 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Optional properties for CDIF Discovery metadata schema, with schema: prefixes",
+  "description": "Building block specifies properties for minimal CDIF schama.org discovery record",
+  "type": "object",
+  "properties": {
+    "@id": {
+      "type": "string",
+      "description": "The URI for the resource should be the @id value for the root of the JSON instance document tree. Must be an IRI (e.g. https://doi.org/..., urn:..., or a relative URI like #localid). Note that this identifier can be interpreted to identify the resource that is the subject of this metadata record, or the JSON-LD object that is the digital object containing the metadata information."
+    },
+    "@type": {
+      "description": "a schema.org Class that specifies the expected information content for the metadata record. For CDIF, 'schema:Dataset' is required, but other possible values (e.g. CreativeWork, SoftwareApplication, Product, WebAPI) are sometimes included to enable the schema.org properties used to describe the resource without schema.org validation errors. The array must include at least one value from the known set, but can also include other strings for extensibility.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "enum": [
+          "schema:CreativeWork",
+          "schema:SoftwareApplication",
+          "schema:SoftwareSourceCode",
+          "schema:Product",
+          "schema:WebAPI",
+          "schema:Dataset",
+          "schema:DigitalDocument",
+          "schema:Collection",
+          "schema:ImageObject",
+          "schema:DataCatalog",
+          "schema:DefinedTermSet",
+          "schema:MediaObject"
+        ]
+      },
+      "default": "schema:Dataset",
+      "minItems": 1
+    },
+    "schema:name": {
+      "type": "string",
+      "description": "A descriptive name of a dataset (e.g., 'Snow depth in Northern Hemisphere'). The name should uniquely identify the described resource for human use, in the scope of the metadata catalog containing this metadata record."
+    },
+    "schema:identifier": {
+      "description": "The primary identifier for the dataset; other identifiers should be listed in the sameAs field. Schema.org has three ways of encoding identifiers-- a text description, a URL, or by using the schema:PropertyValue field. The Science on Schema.org guidance strongly recommends using the PropertyValue approach. see https://github.com/ESIPFed/science-on-schema.org   .... Dataset.md#identifier.  Ideally, for any given data provided they would provide identifiers either all as strings or all as identifier_type.",
+      "anyOf": [
+        {
+          "description": "Properties for a schema.org identifier",
+          "type": "object",
+          "properties": {
+            "@type": {
+              "type": "string",
+              "const": "schema:PropertyValue"
+            },
+            "schema:propertyID": {
+              "type": "string",
+              "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
+            },
+            "schema:value": {
+              "type": "string",
+              "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
+            },
+            "schema:url": {
+              "type": "string",
+              "format": "uri",
+              "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
+            }
+          },
+          "required": [
+            "@type"
+          ],
+          "anyOf": [
+            {
+              "required": [
+                "schema:value"
+              ]
+            },
+            {
+              "required": [
+                "schema:url"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "schema:dateModified": {
+      "type": "string",
+      "description": "ISO8601 formatted date (and optional time if relevant) when Dataset was last updated"
+    },
+    "schema:conditionsOfAccess": {
+      "description": "text statement of conditions for use and access; if an online resource documents the restrictions or a URI is used to identify the conditions, recommend using schema:CreativeWork to provide a label (name) and an identifier (URI or URL). ",
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "type": "string",
+                "description": "a reference to a resource defining conditions of Access"
+              }
+            }
+          },
+          {
+            "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_e033e84u\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\labeledLink\\schema.yaml"
+          }
+        ]
+      }
+    },
+    "schema:license": {
+      "description": "legal statement of conditions for use and access; recommend using schema:CreativeWork to provide a label (name) for the license, and an identifier. Sources of license identifiers: https://opensource.org/licenses/, https://creativecommons.org/about/cclicenses/, https://spdx.org/licenses/, http://cor.esipfed.org/ont/earthcube/swl. If only a string is provided, it should be an identifier for the license, ideally a resolvable URI",
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "type": "string",
+                "description": "a reference to a license defintion"
+              }
+            }
+          },
+          {
+            "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_e033e84u\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\labeledLink\\schema.yaml"
+          }
+        ]
+      }
+    },
+    "schema:url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Web Location of a page describing the dataset (landing page), typically providing links or instructions to get the actual resource content; analogous to dcat:accessURL. If a direct link is available to get the data, put in distribution/contentUrl"
+    },
+    "schema:distribution": {
+      "description": "specifies how to download the data in a specific format or access via a web API. This property describes where to get the data and in what format by using the schema:DataDownload type. If user must access data through a landing page, provide link to landing page in the 'url' property for the dataset",
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_e033e84u\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\dataDownload\\schema.yaml"
+          },
+          {
+            "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_e033e84u\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\webAPI\\schema.yaml"
+          }
+        ]
+      }
+    },
+    "schema:subjectOf": {
+      "type": "object",
+      "description": "see https://github.com/Cross-Domain-Interoperability-Framework/Discovery/issues/13 for discussion on how to make assertion about the sample registration and metadata distinct from statements about the physical object",
+      "properties": {
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "const": "schema:Dataset"
+          },
+          "minItems": 1
+        },
+        "schema:additionalType": {
+          "type": "array",
+          "description": "additional type assertions for the catalog record node. dcat:CatalogRecord is required.",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "const": "dcat:CatalogRecord"
+          },
+          "minItems": 1
+        },
+        "@id": {
+          "type": "string",
+          "description": "identifier for the metadata record"
+        },
+        "schema:about": {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "type": "string",
+              "description": "this must be the @id value of the node containing the resource description metadata"
+            }
+          }
+        },
+        "dcterms:conformsTo": {
+          "type": "array",
+          "items": {
+            "$comment": "could not resolve fragment /$defs/conformsTo_item in C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_e033e84u\\metadataBuildingBlocks\\_sources\\cdifProperties\\cdifCatalogRecord\\schema.yaml: \"Cannot resolve pointer /$defs/conformsTo_item at part '$defs'\""
+          },
+          "minItems": 2,
+          "contains": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "const": "cdif:profile_ddeCDIF"
+              }
+            },
+            "required": [
+              "@id"
+            ]
+          },
+          "minContains": 1
+        },
+        "schema:maintainer": {
+          "description": "iSamples Registrant. identification of the agent that registered the sample, with contact information. Should include person name and affiliation, or position name and affiliation, or just organization name. e-mail address is preferred contact information.",
+          "anyOf": [
+            {
+              "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_e033e84u\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
+            },
+            {
+              "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_e033e84u\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
+            }
+          ]
+        },
+        "schema:sdDatePublished": {
+          "description": "date of most recent update to the metadata content, extends iSamples schema",
+          "type": "string",
+          "format": "date"
+        },
+        "schema:includedInDataCatalog": {
+          "type": "object",
+          "description": "identify the data collection or repository that contains the described dataset. The value is expected to be a schema:DataCatalog",
+          "properties": {
+            "@id": {
+              "type": "string",
+              "description": "identifier for the containing catalog or repository; example data at https://github.com/ESIPFed/science-on-schema.org/blob/develop/guides/Dataset.md#catalog puts identifier here"
+            },
+            "@type": {
+              "type": "string",
+              "default": "schema:DataCatalog",
+              "const": "schema:DataCatalog"
+            },
+            "schema:name": {
+              "type": "string"
+            },
+            "schema:url": {
+              "type": "string",
+              "format": "uri",
+              "description": "locator to access a landing page for the collection or catalog"
+            },
+            "schema:identifier": {
+              "description": "identifier for the collection or catalog; use identifier_type to provide information on identifier scheme and context for identifier",
+              "type": "object",
+              "properties": {
+                "@type": {
+                  "type": "string",
+                  "const": "schema:PropertyValue"
+                },
+                "schema:propertyID": {
+                  "type": "string",
+                  "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
+                },
+                "schema:value": {
+                  "type": "string",
+                  "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
+                },
+                "schema:url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
+                }
+              },
+              "required": [
+                "@type"
+              ],
+              "anyOf": [
+                {
+                  "required": [
+                    "schema:value"
+                  ]
+                },
+                {
+                  "required": [
+                    "schema:url"
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      },
+      "required": [
+        "schema:about",
+        "dcterms:conformsTo",
+        "schema:additionalType",
+        "@type",
+        "@id"
+      ]
+    },
+    "schema:additionalType": {
+      "type": "array",
+      "description": "Must include at least one DefinedTerm from the DDE ResourceTypeCode codelist.",
+      "minItems": 1,
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "description": "schema.org Defined Term schema",
+            "type": "object",
+            "properties": {
+              "@type": {
+                "const": "schema:DefinedTerm"
+              },
+              "schema:name": {
+                "type": "string",
+                "description": "text label for the term that is useful to human user"
+              },
+              "schema:identifier": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "description": "Properties for a schema.org identifier",
+                    "type": "object",
+                    "properties": {
+                      "@type": {
+                        "type": "string",
+                        "const": "schema:PropertyValue"
+                      },
+                      "schema:propertyID": {
+                        "type": "string",
+                        "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
+                      },
+                      "schema:value": {
+                        "type": "string",
+                        "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
+                      },
+                      "schema:url": {
+                        "type": "string",
+                        "format": "uri",
+                        "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
+                      }
+                    },
+                    "required": [
+                      "@type"
+                    ],
+                    "anyOf": [
+                      {
+                        "required": [
+                          "schema:value"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "schema:url"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "schema:inDefinedTermSet": {
+                "type": "string",
+                "description": "Identifier for the controlled vocabulary responsible for this keyword."
+              },
+              "schema:termCode": {
+                "type": "string",
+                "description": "A representative code for this keyword in the controlled vocabulary (Optional).  Analogous to skos:Notation"
+              }
+            },
+            "required": [
+              "@type"
+            ],
+            "anyOf": [
+              {
+                "required": [
+                  "schema:name"
+                ]
+              },
+              {
+                "required": [
+                  "schema:identifier"
+                ]
+              },
+              {
+                "required": [
+                  "schema:termCode"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "contains": {
+        "type": "object",
+        "properties": {
+          "@type": {
+            "const": "schema:DefinedTerm"
+          },
+          "schema:inDefinedTermSet": {
+            "const": "dde:codelist/ResourceTypeCode"
+          },
+          "schema:termCode": {
+            "type": "string",
+            "enum": [
+              "aggregate",
+              "application",
+              "webApplication",
+              "collection",
+              "dataset",
+              "dataCatalog",
+              "geographicDataset",
+              "nonGeographicDataset",
+              "document",
+              "article",
+              "thesis",
+              "book",
+              "poster",
+              "webPage",
+              "image",
+              "map",
+              "photograph",
+              "explanatoryFigure",
+              "initiative",
+              "fieldSession",
+              "learningResource",
+              "guide",
+              "model",
+              "movie",
+              "repository",
+              "semanticResource",
+              "definedTermSet",
+              "series",
+              "service",
+              "webAPI",
+              "software",
+              "sound"
+            ]
+          }
+        },
+        "required": [
+          "@type",
+          "schema:inDefinedTermSet",
+          "schema:termCode"
+        ]
+      },
+      "minContains": 1
+    },
+    "schema:keywords": {
+      "type": "array",
+      "description": "Extends base CDIF keyword schema to require DefinedTerms from both the DDE TopicCategoryCode and AcquisitionTypeCode codelists.",
+      "minItems": 2,
+      "items": {
+        "anyOf": [
+          {
+            "description": "schema.org Defined Term schema",
+            "type": "object",
+            "properties": {
+              "@type": {
+                "const": "schema:DefinedTerm"
+              },
+              "schema:name": {
+                "type": "string",
+                "description": "text label for the term that is useful to human user"
+              },
+              "schema:identifier": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "description": "Properties for a schema.org identifier",
+                    "type": "object",
+                    "properties": {
+                      "@type": {
+                        "type": "string",
+                        "const": "schema:PropertyValue"
+                      },
+                      "schema:propertyID": {
+                        "type": "string",
+                        "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
+                      },
+                      "schema:value": {
+                        "type": "string",
+                        "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
+                      },
+                      "schema:url": {
+                        "type": "string",
+                        "format": "uri",
+                        "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
+                      }
+                    },
+                    "required": [
+                      "@type"
+                    ],
+                    "anyOf": [
+                      {
+                        "required": [
+                          "schema:value"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "schema:url"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              "schema:inDefinedTermSet": {
+                "type": "string",
+                "description": "Identifier for the controlled vocabulary responsible for this keyword."
+              },
+              "schema:termCode": {
+                "type": "string",
+                "description": "A representative code for this keyword in the controlled vocabulary (Optional).  Analogous to skos:Notation"
+              }
+            },
+            "required": [
+              "@type"
+            ],
+            "anyOf": [
+              {
+                "required": [
+                  "schema:name"
+                ]
+              },
+              {
+                "required": [
+                  "schema:identifier"
+                ]
+              },
+              {
+                "required": [
+                  "schema:termCode"
+                ]
+              }
+            ]
+          },
+          {
+            "type": "string"
+          }
+        ]
+      },
+      "minContains": 1,
+      "allOf": [
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "@type": {
+                "const": "schema:DefinedTerm"
+              },
+              "schema:inDefinedTermSet": {
+                "const": "dde:codelist/TopicCategoryCode"
+              }
+            },
+            "required": [
+              "@type",
+              "schema:inDefinedTermSet"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "@type": {
+                "const": "schema:DefinedTerm"
+              },
+              "schema:inDefinedTermSet": {
+                "const": "dde:codelist/AcquisitionTypeCode"
+              }
+            },
+            "required": [
+              "@type",
+              "schema:inDefinedTermSet"
+            ]
+          }
+        }
+      ]
+    },
+    "schema:image": {
+      "type": "array",
+      "description": "Browse graphics for the resource. At least one ImageObject is required for DDE metadata.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "@type": {
+            "const": "schema:ImageObject"
+          },
+          "schema:contentUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the image file"
+          },
+          "schema:name": {
+            "type": "string",
+            "description": "Caption or title for the browse graphic"
+          },
+          "schema:encodingFormat": {
+            "type": "string",
+            "description": "MIME type of the image"
+          }
+        },
+        "required": [
+          "@type",
+          "schema:contentUrl"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schema:additionalType",
+    "schema:keywords",
+    "schema:image"
+  ],
+  "anyOf": [
+    {
+      "required": [
+        "schema:url"
+      ]
+    },
+    {
+      "required": [
+        "schema:distribution"
+      ]
+    }
+  ]
+}
