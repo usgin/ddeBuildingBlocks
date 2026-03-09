@@ -220,17 +220,17 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
                     schema1:roleName "DataCollector" ] ;
             schema1:startTime "2023-06-15T03:45:00Z" ;
             prov:used [ schema1:instrument [ a schema1:Thing ;
-                            schema1:additionalType "dde:signalGenerator" ;
-                            schema1:name "Passive solar" ] ],
+                            schema1:additionalType "dde:sensorType" ;
+                            schema1:name "Multispectral" ] ],
                 [ schema1:instrument [ a schema1:Thing ;
                             schema1:additionalType "dde:equipment" ;
                             schema1:name "Operational Land Imager (OLI)" ] ],
                 [ schema1:instrument [ a schema1:Thing ;
-                            schema1:additionalType "dde:platform" ;
-                            schema1:name "Landsat-8" ] ],
+                            schema1:additionalType "dde:signalGenerator" ;
+                            schema1:name "Passive solar" ] ],
                 [ schema1:instrument [ a schema1:Thing ;
-                            schema1:additionalType "dde:sensorType" ;
-                            schema1:name "Multispectral" ] ] ] .
+                            schema1:additionalType "dde:platform" ;
+                            schema1:name "Landsat-8" ] ] ] .
 
 
 ```
