@@ -304,12 +304,12 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
 <urn:dde:example-chronostrat-chart> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Vocabulary" ;
-            schema1:termCode "vocabulary" ],
+            schema1:name "Defined Term Set" ;
+            schema1:termCode "definedTermSet" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Defined Term Set" ;
-            schema1:termCode "definedTermSet" ] ;
+            schema1:name "Vocabulary" ;
+            schema1:termCode "vocabulary" ] ;
     schema1:creator ( [ a schema1:Organization ;
                 schema1:name "International Commission on Stratigraphy" ;
                 schema1:url "https://stratigraphy.org/" ] ) ;
@@ -335,13 +335,13 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
             schema1:name "chart thumbnail" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Data Integration Synthesis" ;
-            schema1:termCode "dataIntegrationSynthesis" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Data Integration Synthesis" ;
+            schema1:termCode "dataIntegrationSynthesis" ],
         "ICS",
         "chronostratigraphy",
         "geological time",
