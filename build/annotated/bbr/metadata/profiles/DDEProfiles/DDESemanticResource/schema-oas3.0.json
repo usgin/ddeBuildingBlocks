@@ -514,38 +514,12 @@
           }
         },
         "schema:distribution": {
-          "description": "Distribution with dual typing for structured or tabular data; extends the CDIFMandatory distribution by requiring a CDI dataset type alongside schema:DataDownload.",
+          "description": "Distribution options for the dataset.",
           "type": "array",
           "items": {
             "anyOf": [
               {
                 "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/DataDownload"
-              },
-              {
-                "description": "Distribution with CDIF dual typing for structured or tabular data",
-                "allOf": [
-                  {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/DataDownload"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "@type": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        },
-                        "contains": {
-                          "enum": [
-                            "cdi:StructuredDataSet",
-                            "cdi:TabularTextDataSet"
-                          ]
-                        },
-                        "minItems": 2
-                      }
-                    }
-                  }
-                ]
               },
               {
                 "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/WebAPI"
@@ -1034,6 +1008,19 @@
             "@type"
           ]
         },
+        "dcterms:conformsTo": {
+          "description": "An identifier for a standard or specification that the distribution conforms to. Recommended to enable machine-actionable data access.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "@id": {
+                "type": "string",
+                "description": "uri for specification that this distribution conforms to"
+              }
+            }
+          }
+        },
         "schema:provider": {
           "type": "array",
           "description": "Party who maintains this particular distribution option for the dataset. Use this property if there are multiple distributions from different providers",
@@ -1100,7 +1087,8 @@
           "description": "Description of access privileges required to use the API, e.g. registration, licensing, payments. Note that access constraints applying to all distributions of the resource should be specified in the access constraints for the resource description as a whole.",
           "oneOf": [
             {
-              "type": "string"
+              "type": "string",
+              "default": "not specified"
             },
             {
               "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI/$defs/LabeledLink"
@@ -1128,7 +1116,8 @@
       },
       "required": [
         "schema:serviceType",
-        "schema:potentialAction"
+        "schema:potentialAction",
+        "schema:termsOfService"
       ],
       "$defs": {
         "LabeledLink": {
@@ -1497,7 +1486,16 @@
           ]
         },
         "schema:contributor": {
-          "oneOf": [
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "type": "string",
+                  "description": "IRI reference to a Person or Organization defined elsewhere"
+                }
+              }
+            },
             {
               "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.person"
             },
@@ -1521,6 +1519,10 @@
       "description": "Funding acknowledgement properties, profile of schema.org/MonetaryGrant",
       "type": "object",
       "properties": {
+        "@id": {
+          "type": "string",
+          "description": "URI identifier for this funding record"
+        },
         "@type": {
           "type": "string",
           "default": "schema:MonetaryGrant",
@@ -1579,11 +1581,6 @@
           "required": [
             "schema:name"
           ]
-        },
-        {
-          "required": [
-            "schema:description"
-          ]
         }
       ],
       "$defs": {
@@ -1604,27 +1601,15 @@
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.schemaorgProperties.variableMeasured": {
-      "description": "CDIF schema.org implemenation of PropertyValue to use as values for variableMeasured",
+      "description": "CDIF schema.org implementation of variableMeasured",
       "type": "object",
       "properties": {
-        "@type": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "contains": {
-            "enum": [
-              "schema:PropertyValue"
-            ]
-          },
-          "minItems": 1
-        },
         "@id": {
           "type": "string"
         },
         "schema:name": {
           "type": "string",
-          "description": "this is the string label that is expected to be associated with the variable in the dataset serialization"
+          "description": "string label associated with the variable in the dataset serialization"
         },
         "schema:description": {
           "type": "string",
@@ -1637,29 +1622,6 @@
             "description": "human intelligible name for variable that conveys semantics"
           }
         },
-        "schema:propertyID": {
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@id": {
-                    "type": "string",
-                    "description": "reference to a skos concept for the property"
-                  }
-                }
-              },
-              {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured/$defs/DefinedTerm"
-              }
-            ]
-          },
-          "description": "identifier or name for the property concept quantified by the values in this variable slot. Multiple values can specify the property at different levels of granularity."
-        },
         "schema:measurementTechnique": {
           "anyOf": [
             {
@@ -1670,7 +1632,7 @@
               "properties": {
                 "@id": {
                   "type": "string",
-                  "description": "reference to a skos concept for the property"
+                  "description": "reference to a skos concept"
                 }
               }
             },
@@ -1678,60 +1640,169 @@
               "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured/$defs/DefinedTerm"
             }
           ],
-          "description": "A text description of the measurement method used to determine values for this variable. If standard measurement protocols are defined and registered, these can be identified via http URI's."
-        },
-        "schema:unitText": {
-          "type": "string",
-          "description": "A string that identifies a unit of measurement that applies to all values for this variable."
-        },
-        "schema:unitCode": {
-          "anyOf": [
-            {
-              "type": "string"
+          "description": "Text description or URI identifying the measurement method."
+        }
+      },
+      "required": [
+        "schema:name"
+      ],
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "@type": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "contains": {
+                "enum": [
+                  "schema:PropertyValue"
+                ]
+              },
+              "minItems": 1
             },
-            {
+            "schema:propertyID": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "@id": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured/$defs/DefinedTerm"
+                  }
+                ]
+              },
+              "description": "identifier or name for the property concept"
+            },
+            "schema:unitText": {
+              "type": "string",
+              "description": "unit of measurement as text"
+            },
+            "schema:unitCode": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "@id": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured/$defs/DefinedTerm"
+                }
+              ],
+              "description": "URI or code identifying the unit of measure"
+            },
+            "schema:minValue": {
+              "type": "number",
+              "description": "minimum numeric value in the dataset"
+            },
+            "schema:maxValue": {
+              "type": "number",
+              "description": "maximum numeric value in the dataset"
+            },
+            "schema:url": {
+              "type": "string",
+              "format": "uri",
+              "description": "link to a web page useful for interpreting the variable"
+            }
+          },
+          "required": [
+            "@type"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "@type": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "contains": {
+                "enum": [
+                  "schema:StatisticalVariable"
+                ]
+              },
+              "minItems": 1
+            },
+            "schema:statType": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "@id": {
+                      "type": "string"
+                    }
+                  }
+                },
+                {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured/$defs/DefinedTerm"
+                }
+              ]
+            },
+            "schema:measuredProperty": {
               "type": "object",
               "properties": {
                 "@id": {
                   "type": "string",
                   "description": "reference to a skos concept for the property"
+                },
+                "@type": {
+                  "type": "string",
+                  "enum": [
+                    "schema:Property"
+                  ]
+                },
+                "schema:name": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "@id": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured/$defs/DefinedTerm"
+                    }
+                  ]
                 }
               }
-            },
-            {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured/$defs/DefinedTerm"
             }
-          ],
-          "description": "Value is expected to be TEXT or URL. We recommend providing an HTTP URI that identifies a unit of measure from a vocabulary accessible on the web. The QUDT unit vocabulary provides and extensive set of registered units of measure that can be used to populate the schema:unitCode property to specify the units of measure used to report datavalues when that is appropriate."
-        },
-        "schema:minValue": {
-          "type": "number",
-          "description": " If the value for the variable is numeric, this is the minimum value that occurs in the dataset. Not useful for other value types."
-        },
-        "schema:maxValue": {
-          "type": "number",
-          "description": " If the value for the variable is numeric, this is the maximum value that occurs in the dataset. Not useful for other value types."
-        },
-        "schema:url": {
-          "type": "string",
-          "format": "uri",
-          "description": "Any schema:Thing can have a URL property, but because the value is simply a url the relationship of the linked resource can not be expressed. Usage is optional. The recommendation is that schema:url should link to a web page that would be useful for a person to interpret the variable, but is not intended to be machine-actionable."
+          },
+          "required": [
+            "@type",
+            "schema:measuredProperty"
+          ]
         }
-      },
+      ],
       "$defs": {
         "DefinedTerm": {
           "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm"
         }
       },
-      "allOf": [
-        {
-          "required": [
-            "@type",
-            "schema:name",
-            "schema:description"
-          ]
-        }
-      ],
       "x-jsonld-prefixes": {
         "schema": "http://schema.org/"
       },
