@@ -11,490 +11,666 @@
         "title": "CDIF Provenance Activity",
         "description": "Extended provenance activity building block for CDIF. Extends the minimal prov:Activity (generatedBy) with schema.org Action properties for comprehensive provenance documentation including agents, instruments, methodology, temporal bounds, action chaining, and more.",
         "type": "object",
-        "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_bfe8cx03\\metadataBuildingBlocks\\_sources\\provProperties\\generatedBy\\schema.yaml",
-        "properties": {
-          "@type": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "minItems": 2,
-            "contains": {
-              "const": "schema:Action"
-            },
-            "description": "Must include both schema:Action and prov:Activity (prov:Activity required by base generatedBy schema)"
+        "allOf": [
+          {
+            "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\provProperties\\generatedBy\\schema.yaml"
           },
-          "prov:used": {
-            "type": "array",
-            "items": {
-              "anyOf": [
-                {
+          {
+            "type": "object",
+            "properties": {
+              "@type": {
+                "type": "array",
+                "items": {
                   "type": "string"
                 },
-                {
-                  "type": "object",
-                  "properties": {
-                    "@id": {
-                      "type": "string",
-                      "description": "a resolvable reference to a representation of the software or instrument used"
-                    }
-                  }
+                "minItems": 2,
+                "contains": {
+                  "const": "schema:Action"
                 },
-                {
-                  "type": "object",
-                  "description": "an item used by the activity that includes a schema:instrument sub-key",
-                  "properties": {
-                    "schema:instrument": {
-                      "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_bfe8cx03\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\instrument\\schema.yaml"
+                "description": "Must include both schema:Action and prov:Activity (prov:Activity required by base generatedBy schema)"
+              },
+              "prov:used": {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "@id": {
+                          "type": "string",
+                          "description": "a resolvable reference to a representation of the software or instrument used"
+                        }
+                      }
+                    },
+                    {
+                      "type": "object",
+                      "description": "an item used by the activity that includes a schema:instrument sub-key",
+                      "properties": {
+                        "schema:instrument": {
+                          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\instrument\\schema.yaml"
+                        }
+                      },
+                      "required": [
+                        "schema:instrument"
+                      ]
                     }
-                  },
-                  "required": [
-                    "schema:instrument"
                   ]
                 }
-              ]
-            }
-          },
-          "schema:name": {
-            "type": "string",
-            "description": "Human-readable name for the activity"
-          },
-          "schema:description": {
-            "type": "string",
-            "description": "Text description of what this activity did"
-          },
-          "schema:identifier": {
-            "description": "Formal identifier for this activity",
-            "anyOf": [
-              {
-                "description": "Properties for a schema.org identifier",
-                "type": "object",
-                "properties": {
-                  "@type": {
-                    "type": "string",
-                    "const": "schema:PropertyValue"
-                  },
-                  "schema:propertyID": {
-                    "type": "string",
-                    "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
-                  },
-                  "schema:value": {
-                    "type": "string",
-                    "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
-                  },
-                  "schema:url": {
-                    "type": "string",
-                    "format": "uri",
-                    "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
-                  }
-                },
-                "required": [
-                  "@type"
-                ],
+              },
+              "schema:name": {
+                "type": "string",
+                "description": "Human-readable name for the activity"
+              },
+              "schema:description": {
+                "type": "string",
+                "description": "Text description of what this activity did"
+              },
+              "schema:identifier": {
+                "description": "Formal identifier for this activity",
                 "anyOf": [
                   {
-                    "required": [
-                      "schema:value"
+                    "description": "Properties for a schema.org identifier",
+                    "type": "object",
+                    "properties": {
+                      "@type": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "const": "schema:PropertyValue"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "contains": {
+                              "const": "schema:PropertyValue"
+                            }
+                          }
+                        ]
+                      },
+                      "schema:propertyID": {
+                        "type": "string",
+                        "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
+                      },
+                      "schema:value": {
+                        "type": "string",
+                        "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
+                      },
+                      "schema:url": {
+                        "type": "string",
+                        "format": "uri",
+                        "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "required": [
+                          "@type"
+                        ]
+                      },
+                      {
+                        "anyOf": [
+                          {
+                            "required": [
+                              "schema:value"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "schema:url"
+                            ]
+                          }
+                        ]
+                      }
                     ]
                   },
                   {
+                    "type": "string"
+                  }
+                ]
+              },
+              "schema:agent": {
+                "description": "Primary responsible agent for this activity (maps to PROV wasAssociatedWith)",
+                "anyOf": [
+                  {
+                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
+                  },
+                  {
+                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
+                  },
+                  {
+                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\agentInRole\\schema.yaml"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "@id": {
+                        "type": "string",
+                        "description": "reference to an agent defined elsewhere"
+                      }
+                    },
                     "required": [
-                      "schema:url"
+                      "@id"
                     ]
                   }
                 ]
               },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "schema:agent": {
-            "description": "Primary responsible agent for this activity (maps to PROV wasAssociatedWith)",
-            "anyOf": [
-              {
-                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_bfe8cx03\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
-              },
-              {
-                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_bfe8cx03\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
-              },
-              {
-                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_bfe8cx03\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\agentInRole\\schema.yaml"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@id": {
-                    "type": "string",
-                    "description": "reference to an agent defined elsewhere"
-                  }
+              "schema:participant": {
+                "description": "Other participants in this activity",
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
+                    },
+                    {
+                      "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
+                    },
+                    {
+                      "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\agentInRole\\schema.yaml"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "@id": {
+                          "type": "string",
+                          "description": "reference to a participant defined elsewhere"
+                        }
+                      },
+                      "required": [
+                        "@id"
+                      ]
+                    }
+                  ]
                 }
-              }
-            ]
-          },
-          "schema:participant": {
-            "description": "Other participants in this activity",
-            "type": "array",
-            "items": {
-              "anyOf": [
-                {
-                  "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_bfe8cx03\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
-                },
-                {
-                  "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_bfe8cx03\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
-                },
-                {
-                  "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_bfe8cx03\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\agentInRole\\schema.yaml"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "@id": {
-                      "type": "string",
-                      "description": "reference to a participant defined elsewhere"
+              },
+              "schema:object": {
+                "description": "Input entity for this activity (for action chaining, references the result of a prior activity)",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "@id": {
+                        "type": "string",
+                        "description": "reference to an input entity"
+                      }
                     }
                   }
-                }
-              ]
-            }
-          },
-          "schema:object": {
-            "description": "Input entity for this activity (for action chaining, references the result of a prior activity)",
-            "anyOf": [
-              {
-                "type": "string"
+                ]
               },
-              {
-                "type": "object",
-                "properties": {
-                  "@id": {
-                    "type": "string",
-                    "description": "reference to an input entity"
-                  }
-                }
-              }
-            ]
-          },
-          "schema:result": {
-            "description": "Output entity produced by this activity (for action chaining, can be referenced as object of a subsequent activity)",
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@id": {
-                    "type": "string",
-                    "description": "reference to an output entity"
-                  }
-                }
-              }
-            ]
-          },
-          "schema:actionStatus": {
-            "type": "string",
-            "description": "Status of this activity",
-            "enum": [
-              "schema:CompletedActionStatus",
-              "schema:ActiveActionStatus",
-              "schema:PotentialActionStatus",
-              "schema:FailedActionStatus"
-            ]
-          },
-          "schema:startTime": {
-            "type": "string",
-            "description": "ISO8601 date-time when the activity started (maps to PROV startedAtTime)"
-          },
-          "schema:endTime": {
-            "type": "string",
-            "description": "ISO8601 date-time when the activity ended (maps to PROV endedAtTime)"
-          },
-          "schema:location": {
-            "description": "Where the activity occurred",
-            "anyOf": [
-              {
-                "description": "Spatial Extent description for CDIF discovery profile.  Note required prefix declaration for geoSparql ( http://www.opengis.net/ont/geosparql#) and OGC simple features (sf: http://www.opengis.net/ont/sf#)",
-                "type": "object",
-                "properties": {
-                  "@type": {
-                    "type": "string",
-                    "const": "schema:Place",
-                    "default": "schema:Place"
+              "schema:result": {
+                "description": "Output entity produced by this activity (for action chaining, can be referenced as object of a subsequent activity)",
+                "anyOf": [
+                  {
+                    "type": "string"
                   },
-                  "schema:name": {
-                    "description": "multiple place names or DefinedTerms that have a place name and URI for the location",
-                    "type": "array",
-                    "items": {
+                  {
+                    "type": "object",
+                    "properties": {
+                      "@id": {
+                        "type": "string",
+                        "description": "reference to an output entity"
+                      }
+                    }
+                  }
+                ]
+              },
+              "schema:actionStatus": {
+                "type": "string",
+                "description": "Status of this activity",
+                "enum": [
+                  "schema:CompletedActionStatus",
+                  "schema:ActiveActionStatus",
+                  "schema:PotentialActionStatus",
+                  "schema:FailedActionStatus"
+                ]
+              },
+              "schema:startTime": {
+                "type": "string",
+                "description": "ISO8601 date-time when the activity started (maps to PROV startedAtTime)"
+              },
+              "schema:endTime": {
+                "type": "string",
+                "description": "ISO8601 date-time when the activity ended (maps to PROV endedAtTime)"
+              },
+              "schema:location": {
+                "description": "Where the activity occurred",
+                "anyOf": [
+                  {
+                    "description": "Spatial Extent description for CDIF discovery profile.  Note required prefix declaration for geoSparql ( http://www.opengis.net/ont/geosparql#) and OGC simple features (sf: http://www.opengis.net/ont/sf#)",
+                    "type": "object",
+                    "properties": {
+                      "@type": {
+                        "default": "schema:Place",
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "const": "schema:Place"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "contains": {
+                              "const": "schema:Place"
+                            }
+                          }
+                        ]
+                      },
+                      "schema:name": {
+                        "description": "multiple place names or DefinedTerms that have a place name and URI for the location",
+                        "type": "array",
+                        "items": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\definedTerm\\schema.yaml"
+                            }
+                          ]
+                        }
+                      },
+                      "schema:geo": {
+                        "description": "Either a bounding box or a point location.",
+                        "anyOf": [
+                          {
+                            "type": "object",
+                            "description": "A point location. Point locations are recommended for data that is associated with specific sample locations, particularly if these are widely spaced such that an enclosing bounding box would be a misleading representation of the spatial location. Be aware that some client applications might only index or display bounding box extents or a single point location.",
+                            "properties": {
+                              "@type": {
+                                "default": "schema:GeoCoordinates",
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "const": "schema:GeoCoordinates"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "contains": {
+                                      "const": "schema:GeoCoordinates"
+                                    }
+                                  }
+                                ]
+                              },
+                              "schema:latitude": {
+                                "type": "number",
+                                "minimum": -90,
+                                "maximum": 90
+                              },
+                              "schema:longitude": {
+                                "type": "number",
+                                "minimum": -180,
+                                "maximum": 180
+                              }
+                            },
+                            "required": [
+                              "@type",
+                              "schema:latitude",
+                              "schema:longitude"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "description": "A schema:GeoShape bounding box. The geometry is described with a set of latitude/longitude pairs (in that order).The documentation for schema:GeoShape states 'Either whitespace or commas can be used to separate latitude and longitude; whitespace should be used when writing a list of several such points.'",
+                            "properties": {
+                              "@type": {
+                                "default": "schema:GeoShape",
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "const": "schema:GeoShape"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "contains": {
+                                      "const": "schema:GeoShape"
+                                    }
+                                  }
+                                ]
+                              },
+                              "schema:box": {
+                                "type": "string",
+                                "description": "A GeoShape box defines an area on the surface of the earth defined by point locations of the southwest corner and northeast corner of the rectangle in latitude-longitude coordinates. A space should be used to separate the latitude and longitude values. The two corner coordinate points are separated by a space. 'East longitude' means positive longitude values are east of the prime (Greenwich) meridian."
+                              }
+                            },
+                            "required": [
+                              "@type",
+                              "schema:box"
+                            ]
+                          },
+                          {
+                            "type": "object",
+                            "description": "A schema:GeoShape curvilinear trace, for resource related to a linear trace like a ship track or airplane flight line",
+                            "properties": {
+                              "@type": {
+                                "default": "schema:GeoShape",
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "const": "schema:GeoShape"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "contains": {
+                                      "const": "schema:GeoShape"
+                                    }
+                                  }
+                                ]
+                              },
+                              "schema:line": {
+                                "type": "string",
+                                "description": "A GeoShape box defines a curvilinear geometry as a string of latitude-longitude coordinates. A space should be used to separate the latitude and longitude values. The coordinate point pairs are also separated by a space. 'East longitude' means positive longitude values are east of the prime (Greenwich) meridian. e.g. '39.33 120.77 40.44 123.96 41.00 121.34' "
+                              }
+                            },
+                            "required": [
+                              "@type",
+                              "schema:line"
+                            ]
+                          }
+                        ]
+                      },
+                      "geosparql:hasGeometry": {
+                        "type": "object",
+                        "description": "Optional geographic extent using wkt geometry, see Ocean InfoHub (https://book.oceaninfohub.org/thematics/spatial/README.html#simple-geosparql-wkt). Other geometry schemes might be specified in a specific domain profile, e.g. for atmospheric, subsurface data, or local coordinate systems. NOTE that the location specified here should be the same as the schema.org point or contained within the specified bounding box.",
+                        "properties": {
+                          "@type": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              }
+                            ],
+                            "description": "MUST be sf: (<http://www.opengis.net/ont/sf#>) SimpleFeature geometry type. See https://opengeospatial.github.io/ogc-geosparql/geosparql11/sf_geometries.ttl"
+                          },
+                          "geosparql:asWKT": {
+                            "type": "object",
+                            "properties": {
+                              "@type": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "const": "geosparql:wktLiteral"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "contains": {
+                                      "const": "geosparql:wktLiteral"
+                                    }
+                                  }
+                                ]
+                              },
+                              "@value": {
+                                "type": "string",
+                                "description": "a WKT geometry description string, e.g. 'POINT(-76 -18)'"
+                              }
+                            }
+                          },
+                          "geosparql:crs": {
+                            "type": "object",
+                            "properties": {
+                              "@id": {
+                                "type": "string",
+                                "description": "identifier string for coordinate reference system, e.g., 'CRS84'"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "@id": {
+                        "type": "string",
+                        "description": "reference to a place defined elsewhere"
+                      }
+                    }
+                  }
+                ]
+              },
+              "schema:actionProcess": {
+                "description": "Methodology or protocol for this activity",
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "description": "A methodology or protocol described as a HowTo with optional steps",
+                    "properties": {
+                      "@type": {
+                        "anyOf": [
+                          {
+                            "type": "string",
+                            "const": "schema:HowTo"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "contains": {
+                              "const": "schema:HowTo"
+                            }
+                          }
+                        ]
+                      },
+                      "@id": {
+                        "type": "string"
+                      },
+                      "schema:name": {
+                        "type": "string",
+                        "description": "Name of the methodology or protocol"
+                      },
+                      "schema:description": {
+                        "type": "string",
+                        "description": "Description of the methodology"
+                      },
+                      "schema:url": {
+                        "type": "string",
+                        "format": "uri",
+                        "description": "URL to a published methodology or protocol document"
+                      },
+                      "schema:step": {
+                        "type": "array",
+                        "description": "Ordered steps in this methodology",
+                        "items": {
+                          "type": "object",
+                          "description": "A single step in a HowTo methodology",
+                          "properties": {
+                            "@type": {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "const": "schema:HowToStep"
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  },
+                                  "contains": {
+                                    "const": "schema:HowToStep"
+                                  }
+                                }
+                              ]
+                            },
+                            "schema:name": {
+                              "type": "string",
+                              "description": "Name of this step"
+                            },
+                            "schema:description": {
+                              "type": "string",
+                              "description": "Description of what this step involves"
+                            },
+                            "schema:url": {
+                              "type": "string",
+                              "format": "uri",
+                              "description": "URL to documentation for this step"
+                            },
+                            "schema:position": {
+                              "type": "integer",
+                              "description": "Ordinal position of this step"
+                            }
+                          },
+                          "required": [
+                            "@type",
+                            "schema:name"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "@type"
+                    ],
+                    "anyOf": [
+                      {
+                        "required": [
+                          "schema:name"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "schema:url"
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "@id": {
+                        "type": "string",
+                        "description": "reference to a methodology defined elsewhere"
+                      }
+                    }
+                  }
+                ]
+              },
+              "schema:error": {
+                "type": "string",
+                "description": "Error description for failed activities"
+              },
+              "schema:additionalProperty": {
+                "description": "Domain-specific extension properties",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "title": "additionalProperty PropertyValue",
+                  "description": "PropertyValue values required to define a soft-typed property with a value. ",
+                  "properties": {
+                    "@type": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "const": "schema:PropertyValue"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "contains": {
+                            "const": "schema:PropertyValue"
+                          }
+                        }
+                      ]
+                    },
+                    "schema:propertyID": {
+                      "type": "array",
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "@id": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          {
+                            "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\definedTerm\\schema.yaml"
+                          }
+                        ]
+                      },
+                      "minItems": 1,
+                      "description": "identifier or name for the property concept quantified by the values in this variable slot. Multiple values can specify the property at different levels of granularity."
+                    },
+                    "schema:name": {
+                      "type": "string"
+                    },
+                    "schema:value": {
                       "anyOf": [
                         {
                           "type": "string"
                         },
                         {
-                          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_bfe8cx03\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\definedTerm\\schema.yaml"
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "type": "object"
                         }
                       ]
-                    }
-                  },
-                  "schema:geo": {
-                    "description": "Either a bounding box or a point location.",
-                    "anyOf": [
-                      {
-                        "type": "object",
-                        "description": "A point location. Point locations are recommended for data that is associated with specific sample locations, particularly if these are widely spaced such that an enclosing bounding box would be a misleading representation of the spatial location. Be aware that some client applications might only index or display bounding box extents or a single point location.",
-                        "properties": {
-                          "@type": {
-                            "type": "string",
-                            "const": "schema:GeoCoordinates",
-                            "default": "schema:GeoCoordinates"
-                          },
-                          "schema:latitude": {
-                            "type": "number"
-                          },
-                          "schema:longitude": {
-                            "type": "number"
-                          }
+                    },
+                    "schema:unitCode": {
+                      "anyOf": [
+                        {
+                          "type": "string"
                         },
-                        "required": [
-                          "@type",
-                          "schema:latitude",
-                          "schema:longitude"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "description": "A schema:GeoShape bounding box. The geometry is described with a set of latitude/longitude pairs (in that order).The documentation for schema:GeoShape states 'Either whitespace or commas can be used to separate latitude and longitude; whitespace should be used when writing a list of several such points.'",
-                        "properties": {
-                          "@type": {
-                            "type": "string",
-                            "const": "schema:GeoShape",
-                            "default": "schema:GeoShape"
-                          },
-                          "schema:box": {
-                            "type": "string",
-                            "description": "A GeoShape box defines an area on the surface of the earth defined by point locations of the southwest corner and northeast corner of the rectangle in latitude-longitude coordinates. A space should be used to separate the latitude and longitude values. The two corner coordinate points are separated by a space. 'East longitude' means positive longitude values are east of the prime (Greenwich) meridian."
-                          }
-                        },
-                        "required": [
-                          "@type",
-                          "schema:box"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "description": "A schema:GeoShape curvilinear trace, for resource related to a linear trace like a ship track or airplane flight line",
-                        "properties": {
-                          "@type": {
-                            "type": "string",
-                            "const": "schema:GeoShape",
-                            "default": "schema:GeoShape"
-                          },
-                          "schema:line": {
-                            "type": "string",
-                            "description": "A GeoShape box defines a curvilinear geometry as a string of latitude-longitude coordinates. A space should be used to separate the latitude and longitude values. The coordinate point pairs are also separated by a space. 'East longitude' means positive longitude values are east of the prime (Greenwich) meridian. e.g. '39.33 120.77 40.44 123.96 41.00 121.34' "
-                          }
-                        },
-                        "required": [
-                          "@type",
-                          "schema:line"
-                        ]
-                      }
-                    ]
-                  },
-                  "geosparql:hasGeometry": {
-                    "type": "object",
-                    "description": "Optional geographic extent using wkt geometry, see Ocean InfoHub (https://book.oceaninfohub.org/thematics/spatial/README.html#simple-geosparql-wkt). Other geometry schemes might be specified in a specific domain profile, e.g. for atmospheric, subsurface data, or local coordinate systems. NOTE that the location specified here should be the same as the schema.org point or contained within the specified bounding box.",
-                    "properties": {
-                      "@type": {
-                        "type": "string",
-                        "description": "MUST be sf: (<http://www.opengis.net/ont/sf#>) SimpleFeature geometry type. See https://opengeospatial.github.io/ogc-geosparql/geosparql11/sf_geometries.ttl"
-                      },
-                      "geosparql:asWKT": {
-                        "type": "object",
-                        "properties": {
-                          "@type": {
-                            "type": "string",
-                            "const": "geosparql:wktLiteral"
-                          },
-                          "@value": {
-                            "type": "string",
-                            "description": "a WKT geometry description string, e.g. 'POINT(-76 -18)'"
-                          }
+                        {
+                          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\definedTerm\\schema.yaml"
                         }
-                      },
-                      "geosparql:crs": {
-                        "type": "object",
-                        "properties": {
-                          "@id": {
-                            "type": "string",
-                            "description": "identifier string for coordinate reference system, e.g., 'CRS84'"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@id": {
-                    "type": "string",
-                    "description": "reference to a place defined elsewhere"
-                  }
-                }
-              }
-            ]
-          },
-          "schema:actionProcess": {
-            "description": "Methodology or protocol for this activity",
-            "anyOf": [
-              {
-                "type": "object",
-                "description": "A methodology or protocol described as a HowTo with optional steps",
-                "properties": {
-                  "@type": {
-                    "type": "string",
-                    "const": "schema:HowTo"
-                  },
-                  "@id": {
-                    "type": "string"
-                  },
-                  "schema:name": {
-                    "type": "string",
-                    "description": "Name of the methodology or protocol"
-                  },
-                  "schema:description": {
-                    "type": "string",
-                    "description": "Description of the methodology"
-                  },
-                  "schema:url": {
-                    "type": "string",
-                    "format": "uri",
-                    "description": "URL to a published methodology or protocol document"
-                  },
-                  "schema:step": {
-                    "type": "array",
-                    "description": "Ordered steps in this methodology",
-                    "items": {
-                      "type": "object",
-                      "description": "A single step in a HowTo methodology",
-                      "properties": {
-                        "@type": {
-                          "type": "string",
-                          "const": "schema:HowToStep"
-                        },
-                        "schema:name": {
-                          "type": "string",
-                          "description": "Name of this step"
-                        },
-                        "schema:description": {
-                          "type": "string",
-                          "description": "Description of what this step involves"
-                        },
-                        "schema:url": {
-                          "type": "string",
-                          "format": "uri",
-                          "description": "URL to documentation for this step"
-                        },
-                        "schema:position": {
-                          "type": "integer",
-                          "description": "Ordinal position of this step"
-                        }
-                      },
-                      "required": [
-                        "@type",
-                        "schema:name"
                       ]
+                    },
+                    "schema:unitText": {
+                      "type": "string"
                     }
-                  }
-                },
-                "required": [
-                  "@type"
-                ],
-                "anyOf": [
-                  {
-                    "required": [
-                      "schema:name"
-                    ]
                   },
-                  {
-                    "required": [
-                      "schema:url"
-                    ]
-                  }
-                ]
-              },
-              {
-                "type": "string"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@id": {
-                    "type": "string",
-                    "description": "reference to a methodology defined elsewhere"
-                  }
+                  "required": [
+                    "schema:name",
+                    "schema:value"
+                  ]
                 }
               }
-            ]
-          },
-          "schema:error": {
-            "type": "string",
-            "description": "Error description for failed activities"
-          },
-          "schema:additionalProperty": {
-            "description": "Domain-specific extension properties",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "title": "additionalProperty PropertyValue",
-              "description": "PropertyValue values required to define a soft-typed property with a value. ",
-              "properties": {
-                "@type": {
-                  "type": "string",
-                  "const": "schema:PropertyValue"
-                },
-                "schema:propertyID": {
-                  "type": "array",
-                  "items": {
-                    "anyOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "@id": {
-                            "type": "string"
-                          }
-                        }
-                      },
-                      {
-                        "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_bfe8cx03\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\definedTerm\\schema.yaml"
-                      }
-                    ]
-                  },
-                  "minItems": 1,
-                  "description": "identifier or name for the property concept quantified by the values in this variable slot. Multiple values can specify the property at different levels of granularity."
-                },
-                "schema:name": {
-                  "type": "string"
-                },
-                "schema:value": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "schema:name",
-                "schema:value"
-              ]
             }
           }
-        }
+        ]
       }
     },
     "schema:additionalProperty": {
@@ -569,8 +745,21 @@
             "description": "PropertyValue values required to define a soft-typed property with a value. ",
             "properties": {
               "@type": {
-                "type": "string",
-                "const": "schema:PropertyValue"
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "const": "schema:PropertyValue"
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "contains": {
+                      "const": "schema:PropertyValue"
+                    }
+                  }
+                ]
               },
               "schema:propertyID": {
                 "type": "array",
@@ -588,7 +777,7 @@
                       }
                     },
                     {
-                      "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_bfe8cx03\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\definedTerm\\schema.yaml"
+                      "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\definedTerm\\schema.yaml"
                     }
                   ]
                 },
@@ -599,6 +788,32 @@
                 "type": "string"
               },
               "schema:value": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "object"
+                  }
+                ]
+              },
+              "schema:unitCode": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\definedTerm\\schema.yaml"
+                  }
+                ]
+              },
+              "schema:unitText": {
                 "type": "string"
               }
             },

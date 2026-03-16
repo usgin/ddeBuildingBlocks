@@ -10,8 +10,8 @@ $ref patterns handled:
   1. Relative path:       $ref: ../cdifCatalogRecord/schema.yaml
   2. Fragment-only:       $ref: '#/$defs/Identifier'
   3. Cross-file fragment: $ref: ../cdifCatalogRecord/schema.yaml#/$defs/conformsTo_item
-  4. URL ref:             $ref: https://usgin.github.io/metadataBuildingBlocks/_sources/.../schema.yaml
-  5. Protocol-relative:   $ref: //usgin.github.io/metadataBuildingBlocks/_sources/.../schema.yaml
+  4. URL ref:             $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/.../schema.yaml
+  5. Protocol-relative:   $ref: //cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/.../schema.yaml
   6. Both YAML and JSON file extensions
 
 Usage:

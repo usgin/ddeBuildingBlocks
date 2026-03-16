@@ -2,18 +2,18 @@
 $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 allOf:
-- $ref: https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/schema.yaml
+- $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/schema.yaml
 - properties:
     'dcterms:conformsTo':
       type: array
       items:
-        $ref: https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/schema.yaml#/$defs/conformsTo_item
-      minItems: 2
+        type:string
+      minItems: 1
       contains:
         type: object
         properties:
           '@id':
-            const: 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery'
+            const: 'https://w3id.org/cdif/bbr/metadata/DDEProfiles/DDEDiscovery'
         required:
         - '@id'
       minContains: 1
