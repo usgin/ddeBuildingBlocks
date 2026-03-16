@@ -10,8 +10,8 @@ x-defs:
       names, and measurement techniques. Conditional extensions for imagery (ddeImagery)
       and services (ddeServiceInfo) are NOT included in the base profile.
     allOf:
-    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifMandatory
-    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional
+    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifMandatory_schema
+    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema
     - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeRequired
     - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeOptional
     x-jsonld-prefixes:
@@ -47,7 +47,7 @@ x-defs:
           a data collector via schema:participant as an agentInRole, and temporal
           bounds via schema:startTime/schema:endTime.
         items:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifProv
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifProvActivity_schema
       schema:additionalProperty:
         type: array
         description: Dataset-level additional properties for imagery resources. Wavelength
@@ -60,7 +60,7 @@ x-defs:
           - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeImagery/$defs/AdditionalProperty
     $defs:
       AdditionalProperty:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_additionalProperty_schema
       WavelengthPV:
         type: object
         description: Wavelength range of the imagery (e.g. "0.45-0.52 micrometers").
@@ -117,12 +117,32 @@ x-defs:
       prov: http://www.w3.org/ns/prov#
     x-schema-source: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.cdifProperties.cdifMandatory:
+  metadataBuildingBlocks__sources_cdifProperties_cdifMandatory_schema:
     type: object
     title: 'Optional properties for CDIF Discovery metadata schema, with schema: prefixes'
     description: Building block specifies properties for minimal CDIF schama.org discovery
       record
     properties:
+      '@context':
+        type: object
+        description: JSON-LD context declaring namespace prefixes used in the metadata
+          record.
+        properties:
+          schema:
+            enum:
+            - http://schema.org/
+          dcterms:
+            enum:
+            - http://purl.org/dc/terms/
+          spdx:
+            enum:
+            - http://spdx.org/rdf/terms#
+          dcat:
+            enum:
+            - http://www.w3.org/ns/dcat#
+        required:
+        - schema
+        - dcterms
       '@id':
         type: string
         description: 'The URI for the resource should be the @id value for the root
@@ -133,16 +153,11 @@ x-defs:
           metadata information.'
       '@type':
         description: a schema.org Class that specifies the expected information content
-          for the metadata record. For CDIF, 'schema:Dataset' is required, but other
-          possible values (e.g. CreativeWork, SoftwareApplication, Product, WebAPI)
-          are sometimes included to enable the schema.org properties used to describe
-          the resource without schema.org validation errors. The array must include
-          at least one value from the known set, but can also include other strings
-          for extensibility.
+          for the metadata record. The array must include at least one schema.org
+          type value. Default is schema:Dataset.
         type: array
         items:
           type: string
-        contains:
           enum:
           - schema:CreativeWork
           - schema:SoftwareApplication
@@ -158,6 +173,9 @@ x-defs:
           - schema:MediaObject
         default: schema:Dataset
         minItems: 1
+        contains:
+          enum:
+          - schema:Dataset
       schema:name:
         type: string
         description: A descriptive name of a dataset (e.g., 'Snow depth in Northern
@@ -173,7 +191,7 @@ x-defs:
           for any given data provided they would provide identifiers either all as
           strings or all as identifier_type.
         anyOf:
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifMandatory/$defs/Identifier
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifMandatory_schema/$defs/Identifier
         - type: string
       schema:dateModified:
         type: string
@@ -194,7 +212,7 @@ x-defs:
               '@id':
                 type: string
                 description: a reference to a resource defining conditions of Access
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifMandatory/$defs/LabeledLink
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifMandatory_schema/$defs/LabeledLink
       schema:license:
         description: 'legal statement of conditions for use and access; recommend
           using schema:CreativeWork to provide a label (name) for the license, and
@@ -212,7 +230,7 @@ x-defs:
               '@id':
                 type: string
                 description: a reference to a license defintion
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifMandatory/$defs/LabeledLink
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifMandatory_schema/$defs/LabeledLink
       schema:url:
         type: string
         format: uri
@@ -229,10 +247,28 @@ x-defs:
         type: array
         items:
           anyOf:
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifMandatory/$defs/DataDownload
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifMandatory/$defs/WebAPI
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifMandatory_schema/$defs/DataDownload
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifMandatory_schema/$defs/WebAPI
       schema:subjectOf:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifMandatory/$defs/CdifCatalogRecord
+        allOf:
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifMandatory_schema/$defs/CdifCatalogRecord
+        - properties:
+            dcterms:conformsTo:
+              type: array
+              items:
+                type: object
+                properties:
+                  '@id':
+                    type: string
+                    description: uri for specifications that this metadata record
+                      conforms to
+              minItems: 1
+              contains:
+                type: object
+                properties:
+                  '@id':
+                    enum:
+                    - https://w3id.org/cdif/core/1.0/
     allOf:
     - required:
       - '@id'
@@ -254,27 +290,41 @@ x-defs:
         - schema:distribution
     $defs:
       LabeledLink:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.labeledLink
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_labeledLink_schema
       Identifier:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema
       DefinedTerm:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
       DataDownload:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.dataDownload
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_dataDownload_schema
       WebAPI:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_webAPI_schema
       CdifCatalogRecord:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifMandatory/schema.yaml
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCatalogRecord_schema
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.cdifProperties.cdifOptional:
+  metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema:
     type: object
     title: 'Optional properties for CDIF discovery metadata schema, with schema: prefixes'
     description: Building block specifies properties for CDIF schama.org discovery
       record
     properties:
+      '@context':
+        type: object
+        description: Additional JSON-LD namespace prefixes used by optional CDIF properties.
+        properties:
+          geosparql:
+            enum:
+            - http://www.opengis.net/ont/geosparql#
+          prov:
+            enum:
+            - http://www.w3.org/ns/prov#
+          dqv:
+            enum:
+            - http://www.w3.org/ns/dqv#
+          cdi:
+            enum:
+            - http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/
       schema:description:
         type: string
         description: A short summary describing a dataset. This text will be indexed
@@ -287,19 +337,21 @@ x-defs:
         items:
           anyOf:
           - type: string
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/DefinedTerm
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/DefinedTerm
       schema:sameAs:
-        description: The other identifiers for the dataset. Schema.org has three ways
-          of encoding identifiers-- a text description, a URL, or by using the schema:PropertyValue
-          field. The Science on Schema.org guidance strongly recommends using the
-          PropertyValue approach. see https://github.com/ESIPFed/science-on-schema.org   ....
-          Dataset.md#identifier.
+        description: Other identifiers for the dataset, as IRI references, literal
+          strings, or structured identifiers using schema:PropertyValue.
         type: array
-        minItems: 0
+        minItems: 1
         items:
           anyOf:
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Identifier
           - type: string
+          - type: object
+            properties:
+              '@id':
+                type: string
+                description: IRI for an equivalent resource or alternate identifier
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/Identifier
       schema:version:
         description: The version number or identifier for this dataset (text or numeric).
           The values should sort from oldest to newest using an alphanumeric sort
@@ -322,20 +374,34 @@ x-defs:
           type: object
           properties:
             '@type':
-              type: string
-              enum:
-              - schema:LinkRole
+              anyOf:
+              - type: string
+                enum:
+                - schema:LinkRole
+              - type: array
+                items:
+                  type: string
+                contains:
+                  enum:
+                  - schema:LinkRole
             schema:linkRelationship:
               anyOf:
-              - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/DefinedTerm
+              - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/DefinedTerm
               - type: string
-            target:
+            schema:target:
               type: object
               properties:
                 '@type':
-                  type: string
-                  enum:
-                  - schema:EntryPoint
+                  anyOf:
+                  - type: string
+                    enum:
+                    - schema:EntryPoint
+                  - type: array
+                    items:
+                      type: string
+                    contains:
+                      enum:
+                      - schema:EntryPoint
                 schema:encodingFormat:
                   type: string
                   description: registered MIME types are expected
@@ -360,7 +426,19 @@ x-defs:
               '@id':
                 type: string
                 description: a reference to a publishing principles statement
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/LabeledLink
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/LabeledLink
+      schema:measurementTechnique:
+        description: The technique, technology, or methodology used for measurement
+          or determination of the dataset values. Can be a string, a URI reference,
+          a DefinedTerm, or an array combining these.
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/DefinedTerm
+        - type: array
+          items:
+            anyOf:
+            - type: string
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/DefinedTerm
       schema:keywords:
         description: Keywords are an array of strings, an array of schema:DefinedTerms,
           or some combination of these. If you have information about a controlled
@@ -371,7 +449,7 @@ x-defs:
         type: array
         items:
           anyOf:
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/DefinedTerm
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/DefinedTerm
           - type: string
       schema:creator:
         description: author or orginator of intellectual content of dataset. Uset
@@ -390,8 +468,10 @@ x-defs:
                     type: string
                     description: a identifier for an agent defined in this metadata,
                       or externally; must be dereferenceable
-              - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Person
-              - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Organization
+                required:
+                - '@id'
+              - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/Person
+              - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/Organization
       schema:contributor:
         description: other parties who played a role in production of dataset
         type: array
@@ -403,9 +483,11 @@ x-defs:
                 type: string
                 description: a identifier for an agent defined in this metadata, or
                   externally; must be dereferenceable
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Person
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Organization
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Contributor
+            required:
+            - '@id'
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/Person
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/Organization
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/Contributor
       schema:publisher:
         description: Party who made the dataset publicly available
         anyOf:
@@ -415,8 +497,10 @@ x-defs:
               type: string
               description: a identifier for an agent defined in this metadata, or
                 externally; must be dereferenceable
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Person
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Organization
+          required:
+          - '@id'
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/Person
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/Organization
       schema:provider:
         description: Party who maintains the distribution options for the dataset.
           If there are multiple distributions from different providers, use the provider
@@ -430,23 +514,27 @@ x-defs:
                 type: string
                 description: a identifier for an agent defined in this metadata, or
                   externally; must be dereferenceable
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Person
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Organization
+            required:
+            - '@id'
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/Person
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/Organization
       schema:funding:
         type: array
         items:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/Funder
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/Funder
       schema:variableMeasured:
         description: What does the dataset measure? (e.g., temperature, pressure)
         type: array
         items:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/VariableMeasured
+          anyOf:
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/VariableMeasured
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/StatisticalVariable
       schema:spatialCoverage:
         description: To specify location that is the subject of resource content;
           use schema.org place names, bounding box, point or optional OGC WKT gemetry.
         type: array
         items:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/SpatialExtent
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/SpatialExtent
       schema:temporalCoverage:
         description: The time interval during which data was collected or observations
           were made; or a time period that an activity or collection is linked to
@@ -457,65 +545,83 @@ x-defs:
           to thematically.
         type: array
         items:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/TemporalExtent
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/TemporalExtent
       prov:wasGeneratedBy:
         description: Brief information about instruments, software or experimental
           protocols used
         type: array
         items:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/GeneratedBy
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/GeneratedBy
       prov:wasDerivedFrom:
         description: Brief information about sources of data used in aggregate datasets
         type: array
         items:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/DerivedFrom
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/DerivedFrom
       dqv:hasQualityMeasurement:
         description: Brief information quality measurements reported to assess the
           resource
         type: array
         items:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/QualityMeasure
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/QualityMeasure
+      schema:subjectOf:
+        properties:
+          dcterms:conformsTo:
+            type: array
+            items:
+              type: object
+              properties:
+                '@id':
+                  type: string
+                  description: uri for specifications that this metadata record conforms
+                    to
+            minItems: 1
+            contains:
+              type: object
+              properties:
+                '@id':
+                  enum:
+                  - https://w3id.org/cdif/discovery/1.0/
       schema:distribution:
         description: Distribution options for the dataset.
         type: array
         items:
           anyOf:
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/DataDownload
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifOptional/$defs/WebAPI
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/DataDownload
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifOptional_schema/$defs/WebAPI
     $defs:
       LabeledLink:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.labeledLink
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_labeledLink_schema
       Identifier:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema
       DefinedTerm:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
       Person:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.person
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_person_schema
       Organization:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_organization_schema
       Contributor:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.agentInRole
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_agentInRole_schema
       Funder:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.funder
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_funder_schema
       VariableMeasured:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifVariableMeasured_schema
+      StatisticalVariable:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_statisticalVariable_schema
       SpatialExtent:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.spatialExtent
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_spatialExtent_schema
       TemporalExtent:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.temporalExtent
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_temporalExtent_schema
       GeneratedBy:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.provProperties.generatedBy
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_provProperties_generatedBy_schema
       DerivedFrom:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.provProperties.derivedFrom
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_provProperties_derivedFrom_schema
       QualityMeasure:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.qualityProperties.qualityMeasure
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_qualityProperties_qualityMeasure_schema
       DataDownload:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.dataDownload
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_dataDownload_schema
       WebAPI:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifOptional/schema.yaml
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_webAPI_schema
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   dde.bbr.metadata.DDEproperties.ddeRequired:
     title: DDE Required metadata properties
@@ -594,9 +700,9 @@ x-defs:
       - schema:image
     $defs:
       CdifMandatory:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifMandatory
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifMandatory_schema
       DefinedTerm:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
       DdeSubject:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeSubject
     x-jsonld-prefixes:
@@ -643,13 +749,13 @@ x-defs:
           - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeOptional/$defs/DefinedTerm
     $defs:
       DefinedTerm:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
     x-jsonld-prefixes:
       schema: http://schema.org/
       dde: https://www.ddeworld.org/resource/
     x-schema-source: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.cdifProperties.cdifProv:
+  metadataBuildingBlocks__sources_cdifProperties_cdifProvActivity_schema:
     title: CDIF Provenance Activity
     description: Extended provenance activity building block for CDIF. Extends the
       minimal prov:Activity (generatedBy) with schema.org Action properties for comprehensive
@@ -657,7 +763,7 @@ x-defs:
       bounds, action chaining, and more.
     type: object
     allOf:
-    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.provProperties.generatedBy
+    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_provProperties_generatedBy_schema
     - type: object
       properties:
         '@type':
@@ -686,7 +792,7 @@ x-defs:
                 sub-key
               properties:
                 schema:instrument:
-                  $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifProv/$defs/Instrument
+                  $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifProvActivity_schema/$defs/Instrument
               required:
               - schema:instrument
         schema:name:
@@ -698,32 +804,36 @@ x-defs:
         schema:identifier:
           description: Formal identifier for this activity
           anyOf:
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifProv/$defs/Identifier
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifProvActivity_schema/$defs/Identifier
           - type: string
         schema:agent:
           description: Primary responsible agent for this activity (maps to PROV wasAssociatedWith)
           anyOf:
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifProv/$defs/Person
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifProv/$defs/Organization
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifProv/$defs/AgentInRole
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifProvActivity_schema/$defs/Person
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifProvActivity_schema/$defs/Organization
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifProvActivity_schema/$defs/AgentInRole
           - type: object
             properties:
               '@id':
                 type: string
                 description: reference to an agent defined elsewhere
+            required:
+            - '@id'
         schema:participant:
           description: Other participants in this activity
           type: array
           items:
             anyOf:
-            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifProv/$defs/Person
-            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifProv/$defs/Organization
-            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifProv/$defs/AgentInRole
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifProvActivity_schema/$defs/Person
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifProvActivity_schema/$defs/Organization
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifProvActivity_schema/$defs/AgentInRole
             - type: object
               properties:
                 '@id':
                   type: string
                   description: reference to a participant defined elsewhere
+              required:
+              - '@id'
         schema:object:
           description: Input entity for this activity (for action chaining, references
             the result of a prior activity)
@@ -761,7 +871,7 @@ x-defs:
         schema:location:
           description: Where the activity occurred
           anyOf:
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifProv/$defs/SpatialExtent
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifProvActivity_schema/$defs/SpatialExtent
           - type: string
           - type: object
             properties:
@@ -771,7 +881,7 @@ x-defs:
         schema:actionProcess:
           description: Methodology or protocol for this activity
           anyOf:
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifProv/$defs/HowTo
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifProvActivity_schema/$defs/HowTo
           - type: string
           - type: object
             properties:
@@ -785,35 +895,42 @@ x-defs:
           description: Domain-specific extension properties
           type: array
           items:
-            $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifProv/$defs/AdditionalProperty
+            $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifProvActivity_schema/$defs/AdditionalProperty
     $defs:
       Person:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.person
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_person_schema
       Organization:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_organization_schema
       AgentInRole:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.agentInRole
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_agentInRole_schema
       Identifier:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema
       Instrument:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.instrument
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_instrument_schema
       DefinedTerm:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
       LabeledLink:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.labeledLink
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_labeledLink_schema
       SpatialExtent:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.spatialExtent
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_spatialExtent_schema
       AdditionalProperty:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_additionalProperty_schema
       HowTo:
         type: object
         description: A methodology or protocol described as a HowTo with optional
           steps
         properties:
           '@type':
-            type: string
-            enum:
-            - schema:HowTo
+            anyOf:
+            - type: string
+              enum:
+              - schema:HowTo
+            - type: array
+              items:
+                type: string
+              contains:
+                enum:
+                - schema:HowTo
           '@id':
             type: string
           schema:name:
@@ -830,7 +947,7 @@ x-defs:
             type: array
             description: Ordered steps in this methodology
             items:
-              $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifProv/$defs/HowToStep
+              $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifProvActivity_schema/$defs/HowToStep
         required:
         - '@type'
         anyOf:
@@ -843,9 +960,16 @@ x-defs:
         description: A single step in a HowTo methodology
         properties:
           '@type':
-            type: string
-            enum:
-            - schema:HowToStep
+            anyOf:
+            - type: string
+              enum:
+              - schema:HowToStep
+            - type: array
+              items:
+                type: string
+              contains:
+                enum:
+                - schema:HowToStep
           schema:name:
             type: string
             description: Name of this step
@@ -868,9 +992,16 @@ x-defs:
           claim
         properties:
           '@type':
-            type: string
-            enum:
-            - schema:Claim
+            anyOf:
+            - type: string
+              enum:
+              - schema:Claim
+            - type: array
+              items:
+                type: string
+              contains:
+                enum:
+                - schema:Claim
           '@id':
             type: string
           schema:claimReviewed:
@@ -879,8 +1010,8 @@ x-defs:
           schema:author:
             description: Author of this claim
             anyOf:
-            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifProv/$defs/Person
-            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifProv/$defs/Organization
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifProvActivity_schema/$defs/Person
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifProvActivity_schema/$defs/Organization
             - type: object
               properties:
                 '@id':
@@ -892,29 +1023,33 @@ x-defs:
             description: Where this claim appears
             anyOf:
             - type: string
-            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifProv/$defs/LabeledLink
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifProvActivity_schema/$defs/LabeledLink
         required:
         - '@type'
         - schema:claimReviewed
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-      prov: http://www.w3.org/ns/prov#
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifProv/schema.yaml
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifProvActivity/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.additionalProperty:
+  metadataBuildingBlocks__sources_schemaorgProperties_additionalProperty_schema:
     type: object
     title: additionalProperty PropertyValue
     description: 'PropertyValue values required to define a soft-typed property with
       a value. '
     properties:
       '@type':
-        type: string
-        enum:
-        - schema:PropertyValue
+        anyOf:
+        - type: string
+          enum:
+          - schema:PropertyValue
+        - type: array
+          items:
+            type: string
+          contains:
+            enum:
+            - schema:PropertyValue
       schema:propertyID:
         type: array
         items:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/propertyID_item
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_additionalProperty_schema/$defs/propertyID_item
         minItems: 1
         description: identifier or name for the property concept quantified by the
           values in this variable slot. Multiple values can specify the property at
@@ -922,13 +1057,23 @@ x-defs:
       schema:name:
         type: string
       schema:value:
+        anyOf:
+        - type: string
+        - type: number
+        - type: boolean
+        - type: object
+      schema:unitCode:
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_additionalProperty_schema/$defs/DefinedTerm
+      schema:unitText:
         type: string
     required:
     - schema:name
     - schema:value
     $defs:
       DefinedTerm:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
       propertyID_item:
         anyOf:
         - type: string
@@ -936,21 +1081,25 @@ x-defs:
           properties:
             '@id':
               type: string
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/DefinedTerm
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-      nxs: http://purl.org/nexusformat/definitions/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.yaml
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_additionalProperty_schema/$defs/DefinedTerm
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.labeledLink:
+  metadataBuildingBlocks__sources_schemaorgProperties_labeledLink_schema:
     description: schema for a labeled link, a profile of schema.org/CreativeWork
     type: object
     properties:
       '@type':
-        type: string
         default: schema:CreativeWork
-        enum:
-        - schema:CreativeWork
+        anyOf:
+        - type: string
+          enum:
+          - schema:CreativeWork
+        - type: array
+          items:
+            type: string
+          contains:
+            enum:
+            - schema:CreativeWork
       schema:name:
         type: string
       schema:description:
@@ -961,18 +1110,23 @@ x-defs:
     required:
     - '@type'
     - schema:url
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/labeledLink/schema.yaml
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.identifier:
+  metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema:
     description: Properties for a schema.org identifier
     type: object
     properties:
       '@type':
-        type: string
-        enum:
-        - schema:PropertyValue
+        anyOf:
+        - type: string
+          enum:
+          - schema:PropertyValue
+        - type: array
+          items:
+            type: string
+          contains:
+            enum:
+            - schema:PropertyValue
       schema:propertyID:
         type: string
         description: In this context for the schema:PropertyValue, this field is an
@@ -995,24 +1149,30 @@ x-defs:
         - schema:value
       - required:
         - schema:url
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.yaml
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.definedTerm:
+  metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema:
     description: schema.org Defined Term schema
     type: object
     properties:
       '@type':
-        enum:
-        - schema:DefinedTerm
+        anyOf:
+        - type: string
+          enum:
+          - schema:DefinedTerm
+        - type: array
+          items:
+            type: string
+          contains:
+            enum:
+            - schema:DefinedTerm
       schema:name:
         type: string
         description: text label for the term that is useful to human user
       schema:identifier:
         anyOf:
         - type: string
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema
       schema:inDefinedTermSet:
         type: string
         description: Identifier for the controlled vocabulary responsible for this
@@ -1031,11 +1191,9 @@ x-defs:
         - schema:identifier
       - required:
         - schema:termCode
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.dataDownload:
+  metadataBuildingBlocks__sources_schemaorgProperties_dataDownload_schema:
     description: schema to document file-based access to a resoruce via URL, based
       on schema.org/DataDownload
     type: object
@@ -1054,6 +1212,10 @@ x-defs:
         minItems: 1
       schema:name:
         type: string
+      schema:description:
+        type: string
+        description: Description of this distribution, e.g. what format, access constraints,
+          etc.
       schema:contentUrl:
         type: string
         format: uri
@@ -1090,6 +1252,7 @@ x-defs:
         description: An identifier for a standard or specification that the distribution
           conforms to. Recommended to enable machine-actionable data access.
         type: array
+        minItems: 1
         items:
           type: object
           properties:
@@ -1109,16 +1272,16 @@ x-defs:
                 type: string
                 description: a identifier for an agent defined in this metadata, or
                   externally; must be dereferenceable
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.person
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization
+            required:
+            - '@id'
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_person_schema
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_organization_schema
     required:
     - schema:contentUrl
     - '@type'
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/dataDownload/schema.yaml
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.webAPI:
+  metadataBuildingBlocks__sources_schemaorgProperties_webAPI_schema:
     title: Direct data access to a resource via web servcie
     description: use schema.org Action to document url or url template and parameters
       to request data through a web accessible location. At this point, schema is
@@ -1138,7 +1301,7 @@ x-defs:
       schema:serviceType:
         anyOf:
         - type: string
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI/$defs/DefinedTerm
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_webAPI_schema/$defs/DefinedTerm
         description: specify the kind of service. Ideally this should be a resolvable
           identifier. Currently there is no widely adopted registry for serviceType
           identifiers, in large part because services might be defined at different
@@ -1155,7 +1318,7 @@ x-defs:
         oneOf:
         - type: string
           default: not specified
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI/$defs/LabeledLink
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_webAPI_schema/$defs/LabeledLink
       schema:documentation:
         description: a document that provides a machine-actionable description of
           a service instance. Examples include OpenAPI documents, OGC Capabilities
@@ -1166,28 +1329,26 @@ x-defs:
           metadata.
         oneOf:
         - type: string
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI/$defs/LabeledLink
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_webAPI_schema/$defs/LabeledLink
       schema:potentialAction:
         type: array
         description: actions that can be invoked via the API
         items:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI/$defs/Action
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_webAPI_schema/$defs/Action
     required:
     - schema:serviceType
     - schema:potentialAction
     - schema:termsOfService
     $defs:
       LabeledLink:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.labeledLink
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_labeledLink_schema
       DefinedTerm:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
       Action:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.action
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/webAPI/schema.yaml
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_action_schema
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.cdifProperties.cdifCatalogRecord:
+  metadataBuildingBlocks__sources_cdifProperties_cdifCatalogRecord_schema:
     type: object
     description: see https://github.com/Cross-Domain-Interoperability-Framework/Discovery/issues/13
       for discussion on how to make assertion about the sample registration and metadata
@@ -1224,7 +1385,7 @@ x-defs:
       dcterms:conformsTo:
         type: array
         items:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/conformsTo_item
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCatalogRecord_schema/$defs/conformsTo_item
         minItems: 1
         description: uri for specifications that this metadata record conforms to.
           Minimimally should specify uri for CDIF discovery profile.  Implement as
@@ -1235,8 +1396,8 @@ x-defs:
           or position name and affiliation, or just organization name. e-mail address
           is preferred contact information.
         anyOf:
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/Person
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/Organization
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCatalogRecord_schema/$defs/Person
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCatalogRecord_schema/$defs/Organization
       schema:sdDatePublished:
         description: date of most recent update to the metadata content, extends iSamples
           schema
@@ -1253,10 +1414,17 @@ x-defs:
               data at https://github.com/ESIPFed/science-on-schema.org/blob/develop/guides/Dataset.md#catalog
               puts identifier here
           '@type':
-            type: string
             default: schema:DataCatalog
-            enum:
-            - schema:DataCatalog
+            anyOf:
+            - type: string
+              enum:
+              - schema:DataCatalog
+            - type: array
+              items:
+                type: string
+              contains:
+                enum:
+                - schema:DataCatalog
           schema:name:
             type: string
           schema:url:
@@ -1267,7 +1435,7 @@ x-defs:
             description: identifier for the collection or catalog; use identifier_type
               to provide information on identifier scheme and context for identifier
             allOf:
-            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/Identifier
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCatalogRecord_schema/$defs/Identifier
     required:
     - schema:about
     - dcterms:conformsTo
@@ -1276,11 +1444,11 @@ x-defs:
     - '@id'
     $defs:
       Identifier:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema
       Person:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.person
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_person_schema
       Organization:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_organization_schema
       conformsTo_item:
         type: object
         properties:
@@ -1288,24 +1456,25 @@ x-defs:
             type: string
             description: uri for specifications that this metadata record conforms
               to
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-      ex: https://example.org/
-      xsd: http://www.w3.org/2001/XMLSchema#
-      dcterms: http://purl.org/dc/terms/
-      dcat: http://www.w3.org/ns/dcat#
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifCatalogRecord/schema.yaml
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.person:
+  metadataBuildingBlocks__sources_schemaorgProperties_person_schema:
     description: schema for cdif profile of schema.org/Person
     type: object
     properties:
       '@id':
         type: string
       '@type':
-        type: string
-        enum:
-        - schema:Person
+        anyOf:
+        - type: string
+          enum:
+          - schema:Person
+        - type: array
+          items:
+            type: string
+          contains:
+            enum:
+            - schema:Person
       schema:name:
         type: string
         description: string label for person that is meaningful for human users
@@ -1314,7 +1483,7 @@ x-defs:
       schema:identifier:
         description: identifier for person, recommend ORCID
         anyOf:
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema
         - type: string
       schema:alternateName:
         type: string
@@ -1322,15 +1491,22 @@ x-defs:
       schema:affiliation:
         description: if affiliation is present, value must be a schema:Organization.
         allOf:
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_organization_schema
       schema:contactPoint:
         type: object
         properties:
           '@type':
-            type: string
             default: schema:ContactPoint
-            enum:
-            - schema:ContactPoint
+            anyOf:
+            - type: string
+              enum:
+              - schema:ContactPoint
+            - type: array
+              items:
+                type: string
+              contains:
+                enum:
+                - schema:ContactPoint
           schema:email:
             type: string
         description: restrict to email only. Schema.org allows telephone and postal
@@ -1339,7 +1515,13 @@ x-defs:
         type: array
         description: other identifiers for the person
         items:
-          type: string
+          anyOf:
+          - type: string
+          - type: object
+            properties:
+              '@id':
+                type: string
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema
     allOf:
     - required:
       - '@type'
@@ -1348,20 +1530,25 @@ x-defs:
         - schema:name
       - required:
         - schema:identifier
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/person/schema.yaml
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.organization:
+  metadataBuildingBlocks__sources_schemaorgProperties_organization_schema:
     type: object
     properties:
       '@id':
         type: string
       '@type':
-        type: string
         default: schema:Organization
-        enum:
-        - schema:Organization
+        anyOf:
+        - type: string
+          enum:
+          - schema:Organization
+        - type: array
+          items:
+            type: string
+          contains:
+            enum:
+            - schema:Organization
       schema:additionalType:
         type: array
         items:
@@ -1377,7 +1564,7 @@ x-defs:
             - schema:NGO
             - schema:Project
             - schema:ResearchOrganization
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
           - type: string
       schema:name:
         type: string
@@ -1390,13 +1577,19 @@ x-defs:
       schema:identifier:
         description: identifier for organization
         anyOf:
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema
         - type: string
       schema:sameAs:
         type: array
         description: other identifiers for the organization
         items:
-          type: string
+          anyOf:
+          - type: string
+          - type: object
+            properties:
+              '@id':
+                type: string
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema
     allOf:
     - required:
       - '@type'
@@ -1405,11 +1598,9 @@ x-defs:
         - schema:name
       - required:
         - schema:identifier
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/organization/schema.yaml
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.agentInRole:
+  metadataBuildingBlocks__sources_schemaorgProperties_agentInRole_schema:
     description: For more granularity on how a person contributed to a Dataset, use
       schema:Role. The schema.org documentation does not state that the Role type
       is an expected data type of author, creator and contributor, but that is addressed
@@ -1418,14 +1609,21 @@ x-defs:
     type: object
     properties:
       '@type':
-        type: string
         default: schema:Role
-        enum:
-        - schema:Role
+        anyOf:
+        - type: string
+          enum:
+          - schema:Role
+        - type: array
+          items:
+            type: string
+          contains:
+            enum:
+            - schema:Role
       schema:roleName:
         anyOf:
         - type: string
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
       schema:contributor:
         anyOf:
         - type: object
@@ -1433,16 +1631,16 @@ x-defs:
             '@id':
               type: string
               description: IRI reference to a Person or Organization defined elsewhere
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.person
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization
+          required:
+          - '@id'
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_person_schema
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_organization_schema
     required:
     - schema:roleName
     - schema:contributor
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/agentInRole/schema.yaml
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.funder:
+  metadataBuildingBlocks__sources_schemaorgProperties_funder_schema:
     description: Funding acknowledgement properties, profile of schema.org/MonetaryGrant
     type: object
     properties:
@@ -1450,14 +1648,21 @@ x-defs:
         type: string
         description: URI identifier for this funding record
       '@type':
-        type: string
         default: schema:MonetaryGrant
-        enum:
-        - schema:MonetaryGrant
+        anyOf:
+        - type: string
+          enum:
+          - schema:MonetaryGrant
+        - type: array
+          items:
+            type: string
+          contains:
+            enum:
+            - schema:MonetaryGrant
       schema:identifier:
         description: identifier for a particular grant
         allOf:
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.funder/$defs/Identifier
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_funder_schema/$defs/Identifier
       schema:description:
         type: string
         description: description of the funding or grant
@@ -1472,8 +1677,10 @@ x-defs:
               type: string
               description: a identifier for an agent defined in this metadata, or
                 externally; must be dereferenceable
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.funder/$defs/Person
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.funder/$defs/Organization
+          required:
+          - '@id'
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_funder_schema/$defs/Person
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_funder_schema/$defs/Organization
     anyOf:
     - required:
       - schema:funder
@@ -1483,27 +1690,125 @@ x-defs:
       - schema:name
     $defs:
       Person:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.person
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_person_schema
       Organization:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_organization_schema
       Identifier:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/funder/schema.yaml
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.variableMeasured:
-    description: CDIF schema.org implementation of variableMeasured
+  metadataBuildingBlocks__sources_cdifProperties_cdifVariableMeasured_schema:
+    description: Extends cdif variableMeasured with properties for DDI-CDI InstanceVariable
     type: object
     properties:
+      '@type':
+        type: array
+        description: Must include both schema:PropertyValue and cdi:InstanceVariable.
+          Additional types may be included.
+        items:
+          type: string
+        minItems: 2
+        allOf:
+        - contains:
+            enum:
+            - schema:PropertyValue
+        - contains:
+            enum:
+            - cdi:InstanceVariable
+      cdi:identifier:
+        type: string
+      cdi:physicalDataType:
+        type: array
+        items:
+          anyOf:
+          - type: string
+          - type: object
+            properties:
+              '@id':
+                type: string
+                description: reference to a skos concept for the data type
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifVariableMeasured_schema/$defs/DefinedTerm
+        description: identifier or name for the data type concept.
+      cdi:intendedDataType:
+        type: string
+        description: The intended data type for values of this variable, from DDI-CDI
+          RepresentedVariable.hasIntendedDataType. Recommended values are XML Schema
+          datatypes (e.g. https://www.w3.org/TR/xmlschema-2/#decimal).
+      cdi:role:
+        type: string
+        enum:
+        - MeasureComponent
+        - AttributeComponent
+        - DimensionComponent
+        - DescriptorComponent
+        - ReferenceValueComponent
+        description: Specifies the relation of the variable to the data structure,
+          corresponding to DDI-CDI DataStructureComponent subtypes.
+      cdi:describedUnitOfMeasure:
+        description: A structured unit of measure from a controlled vocabulary, from
+          DDI-CDI RepresentedVariable.describedUnitOfMeasure.
+        allOf:
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifVariableMeasured_schema/$defs/DefinedTerm
+      cdi:simpleUnitOfMeasure:
+        anyOf:
+        - type: string
+        - type: object
+          properties:
+            '@id':
+              type: string
+              description: reference to a skos concept for the data type
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifVariableMeasured_schema/$defs/DefinedTerm
+      cdi:uses:
+        type: array
+        items:
+          anyOf:
+          - type: string
+          - type: object
+            properties:
+              '@id':
+                type: string
+                description: reference to a skos concept for the property
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifVariableMeasured_schema/$defs/DefinedTerm
+        description: Essentially the same as schema:propertyID. References to concepts
+          that this variable measures or represents.
+      cdi:name:
+        type: string
+        description: DDI-CDI Concept.name. The name of this variable in the DDI-CDI
+          model.
+      cdi:displayLabel:
+        type: string
+        description: DDI-CDI Concept.displayLabel. A human-readable label for display
+          purposes.
+    $defs:
+      DefinedTerm:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
+    allOf:
+    - required:
+      - '@type'
+    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_variableMeasured_schema
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifVariableMeasured/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  metadataBuildingBlocks__sources_schemaorgProperties_statisticalVariable_schema:
+    description: A statistical variable description using schema.org/StatisticalVariable.
+      Defines a variable that represents a statistical measure, such as median income
+      or unemployment rate.
+    type: object
+    properties:
+      '@type':
+        type: array
+        items:
+          type: string
+        contains:
+          enum:
+          - schema:StatisticalVariable
+        minItems: 1
       '@id':
         type: string
       schema:name:
         type: string
-        description: string label associated with the variable in the dataset serialization
+        description: string label for the statistical variable
       schema:description:
         type: string
-        default: missing
       schema:alternateName:
         type: array
         items:
@@ -1517,113 +1822,68 @@ x-defs:
             '@id':
               type: string
               description: reference to a skos concept
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured/$defs/DefinedTerm
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_statisticalVariable_schema/$defs/DefinedTerm
         description: Text description or URI identifying the measurement method.
-    required:
-    - schema:name
-    oneOf:
-    - type: object
-      properties:
-        '@type':
-          type: array
-          items:
+      schema:statType:
+        anyOf:
+        - type: string
+        - type: object
+          properties:
+            '@id':
+              type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_statisticalVariable_schema/$defs/DefinedTerm
+      schema:measuredProperty:
+        type: object
+        properties:
+          '@id':
             type: string
-          contains:
-            enum:
-            - schema:PropertyValue
-          minItems: 1
-        schema:propertyID:
-          type: array
-          items:
+            description: reference to a skos concept for the property
+          '@type':
+            anyOf:
+            - type: string
+              enum:
+              - schema:Property
+            - type: array
+              items:
+                type: string
+              contains:
+                enum:
+                - schema:Property
+          schema:name:
             anyOf:
             - type: string
             - type: object
               properties:
                 '@id':
                   type: string
-            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured/$defs/DefinedTerm
-          description: identifier or name for the property concept
-        schema:unitText:
-          type: string
-          description: unit of measurement as text
-        schema:unitCode:
-          anyOf:
-          - type: string
-          - type: object
-            properties:
-              '@id':
-                type: string
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured/$defs/DefinedTerm
-          description: URI or code identifying the unit of measure
-        schema:minValue:
-          type: number
-          description: minimum numeric value in the dataset
-        schema:maxValue:
-          type: number
-          description: maximum numeric value in the dataset
-        schema:url:
-          type: string
-          format: uri
-          description: link to a web page useful for interpreting the variable
-      required:
-      - '@type'
-    - type: object
-      properties:
-        '@type':
-          type: array
-          items:
-            type: string
-          contains:
-            enum:
-            - schema:StatisticalVariable
-          minItems: 1
-        schema:statType:
-          anyOf:
-          - type: string
-          - type: object
-            properties:
-              '@id':
-                type: string
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured/$defs/DefinedTerm
-        schema:measuredProperty:
-          type: object
-          properties:
-            '@id':
-              type: string
-              description: reference to a skos concept for the property
-            '@type':
-              type: string
-              enum:
-              - schema:Property
-            schema:name:
-              anyOf:
-              - type: string
-              - type: object
-                properties:
-                  '@id':
-                    type: string
-              - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured/$defs/DefinedTerm
-      required:
-      - '@type'
-      - schema:measuredProperty
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_statisticalVariable_schema/$defs/DefinedTerm
+    required:
+    - '@type'
+    - schema:name
+    - schema:measuredProperty
     $defs:
       DefinedTerm:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/variableMeasured/schema.yaml
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/statisticalVariable/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.spatialExtent:
+  metadataBuildingBlocks__sources_schemaorgProperties_spatialExtent_schema:
     description: 'Spatial Extent description for CDIF discovery profile.  Note required
       prefix declaration for geoSparql ( http://www.opengis.net/ont/geosparql#) and
       OGC simple features (sf: http://www.opengis.net/ont/sf#)'
     type: object
     properties:
       '@type':
-        type: string
         default: schema:Place
-        enum:
-        - schema:Place
+        anyOf:
+        - type: string
+          enum:
+          - schema:Place
+        - type: array
+          items:
+            type: string
+          contains:
+            enum:
+            - schema:Place
       schema:name:
         description: multiple place names or DefinedTerms that have a place name and
           URI for the location
@@ -1631,7 +1891,7 @@ x-defs:
         items:
           anyOf:
           - type: string
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.spatialExtent/$defs/DefinedTerm
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_spatialExtent_schema/$defs/DefinedTerm
       schema:geo:
         description: Either a bounding box or a point location.
         anyOf:
@@ -1643,14 +1903,25 @@ x-defs:
             might only index or display bounding box extents or a single point location.
           properties:
             '@type':
-              type: string
               default: schema:GeoCoordinates
-              enum:
-              - schema:GeoCoordinates
+              anyOf:
+              - type: string
+                enum:
+                - schema:GeoCoordinates
+              - type: array
+                items:
+                  type: string
+                contains:
+                  enum:
+                  - schema:GeoCoordinates
             schema:latitude:
               type: number
+              minimum: -90
+              maximum: 90
             schema:longitude:
               type: number
+              minimum: -180
+              maximum: 180
           required:
           - '@type'
           - schema:latitude
@@ -1663,10 +1934,17 @@ x-defs:
             of several such points.'
           properties:
             '@type':
-              type: string
               default: schema:GeoShape
-              enum:
-              - schema:GeoShape
+              anyOf:
+              - type: string
+                enum:
+                - schema:GeoShape
+              - type: array
+                items:
+                  type: string
+                contains:
+                  enum:
+                  - schema:GeoShape
             schema:box:
               type: string
               description: A GeoShape box defines an area on the surface of the earth
@@ -1683,10 +1961,17 @@ x-defs:
             a linear trace like a ship track or airplane flight line
           properties:
             '@type':
-              type: string
               default: schema:GeoShape
-              enum:
-              - schema:GeoShape
+              anyOf:
+              - type: string
+                enum:
+                - schema:GeoShape
+              - type: array
+                items:
+                  type: string
+                contains:
+                  enum:
+                  - schema:GeoShape
             schema:line:
               type: string
               description: 'A GeoShape box defines a curvilinear geometry as a string
@@ -1708,16 +1993,27 @@ x-defs:
           or contained within the specified bounding box.
         properties:
           '@type':
-            type: string
+            anyOf:
+            - type: string
+            - type: array
+              items:
+                type: string
             description: 'MUST be sf: (<http://www.opengis.net/ont/sf#>) SimpleFeature
               geometry type. See https://opengeospatial.github.io/ogc-geosparql/geosparql11/sf_geometries.ttl'
           geosparql:asWKT:
             type: object
             properties:
               '@type':
-                type: string
-                enum:
-                - geosparql:wktLiteral
+                anyOf:
+                - type: string
+                  enum:
+                  - geosparql:wktLiteral
+                - type: array
+                  items:
+                    type: string
+                  contains:
+                    enum:
+                    - geosparql:wktLiteral
               '@value':
                 type: string
                 description: a WKT geometry description string, e.g. 'POINT(-76 -18)'
@@ -1730,12 +2026,10 @@ x-defs:
                   'CRS84'
     $defs:
       DefinedTerm:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/spatialExtent/schema.yaml
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.temporalExtent:
+  metadataBuildingBlocks__sources_schemaorgProperties_temporalExtent_schema:
     description: 'The time interval during which data was collected or observations
       were made; or a time period that an activity or collection is linked to intellectually
       or thematically (for example, 1997 to 1998; the 18th century) (see https://documentation.ardc.edu.au/display/DOC/Temporal+coverage).
@@ -1748,10 +2042,17 @@ x-defs:
         eras with identifier, e.g. geologic age. This is a SOSO schema.org extension
       properties:
         '@type':
-          type: string
           default: time:ProperInterval
-          enum:
-          - time:ProperInterval
+          anyOf:
+          - type: string
+            enum:
+            - time:ProperInterval
+          - type: array
+            items:
+              type: string
+            contains:
+              enum:
+              - time:ProperInterval
         schema:description:
           type: string
           description: free text description of the temporal interval
@@ -1785,10 +2086,17 @@ x-defs:
           additionalProperties: true
           description: Must exactly match the specified @context object.
         '@type':
-          type: string
           default: time:ProperInterval
-          enum:
-          - time:ProperInterval
+          anyOf:
+          - type: string
+            enum:
+            - time:ProperInterval
+          - type: array
+            items:
+              type: string
+            contains:
+              enum:
+              - time:ProperInterval
         schema:description:
           type: string
           description: free text description of the temporal interval
@@ -1796,20 +2104,34 @@ x-defs:
           type: object
           properties:
             '@type':
-              type: string
-              enum:
-              - time:Instant
+              anyOf:
+              - type: string
+                enum:
+                - time:Instant
+              - type: array
+                items:
+                  type: string
+                contains:
+                  enum:
+                  - time:Instant
             time:inTimePosition:
-              $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.temporalExtent/$defs/timePosition_type
+              $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_temporalExtent_schema/$defs/timePosition_type
         time:hasEnd:
           type: object
           properties:
             '@type':
-              type: string
-              enum:
-              - time:Instant
+              anyOf:
+              - type: string
+                enum:
+                - time:Instant
+              - type: array
+                items:
+                  type: string
+                contains:
+                  enum:
+                  - time:Instant
             time:inTimePosition:
-              $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.temporalExtent/$defs/timePosition_type
+              $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_temporalExtent_schema/$defs/timePosition_type
     - type: string
       description: Simple ISO8601 encoding of calendar date, dateTime, or time interval
         with calendar date bounds
@@ -1818,10 +2140,17 @@ x-defs:
         type: object
         properties:
           '@type':
-            type: string
             default: time:TimePosition
-            enum:
-            - time:TimePosition
+            anyOf:
+            - type: string
+              enum:
+              - time:TimePosition
+            - type: array
+              items:
+                type: string
+              contains:
+                enum:
+                - time:TimePosition
           time:hasTRS:
             type: string
             description: identifier for a temporal reference system; default is million
@@ -1829,12 +2158,9 @@ x-defs:
             default: http://www.opengis.net/def/crs/OGC/0/ChronometricGeologicTime
           time:numericPosition:
             type: number
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-      time: http://www.w3.org/2006/time#
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/temporalExtent/schema.yaml
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.provProperties.generatedBy:
+  metadataBuildingBlocks__sources_provProperties_generatedBy_schema:
     title: very simple links or names of software or instruments used to generate
       a resource.
     type: object
@@ -1858,43 +2184,37 @@ x-defs:
                 type: string
                 description: a resolvable reference to a representation of the software
                   or instrument used
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-      prov: http://www.w3.org/ns/prov#
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/provProperties/generatedBy/schema.yaml
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.provProperties.derivedFrom:
+  metadataBuildingBlocks__sources_provProperties_derivedFrom_schema:
     title: very simple links or names of data sources used to generate the described
       resource.
-    type: object
-    properties:
-      prov:wasDerivedFrom:
-        type: array
-        items:
-          anyOf:
-          - type: string
-          - type: object
-            properties:
-              '@id':
-                type: string
-                description: a resolvable reference to a representation of the software
-                  or instrument used
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.provProperties.derivedFrom/$defs/LabeledLink
-    $defs:
-      LabeledLink:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.labeledLink
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-      prov: http://www.w3.org/ns/prov#
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/provProperties/derivedFrom/schema.yaml
+    anyOf:
+    - type: string
+    - type: object
+      properties:
+        '@id':
+          type: string
+          description: a resolvable reference to a representation of the software
+            or instrument used
+    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_labeledLink_schema
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.qualityProperties.qualityMeasure:
+  metadataBuildingBlocks__sources_qualityProperties_qualityMeasure_schema:
     title: definitions for simple quality measure property
     type: object
     properties:
       '@type':
-        enum:
-        - dqv:QualityMeasurement
+        anyOf:
+        - type: string
+          enum:
+          - dqv:QualityMeasurement
+        - type: array
+          items:
+            type: string
+          contains:
+            enum:
+            - dqv:QualityMeasurement
       dqv:isMeasurementOf:
         description: specify the quality measure that is reported, by name, with an
           ID ref, or as a Defined Term
@@ -1906,22 +2226,20 @@ x-defs:
               type: string
               description: a resolvable reference to a representation of a quality
                 measure
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.qualityProperties.qualityMeasure/$defs/DefinedTerm
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_qualityProperties_qualityMeasure_schema/$defs/DefinedTerm
       dqv:value:
         description: the reported result of the quality measure, either as a string
           or a defined term from a vocabulary
         anyOf:
         - type: string
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.qualityProperties.qualityMeasure/$defs/DefinedTerm
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_qualityProperties_qualityMeasure_schema/$defs/DefinedTerm
     required:
     - dqv:isMeasurementOf
     - dqv:value
     $defs:
       DefinedTerm:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/qualityProperties/qualityMeasure/schema.yaml
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   dde.bbr.metadata.DDEproperties.ddeResourceType:
     title: DDE Resource Type constraint
@@ -1990,7 +2308,7 @@ x-defs:
         minContains: 1
     $defs:
       DefinedTerm:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
     x-jsonld-prefixes:
       schema: http://schema.org/
       dde: https://www.ddeworld.org/resource/
@@ -1999,19 +2317,19 @@ x-defs:
   dde.bbr.metadata.DDEproperties.ddeSubject:
     type: object
     allOf:
-    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord
+    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCatalogRecord_schema
     - properties:
         dcterms:conformsTo:
           type: array
           items:
-            $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/conformsTo_item
-          minItems: 2
+            type: string
+          minItems: 1
           contains:
             type: object
             properties:
               '@id':
                 enum:
-                - cdif:profile_ddeCDIF
+                - https://w3id.org/cdif/bbr/metadata/DDEProfiles/DDEDiscovery
             required:
             - '@id'
           minContains: 1
@@ -2019,77 +2337,210 @@ x-defs:
       schema: http://schema.org/
     x-schema-source: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.instrument:
-    title: Generic Instrument
-    description: A generic instrument or instrument system. Uses schema:Thing as base
-      type with optional schema:Product typing. Supports hierarchical instrument systems
-      via schema:hasPart for sub-components.
+  metadataBuildingBlocks__sources_schemaorgProperties_instrument_schema:
+    title: Instrument Description
+    description: Schema for describing laboratory instruments and instrument systems.
+      Supports ownership, manufacturer, model, commissioning dates, hierarchical sub-components
+      via schema:hasPart, and domain-specific typing. Instruments may be standalone
+      devices or complex systems with sub-components.
     type: object
     properties:
+      '@context':
+        type: object
+        description: JSON-LD context declaring namespace prefixes.
+        properties:
+          schema:
+            enum:
+            - http://schema.org/
+          dcterms:
+            enum:
+            - http://purl.org/dc/terms/
+        required:
+        - schema
+      '@id':
+        type: string
+        description: Persistent identifier URI for this instrument metadata record.
       '@type':
         type: array
         items:
           type: string
+        minItems: 2
+        description: Must include schema:Product and schema:Thing. May include additional
+          types.
+        allOf:
+        - contains:
+            enum:
+            - schema:Product
+        - contains:
+            enum:
+            - schema:Thing
+      schema:additionalType:
+        description: Domain-specific type classifications. Should include a scientific
+          instrument type URI (e.g. wd:Q3099911 for Wikidata scientific instrument).
+        type: array
+        items:
+          type: string
         minItems: 1
-        contains:
-          enum:
-          - schema:Thing
-        description: Must include schema:Thing. May also include schema:Product or
-          domain-specific types.
-      '@id':
-        type: string
       schema:name:
         type: string
-        description: Human-readable name for this instrument
-      schema:identifier:
-        description: Formal identifier for this instrument
-        anyOf:
-        - type: string
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.instrument/$defs/Identifier
+        minLength: 3
+        description: Human-readable name for this instrument.
       schema:description:
         type: string
-        description: Text description of this instrument
+        description: Text description of this instrument, its purpose, and capabilities.
       schema:alternateName:
-        type: string
-        description: Alternate name, e.g. specific make/model
-      schema:additionalType:
-        description: Domain-specific type URIs for this instrument
+        description: Alternate name(s), e.g. specific make/model designation, common
+          abbreviation.
         anyOf:
         - type: string
         - type: array
           items:
             type: string
+      schema:identifier:
+        description: Formal identifier(s) for this instrument. Use PropertyValue for
+          structured identifiers (e.g. PIDINST, serial number, inventory number).
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_instrument_schema/$defs/Identifier
+        - type: array
+          items:
+            anyOf:
+            - type: string
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_instrument_schema/$defs/Identifier
+      schema:url:
+        type: string
+        format: uri
+        description: Landing page URL for this instrument.
+      schema:manufacturer:
+        description: Organization that manufactured this instrument.
+        allOf:
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_instrument_schema/$defs/Organization
+      schema:model:
+        type: object
+        description: Product model information for this instrument.
+        properties:
+          '@type':
+            anyOf:
+            - type: string
+              enum:
+              - schema:ProductModel
+            - type: array
+              items:
+                type: string
+              contains:
+                enum:
+                - schema:ProductModel
+          schema:name:
+            type: string
+            description: Model name or number.
+          schema:identifier:
+            description: Model identifier.
+            anyOf:
+            - type: string
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_instrument_schema/$defs/Identifier
+        required:
+        - schema:name
+      schema:category:
+        description: Instrument type classification(s) from a controlled vocabulary.
+        type: array
+        items:
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_instrument_schema/$defs/DefinedTerm
+      schema:owner:
+        description: Organization that owns this instrument.
+        allOf:
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_instrument_schema/$defs/Organization
+      schema:contributor:
+        description: Agents associated with this instrument in specific roles (e.g.
+          operator, custodian, principal investigator). Use schema:owner for the owning
+          organization.
+        type: array
+        items:
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_instrument_schema/$defs/AgentInRole
       schema:additionalProperty:
         type: array
-        description: Domain-specific properties (detection limits, calibration info,
-          etc.)
+        description: Instrument-specific properties (measured variables, detection
+          limits, calibration information, operating parameters, etc.).
         items:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.instrument/$defs/AdditionalProperty
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_instrument_schema/$defs/AdditionalProperty
+      schema:validFrom:
+        type: string
+        description: Date the instrument was commissioned (ISO 8601).
+      schema:validThrough:
+        type: string
+        description: Date the instrument was decommissioned (ISO 8601). Absent if
+          still operational.
       schema:hasPart:
         type: array
-        description: Sub-components of this instrument system. Use @id references
-          or inline instrument objects.
+        description: Sub-components of this instrument system. Each item is either
+          an inline instrument description or an @id reference.
         items:
           anyOf:
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.instrument/$defs/InstrumentRef
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_instrument_schema/$defs/InstrumentComponent
           - type: object
             properties:
               '@id':
                 type: string
-                description: reference to a sub-component defined elsewhere
+                description: Reference to a sub-component defined elsewhere.
+            required:
+            - '@id'
+      schema:relatedLink:
+        type: array
+        description: Links to related resources (manuals, datasheets, calibration
+          records, related instruments).
+        items:
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_instrument_schema/$defs/LabeledLink
+      schema:subjectOf:
+        description: Catalog record metadata-about-metadata for this instrument description.
+        type: object
+        properties:
+          '@id':
+            type: string
+          '@type':
+            type: array
+            items:
+              type: string
+          schema:dateModified:
+            type: string
+            description: Date this metadata record was last modified (ISO 8601).
+          schema:about:
+            type: object
+            properties:
+              '@id':
+                type: string
+                description: Reference back to the instrument @id.
+          dcterms:conformsTo:
+            description: Schema or profile this metadata record conforms to.
+            type: array
+            items:
+              anyOf:
+              - type: string
+              - type: object
+                properties:
+                  '@id':
+                    type: string
     required:
+    - '@type'
     - schema:name
-    allOf:
-    - required:
-      - '@type'
+    - schema:identifier
     $defs:
       Identifier:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema
+      Organization:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_organization_schema
+      Person:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_person_schema
+      DefinedTerm:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
+      AgentInRole:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_agentInRole_schema
       AdditionalProperty:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty
-      InstrumentRef:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_additionalProperty_schema
+      LabeledLink:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_labeledLink_schema
+      InstrumentComponent:
         type: object
-        description: Inline sub-component instrument (non-recursive single level)
+        description: A sub-component of an instrument system. Uses the same structure
+          as the parent instrument but without nesting (single level of hasPart).
         properties:
           '@type':
             type: array
@@ -2103,15 +2554,21 @@ x-defs:
             type: string
           schema:name:
             type: string
-          schema:identifier:
-            anyOf:
-            - type: string
-            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.instrument/$defs/Identifier
+            minLength: 3
           schema:description:
             type: string
           schema:alternateName:
-            type: string
+            anyOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+          schema:identifier:
+            anyOf:
+            - type: string
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_instrument_schema/$defs/Identifier
           schema:additionalType:
+            description: Component type classification.
             anyOf:
             - type: string
             - type: array
@@ -2120,14 +2577,34 @@ x-defs:
           schema:additionalProperty:
             type: array
             items:
-              $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.instrument/$defs/AdditionalProperty
+              $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_instrument_schema/$defs/AdditionalProperty
+          schema:manufacturer:
+            $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_instrument_schema/$defs/Organization
+          schema:model:
+            type: object
+            properties:
+              '@type':
+                anyOf:
+                - type: string
+                  enum:
+                  - schema:ProductModel
+                - type: array
+                  items:
+                    type: string
+                  contains:
+                    enum:
+                    - schema:ProductModel
+              schema:name:
+                type: string
+              schema:identifier:
+                anyOf:
+                - type: string
+                - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_instrument_schema/$defs/Identifier
         required:
         - schema:name
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/instrument/schema.yaml
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/instrument/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.action:
+  metadataBuildingBlocks__sources_schemaorgProperties_action_schema:
     title: 'Action '
     type: object
     description: 'this element defines an action (operation) that can be invoked via
@@ -2140,45 +2617,65 @@ x-defs:
       Post from schema.org (see https://schema.org/docs/actions.html, and https://github.com/schemaorg/suggestions-questions-brainstorming/issues/62) '
     properties:
       '@type':
-        type: string
         description: The type of action. Must be schema:Action or one of its subtypes.
         default: schema:Action
-        enum:
-        - schema:Action
-        - schema:AssessAction
-        - schema:ConsumeAction
-        - schema:ControlAction
-        - schema:CreateAction
-        - schema:FindAction
-        - schema:InteractAction
-        - schema:MoveAction
-        - schema:PlayAction
-        - schema:SearchAction
-        - schema:TransferAction
-        - schema:UpdateAction
+        anyOf:
+        - type: string
+          enum:
+          - schema:Action
+          - schema:AssessAction
+          - schema:ConsumeAction
+          - schema:ControlAction
+          - schema:CreateAction
+          - schema:DeleteAction
+          - schema:FindAction
+          - schema:InteractAction
+          - schema:MoveAction
+          - schema:PlayAction
+          - schema:SearchAction
+          - schema:TransferAction
+          - schema:UpdateAction
+        - type: array
+          items:
+            type: string
+          contains:
+            enum:
+            - schema:Action
+            - schema:AssessAction
+            - schema:ConsumeAction
+            - schema:ControlAction
+            - schema:CreateAction
+            - schema:DeleteAction
+            - schema:FindAction
+            - schema:InteractAction
+            - schema:MoveAction
+            - schema:PlayAction
+            - schema:SearchAction
+            - schema:TransferAction
+            - schema:UpdateAction
       schema:name:
         type: string
         description: text label for the action
       schema:target:
         description: specifies the request target location and request syntax
         allOf:
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.action/$defs/target_type
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_action_schema/$defs/target_type
       schema:result:
         description: specifies the serialization scheme (encoding format, information
           model) for expected representation of the data
         allOf:
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.action/$defs/result_type
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_action_schema/$defs/result_type
       schema:object:
         description: specification of information model/schema for target resource.
           Only necessary if the request allow specifying the fields to include in
           the response
         allOf:
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.action/$defs/object_type
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_action_schema/$defs/object_type
       schema:query-input:
         description: set of explanations of the parameters in the URL template for
           the target.
         allOf:
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.action/$defs/query-input_type
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_action_schema/$defs/query-input_type
     required:
     - schema:name
     - schema:target
@@ -2189,10 +2686,17 @@ x-defs:
           This schema doesn't handle post requests
         properties:
           '@type':
-            type: string
             default: schema:EntryPoint
-            enum:
-            - schema:EntryPoint
+            anyOf:
+            - type: string
+              enum:
+              - schema:EntryPoint
+            - type: array
+              items:
+                type: string
+              contains:
+                enum:
+                - schema:EntryPoint
           schema:description:
             type: string
           schema:urlTemplate:
@@ -2268,10 +2772,17 @@ x-defs:
             '@id':
               type: string
             '@type':
-              type: string
               default: schema:PropertyValueSpecification
-              enum:
-              - schema:PropertyValueSpecification
+              anyOf:
+              - type: string
+                enum:
+                - schema:PropertyValueSpecification
+              - type: array
+                items:
+                  type: string
+                contains:
+                  enum:
+                  - schema:PropertyValueSpecification
             schema:valueName:
               type: string
             schema:description:
@@ -2289,21 +2800,108 @@ x-defs:
         description: description of the data structure of the return object
         properties:
           '@type':
-            type: string
             default: schema:DataFeed
-            enum:
-            - schema:DataFeed
+            anyOf:
+            - type: string
+              enum:
+              - schema:DataFeed
+            - type: array
+              items:
+                type: string
+              contains:
+                enum:
+                - schema:DataFeed
           schema:description:
             type: string
+          schema:encodingFormat-input:
+            type: array
+            items:
+              type: string
+            description: MIME types accepted as input encoding formats for the action.
           schema:variableMeasured:
             type: array
             items:
-              $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.action/$defs/VariableMeasured
+              $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_action_schema/$defs/VariableMeasured
       VariableMeasured:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.variableMeasured
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/action/schema.yaml
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_variableMeasured_schema
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  metadataBuildingBlocks__sources_schemaorgProperties_variableMeasured_schema:
+    description: Schema.org PropertyValue-based variableMeasured. Defines properties
+      for a measured variable in a dataset, typed as schema:PropertyValue.
+    type: object
+    properties:
+      '@type':
+        type: array
+        items:
+          type: string
+        contains:
+          enum:
+          - schema:PropertyValue
+        minItems: 1
+      '@id':
+        type: string
+      schema:name:
+        type: string
+        description: string label associated with the variable in the dataset serialization
+      schema:description:
+        type: string
+        default: missing
+      schema:alternateName:
+        type: array
+        items:
+          type: string
+          description: human intelligible name for variable that conveys semantics
+      schema:measurementTechnique:
+        anyOf:
+        - type: string
+        - type: object
+          properties:
+            '@id':
+              type: string
+              description: reference to a skos concept
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_variableMeasured_schema/$defs/DefinedTerm
+        description: Text description or URI identifying the measurement method.
+      schema:propertyID:
+        type: array
+        items:
+          anyOf:
+          - type: string
+          - type: object
+            properties:
+              '@id':
+                type: string
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_variableMeasured_schema/$defs/DefinedTerm
+        description: identifier or name for the property concept
+      schema:unitText:
+        type: string
+        description: unit of measurement as text
+      schema:unitCode:
+        anyOf:
+        - type: string
+        - type: object
+          properties:
+            '@id':
+              type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_variableMeasured_schema/$defs/DefinedTerm
+        description: URI or code identifying the unit of measure
+      schema:minValue:
+        type: number
+        description: minimum numeric value in the dataset
+      schema:maxValue:
+        type: number
+        description: maximum numeric value in the dataset
+      schema:url:
+        type: string
+        format: uri
+        description: link to a web page useful for interpreting the variable
+    required:
+    - '@type'
+    - schema:name
+    $defs:
+      DefinedTerm:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
 type: object
 title: DDE Image profile

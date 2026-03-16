@@ -1,15 +1,22 @@
 x-defs:
-  cdif.bbr.metadata.schemaorgProperties.spatialExtent:
+  metadataBuildingBlocks__sources_schemaorgProperties_spatialExtent_schema:
     description: 'Spatial Extent description for CDIF discovery profile.  Note required
       prefix declaration for geoSparql ( http://www.opengis.net/ont/geosparql#) and
       OGC simple features (sf: http://www.opengis.net/ont/sf#)'
     type: object
     properties:
       '@type':
-        type: string
         default: schema:Place
-        enum:
-        - schema:Place
+        anyOf:
+        - type: string
+          enum:
+          - schema:Place
+        - type: array
+          items:
+            type: string
+          contains:
+            enum:
+            - schema:Place
       schema:name:
         description: multiple place names or DefinedTerms that have a place name and
           URI for the location
@@ -17,7 +24,7 @@ x-defs:
         items:
           anyOf:
           - type: string
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.spatialExtent/$defs/DefinedTerm
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_spatialExtent_schema/$defs/DefinedTerm
       schema:geo:
         description: Either a bounding box or a point location.
         anyOf:
@@ -29,14 +36,25 @@ x-defs:
             might only index or display bounding box extents or a single point location.
           properties:
             '@type':
-              type: string
               default: schema:GeoCoordinates
-              enum:
-              - schema:GeoCoordinates
+              anyOf:
+              - type: string
+                enum:
+                - schema:GeoCoordinates
+              - type: array
+                items:
+                  type: string
+                contains:
+                  enum:
+                  - schema:GeoCoordinates
             schema:latitude:
               type: number
+              minimum: -90
+              maximum: 90
             schema:longitude:
               type: number
+              minimum: -180
+              maximum: 180
           required:
           - '@type'
           - schema:latitude
@@ -49,10 +67,17 @@ x-defs:
             of several such points.'
           properties:
             '@type':
-              type: string
               default: schema:GeoShape
-              enum:
-              - schema:GeoShape
+              anyOf:
+              - type: string
+                enum:
+                - schema:GeoShape
+              - type: array
+                items:
+                  type: string
+                contains:
+                  enum:
+                  - schema:GeoShape
             schema:box:
               type: string
               description: A GeoShape box defines an area on the surface of the earth
@@ -69,10 +94,17 @@ x-defs:
             a linear trace like a ship track or airplane flight line
           properties:
             '@type':
-              type: string
               default: schema:GeoShape
-              enum:
-              - schema:GeoShape
+              anyOf:
+              - type: string
+                enum:
+                - schema:GeoShape
+              - type: array
+                items:
+                  type: string
+                contains:
+                  enum:
+                  - schema:GeoShape
             schema:line:
               type: string
               description: 'A GeoShape box defines a curvilinear geometry as a string
@@ -94,16 +126,27 @@ x-defs:
           or contained within the specified bounding box.
         properties:
           '@type':
-            type: string
+            anyOf:
+            - type: string
+            - type: array
+              items:
+                type: string
             description: 'MUST be sf: (<http://www.opengis.net/ont/sf#>) SimpleFeature
               geometry type. See https://opengeospatial.github.io/ogc-geosparql/geosparql11/sf_geometries.ttl'
           geosparql:asWKT:
             type: object
             properties:
               '@type':
-                type: string
-                enum:
-                - geosparql:wktLiteral
+                anyOf:
+                - type: string
+                  enum:
+                  - geosparql:wktLiteral
+                - type: array
+                  items:
+                    type: string
+                  contains:
+                    enum:
+                    - geosparql:wktLiteral
               '@value':
                 type: string
                 description: a WKT geometry description string, e.g. 'POINT(-76 -18)'
@@ -116,25 +159,30 @@ x-defs:
                   'CRS84'
     $defs:
       DefinedTerm:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/spatialExtent/schema.yaml
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.additionalProperty:
+  metadataBuildingBlocks__sources_schemaorgProperties_additionalProperty_schema:
     type: object
     title: additionalProperty PropertyValue
     description: 'PropertyValue values required to define a soft-typed property with
       a value. '
     properties:
       '@type':
-        type: string
-        enum:
-        - schema:PropertyValue
+        anyOf:
+        - type: string
+          enum:
+          - schema:PropertyValue
+        - type: array
+          items:
+            type: string
+          contains:
+            enum:
+            - schema:PropertyValue
       schema:propertyID:
         type: array
         items:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/propertyID_item
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_additionalProperty_schema/$defs/propertyID_item
         minItems: 1
         description: identifier or name for the property concept quantified by the
           values in this variable slot. Multiple values can specify the property at
@@ -142,13 +190,23 @@ x-defs:
       schema:name:
         type: string
       schema:value:
+        anyOf:
+        - type: string
+        - type: number
+        - type: boolean
+        - type: object
+      schema:unitCode:
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_additionalProperty_schema/$defs/DefinedTerm
+      schema:unitText:
         type: string
     required:
     - schema:name
     - schema:value
     $defs:
       DefinedTerm:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
       propertyID_item:
         anyOf:
         - type: string
@@ -156,20 +214,24 @@ x-defs:
           properties:
             '@id':
               type: string
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/DefinedTerm
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-      nxs: http://purl.org/nexusformat/definitions/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.yaml
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_additionalProperty_schema/$defs/DefinedTerm
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.identifier:
+  metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema:
     description: Properties for a schema.org identifier
     type: object
     properties:
       '@type':
-        type: string
-        enum:
-        - schema:PropertyValue
+        anyOf:
+        - type: string
+          enum:
+          - schema:PropertyValue
+        - type: array
+          items:
+            type: string
+          contains:
+            enum:
+            - schema:PropertyValue
       schema:propertyID:
         type: string
         description: In this context for the schema:PropertyValue, this field is an
@@ -192,24 +254,30 @@ x-defs:
         - schema:value
       - required:
         - schema:url
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.yaml
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.definedTerm:
+  metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema:
     description: schema.org Defined Term schema
     type: object
     properties:
       '@type':
-        enum:
-        - schema:DefinedTerm
+        anyOf:
+        - type: string
+          enum:
+          - schema:DefinedTerm
+        - type: array
+          items:
+            type: string
+          contains:
+            enum:
+            - schema:DefinedTerm
       schema:name:
         type: string
         description: text label for the term that is useful to human user
       schema:identifier:
         anyOf:
         - type: string
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema
       schema:inDefinedTermSet:
         type: string
         description: Identifier for the controlled vocabulary responsible for this
@@ -228,9 +296,7 @@ x-defs:
         - schema:identifier
       - required:
         - schema:termCode
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-schema-source: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
 title: DDE Geographic Dataset properties
 description: Conditional extension for geographic dataset resources. Implements MD_SpatialRepresentation
@@ -260,11 +326,11 @@ required:
 - schema:spatialCoverage
 $defs:
   SpatialExtent:
-    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.spatialExtent
+    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_spatialExtent_schema
   AdditionalProperty:
-    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty
+    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_additionalProperty_schema
   Identifier:
-    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema
   SpatialRepresentationTypePV:
     type: object
     description: Method used to represent geographic information in the resource.

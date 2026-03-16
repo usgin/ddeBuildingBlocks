@@ -29,112 +29,118 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
 #### json
 ```json
 {
-    "@context": {
-        "schema": "http://schema.org/",
-        "dde": "https://www.ddeworld.org/resource/",
-        "cdif": "https://cdif.org/profile/",
-        "dcterms": "http://purl.org/dc/terms/",
-        "dcat": "http://www.w3.org/ns/dcat#",
-        "prov": "http://www.w3.org/ns/prov#"
-    },
-    "@id": "urn:dde:example-plate-tectonics-video",
+  "@context": {
+    "schema": "http://schema.org/",
+    "dde": "https://www.ddeworld.org/resource/",
+    "cdif": "https://cdif.org/profile/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#"
+  },
+  "@id": "urn:dde:example-plate-tectonics-video",
+  "@type": [
+    "schema:Dataset"
+  ],
+  "schema:name": "Plate Tectonics Explained: Earth's Dynamic Surface",
+  "schema:description": "Educational video explaining the fundamentals of plate tectonics, including continental drift, seafloor spreading, subduction zones, and transform boundaries. Features animations of plate reconstructions from 250 Ma to present day, mid-ocean ridge processes, and earthquake/volcano distributions along plate boundaries. Produced for university-level Earth science courses.",
+  "schema:identifier": "urn:dde:video-plate-tectonics-edu",
+  "schema:dateModified": "2023-09-15",
+  "schema:inLanguage": "eng",
+  "schema:license": [
+    {
+      "@type": "schema:CreativeWork",
+      "schema:name": "Creative Commons Attribution-NonCommercial 4.0",
+      "schema:url": "https://creativecommons.org/licenses/by-nc/4.0/"
+    }
+  ],
+  "schema:url": "https://example.org/videos/plate-tectonics-explained",
+  "schema:subjectOf": {
+    "@id": "urn:uuid:dde-audiovisual-catalog-record",
     "@type": [
-        "schema:Dataset"
+      "schema:Dataset"
     ],
-    "schema:name": "Plate Tectonics Explained: Earth's Dynamic Surface",
-    "schema:description": "Educational video explaining the fundamentals of plate tectonics, including continental drift, seafloor spreading, subduction zones, and transform boundaries. Features animations of plate reconstructions from 250 Ma to present day, mid-ocean ridge processes, and earthquake/volcano distributions along plate boundaries. Produced for university-level Earth science courses.",
-    "schema:identifier": "urn:dde:video-plate-tectonics-edu",
-    "schema:dateModified": "2023-09-15",
-    "schema:inLanguage": "eng",
-    "schema:license": [
-        {
-            "@type": "schema:CreativeWork",
-            "schema:name": "Creative Commons Attribution-NonCommercial 4.0",
-            "schema:url": "https://creativecommons.org/licenses/by-nc/4.0/"
-        }
-    ],
-    "schema:url": "https://example.org/videos/plate-tectonics-explained",
-    "schema:subjectOf": {
-        "@id": "urn:uuid:dde-audiovisual-catalog-record",
-        "@type": [
-            "schema:Dataset"
-        ],
-        "schema:additionalType": [
-            "dcat:CatalogRecord"
-        ],
-        "schema:about": {
-            "@id": "urn:dde:example-plate-tectonics-video"
-        },
-        "dcterms:conformsTo": [
-            {
-                "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct"
-            }
-        ],
-        "schema:sdDatePublished": "2023-09-15"
-    },
     "schema:additionalType": [
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Product",
-            "schema:termCode": "product",
-            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-        },
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Movie",
-            "schema:termCode": "movie",
-            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-        }
+      "dcat:CatalogRecord"
     ],
-    "schema:keywords": [
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Geoscientific Information",
-            "schema:termCode": "geoscientificInformation",
-            "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
-        },
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Data Integration Synthesis",
-            "schema:termCode": "dataIntegrationSynthesis",
-            "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
-        },
-        "plate tectonics",
-        "educational video",
-        "continental drift",
-        "earth science"
-    ],
-    "schema:image": [
-        {
-            "@type": "schema:ImageObject",
-            "schema:contentUrl": "https://example.org/thumbnails/plate-tectonics-video-thumb.jpg",
-            "schema:name": "video thumbnail",
-            "schema:encodingFormat": "image/jpeg"
-        }
-    ],
-    "schema:creator": {
-        "@list": [
-            {
-                "@type": "schema:Organization",
-                "schema:name": "Deep-time Digital Earth (DDE)",
-                "schema:url": "https://www.ddeworld.org/"
-            }
-        ]
+    "schema:about": {
+      "@id": "urn:dde:example-plate-tectonics-video"
     },
-    "schema:duration": "PT25M",
-    "schema:distribution": [
-        {
-            "@type": [
-                "schema:DataDownload"
-            ],
-            "schema:name": "Video MP4",
-            "schema:description": "Full HD video file",
-            "schema:contentUrl": "https://example.org/videos/plate-tectonics-explained.mp4",
-            "schema:encodingFormat": [
-                "video/mp4"
-            ]
-        }
+    "dcterms:conformsTo": [
+      {
+        "@id": "https://w3id.org/cdif/core/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/discovery/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct"
+      }
+    ],
+    "schema:sdDatePublished": "2023-09-15"
+  },
+  "schema:additionalType": [
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Product",
+      "schema:termCode": "product",
+      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+    },
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Movie",
+      "schema:termCode": "movie",
+      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+    }
+  ],
+  "schema:keywords": [
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Geoscientific Information",
+      "schema:termCode": "geoscientificInformation",
+      "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
+    },
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Data Integration Synthesis",
+      "schema:termCode": "dataIntegrationSynthesis",
+      "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
+    },
+    "plate tectonics",
+    "educational video",
+    "continental drift",
+    "earth science"
+  ],
+  "schema:image": [
+    {
+      "@type": "schema:ImageObject",
+      "schema:contentUrl": "https://example.org/thumbnails/plate-tectonics-video-thumb.jpg",
+      "schema:name": "video thumbnail",
+      "schema:encodingFormat": "image/jpeg"
+    }
+  ],
+  "schema:creator": {
+    "@list": [
+      {
+        "@type": "schema:Organization",
+        "schema:name": "Deep-time Digital Earth (DDE)",
+        "schema:url": "https://www.ddeworld.org/"
+      }
     ]
+  },
+  "schema:duration": "PT25M",
+  "schema:distribution": [
+    {
+      "@type": [
+        "schema:DataDownload"
+      ],
+      "schema:name": "Video MP4",
+      "schema:description": "Full HD video file",
+      "schema:contentUrl": "https://example.org/videos/plate-tectonics-explained.mp4",
+      "schema:encodingFormat": [
+        "video/mp4"
+      ]
+    }
+  ]
 }
 
 ```
@@ -190,6 +196,12 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
       "@id": "urn:dde:example-plate-tectonics-video"
     },
     "dcterms:conformsTo": [
+      {
+        "@id": "https://w3id.org/cdif/core/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/discovery/1.0/"
+      },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct"
       }
@@ -271,12 +283,12 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
 <urn:dde:example-plate-tectonics-video> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Product" ;
-            schema1:termCode "product" ],
+            schema1:name "Movie" ;
+            schema1:termCode "movie" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Movie" ;
-            schema1:termCode "movie" ] ;
+            schema1:name "Product" ;
+            schema1:termCode "product" ] ;
     schema1:creator ( [ a schema1:Organization ;
                 schema1:name "Deep-time Digital Earth (DDE)" ;
                 schema1:url "https://www.ddeworld.org/" ] ) ;
@@ -295,13 +307,13 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
             schema1:name "video thumbnail" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Data Integration Synthesis" ;
-            schema1:termCode "dataIntegrationSynthesis" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Data Integration Synthesis" ;
+            schema1:termCode "dataIntegrationSynthesis" ],
         "continental drift",
         "earth science",
         "educational video",
@@ -314,7 +326,9 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
     schema1:url "https://example.org/videos/plate-tectonics-explained" .
 
 <urn:uuid:dde-audiovisual-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct> ;
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct>,
+        <https://w3id.org/cdif/core/1.0/>,
+        <https://w3id.org/cdif/discovery/1.0/> ;
     schema1:about <urn:dde:example-plate-tectonics-video> ;
     schema1:additionalType "dcat:CatalogRecord" ;
     schema1:sdDatePublished "2023-09-15" .

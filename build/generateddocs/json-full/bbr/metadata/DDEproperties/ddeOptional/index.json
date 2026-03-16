@@ -10,7 +10,7 @@
   "itemClass": "schema",
   "register": "cdif-building-block-register",
   "version": "0.1",
-  "dateOfLastChange": "2026-03-10",
+  "dateOfLastChange": "2026-03-16",
   "link": "https://github.com/opengeospatial/bblock-template",
   "sources": [
     {
@@ -26,17 +26,8 @@
   "shaclShapes": {
     "dde.bbr.metadata.DDEproperties.ddeOptional": [
       "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
-    ],
-    "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-      "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-    ],
-    "cdif.bbr.metadata.schemaorgProperties.identifier": [
-      "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
     ]
   },
-  "dependsOn": [
-    "cdif.bbr.metadata.schemaorgProperties.definedTerm"
-  ],
   "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/context.jsonld",
   "schema": {
     "application/yaml": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml",
@@ -44,6 +35,7 @@
   },
   "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/schema.yaml",
   "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/context.jsonld",
+  "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/resolvedProperties.json",
   "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/",
   "rdfData": [],
   "validationPassed": true,
@@ -77,7 +69,7 @@
       ]
     }
   ],
-  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntype: object\ntitle: DDE Optional metadata properties\ndescription: Optional DDE-specific properties that extend CDIF optional metadata.\nproperties:\n  schema:alternateName:\n    description: Alternative names or aliases for the resource.\n    anyOf:\n    - type: string\n    - type: array\n      items:\n        type: string\n  schema:measurementTechnique:\n    description: Techniques, methods, or instruments used in the measurement or creation\n      of the data.\n    type: array\n    items:\n      anyOf:\n      - type: string\n      - $ref: '#/$defs/DefinedTerm'\n  schema:keywords:\n    description: Additional keywords beyond the required DDE vocabulary-constrained\n      keywords.\n    type: array\n    items:\n      anyOf:\n      - $ref: '#/$defs/DefinedTerm'\n      - type: string\n  schema:additionalType:\n    description: Additional type classifications beyond the required DDE resource\n      type.\n    type: array\n    items:\n      anyOf:\n      - type: string\n      - $ref: '#/$defs/DefinedTerm'\n$defs:\n  DefinedTerm:\n    $ref: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml\nx-jsonld-prefixes:\n  schema: http://schema.org/\n  dde: https://www.ddeworld.org/resource/\n",
+  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntype: object\ntitle: DDE Optional metadata properties\ndescription: Optional DDE-specific properties that extend CDIF optional metadata.\nproperties:\n  schema:alternateName:\n    description: Alternative names or aliases for the resource.\n    anyOf:\n    - type: string\n    - type: array\n      items:\n        type: string\n  schema:measurementTechnique:\n    description: Techniques, methods, or instruments used in the measurement or creation\n      of the data.\n    type: array\n    items:\n      anyOf:\n      - type: string\n      - $ref: '#/$defs/DefinedTerm'\n  schema:keywords:\n    description: Additional keywords beyond the required DDE vocabulary-constrained\n      keywords.\n    type: array\n    items:\n      anyOf:\n      - $ref: '#/$defs/DefinedTerm'\n      - type: string\n  schema:additionalType:\n    description: Additional type classifications beyond the required DDE resource\n      type.\n    type: array\n    items:\n      anyOf:\n      - type: string\n      - $ref: '#/$defs/DefinedTerm'\n$defs:\n  DefinedTerm:\n    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml\nx-jsonld-prefixes:\n  schema: http://schema.org/\n  dde: https://www.ddeworld.org/resource/\n",
   "gitRepository": "https://github.com/usgin/ddeBuildingBlocks",
   "gitPath": "_sources/DDEproperties/ddeOptional"
 }

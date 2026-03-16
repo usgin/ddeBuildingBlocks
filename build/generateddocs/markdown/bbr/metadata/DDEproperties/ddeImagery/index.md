@@ -220,9 +220,6 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
                     schema1:roleName "DataCollector" ] ;
             schema1:startTime "2023-06-15T03:45:00Z" ;
             prov:used [ schema1:instrument [ a schema1:Thing ;
-                            schema1:additionalType "dde:platform" ;
-                            schema1:name "Landsat-8" ] ],
-                [ schema1:instrument [ a schema1:Thing ;
                             schema1:additionalType "dde:equipment" ;
                             schema1:name "Operational Land Imager (OLI)" ] ],
                 [ schema1:instrument [ a schema1:Thing ;
@@ -230,7 +227,10 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
                             schema1:name "Passive solar" ] ],
                 [ schema1:instrument [ a schema1:Thing ;
                             schema1:additionalType "dde:sensorType" ;
-                            schema1:name "Multispectral" ] ] ] .
+                            schema1:name "Multispectral" ] ],
+                [ schema1:instrument [ a schema1:Thing ;
+                            schema1:additionalType "dde:platform" ;
+                            schema1:name "Landsat-8" ] ] ] .
 
 
 ```
@@ -256,7 +256,7 @@ properties:
       a data collector via schema:participant as an agentInRole, and temporal bounds
       via schema:startTime/schema:endTime.
     items:
-      $ref: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifProv/schema.yaml
+      $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifProvActivity/schema.yaml
   schema:additionalProperty:
     type: array
     description: Dataset-level additional properties for imagery resources. Wavelength
@@ -269,7 +269,7 @@ properties:
       - $ref: '#/$defs/AdditionalProperty'
 $defs:
   AdditionalProperty:
-    $ref: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.yaml
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/schema.yaml
   WavelengthPV:
     type: object
     description: Wavelength range of the imagery (e.g. "0.45-0.52 micrometers"). XSD
@@ -334,9 +334,8 @@ Links to the schema:
 {
   "@context": {
     "schema": "http://schema.org/",
-    "prov": "http://www.w3.org/ns/prov#",
-    "nxs": "http://purl.org/nexusformat/definitions/",
     "dde": "https://www.ddeworld.org/resource/",
+    "prov": "http://www.w3.org/ns/prov#",
     "@version": 1.1
   }
 }

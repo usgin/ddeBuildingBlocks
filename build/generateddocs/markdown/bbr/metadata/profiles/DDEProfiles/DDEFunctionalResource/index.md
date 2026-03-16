@@ -29,109 +29,115 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
 #### json
 ```json
 {
-    "@context": {
-        "schema": "http://schema.org/",
-        "dde": "https://www.ddeworld.org/resource/",
-        "cdif": "https://cdif.org/profile/",
-        "dcterms": "http://purl.org/dc/terms/",
-        "dcat": "http://www.w3.org/ns/dcat#",
-        "prov": "http://www.w3.org/ns/prov#"
-    },
-    "@id": "urn:dde:example-geological-time-viewer",
+  "@context": {
+    "schema": "http://schema.org/",
+    "dde": "https://www.ddeworld.org/resource/",
+    "cdif": "https://cdif.org/profile/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#"
+  },
+  "@id": "urn:dde:example-geological-time-viewer",
+  "@type": [
+    "schema:Dataset"
+  ],
+  "schema:name": "DDE Geological Time Visualization Application",
+  "schema:description": "Interactive web application for exploring the International Chronostratigraphic Chart. Enables browsing of geological time divisions from Eons to Ages, viewing boundary ages, color codes, and correlations between regional and global stratigraphic schemes. Built on the DDE knowledge graph with data from the International Commission on Stratigraphy.",
+  "schema:identifier": "urn:dde:geol-time-viewer-v2",
+  "schema:dateModified": "2024-09-01",
+  "schema:inLanguage": "eng",
+  "schema:license": [
+    {
+      "@type": "schema:CreativeWork",
+      "schema:name": "Creative Commons Attribution 4.0",
+      "schema:url": "https://creativecommons.org/licenses/by/4.0/"
+    }
+  ],
+  "schema:url": "https://deep-time.org/geological-time/",
+  "schema:subjectOf": {
+    "@id": "urn:uuid:dde-funcres-catalog-record",
     "@type": [
-        "schema:Dataset"
+      "schema:Dataset"
     ],
-    "schema:name": "DDE Geological Time Visualization Application",
-    "schema:description": "Interactive web application for exploring the International Chronostratigraphic Chart. Enables browsing of geological time divisions from Eons to Ages, viewing boundary ages, color codes, and correlations between regional and global stratigraphic schemes. Built on the DDE knowledge graph with data from the International Commission on Stratigraphy.",
-    "schema:identifier": "urn:dde:geol-time-viewer-v2",
-    "schema:dateModified": "2024-09-01",
-    "schema:inLanguage": "eng",
-    "schema:license": [
-        {
-            "@type": "schema:CreativeWork",
-            "schema:name": "Creative Commons Attribution 4.0",
-            "schema:url": "https://creativecommons.org/licenses/by/4.0/"
-        }
-    ],
-    "schema:url": "https://deep-time.org/geological-time/",
-    "schema:subjectOf": {
-        "@id": "urn:uuid:dde-funcres-catalog-record",
-        "@type": [
-            "schema:Dataset"
-        ],
-        "schema:additionalType": [
-            "dcat:CatalogRecord"
-        ],
-        "schema:about": {
-            "@id": "urn:dde:example-geological-time-viewer"
-        },
-        "dcterms:conformsTo": [
-            {
-                "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource"
-            }
-        ],
-        "schema:sdDatePublished": "2024-09-01"
-    },
     "schema:additionalType": [
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Software",
-            "schema:termCode": "software",
-            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-        },
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Web Application",
-            "schema:termCode": "webApplication",
-            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-        }
+      "dcat:CatalogRecord"
     ],
-    "schema:keywords": [
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Geoscientific Information",
-            "schema:termCode": "geoscientificInformation",
-            "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
-        },
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Data Integration Synthesis",
-            "schema:termCode": "dataIntegrationSynthesis",
-            "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
-        },
-        "geological time",
-        "stratigraphy",
-        "chronostratigraphy",
-        "ICS"
-    ],
-    "schema:image": [
-        {
-            "@type": "schema:ImageObject",
-            "schema:contentUrl": "https://deep-time.org/images/geol-time-viewer-screenshot.png",
-            "schema:name": "Geological Time Viewer screenshot",
-            "schema:encodingFormat": "image/png"
-        }
-    ],
-    "schema:creator": {
-        "@list": [
-            {
-                "@type": "schema:Organization",
-                "schema:name": "Deep-time Digital Earth (DDE)",
-                "schema:url": "https://www.ddeworld.org/"
-            }
-        ]
+    "schema:about": {
+      "@id": "urn:dde:example-geological-time-viewer"
     },
-    "schema:relatedLink": [
-        {
-            "@type": "schema:LinkRole",
-            "schema:linkRelationship": "implementationSoftware",
-            "target": {
-                "@type": "schema:EntryPoint",
-                "schema:name": "DDE Geological Time Viewer Web Application",
-                "schema:url": "https://deep-time.org/geological-time/"
-            }
-        }
+    "dcterms:conformsTo": [
+      {
+        "@id": "https://w3id.org/cdif/core/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/discovery/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource"
+      }
+    ],
+    "schema:sdDatePublished": "2024-09-01"
+  },
+  "schema:additionalType": [
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Software",
+      "schema:termCode": "software",
+      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+    },
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Web Application",
+      "schema:termCode": "webApplication",
+      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+    }
+  ],
+  "schema:keywords": [
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Geoscientific Information",
+      "schema:termCode": "geoscientificInformation",
+      "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
+    },
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Data Integration Synthesis",
+      "schema:termCode": "dataIntegrationSynthesis",
+      "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
+    },
+    "geological time",
+    "stratigraphy",
+    "chronostratigraphy",
+    "ICS"
+  ],
+  "schema:image": [
+    {
+      "@type": "schema:ImageObject",
+      "schema:contentUrl": "https://deep-time.org/images/geol-time-viewer-screenshot.png",
+      "schema:name": "Geological Time Viewer screenshot",
+      "schema:encodingFormat": "image/png"
+    }
+  ],
+  "schema:creator": {
+    "@list": [
+      {
+        "@type": "schema:Organization",
+        "schema:name": "Deep-time Digital Earth (DDE)",
+        "schema:url": "https://www.ddeworld.org/"
+      }
     ]
+  },
+  "schema:relatedLink": [
+    {
+      "@type": "schema:LinkRole",
+      "schema:linkRelationship": "implementationSoftware",
+      "target": {
+        "@type": "schema:EntryPoint",
+        "schema:name": "DDE Geological Time Viewer Web Application",
+        "schema:url": "https://deep-time.org/geological-time/"
+      }
+    }
+  ]
 }
 
 ```
@@ -187,6 +193,12 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
       "@id": "urn:dde:example-geological-time-viewer"
     },
     "dcterms:conformsTo": [
+      {
+        "@id": "https://w3id.org/cdif/core/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/discovery/1.0/"
+      },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource"
       }
@@ -304,7 +316,9 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
     schema1:url "https://deep-time.org/geological-time/" .
 
 <urn:uuid:dde-funcres-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource> ;
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource>,
+        <https://w3id.org/cdif/core/1.0/>,
+        <https://w3id.org/cdif/discovery/1.0/> ;
     schema1:about <urn:dde:example-geological-time-viewer> ;
     schema1:additionalType "dcat:CatalogRecord" ;
     schema1:sdDatePublished "2024-09-01" .

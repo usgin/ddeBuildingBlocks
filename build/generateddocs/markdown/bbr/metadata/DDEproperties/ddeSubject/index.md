@@ -41,8 +41,9 @@ Import base schema.org SubjectOf, add requirement that dcterms:conformsTo has DD
     ],
     "schema:description": "Metadata record for a DDE geoscience dataset",
     "dcterms:conformsTo": [
-        {"@id": "cdif:profile_basic_1.0"},
-        {"@id": "cdif:profile_ddeCDIF"}
+        {"@id": "https://w3id.org/cdif/core/1.0/"},
+        {"@id": "https://w3id.org/cdif/discovery/1.0/"},
+        {"@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery"}
     ]
 }
 
@@ -85,10 +86,13 @@ Import base schema.org SubjectOf, add requirement that dcterms:conformsTo has DD
   "schema:description": "Metadata record for a DDE geoscience dataset",
   "dcterms:conformsTo": [
     {
-      "@id": "cdif:profile_basic_1.0"
+      "@id": "https://w3id.org/cdif/core/1.0/"
     },
     {
-      "@id": "cdif:profile_ddeCDIF"
+      "@id": "https://w3id.org/cdif/discovery/1.0/"
+    },
+    {
+      "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery"
     }
   ]
 }
@@ -96,13 +100,13 @@ Import base schema.org SubjectOf, add requirement that dcterms:conformsTo has DD
 
 #### ttl
 ```ttl
-@prefix cdif: <https://cdif.org/profile/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix schema1: <http://schema.org/> .
 
 <https://example.org/metadata/geo-dataset-001> a schema1:Dataset ;
-    dcterms:conformsTo cdif:profile_basic_1.0,
-        cdif:profile_ddeCDIF ;
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery>,
+        <https://w3id.org/cdif/core/1.0/>,
+        <https://w3id.org/cdif/discovery/1.0/> ;
     schema1:about <https://example.org/dataset/geo-dataset-001> ;
     schema1:additionalType "dcat:CatalogRecord" ;
     schema1:creator <https://orcid.org/0000-0002-7933-2154> ;
@@ -121,18 +125,18 @@ Import base schema.org SubjectOf, add requirement that dcterms:conformsTo has DD
 $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 allOf:
-- $ref: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifCatalogRecord/schema.yaml
+- $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/schema.yaml
 - properties:
     dcterms:conformsTo:
       type: array
       items:
-        $ref: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifCatalogRecord/schema.yaml#/$defs/conformsTo_item
-      minItems: 2
+        type: string
+      minItems: 1
       contains:
         type: object
         properties:
           '@id':
-            const: cdif:profile_ddeCDIF
+            const: https://w3id.org/cdif/bbr/metadata/DDEProfiles/DDEDiscovery
         required:
         - '@id'
       minContains: 1
@@ -153,10 +157,6 @@ Links to the schema:
 {
   "@context": {
     "schema": "http://schema.org/",
-    "ex": "https://example.org/",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "dcterms": "http://purl.org/dc/terms/",
-    "dcat": "http://www.w3.org/ns/dcat#",
     "@version": 1.1
   }
 }

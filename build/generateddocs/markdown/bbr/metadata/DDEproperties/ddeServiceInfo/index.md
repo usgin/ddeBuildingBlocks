@@ -217,36 +217,14 @@ Shows a distribution with a WebAPI using a DDE ServiceTypeCode and an optional o
 @prefix schema1: <http://schema.org/> .
 
 [] schema1:dataset [ a schema1:PropertyValue ;
-            schema1:name "Arizona Geologic Units (Shapefile)" ;
-            schema1:propertyID "schema:identifier" ;
-            schema1:value "urn:azgs:geologic-units-shp" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Arizona Geologic Units (GeoJSON)" ;
             schema1:propertyID "schema:identifier" ;
-            schema1:url "https://data.azgs.az.gov/geologic-units.geojson" ] ;
+            schema1:url "https://data.azgs.az.gov/geologic-units.geojson" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Arizona Geologic Units (Shapefile)" ;
+            schema1:propertyID "schema:identifier" ;
+            schema1:value "urn:azgs:geologic-units-shp" ] ;
     schema1:distribution [ a schema1:WebAPI ;
-            schema1:description "OGC WFS service providing vector feature access to Arizona geologic unit data" ;
-            schema1:documentation [ a schema1:CreativeWork ;
-                    schema1:encodingFormat "application/xml" ;
-                    schema1:name "WFS Capabilities Document" ;
-                    schema1:url "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology_WFS/MapServer/WFSServer?service=WFS&request=GetCapabilities" ] ;
-            schema1:name "Arizona Geologic Unit View WFS" ;
-            schema1:potentialAction [ a schema1:SearchAction ;
-                    schema1:description "Retrieve geologic unit features by bounding box or attribute filter" ;
-                    schema1:name "GetFeature" ;
-                    schema1:target [ a schema1:EntryPoint ;
-                            schema1:httpMethod "GET" ;
-                            schema1:urlTemplate "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology_WFS/MapServer/WFSServer?service=WFS&request=GetFeature&typeName={typeName}&bbox={bbox}" ] ],
-                [ a schema1:SearchAction ;
-                    schema1:name "GetCapabilities" ;
-                    schema1:target [ a schema1:EntryPoint ;
-                            schema1:httpMethod "GET" ;
-                            schema1:urlTemplate "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology_WFS/MapServer/WFSServer?service=WFS&request=GetCapabilities" ] ] ;
-            schema1:serviceType [ a schema1:DefinedTerm ;
-                    schema1:inDefinedTermSet "dde:codelist/ServiceTypeCode" ;
-                    schema1:name "Data Access Service" ;
-                    schema1:termCode "DataService>DataAccess" ] ],
-        [ a schema1:WebAPI ;
             schema1:description "OGC WMS service providing map tile views of Arizona lithostratigraphy" ;
             schema1:name "Arizona Lithostratigraphy WMS" ;
             schema1:potentialAction [ a schema1:SearchAction ;
@@ -258,7 +236,29 @@ Shows a distribution with a WebAPI using a DDE ServiceTypeCode and an optional o
             schema1:serviceType [ a schema1:DefinedTerm ;
                     schema1:inDefinedTermSet "dde:codelist/ServiceTypeCode" ;
                     schema1:name "Map View Service" ;
-                    schema1:termCode "DataService>MapView" ] ] .
+                    schema1:termCode "DataService>MapView" ] ],
+        [ a schema1:WebAPI ;
+            schema1:description "OGC WFS service providing vector feature access to Arizona geologic unit data" ;
+            schema1:documentation [ a schema1:CreativeWork ;
+                    schema1:encodingFormat "application/xml" ;
+                    schema1:name "WFS Capabilities Document" ;
+                    schema1:url "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology_WFS/MapServer/WFSServer?service=WFS&request=GetCapabilities" ] ;
+            schema1:name "Arizona Geologic Unit View WFS" ;
+            schema1:potentialAction [ a schema1:SearchAction ;
+                    schema1:name "GetCapabilities" ;
+                    schema1:target [ a schema1:EntryPoint ;
+                            schema1:httpMethod "GET" ;
+                            schema1:urlTemplate "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology_WFS/MapServer/WFSServer?service=WFS&request=GetCapabilities" ] ],
+                [ a schema1:SearchAction ;
+                    schema1:description "Retrieve geologic unit features by bounding box or attribute filter" ;
+                    schema1:name "GetFeature" ;
+                    schema1:target [ a schema1:EntryPoint ;
+                            schema1:httpMethod "GET" ;
+                            schema1:urlTemplate "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology_WFS/MapServer/WFSServer?service=WFS&request=GetFeature&typeName={typeName}&bbox={bbox}" ] ] ;
+            schema1:serviceType [ a schema1:DefinedTerm ;
+                    schema1:inDefinedTermSet "dde:codelist/ServiceTypeCode" ;
+                    schema1:name "Data Access Service" ;
+                    schema1:termCode "DataService>DataAccess" ] ] .
 
 
 ```
@@ -400,11 +400,11 @@ required:
 - schema:distribution
 $defs:
   AdditionalProperty:
-    $ref: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.yaml
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/schema.yaml
   DefinedTerm:
-    $ref: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml
   Identifier:
-    $ref: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.yaml
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/schema.yaml
 x-jsonld-prefixes:
   schema: http://schema.org/
   dde: https://www.ddeworld.org/resource/
@@ -424,7 +424,6 @@ Links to the schema:
   "@context": {
     "schema": "http://schema.org/",
     "dde": "https://www.ddeworld.org/resource/",
-    "nxs": "http://purl.org/nexusformat/definitions/",
     "@version": 1.1
   }
 }

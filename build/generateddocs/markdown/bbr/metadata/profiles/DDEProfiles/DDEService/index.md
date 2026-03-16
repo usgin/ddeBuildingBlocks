@@ -29,139 +29,145 @@ DDE discovery metadata for the OneGeology WFS data access service with DDE Servi
 #### json
 ```json
 {
-    "@context": {
-        "schema": "http://schema.org/",
-        "dde": "https://www.ddeworld.org/resource/",
-        "cdif": "https://cdif.org/profile/",
-        "dcterms": "http://purl.org/dc/terms/",
-        "dcat": "http://www.w3.org/ns/dcat#",
-        "prov": "http://www.w3.org/ns/prov#"
-    },
-    "@id": "urn:dde:example-onegeology-wfs",
+  "@context": {
+    "schema": "http://schema.org/",
+    "dde": "https://www.ddeworld.org/resource/",
+    "cdif": "https://cdif.org/profile/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#"
+  },
+  "@id": "urn:dde:example-onegeology-wfs",
+  "@type": [
+    "schema:Dataset"
+  ],
+  "schema:name": "DDE OneGeology WFS Data Access Service",
+  "schema:description": "OGC Web Feature Service providing vector feature access to harmonized geological unit data from participating OneGeology geological surveys. Supports WFS 2.0 GetCapabilities, DescribeFeatureType, and GetFeature operations with GeoSciML Portrayal output.",
+  "schema:identifier": "urn:onegeology:wfs-global-2024",
+  "schema:dateModified": "2024-03-15",
+  "schema:inLanguage": "eng",
+  "schema:license": [
+    {
+      "@type": "schema:CreativeWork",
+      "schema:name": "Creative Commons Attribution 4.0",
+      "schema:url": "https://creativecommons.org/licenses/by/4.0/"
+    }
+  ],
+  "schema:url": "https://onegeology.org/technical_implementation/",
+  "schema:subjectOf": {
+    "@id": "urn:uuid:dde-service-catalog-record",
     "@type": [
-        "schema:Dataset"
+      "schema:Dataset"
     ],
-    "schema:name": "DDE OneGeology WFS Data Access Service",
-    "schema:description": "OGC Web Feature Service providing vector feature access to harmonized geological unit data from participating OneGeology geological surveys. Supports WFS 2.0 GetCapabilities, DescribeFeatureType, and GetFeature operations with GeoSciML Portrayal output.",
-    "schema:identifier": "urn:onegeology:wfs-global-2024",
-    "schema:dateModified": "2024-03-15",
-    "schema:inLanguage": "eng",
-    "schema:license": [
-        {
-            "@type": "schema:CreativeWork",
-            "schema:name": "Creative Commons Attribution 4.0",
-            "schema:url": "https://creativecommons.org/licenses/by/4.0/"
-        }
-    ],
-    "schema:url": "https://onegeology.org/technical_implementation/",
-    "schema:subjectOf": {
-        "@id": "urn:uuid:dde-service-catalog-record",
-        "@type": [
-            "schema:Dataset"
-        ],
-        "schema:additionalType": [
-            "dcat:CatalogRecord"
-        ],
-        "schema:about": {
-            "@id": "urn:dde:example-onegeology-wfs"
-        },
-        "dcterms:conformsTo": [
-            {
-                "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEService"
-            }
-        ],
-        "schema:sdDatePublished": "2024-03-15"
-    },
     "schema:additionalType": [
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Service",
-            "schema:termCode": "service",
-            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-        }
+      "dcat:CatalogRecord"
     ],
-    "schema:keywords": [
+    "schema:about": {
+      "@id": "urn:dde:example-onegeology-wfs"
+    },
+    "dcterms:conformsTo": [
+      {
+        "@id": "https://w3id.org/cdif/core/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/discovery/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEService"
+      }
+    ],
+    "schema:sdDatePublished": "2024-03-15"
+  },
+  "schema:additionalType": [
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Service",
+      "schema:termCode": "service",
+      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+    }
+  ],
+  "schema:keywords": [
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Geoscientific Information",
+      "schema:termCode": "geoscientificInformation",
+      "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
+    },
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Data Integration Synthesis",
+      "schema:termCode": "dataIntegrationSynthesis",
+      "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
+    },
+    "OneGeology",
+    "WFS",
+    "geological map",
+    "GeoSciML"
+  ],
+  "schema:image": [
+    {
+      "@type": "schema:ImageObject",
+      "schema:contentUrl": "https://onegeology.org/images/wfs-service-preview.png",
+      "schema:name": "service preview",
+      "schema:encodingFormat": "image/png"
+    }
+  ],
+  "schema:distribution": [
+    {
+      "@type": [
+        "schema:WebAPI"
+      ],
+      "schema:name": "OneGeology Global WFS",
+      "schema:description": "OGC WFS 2.0 service for harmonized geological unit features",
+      "schema:serviceType": {
+        "@type": "schema:DefinedTerm",
+        "schema:name": "Data Access Service",
+        "schema:termCode": "DataService>DataAccess",
+        "schema:inDefinedTermSet": "dde:codelist/ServiceTypeCode"
+      },
+      "schema:potentialAction": [
         {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Geoscientific Information",
-            "schema:termCode": "geoscientificInformation",
-            "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
+          "@type": "schema:SearchAction",
+          "schema:name": "GetCapabilities",
+          "schema:target": {
+            "@type": "schema:EntryPoint",
+            "schema:urlTemplate": "https://onegeology.org/wfs?service=WFS&request=GetCapabilities",
+            "schema:httpMethod": [
+              "GET"
+            ]
+          }
         },
         {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Data Integration Synthesis",
-            "schema:termCode": "dataIntegrationSynthesis",
-            "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
-        },
-        "OneGeology",
-        "WFS",
-        "geological map",
-        "GeoSciML"
-    ],
-    "schema:image": [
-        {
-            "@type": "schema:ImageObject",
-            "schema:contentUrl": "https://onegeology.org/images/wfs-service-preview.png",
-            "schema:name": "service preview",
-            "schema:encodingFormat": "image/png"
+          "@type": "schema:SearchAction",
+          "schema:name": "GetFeature",
+          "schema:description": "Retrieve geological unit features by bounding box",
+          "schema:target": {
+            "@type": "schema:EntryPoint",
+            "schema:urlTemplate": "https://onegeology.org/wfs?service=WFS&request=GetFeature&typeName={typeName}&bbox={bbox}",
+            "schema:httpMethod": [
+              "GET"
+            ]
+          }
         }
-    ],
-    "schema:distribution": [
-        {
-            "@type": [
-                "schema:WebAPI"
-            ],
-            "schema:name": "OneGeology Global WFS",
-            "schema:description": "OGC WFS 2.0 service for harmonized geological unit features",
-            "schema:serviceType": {
-                "@type": "schema:DefinedTerm",
-                "schema:name": "Data Access Service",
-                "schema:termCode": "DataService>DataAccess",
-                "schema:inDefinedTermSet": "dde:codelist/ServiceTypeCode"
-            },
-            "schema:potentialAction": [
-                {
-                    "@type": "schema:SearchAction",
-                    "schema:name": "GetCapabilities",
-                    "schema:target": {
-                        "@type": "schema:EntryPoint",
-                        "schema:urlTemplate": "https://onegeology.org/wfs?service=WFS&request=GetCapabilities",
-                        "schema:httpMethod": [
-                            "GET"
-                        ]
-                    }
-                },
-                {
-                    "@type": "schema:SearchAction",
-                    "schema:name": "GetFeature",
-                    "schema:description": "Retrieve geological unit features by bounding box",
-                    "schema:target": {
-                        "@type": "schema:EntryPoint",
-                        "schema:urlTemplate": "https://onegeology.org/wfs?service=WFS&request=GetFeature&typeName={typeName}&bbox={bbox}",
-                        "schema:httpMethod": [
-                            "GET"
-                        ]
-                    }
-                }
-            ],
-            "schema:documentation": {
-                "@type": "schema:CreativeWork",
-                "schema:name": "WFS Capabilities Document",
-                "schema:url": "https://onegeology.org/wfs?service=WFS&request=GetCapabilities",
-                "schema:encodingFormat": [
-                    "application/xml"
-                ]
-            }
-        }
-    ],
-    "schema:dataset": [
-        {
-            "@type": "schema:PropertyValue",
-            "schema:propertyID": "schema:identifier",
-            "schema:name": "OneGeology Global Geological Map Data",
-            "schema:url": "https://onegeology.org/data/"
-        }
-    ]
+      ],
+      "schema:documentation": {
+        "@type": "schema:CreativeWork",
+        "schema:name": "WFS Capabilities Document",
+        "schema:url": "https://onegeology.org/wfs?service=WFS&request=GetCapabilities",
+        "schema:encodingFormat": [
+          "application/xml"
+        ]
+      }
+    }
+  ],
+  "schema:dataset": [
+    {
+      "@type": "schema:PropertyValue",
+      "schema:propertyID": "schema:identifier",
+      "schema:name": "OneGeology Global Geological Map Data",
+      "schema:url": "https://onegeology.org/data/"
+    }
+  ]
 }
 
 ```
@@ -217,6 +223,12 @@ DDE discovery metadata for the OneGeology WFS data access service with DDE Servi
       "@id": "urn:dde:example-onegeology-wfs"
     },
     "dcterms:conformsTo": [
+      {
+        "@id": "https://w3id.org/cdif/core/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/discovery/1.0/"
+      },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEService"
       }
@@ -380,7 +392,9 @@ DDE discovery metadata for the OneGeology WFS data access service with DDE Servi
     schema1:url "https://onegeology.org/technical_implementation/" .
 
 <urn:uuid:dde-service-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEService> ;
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEService>,
+        <https://w3id.org/cdif/core/1.0/>,
+        <https://w3id.org/cdif/discovery/1.0/> ;
     schema1:about <urn:dde:example-onegeology-wfs> ;
     schema1:additionalType "dcat:CatalogRecord" ;
     schema1:sdDatePublished "2024-03-15" .
@@ -455,7 +469,6 @@ Links to the schema:
     "dcat": "http://www.w3.org/ns/dcat#",
     "prov": "http://www.w3.org/ns/prov#",
     "dqv": "http://www.w3.org/ns/dqv#",
-    "nxs": "http://purl.org/nexusformat/definitions/",
     "@version": 1.1
   }
 }

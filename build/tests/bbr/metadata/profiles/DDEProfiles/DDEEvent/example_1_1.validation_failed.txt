@@ -1,5 +1,5 @@
 Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDEEvent - DDE Event profile
-Generated 2026-03-10T13:55:10.103863+00:00
+Generated 2026-03-16T21:42:21.742880+00:00
 === Files ===
 Using exampleDDEEvent.json from examples
 JSON-LD context is present - uplifting
@@ -10,46 +10,46 @@ Output Turtle example_1_1.ttl created
 === JSON Schema ===
 
 ** Validation error **
-ValidationError: [{'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEEvent'}] is too short
+ValidationError: [{'@id': 'https://w3id.org/cdif/core/1.0/'}, {'@id': 'https://w3id.org/cdif/discovery/1.0/'}, {'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEEvent'}] does not contain items matching the given schema
 
-Failed validating 'minItems' in schema['allOf'][0]['allOf'][2]['allOf'][1]['properties']['schema:subjectOf']['allOf'][1]['properties']['dcterms:conformsTo']:
-    {'contains': {'properties': {'@id': {'const': 'cdif:profile_ddeCDIF'}},
+Failed validating 'contains' in schema['allOf'][0]['allOf'][2]['allOf'][1]['properties']['schema:subjectOf']['allOf'][1]['properties']['dcterms:conformsTo']:
+    {'contains': {'properties': {'@id': {'const': 'https://w3id.org/cdif/bbr/metadata/DDEProfiles/DDEDiscovery'}},
                   'required': ['@id'],
                   'type': 'object'},
-     'items': {'$ref': 'https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifCatalogRecord/schema.yaml#/$defs/conformsTo_item'},
+     'items': {'type': 'string'},
      'minContains': 1,
-     'minItems': 2,
+     'minItems': 1,
      'type': 'array'}
 
 On instance['schema:subjectOf']['dcterms:conformsTo']:
-    [{'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEEvent'}]
+    [{'@id': 'https://w3id.org/cdif/core/1.0/'},
+     {'@id': 'https://w3id.org/cdif/discovery/1.0/'},
+     {'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEEvent'}]
 === End JSON Schema ===
 
 === SHACL ===
-
-** Validation error **
 Validation result for _sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl:
   Validation Report
-  Conforms: False
-  Results (1):
-  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
-  	Severity: sh:Violation
-  	Source Shape: [ sh:message Literal("DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF") ; sh:minCount Literal("2", datatype=xsd:integer) ; sh:path dcterms:conformsTo ]
-  	Focus Node: <urn:uuid:dde-event-catalog-record>
-  	Result Path: dcterms:conformsTo
-  	Message: DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF
+  Conforms: True
   
 Focus nodes for _sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl:
- - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:first: *none*
- - Shape _:n2cf8f96236a340359b071e00682212fdb11: *none*
- - Shape _:n2cf8f96236a340359b071e00682212fdb9: *none*
- - Shape cdifd:rightsProperty/sh:or/rdf:first: *none*
- - Shape cdifd:rightsProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:DDEImageObjectShape: <urn:dde:example-iodp-expedition-396>/schema1:image
- - Shape cdifd:DDEDatasetMandatoryShape: *none*
- - Shape cdifd:DDECatalogRecordShape: *none*
  - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape _:n2cf8f96236a340359b071e00682212fdb22: *none*
+ - Shape cdifd:DDECatalogRecordShape: *none*
+ - Shape _:n66dee774352c4387ac8822fad1255768b22: *none*
+ - Shape cdifd:rightsProperty/sh:or/rdf:first: *none*
+ - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:first: *none*
+ - Shape cdifd:rightsProperty/sh:or/rdf:rest/rdf:first: *none*
+ - Shape _:n66dee774352c4387ac8822fad1255768b9: *none*
+ - Shape _:n66dee774352c4387ac8822fad1255768b11: *none*
+ - Shape cdifd:DDEDatasetMandatoryShape: *none*
+ - Shape cdifd:DDEImageObjectShape: <urn:dde:example-iodp-expedition-396>/schema1:image
+
+Validation result for _sources/DDEproperties/ddeOptional/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/DDEproperties/ddeOptional/rules.shacl:
+ - Shape cdifd:DDEOptionalDatasetShape: *none*
 
 Validation result for _sources/DDEproperties/ddeRequired/rules.shacl:
   Validation Report
@@ -59,329 +59,19 @@ Focus nodes for _sources/DDEproperties/ddeRequired/rules.shacl:
  - Shape cdifd:DDEImageObjectShape: <urn:dde:example-iodp-expedition-396>/schema1:image
  - Shape cdifd:DDERequiredDatasetShape: *none*
 
+Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:
+ - Shape cdifd:DDECatalogRecordShape: *none*
+
 Validation result for _sources/DDEproperties/ddeResourceType/rules.shacl:
   Validation Report
   Conforms: True
   
 Focus nodes for _sources/DDEproperties/ddeResourceType/rules.shacl:
  - Shape cdifd:DDEResourceTypeShape: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl:
- - Shape _:nae65ce404b1347e7a0e35554768e3f6bb8: *none*
- - Shape _:nae65ce404b1347e7a0e35554768e3f6bb19: *none*
- - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:first: *none*
- - Shape _:nae65ce404b1347e7a0e35554768e3f6bb7: *none*
- - Shape _:nae65ce404b1347e7a0e35554768e3f6bb5: *none*
- - Shape _:nae65ce404b1347e7a0e35554768e3f6bb26: *none*
- - Shape _:nae65ce404b1347e7a0e35554768e3f6bb10: *none*
- - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape _:nae65ce404b1347e7a0e35554768e3f6bb4: *none*
- - Shape _:nae65ce404b1347e7a0e35554768e3f6bb6: *none*
- - Shape cdifd:CDIFDefinedTermShape: *none*
- - Shape cdifd:CDIFDefinedTermShape/sh:property/sh:or/rdf:first: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl:
- - Shape _:n77bdc8a5ca5e4fcd924d4b7f09cd2812b23: *none*
- - Shape _:n77bdc8a5ca5e4fcd924d4b7f09cd2812b20: *none*
- - Shape cdifd:CDIFIdentifierTypeTermShape/sh:property/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFIdentifierTypeTermShape: *none*
- - Shape cdifd:CDIFIdentifierShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:CDIFIdentifierShape/sh:property/sh:or/rdf:first: *none*
- - Shape _:n77bdc8a5ca5e4fcd924d4b7f09cd2812b10: *none*
- - Shape _:n77bdc8a5ca5e4fcd924d4b7f09cd2812b22: *none*
- - Shape cdifd:CDIFIdentifierShape: *none*
- - Shape _:n77bdc8a5ca5e4fcd924d4b7f09cd2812b21: *none*
- - Shape cdifd:CDIFIdentifierShape/sh:or/rdf:first: *none*
- - Shape _:n77bdc8a5ca5e4fcd924d4b7f09cd2812b25: *none*
- - Shape _:n77bdc8a5ca5e4fcd924d4b7f09cd2812b11: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl:
- - Shape _:ncd0540ca65864e91946cfa538ec59a1ab7: *none*
- - Shape cdifd:rightsProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape _:ncd0540ca65864e91946cfa538ec59a1ab18: *none*
- - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:first: *none*
- - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape soso:DatasetNS2Shape: *none*
- - Shape cdifd:CDIFCatalogRecordShape: *none*
- - Shape soso:DatasetNS1Shape: *none*
- - Shape soso:DatasetNS3Shape: *none*
- - Shape cdifd:rightsProperty/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFDatasetMandatoryShape: *none*
- - Shape _:ncd0540ca65864e91946cfa538ec59a1ab5: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl:
- - Shape <https://www.ogc.org/rules/template/#ConformsToInfo>: *none*
- - Shape cdifd:CDIFDataDownloadShape: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl:
- - Shape cdifd:CDIFOrganizationShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:CDIFOrganizationShape: <urn:dde:example-iodp-expedition-396>/schema1:creator/rdf:first
- - Shape cdifd:CDIFOrganizationShape/sh:or/rdf:first: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl:
- - Shape cdifd:maintainerOrProviderContactPointShape/sh:property/sh:or/rdf:first: *none*
- - Shape cdifd:contactPointProperty/sh:or/rdf:first: *none*
- - Shape cdifd:affiliationProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:affiliationProperty/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFPersonShape/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFContactPointShape: *none*
- - Shape _:n136cc3a3987e4a0cb5cb1eb671459ee4b14: *none*
- - Shape cdifd:contactPointProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:CDIFPersonShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:maintainerOrProviderContactPointShape: *none*
- - Shape cdifd:CDIFPersonShape: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl:
- - Shape cdifd:CDIFCatalogRecordShape: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl:
- - Shape _:nd32d88df61934d549fb1fac5c43da26ab21: *none*
- - Shape cdifd:webAPINode/sh:property/sh:or/rdf:first: *none*
- - Shape _:nd32d88df61934d549fb1fac5c43da26ab4: *none*
- - Shape _:nd32d88df61934d549fb1fac5c43da26ab18: *none*
- - Shape _:nd32d88df61934d549fb1fac5c43da26ab25: *none*
- - Shape _:nd32d88df61934d549fb1fac5c43da26ab22: *none*
- - Shape _:nd32d88df61934d549fb1fac5c43da26ab17: *none*
- - Shape _:nd32d88df61934d549fb1fac5c43da26ab10: *none*
- - Shape _:nd32d88df61934d549fb1fac5c43da26ab19: *none*
- - Shape _:nd32d88df61934d549fb1fac5c43da26ab20: *none*
- - Shape cdifd:webAPINode: *none*
- - Shape cdifd:webAPINode/sh:property/sh:or/rdf:first: *none*
- - Shape _:nd32d88df61934d549fb1fac5c43da26ab26: *none*
- - Shape _:nd32d88df61934d549fb1fac5c43da26ab3: *none*
- - Shape cdifd:webAPINode/sh:property/sh:or/rdf:first: *none*
- - Shape _:nd32d88df61934d549fb1fac5c43da26ab11: *none*
- - Shape _:nd32d88df61934d549fb1fac5c43da26ab24: *none*
- - Shape _:nd32d88df61934d549fb1fac5c43da26ab23: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl:
- - Shape cdifd:CDIFActionShape: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl:
- - Shape _:n745c230e92894bf6841b62eada3284ccb45: *none*
- - Shape _:n745c230e92894bf6841b62eada3284ccb7: *none*
- - Shape _:n745c230e92894bf6841b62eada3284ccb9: *none*
- - Shape _:n745c230e92894bf6841b62eada3284ccb30: *none*
- - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*
- - Shape _:n745c230e92894bf6841b62eada3284ccb4: *none*
- - Shape _:n745c230e92894bf6841b62eada3284ccb51: *none*
- - Shape cdifd:CDIFVariableMeasuredShape: *none*
- - Shape _:n745c230e92894bf6841b62eada3284ccb44: *none*
- - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*
- - Shape _:n745c230e92894bf6841b62eada3284ccb14: *none*
- - Shape _:n745c230e92894bf6841b62eada3284ccb10: *none*
- - Shape _:n745c230e92894bf6841b62eada3284ccb12: *none*
- - Shape _:n745c230e92894bf6841b62eada3284ccb11: *none*
- - Shape _:n745c230e92894bf6841b62eada3284ccb8: *none*
- - Shape _:n745c230e92894bf6841b62eada3284ccb37: *none*
- - Shape _:n745c230e92894bf6841b62eada3284ccb38: *none*
- - Shape _:n745c230e92894bf6841b62eada3284ccb52: *none*
- - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*
- - Shape _:n745c230e92894bf6841b62eada3284ccb5: *none*
- - Shape _:n745c230e92894bf6841b62eada3284ccb29: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl:
- - Shape cdifd:CDIFLabeledLinkShape: <urn:dde:example-iodp-expedition-396>/schema1:license
-
-
-** Validation error **
-Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:
-  Validation Report
-  Conforms: False
-  Results (1):
-  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
-  	Severity: sh:Violation
-  	Source Shape: [ sh:message Literal("DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF") ; sh:minCount Literal("2", datatype=xsd:integer) ; sh:path dcterms:conformsTo ]
-  	Focus Node: <urn:uuid:dde-event-catalog-record>
-  	Result Path: dcterms:conformsTo
-  	Message: DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF
-  
-Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:
- - Shape cdifd:DDECatalogRecordShape: *none*
-
-Validation result for _sources/DDEproperties/ddeOptional/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for _sources/DDEproperties/ddeOptional/rules.shacl:
- - Shape cdifd:DDEOptionalDatasetShape: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl:
- - Shape cdifd:creatorListValidation: <urn:dde:example-iodp-expedition-396>,<urn:uuid:dde-event-catalog-record>
- - Shape cdifd:keywordsNoCommaTest/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:relatedResourceProperty/sh:property/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFDatasetOptionalShape: *none*
- - Shape _:n7e647b1279564e198204497ec4351d30b7: *none*
- - Shape cdifd:keywordsNoCommaTest/sh:or/rdf:first: *none*
- - Shape _:n7e647b1279564e198204497ec4351d30b13: *none*
- - Shape _:n7e647b1279564e198204497ec4351d30b14: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl:
- - Shape _:n506dfa17b37840b9b3957c57cb270513b5: *none*
- - Shape cdifd:generatedByNode: *none*
- - Shape _:n506dfa17b37840b9b3957c57cb270513b4: *none*
- - Shape cdifd:generatedByNode/sh:property/sh:or/rdf:first: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl:
- - Shape cdifd:timeIntervalNode: <urn:dde:example-iodp-expedition-396>/schema1:temporalCoverage
- - Shape _:nefe73277b3ec46d98816c6af1ce295bbb17: *none*
- - Shape cdifd:temporalExtentProperty/sh:or/rdf:first: *none*
- - Shape cdifd:timePositionNode/sh:property/sh:or/rdf:first: *none*
- - Shape cdifd:timeInstantNode: <urn:dde:example-iodp-expedition-396>/schema1:temporalCoverage/time:hasEnd,<urn:dde:example-iodp-expedition-396>/schema1:temporalCoverage/time:hasBeginning
- - Shape _:nefe73277b3ec46d98816c6af1ce295bbb5: *none*
- - Shape _:nefe73277b3ec46d98816c6af1ce295bbb3: *none*
- - Shape cdifd:temporalExtentProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:timePositionNode: *none*
- - Shape _:nefe73277b3ec46d98816c6af1ce295bbb4: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl:
- - Shape _:nf8829ee9afe841f6bd8524566b4e9d4cb3: *none*
- - Shape _:nf8829ee9afe841f6bd8524566b4e9d4cb25: *none*
- - Shape _:nf8829ee9afe841f6bd8524566b4e9d4cb26: *none*
- - Shape _:nf8829ee9afe841f6bd8524566b4e9d4cb4: *none*
- - Shape cdifd:fundingShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape _:nf8829ee9afe841f6bd8524566b4e9d4cb5: *none*
- - Shape _:nf8829ee9afe841f6bd8524566b4e9d4cb14: *none*
- - Shape _:nf8829ee9afe841f6bd8524566b4e9d4cb11: *none*
- - Shape _:nf8829ee9afe841f6bd8524566b4e9d4cb17: *none*
- - Shape _:nf8829ee9afe841f6bd8524566b4e9d4cb12: *none*
- - Shape cdifd:fundingShape: *none*
- - Shape _:nf8829ee9afe841f6bd8524566b4e9d4cb15: *none*
- - Shape cdifd:fundingShape/sh:or/rdf:first: *none*
- - Shape _:nf8829ee9afe841f6bd8524566b4e9d4cb13: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl:
- - Shape cdifd:roleNameProperty/sh:or/rdf:first: *none*
- - Shape _:n847c455cd1254160b410bc61d70e99a5b3: *none*
- - Shape _:n847c455cd1254160b410bc61d70e99a5b15: *none*
- - Shape cdifd:roleNameProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape _:n847c455cd1254160b410bc61d70e99a5b4: *none*
- - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFRoleShape/sh:property/sh:or/rdf:first: *none*
- - Shape _:n847c455cd1254160b410bc61d70e99a5b16: *none*
- - Shape _:n847c455cd1254160b410bc61d70e99a5b14: *none*
- - Shape cdifd:CDIFRoleShape: *none*
- - Shape _:n847c455cd1254160b410bc61d70e99a5b20: *none*
- - Shape _:n847c455cd1254160b410bc61d70e99a5b18: *none*
- - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:CDIFDefinedTermShape: <urn:dde:example-iodp-expedition-396>/schema1:keywords,<urn:dde:example-iodp-expedition-396>/schema1:additionalType,<urn:dde:example-iodp-expedition-396>/schema1:keywords
- - Shape _:n847c455cd1254160b410bc61d70e99a5b17: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl:
- - Shape _:n6aa1c859ae104d11a26a75a900414e34b4: *none*
- - Shape cdifd:derivedFromProperty: *none*
- - Shape cdifd:derivedFromProperty/sh:or/rdf:first: *none*
- - Shape cdifd:derivedFromProperty/sh:or/rdf:rest/rdf:first: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl:
- - Shape cdifd:qualityMeasurementNode/sh:property/sh:or/rdf:first: *none*
- - Shape _:n888e9c7073ee47ac91f23e232e001fc3b5: *none*
- - Shape _:n888e9c7073ee47ac91f23e232e001fc3b4: *none*
- - Shape _:n888e9c7073ee47ac91f23e232e001fc3b11: *none*
- - Shape cdifd:qualityMeasurementNode: *none*
- - Shape cdifd:qualityMeasurementNode/sh:property/sh:or/rdf:first: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl:
- - Shape _:n882b946c9be542beb6fe902645791886b37: *none*
- - Shape _:n882b946c9be542beb6fe902645791886b33: *none*
- - Shape cdifd:geoCoordinatesNode: *none*
- - Shape _:n882b946c9be542beb6fe902645791886b3: *none*
- - Shape cdifd:spatialExtentProperty/sh:or/rdf:first: *none*
- - Shape _:n882b946c9be542beb6fe902645791886b32: *none*
- - Shape _:n882b946c9be542beb6fe902645791886b22: *none*
- - Shape cdifd:spatialExtentProperty: <urn:dde:example-iodp-expedition-396>/schema1:spatialCoverage
- - Shape _:n882b946c9be542beb6fe902645791886b9: *none*
- - Shape _:n882b946c9be542beb6fe902645791886b31: *none*
- - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape _:n882b946c9be542beb6fe902645791886b35: *none*
- - Shape cdifd:geoCoordinatesNode/sh:property/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:first: *none*
- - Shape _:n882b946c9be542beb6fe902645791886b17: *none*
- - Shape cdifd:geoShapeNode: <urn:dde:example-iodp-expedition-396>/schema1:spatialCoverage/schema1:geo
- - Shape _:n882b946c9be542beb6fe902645791886b4: *none*
- - Shape _:n882b946c9be542beb6fe902645791886b10: *none*
- - Shape cdifd:geoCoordinatesNode/sh:property/sh:or/rdf:first: *none*
- - Shape cdifd:spatialExtentProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:CDIFDefinedTermShape: <urn:dde:example-iodp-expedition-396>/schema1:keywords,<urn:dde:example-iodp-expedition-396>/schema1:additionalType,<urn:dde:example-iodp-expedition-396>/schema1:keywords
- - Shape _:n882b946c9be542beb6fe902645791886b34: *none*
 
 === End SHACL ===
 

@@ -28,120 +28,126 @@ DDE discovery metadata for a published research article on global plate tectonic
 #### json
 ```json
 {
-    "@context": {
-        "schema": "http://schema.org/",
-        "dde": "https://www.ddeworld.org/resource/",
-        "cdif": "https://cdif.org/profile/",
-        "dcterms": "http://purl.org/dc/terms/",
-        "dcat": "http://www.w3.org/ns/dcat#",
-        "prov": "http://www.w3.org/ns/prov#"
-    },
-    "@id": "urn:dde:example-plate-tectonics-article",
+  "@context": {
+    "schema": "http://schema.org/",
+    "dde": "https://www.ddeworld.org/resource/",
+    "cdif": "https://cdif.org/profile/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#"
+  },
+  "@id": "urn:dde:example-plate-tectonics-article",
+  "@type": [
+    "schema:Dataset"
+  ],
+  "schema:name": "Global Plate Tectonics and Paleogeography Since the Late Paleozoic",
+  "schema:description": "Published research article presenting a comprehensive plate tectonic and paleogeographic model for the Earth from the Late Paleozoic to the present day (410 Ma to 0 Ma). Includes digital reconstructions of continental configurations, ocean basins, and major tectonic boundaries through geological time.",
+  "schema:identifier": {
+    "@type": "schema:PropertyValue",
+    "schema:propertyID": "schema:identifier",
+    "schema:name": "DOI",
+    "schema:value": "10.1016/j.earscirev.2021.103477",
+    "schema:url": "https://doi.org/10.1016/j.earscirev.2021.103477"
+  },
+  "schema:dateModified": "2021-02-15",
+  "schema:datePublished": "2021-02-15",
+  "schema:inLanguage": "eng",
+  "schema:license": [
+    {
+      "@type": "schema:CreativeWork",
+      "schema:name": "Elsevier User License",
+      "schema:url": "https://www.elsevier.com/about/policies/open-access-licenses"
+    }
+  ],
+  "schema:subjectOf": {
+    "@id": "urn:uuid:dde-document-catalog-record",
     "@type": [
-        "schema:Dataset"
+      "schema:Dataset"
     ],
-    "schema:name": "Global Plate Tectonics and Paleogeography Since the Late Paleozoic",
-    "schema:description": "Published research article presenting a comprehensive plate tectonic and paleogeographic model for the Earth from the Late Paleozoic to the present day (410 Ma to 0 Ma). Includes digital reconstructions of continental configurations, ocean basins, and major tectonic boundaries through geological time.",
-    "schema:identifier": {
-        "@type": "schema:PropertyValue",
-        "schema:propertyID": "schema:identifier",
-        "schema:name": "DOI",
-        "schema:value": "10.1016/j.earscirev.2021.103477",
-        "schema:url": "https://doi.org/10.1016/j.earscirev.2021.103477"
-    },
-    "schema:dateModified": "2021-02-15",
-    "schema:datePublished": "2021-02-15",
-    "schema:inLanguage": "eng",
-    "schema:license": [
-        {
-            "@type": "schema:CreativeWork",
-            "schema:name": "Elsevier User License",
-            "schema:url": "https://www.elsevier.com/about/policies/open-access-licenses"
-        }
-    ],
-    "schema:subjectOf": {
-        "@id": "urn:uuid:dde-document-catalog-record",
-        "@type": [
-            "schema:Dataset"
-        ],
-        "schema:additionalType": [
-            "dcat:CatalogRecord"
-        ],
-        "schema:about": {
-            "@id": "urn:dde:example-plate-tectonics-article"
-        },
-        "dcterms:conformsTo": [
-            {
-                "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument"
-            }
-        ],
-        "schema:sdDatePublished": "2021-02-15"
-    },
     "schema:additionalType": [
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Document",
-            "schema:termCode": "document",
-            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-        },
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Article",
-            "schema:termCode": "article",
-            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-        }
+      "dcat:CatalogRecord"
     ],
-    "schema:keywords": [
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Geoscientific Information",
-            "schema:termCode": "geoscientificInformation",
-            "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
-        },
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Data Integration Synthesis",
-            "schema:termCode": "dataIntegrationSynthesis",
-            "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
-        },
-        "plate tectonics",
-        "paleogeography",
-        "Pangaea",
-        "continental drift"
-    ],
-    "schema:image": [
-        {
-            "@type": "schema:ImageObject",
-            "schema:contentUrl": "https://doi.org/10.1016/j.earscirev.2021.103477/thumbnail.jpg",
-            "schema:name": "article thumbnail",
-            "schema:encodingFormat": "image/jpeg"
-        }
-    ],
-    "schema:creator": {
-        "@list": [
-            {
-                "@type": "schema:Person",
-                "schema:name": "Dietmar Muller",
-                "schema:identifier": "https://orcid.org/0000-0002-3334-5764",
-                "schema:affiliation": {
-                    "@type": "schema:Organization",
-                    "schema:name": "University of Sydney"
-                }
-            }
-        ]
+    "schema:about": {
+      "@id": "urn:dde:example-plate-tectonics-article"
     },
-    "schema:distribution": [
-        {
-            "@type": [
-                "schema:DataDownload"
-            ],
-            "schema:name": "Article PDF",
-            "schema:contentUrl": "https://doi.org/10.1016/j.earscirev.2021.103477",
-            "schema:encodingFormat": [
-                "application/pdf"
-            ]
+    "dcterms:conformsTo": [
+      {
+        "@id": "https://w3id.org/cdif/core/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/discovery/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument"
+      }
+    ],
+    "schema:sdDatePublished": "2021-02-15"
+  },
+  "schema:additionalType": [
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Document",
+      "schema:termCode": "document",
+      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+    },
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Article",
+      "schema:termCode": "article",
+      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+    }
+  ],
+  "schema:keywords": [
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Geoscientific Information",
+      "schema:termCode": "geoscientificInformation",
+      "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
+    },
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Data Integration Synthesis",
+      "schema:termCode": "dataIntegrationSynthesis",
+      "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
+    },
+    "plate tectonics",
+    "paleogeography",
+    "Pangaea",
+    "continental drift"
+  ],
+  "schema:image": [
+    {
+      "@type": "schema:ImageObject",
+      "schema:contentUrl": "https://doi.org/10.1016/j.earscirev.2021.103477/thumbnail.jpg",
+      "schema:name": "article thumbnail",
+      "schema:encodingFormat": "image/jpeg"
+    }
+  ],
+  "schema:creator": {
+    "@list": [
+      {
+        "@type": "schema:Person",
+        "schema:name": "Dietmar Muller",
+        "schema:identifier": "https://orcid.org/0000-0002-3334-5764",
+        "schema:affiliation": {
+          "@type": "schema:Organization",
+          "schema:name": "University of Sydney"
         }
+      }
     ]
+  },
+  "schema:distribution": [
+    {
+      "@type": [
+        "schema:DataDownload"
+      ],
+      "schema:name": "Article PDF",
+      "schema:contentUrl": "https://doi.org/10.1016/j.earscirev.2021.103477",
+      "schema:encodingFormat": [
+        "application/pdf"
+      ]
+    }
+  ]
 }
 
 ```
@@ -203,6 +209,12 @@ DDE discovery metadata for a published research article on global plate tectonic
       "@id": "urn:dde:example-plate-tectonics-article"
     },
     "dcterms:conformsTo": [
+      {
+        "@id": "https://w3id.org/cdif/core/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/discovery/1.0/"
+      },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument"
       }
@@ -286,12 +298,12 @@ DDE discovery metadata for a published research article on global plate tectonic
 <urn:dde:example-plate-tectonics-article> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Article" ;
-            schema1:termCode "article" ],
+            schema1:name "Document" ;
+            schema1:termCode "document" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Document" ;
-            schema1:termCode "document" ] ;
+            schema1:name "Article" ;
+            schema1:termCode "article" ] ;
     schema1:creator ( [ a schema1:Person ;
                 schema1:affiliation [ a schema1:Organization ;
                         schema1:name "University of Sydney" ] ;
@@ -315,13 +327,13 @@ DDE discovery metadata for a published research article on global plate tectonic
             schema1:name "article thumbnail" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Data Integration Synthesis" ;
             schema1:termCode "dataIntegrationSynthesis" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "Pangaea",
         "continental drift",
         "paleogeography",
@@ -333,7 +345,9 @@ DDE discovery metadata for a published research article on global plate tectonic
     schema1:subjectOf <urn:uuid:dde-document-catalog-record> .
 
 <urn:uuid:dde-document-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument> ;
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument>,
+        <https://w3id.org/cdif/core/1.0/>,
+        <https://w3id.org/cdif/discovery/1.0/> ;
     schema1:about <urn:dde:example-plate-tectonics-article> ;
     schema1:additionalType "dcat:CatalogRecord" ;
     schema1:sdDatePublished "2021-02-15" .

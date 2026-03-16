@@ -1,5 +1,5 @@
 Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDEDocument - DDE Document profile
-Generated 2026-03-10T13:55:08.657981+00:00
+Generated 2026-03-16T21:42:21.111460+00:00
 === Files ===
 Using exampleDDEDocument.json from examples
 JSON-LD context is present - uplifting
@@ -10,46 +10,46 @@ Output Turtle example_1_1.ttl created
 === JSON Schema ===
 
 ** Validation error **
-ValidationError: [{'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument'}] is too short
+ValidationError: [{'@id': 'https://w3id.org/cdif/core/1.0/'}, {'@id': 'https://w3id.org/cdif/discovery/1.0/'}, {'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument'}] does not contain items matching the given schema
 
-Failed validating 'minItems' in schema['allOf'][0]['allOf'][2]['allOf'][1]['properties']['schema:subjectOf']['allOf'][1]['properties']['dcterms:conformsTo']:
-    {'contains': {'properties': {'@id': {'const': 'cdif:profile_ddeCDIF'}},
+Failed validating 'contains' in schema['allOf'][0]['allOf'][2]['allOf'][1]['properties']['schema:subjectOf']['allOf'][1]['properties']['dcterms:conformsTo']:
+    {'contains': {'properties': {'@id': {'const': 'https://w3id.org/cdif/bbr/metadata/DDEProfiles/DDEDiscovery'}},
                   'required': ['@id'],
                   'type': 'object'},
-     'items': {'$ref': 'https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifCatalogRecord/schema.yaml#/$defs/conformsTo_item'},
+     'items': {'type': 'string'},
      'minContains': 1,
-     'minItems': 2,
+     'minItems': 1,
      'type': 'array'}
 
 On instance['schema:subjectOf']['dcterms:conformsTo']:
-    [{'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument'}]
+    [{'@id': 'https://w3id.org/cdif/core/1.0/'},
+     {'@id': 'https://w3id.org/cdif/discovery/1.0/'},
+     {'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument'}]
 === End JSON Schema ===
 
 === SHACL ===
-
-** Validation error **
 Validation result for _sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl:
   Validation Report
-  Conforms: False
-  Results (1):
-  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
-  	Severity: sh:Violation
-  	Source Shape: [ sh:message Literal("DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF") ; sh:minCount Literal("2", datatype=xsd:integer) ; sh:path dcterms:conformsTo ]
-  	Focus Node: <urn:uuid:dde-document-catalog-record>
-  	Result Path: dcterms:conformsTo
-  	Message: DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF
+  Conforms: True
   
 Focus nodes for _sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl:
- - Shape _:n9772a0a25ef14a59ac0c91e3151a710ab22: *none*
- - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape _:n9772a0a25ef14a59ac0c91e3151a710ab9: *none*
- - Shape cdifd:DDEImageObjectShape: <urn:dde:example-plate-tectonics-article>/schema1:image
- - Shape cdifd:DDEDatasetMandatoryShape: *none*
- - Shape _:n9772a0a25ef14a59ac0c91e3151a710ab11: *none*
  - Shape cdifd:rightsProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:first: *none*
+ - Shape _:ndd1db599e82b4749ab1c7f853b598547b9: *none*
  - Shape cdifd:DDECatalogRecordShape: *none*
+ - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:first: *none*
+ - Shape _:ndd1db599e82b4749ab1c7f853b598547b22: *none*
+ - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first: *none*
  - Shape cdifd:rightsProperty/sh:or/rdf:first: *none*
+ - Shape _:ndd1db599e82b4749ab1c7f853b598547b11: *none*
+ - Shape cdifd:DDEDatasetMandatoryShape: *none*
+ - Shape cdifd:DDEImageObjectShape: <urn:dde:example-plate-tectonics-article>/schema1:image
+
+Validation result for _sources/DDEproperties/ddeOptional/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/DDEproperties/ddeOptional/rules.shacl:
+ - Shape cdifd:DDEOptionalDatasetShape: *none*
 
 Validation result for _sources/DDEproperties/ddeRequired/rules.shacl:
   Validation Report
@@ -59,347 +59,19 @@ Focus nodes for _sources/DDEproperties/ddeRequired/rules.shacl:
  - Shape cdifd:DDEImageObjectShape: <urn:dde:example-plate-tectonics-article>/schema1:image
  - Shape cdifd:DDERequiredDatasetShape: *none*
 
+Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:
+ - Shape cdifd:DDECatalogRecordShape: *none*
+
 Validation result for _sources/DDEproperties/ddeResourceType/rules.shacl:
   Validation Report
   Conforms: True
   
 Focus nodes for _sources/DDEproperties/ddeResourceType/rules.shacl:
  - Shape cdifd:DDEResourceTypeShape: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl:
- - Shape _:n6c65a6238e774d44b170acd991b5dfa5b7: *none*
- - Shape _:n6c65a6238e774d44b170acd991b5dfa5b26: *none*
- - Shape cdifd:CDIFDefinedTermShape/sh:property/sh:or/rdf:first: *none*
- - Shape _:n6c65a6238e774d44b170acd991b5dfa5b4: *none*
- - Shape _:n6c65a6238e774d44b170acd991b5dfa5b10: *none*
- - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape _:n6c65a6238e774d44b170acd991b5dfa5b6: *none*
- - Shape _:n6c65a6238e774d44b170acd991b5dfa5b5: *none*
- - Shape _:n6c65a6238e774d44b170acd991b5dfa5b8: *none*
- - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFDefinedTermShape: *none*
- - Shape _:n6c65a6238e774d44b170acd991b5dfa5b19: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl:
- - Shape _:nf3f4b2209ded481a8ab00d138c0cb897b25: *none*
- - Shape cdifd:CDIFIdentifierTypeTermShape: *none*
- - Shape cdifd:CDIFIdentifierTypeTermShape/sh:property/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFIdentifierShape/sh:property/sh:or/rdf:first: *none*
- - Shape _:nf3f4b2209ded481a8ab00d138c0cb897b22: *none*
- - Shape _:nf3f4b2209ded481a8ab00d138c0cb897b21: *none*
- - Shape _:nf3f4b2209ded481a8ab00d138c0cb897b23: *none*
- - Shape _:nf3f4b2209ded481a8ab00d138c0cb897b20: *none*
- - Shape _:nf3f4b2209ded481a8ab00d138c0cb897b11: *none*
- - Shape cdifd:CDIFIdentifierShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:CDIFIdentifierShape: *none*
- - Shape cdifd:CDIFIdentifierShape/sh:or/rdf:first: *none*
- - Shape _:nf3f4b2209ded481a8ab00d138c0cb897b10: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl:
- - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:rightsProperty/sh:or/rdf:first: *none*
- - Shape _:n8663d3f93bd64d5c9aa242c1aae57764b5: *none*
- - Shape _:n8663d3f93bd64d5c9aa242c1aae57764b7: *none*
- - Shape soso:DatasetNS2Shape: *none*
- - Shape cdifd:CDIFCatalogRecordShape: *none*
- - Shape soso:DatasetNS1Shape: *none*
- - Shape soso:DatasetNS3Shape: *none*
- - Shape _:n8663d3f93bd64d5c9aa242c1aae57764b18: *none*
- - Shape cdifd:rightsProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:CDIFDatasetMandatoryShape: *none*
- - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:first: *none*
-
-
-** Validation error **
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl:
-  Validation Report
-  Conforms: False
-  Results (1):
-  Validation Result in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
-  	Severity: sh:Info
-  	Source Shape: [ sh:message Literal("Recommended: include dcterms:conformsTo to identify the standard or specification this distribution conforms to.") ; sh:minCount Literal("1", datatype=xsd:integer) ; sh:path dcterms:conformsTo ; sh:severity sh:Info ]
-  	Focus Node: [ rdf:type schema1:DataDownload ; schema1:contentUrl Literal("https://doi.org/10.1016/j.earscirev.2021.103477") ; schema1:encodingFormat Literal("application/pdf") ; schema1:name Literal("Article PDF") ]
-  	Result Path: dcterms:conformsTo
-  	Message: Recommended: include dcterms:conformsTo to identify the standard or specification this distribution conforms to.
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl:
- - Shape <https://www.ogc.org/rules/template/#ConformsToInfo>: <urn:dde:example-plate-tectonics-article>/schema1:distribution
- - Shape cdifd:CDIFDataDownloadShape: <urn:dde:example-plate-tectonics-article>/schema1:distribution
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl:
- - Shape cdifd:CDIFOrganizationShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:CDIFOrganizationShape: <urn:dde:example-plate-tectonics-article>/schema1:creator/rdf:first/schema1:affiliation
- - Shape cdifd:CDIFOrganizationShape/sh:or/rdf:first: *none*
-
-
-** Validation error **
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl:
-  Validation Report
-  Conforms: False
-  Results (1):
-  Validation Result in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
-  	Severity: sh:Info
-  	Source Shape: cdifd:contactPointProperty
-  	Focus Node: [ rdf:type schema1:Person ; schema1:affiliation [ rdf:type schema1:Organization ; schema1:name Literal("University of Sydney") ] ; schema1:identifier Literal("https://orcid.org/0000-0002-3334-5764") ; schema1:name Literal("Dietmar Muller") ]
-  	Result Path: schema1:contactPoint
-  	Message: A Person should have a contactPoint (schema:ContactPoint or mailto: IRI)
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl:
- - Shape cdifd:affiliationProperty/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFPersonShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:maintainerOrProviderContactPointShape/sh:property/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFContactPointShape: *none*
- - Shape cdifd:contactPointProperty/sh:or/rdf:first: *none*
- - Shape cdifd:affiliationProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:CDIFPersonShape/sh:or/rdf:first: *none*
- - Shape _:n7896a5863d0c477994acda7588d77e6eb14: *none*
- - Shape cdifd:maintainerOrProviderContactPointShape: *none*
- - Shape cdifd:CDIFPersonShape: <urn:dde:example-plate-tectonics-article>/schema1:creator/rdf:first
- - Shape cdifd:contactPointProperty/sh:or/rdf:rest/rdf:first: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl:
- - Shape cdifd:CDIFCatalogRecordShape: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl:
- - Shape cdifd:webAPINode/sh:property/sh:or/rdf:first: *none*
- - Shape _:n5fc725f2204a47f79ca93a9c1687258db19: *none*
- - Shape _:n5fc725f2204a47f79ca93a9c1687258db24: *none*
- - Shape _:n5fc725f2204a47f79ca93a9c1687258db17: *none*
- - Shape _:n5fc725f2204a47f79ca93a9c1687258db3: *none*
- - Shape cdifd:webAPINode/sh:property/sh:or/rdf:first: *none*
- - Shape _:n5fc725f2204a47f79ca93a9c1687258db26: *none*
- - Shape _:n5fc725f2204a47f79ca93a9c1687258db10: *none*
- - Shape _:n5fc725f2204a47f79ca93a9c1687258db4: *none*
- - Shape cdifd:webAPINode: *none*
- - Shape _:n5fc725f2204a47f79ca93a9c1687258db25: *none*
- - Shape _:n5fc725f2204a47f79ca93a9c1687258db20: *none*
- - Shape _:n5fc725f2204a47f79ca93a9c1687258db11: *none*
- - Shape _:n5fc725f2204a47f79ca93a9c1687258db22: *none*
- - Shape _:n5fc725f2204a47f79ca93a9c1687258db23: *none*
- - Shape cdifd:webAPINode/sh:property/sh:or/rdf:first: *none*
- - Shape _:n5fc725f2204a47f79ca93a9c1687258db18: *none*
- - Shape _:n5fc725f2204a47f79ca93a9c1687258db21: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl:
- - Shape cdifd:CDIFActionShape: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl:
- - Shape _:ne9b9660771b24efca4dafb3b826e30acb9: *none*
- - Shape _:ne9b9660771b24efca4dafb3b826e30acb45: *none*
- - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*
- - Shape _:ne9b9660771b24efca4dafb3b826e30acb44: *none*
- - Shape cdifd:CDIFVariableMeasuredShape: *none*
- - Shape _:ne9b9660771b24efca4dafb3b826e30acb14: *none*
- - Shape _:ne9b9660771b24efca4dafb3b826e30acb37: *none*
- - Shape _:ne9b9660771b24efca4dafb3b826e30acb30: *none*
- - Shape _:ne9b9660771b24efca4dafb3b826e30acb4: *none*
- - Shape _:ne9b9660771b24efca4dafb3b826e30acb51: *none*
- - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*
- - Shape _:ne9b9660771b24efca4dafb3b826e30acb10: *none*
- - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*
- - Shape _:ne9b9660771b24efca4dafb3b826e30acb12: *none*
- - Shape _:ne9b9660771b24efca4dafb3b826e30acb38: *none*
- - Shape _:ne9b9660771b24efca4dafb3b826e30acb11: *none*
- - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*
- - Shape _:ne9b9660771b24efca4dafb3b826e30acb8: *none*
- - Shape _:ne9b9660771b24efca4dafb3b826e30acb29: *none*
- - Shape _:ne9b9660771b24efca4dafb3b826e30acb7: *none*
- - Shape _:ne9b9660771b24efca4dafb3b826e30acb5: *none*
- - Shape cdifd:CDIFVariableMeasuredShape/sh:property/sh:or/rdf:first: *none*
- - Shape _:ne9b9660771b24efca4dafb3b826e30acb52: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl:
- - Shape cdifd:CDIFLabeledLinkShape: <urn:dde:example-plate-tectonics-article>/schema1:license
-
-
-** Validation error **
-Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:
-  Validation Report
-  Conforms: False
-  Results (1):
-  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
-  	Severity: sh:Violation
-  	Source Shape: [ sh:message Literal("DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF") ; sh:minCount Literal("2", datatype=xsd:integer) ; sh:path dcterms:conformsTo ]
-  	Focus Node: <urn:uuid:dde-document-catalog-record>
-  	Result Path: dcterms:conformsTo
-  	Message: DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF
-  
-Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:
- - Shape cdifd:DDECatalogRecordShape: *none*
-
-Validation result for _sources/DDEproperties/ddeOptional/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for _sources/DDEproperties/ddeOptional/rules.shacl:
- - Shape cdifd:DDEOptionalDatasetShape: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl:
- - Shape cdifd:creatorListValidation: <urn:uuid:dde-document-catalog-record>,<urn:dde:example-plate-tectonics-article>
- - Shape cdifd:keywordsNoCommaTest/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:keywordsNoCommaTest/sh:or/rdf:first: *none*
- - Shape _:n184e388f96da4b60b0bea2098e58bd04b7: *none*
- - Shape cdifd:relatedResourceProperty/sh:property/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFDatasetOptionalShape: *none*
- - Shape _:n184e388f96da4b60b0bea2098e58bd04b13: *none*
- - Shape _:n184e388f96da4b60b0bea2098e58bd04b14: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl:
- - Shape _:n8f1de5d10b3648389a5de598b51a57a8b5: *none*
- - Shape cdifd:generatedByNode: *none*
- - Shape _:n8f1de5d10b3648389a5de598b51a57a8b4: *none*
- - Shape cdifd:generatedByNode/sh:property/sh:or/rdf:first: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl:
- - Shape cdifd:timeIntervalNode: *none*
- - Shape _:n9b4865b36e704b408d69d9ea0080ee2cb3: *none*
- - Shape _:n9b4865b36e704b408d69d9ea0080ee2cb5: *none*
- - Shape cdifd:timeInstantNode: *none*
- - Shape cdifd:temporalExtentProperty/sh:or/rdf:first: *none*
- - Shape _:n9b4865b36e704b408d69d9ea0080ee2cb17: *none*
- - Shape cdifd:temporalExtentProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:timePositionNode: *none*
- - Shape cdifd:timePositionNode/sh:property/sh:or/rdf:first: *none*
- - Shape _:n9b4865b36e704b408d69d9ea0080ee2cb4: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl:
- - Shape _:n1858004694064896b4e046e06b6de6b5b17: *none*
- - Shape _:n1858004694064896b4e046e06b6de6b5b11: *none*
- - Shape _:n1858004694064896b4e046e06b6de6b5b26: *none*
- - Shape _:n1858004694064896b4e046e06b6de6b5b5: *none*
- - Shape _:n1858004694064896b4e046e06b6de6b5b3: *none*
- - Shape _:n1858004694064896b4e046e06b6de6b5b13: *none*
- - Shape _:n1858004694064896b4e046e06b6de6b5b12: *none*
- - Shape cdifd:fundingShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:fundingShape: *none*
- - Shape cdifd:fundingShape/sh:or/rdf:first: *none*
- - Shape _:n1858004694064896b4e046e06b6de6b5b15: *none*
- - Shape _:n1858004694064896b4e046e06b6de6b5b4: *none*
- - Shape _:n1858004694064896b4e046e06b6de6b5b14: *none*
- - Shape _:n1858004694064896b4e046e06b6de6b5b25: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl:
- - Shape _:na02814d08ff048f688d429b5fd388ad7b3: *none*
- - Shape _:na02814d08ff048f688d429b5fd388ad7b17: *none*
- - Shape _:na02814d08ff048f688d429b5fd388ad7b20: *none*
- - Shape cdifd:roleNameProperty/sh:or/rdf:first: *none*
- - Shape _:na02814d08ff048f688d429b5fd388ad7b14: *none*
- - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:CDIFRoleShape/sh:property/sh:or/rdf:first: *none*
- - Shape _:na02814d08ff048f688d429b5fd388ad7b16: *none*
- - Shape _:na02814d08ff048f688d429b5fd388ad7b15: *none*
- - Shape cdifd:CDIFRoleShape: *none*
- - Shape _:na02814d08ff048f688d429b5fd388ad7b18: *none*
- - Shape _:na02814d08ff048f688d429b5fd388ad7b4: *none*
- - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFDefinedTermShape: <urn:dde:example-plate-tectonics-article>/schema1:keywords,<urn:dde:example-plate-tectonics-article>/schema1:additionalType,<urn:dde:example-plate-tectonics-article>/schema1:keywords,<urn:dde:example-plate-tectonics-article>/schema1:additionalType
- - Shape cdifd:roleNameProperty/sh:or/rdf:rest/rdf:first: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl:
- - Shape cdifd:derivedFromProperty/sh:or/rdf:first: *none*
- - Shape _:n1c72a14b17384405af5f97646380cfc3b4: *none*
- - Shape cdifd:derivedFromProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:derivedFromProperty: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl:
- - Shape cdifd:qualityMeasurementNode/sh:property/sh:or/rdf:first: *none*
- - Shape cdifd:qualityMeasurementNode/sh:property/sh:or/rdf:first: *none*
- - Shape _:ne9baa9231f254887a0da2152fe6fe2f3b11: *none*
- - Shape cdifd:qualityMeasurementNode: *none*
- - Shape _:ne9baa9231f254887a0da2152fe6fe2f3b4: *none*
- - Shape _:ne9baa9231f254887a0da2152fe6fe2f3b5: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl:
- - Shape _:nd229428ecd784f1496c80a98b08cd537b22: *none*
- - Shape cdifd:geoCoordinatesNode: *none*
- - Shape _:nd229428ecd784f1496c80a98b08cd537b17: *none*
- - Shape cdifd:geoCoordinatesNode/sh:property/sh:or/rdf:first: *none*
- - Shape _:nd229428ecd784f1496c80a98b08cd537b35: *none*
- - Shape _:nd229428ecd784f1496c80a98b08cd537b37: *none*
- - Shape _:nd229428ecd784f1496c80a98b08cd537b31: *none*
- - Shape _:nd229428ecd784f1496c80a98b08cd537b3: *none*
- - Shape cdifd:spatialExtentProperty: *none*
- - Shape _:nd229428ecd784f1496c80a98b08cd537b10: *none*
- - Shape cdifd:geoCoordinatesNode/sh:property/sh:or/rdf:first: *none*
- - Shape cdifd:spatialExtentProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:geoShapeNode: *none*
- - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:spatialExtentProperty/sh:or/rdf:first: *none*
- - Shape _:nd229428ecd784f1496c80a98b08cd537b34: *none*
- - Shape _:nd229428ecd784f1496c80a98b08cd537b33: *none*
- - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:first: *none*
- - Shape _:nd229428ecd784f1496c80a98b08cd537b9: *none*
- - Shape _:nd229428ecd784f1496c80a98b08cd537b4: *none*
- - Shape _:nd229428ecd784f1496c80a98b08cd537b32: *none*
- - Shape cdifd:CDIFDefinedTermShape: <urn:dde:example-plate-tectonics-article>/schema1:keywords,<urn:dde:example-plate-tectonics-article>/schema1:additionalType,<urn:dde:example-plate-tectonics-article>/schema1:keywords,<urn:dde:example-plate-tectonics-article>/schema1:additionalType
 
 === End SHACL ===
 

@@ -1,5 +1,5 @@
 Validation report for dde.bbr.metadata.DDEproperties.ddeSubject - Metadata Conforms to for DDE
-Generated 2026-03-10T13:54:57.824903+00:00
+Generated 2026-03-16T21:42:17.082229+00:00
 === Files ===
 Using exampleDdeSubject.json from examples
 JSON-LD context is present - uplifting
@@ -8,7 +8,23 @@ Output Turtle example_1_1.ttl created
 === End Files ===
 
 === JSON Schema ===
-Validation passed
+
+** Validation error **
+ValidationError: [{'@id': 'https://w3id.org/cdif/core/1.0/'}, {'@id': 'https://w3id.org/cdif/discovery/1.0/'}, {'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery'}] does not contain items matching the given schema
+
+Failed validating 'contains' in schema['allOf'][1]['properties']['dcterms:conformsTo']:
+    {'contains': {'properties': {'@id': {'const': 'https://w3id.org/cdif/bbr/metadata/DDEProfiles/DDEDiscovery'}},
+                  'required': ['@id'],
+                  'type': 'object'},
+     'items': {'type': 'string'},
+     'minContains': 1,
+     'minItems': 1,
+     'type': 'array'}
+
+On instance['dcterms:conformsTo']:
+    [{'@id': 'https://w3id.org/cdif/core/1.0/'},
+     {'@id': 'https://w3id.org/cdif/discovery/1.0/'},
+     {'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery'}]
 === End JSON Schema ===
 
 === SHACL ===
@@ -18,85 +34,6 @@ Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:
   
 Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:
  - Shape cdifd:DDECatalogRecordShape: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl:
- - Shape cdifd:CDIFCatalogRecordShape: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl:
- - Shape _:ne608d58fd4cf41379de9b642a24fbbabb21: *none*
- - Shape _:ne608d58fd4cf41379de9b642a24fbbabb22: *none*
- - Shape _:ne608d58fd4cf41379de9b642a24fbbabb23: *none*
- - Shape cdifd:CDIFIdentifierTypeTermShape: *none*
- - Shape cdifd:CDIFIdentifierShape/sh:property/sh:or/rdf:first: *none*
- - Shape _:ne608d58fd4cf41379de9b642a24fbbabb11: *none*
- - Shape cdifd:CDIFIdentifierShape/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFIdentifierShape: *none*
- - Shape cdifd:CDIFIdentifierShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape _:ne608d58fd4cf41379de9b642a24fbbabb25: *none*
- - Shape cdifd:CDIFIdentifierTypeTermShape/sh:property/sh:or/rdf:first: *none*
- - Shape _:ne608d58fd4cf41379de9b642a24fbbabb20: *none*
- - Shape _:ne608d58fd4cf41379de9b642a24fbbabb10: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl:
- - Shape cdifd:CDIFOrganizationShape/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFOrganizationShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:CDIFOrganizationShape: *none*
-
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl:
- - Shape _:n157c55558aed44b09e9546e3a6b667ccb26: *none*
- - Shape cdifd:CDIFDefinedTermShape/sh:property/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:first: *none*
- - Shape _:n157c55558aed44b09e9546e3a6b667ccb5: *none*
- - Shape cdifd:CDIFDefinedTermShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape _:n157c55558aed44b09e9546e3a6b667ccb19: *none*
- - Shape _:n157c55558aed44b09e9546e3a6b667ccb6: *none*
- - Shape _:n157c55558aed44b09e9546e3a6b667ccb8: *none*
- - Shape _:n157c55558aed44b09e9546e3a6b667ccb10: *none*
- - Shape _:n157c55558aed44b09e9546e3a6b667ccb7: *none*
- - Shape _:n157c55558aed44b09e9546e3a6b667ccb4: *none*
- - Shape cdifd:CDIFDefinedTermShape: *none*
-
-
-** Validation error **
-Validation result for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl:
-  Validation Report
-  Conforms: False
-  Results (1):
-  Validation Result in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
-  	Severity: sh:Info
-  	Source Shape: cdifd:contactPointProperty
-  	Focus Node: <https://orcid.org/0000-0002-7933-2154>
-  	Result Path: schema1:contactPoint
-  	Message: A Person should have a contactPoint (schema:ContactPoint or mailto: IRI)
-  
-Focus nodes for https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl:
- - Shape cdifd:CDIFPersonShape/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:contactPointProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:affiliationProperty/sh:or/rdf:rest/rdf:first: *none*
- - Shape cdifd:maintainerOrProviderContactPointShape/sh:property/sh:or/rdf:first: *none*
- - Shape cdifd:CDIFContactPointShape: *none*
- - Shape cdifd:contactPointProperty/sh:or/rdf:first: *none*
- - Shape cdifd:maintainerOrProviderContactPointShape: *none*
- - Shape cdifd:CDIFPersonShape: <https://orcid.org/0000-0002-7933-2154>
- - Shape cdifd:affiliationProperty/sh:or/rdf:first: *none*
- - Shape _:n2ea33082cce547e5a402c56dc4a14329b14: *none*
- - Shape cdifd:CDIFPersonShape/sh:or/rdf:first: *none*
 
 === End SHACL ===
 

@@ -28,98 +28,104 @@ Shows a DDE geoscience metadata record with all required DDE fields: resource ty
 #### json
 ```json
 {
-    "@context": {
-        "schema": "http://schema.org/",
-        "dde": "https://www.ddeworld.org/resource/",
-        "cdif": "https://cdif.org/profile/",
-        "dcterms": "http://purl.org/dc/terms/",
-        "dcat": "http://www.w3.org/ns/dcat#",
-        "spdx": "http://spdx.org/rdf/terms#"
-    },
-    "@id": "https://doi.org/23609/53w7klh",
+  "@context": {
+    "schema": "http://schema.org/",
+    "dde": "https://www.ddeworld.org/resource/",
+    "cdif": "https://cdif.org/profile/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "spdx": "http://spdx.org/rdf/terms#"
+  },
+  "@id": "https://doi.org/23609/53w7klh",
+  "@type": [
+    "schema:Dataset"
+  ],
+  "schema:name": "US-AZ_AZGS_1M_Lithostratigraphy",
+  "schema:identifier": {
+    "@type": "schema:PropertyValue",
+    "schema:propertyID": "https://registry.identifiers.org/registry/doi",
+    "schema:value": "doi:23609/53w7klh",
+    "schema:url": "https://doi.org/23609/53w7klh"
+  },
+  "schema:dateModified": "2016-04-14",
+  "schema:license": [
+    {
+      "@type": "schema:CreativeWork",
+      "schema:name": "Creative Commons CC0 1.0 Universal",
+      "schema:url": "https://creativecommons.org/publicdomain/zero/1.0/"
+    }
+  ],
+  "schema:url": "https://hdl.handle.net/10150/630741",
+  "schema:subjectOf": {
+    "@id": "urn:uuid:c98705ae-058a-43fb-85a2-7b5209d9a4b3",
     "@type": [
-        "schema:Dataset"
+      "schema:Dataset"
     ],
-    "schema:name": "US-AZ_AZGS_1M_Lithostratigraphy",
-    "schema:identifier": {
-        "@type": "schema:PropertyValue",
-        "schema:propertyID": "https://registry.identifiers.org/registry/doi",
-        "schema:value": "doi:23609/53w7klh",
-        "schema:url": "https://doi.org/23609/53w7klh"
-    },
-    "schema:dateModified": "2016-04-14",
-    "schema:license": [
-        {
-            "@type": "schema:CreativeWork",
-            "schema:name": "Creative Commons CC0 1.0 Universal",
-            "schema:url": "https://creativecommons.org/publicdomain/zero/1.0/"
-        }
-    ],
-    "schema:url": "https://hdl.handle.net/10150/630741",
-    "schema:subjectOf": {
-        "@id": "urn:uuid:c98705ae-058a-43fb-85a2-7b5209d9a4b3",
-        "@type": [
-            "schema:Dataset"
-        ],
-        "schema:additionalType": [
-            "dcat:CatalogRecord"
-        ],
-        "schema:about": {
-            "@id": "https://doi.org/23609/53w7klh"
-        },
-        "dcterms:conformsTo": [
-            {
-                "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeRequired"
-            }
-        ],
-        "schema:sdDatePublished": "2017-04-24"
-    },
     "schema:additionalType": [
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Dataset",
-            "schema:termCode": "dataset",
-            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-        }
+      "dcat:CatalogRecord"
     ],
-    "schema:keywords": [
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Geoscientific Information",
-            "schema:termCode": "geoscientificInformation",
-            "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
-        },
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Digital Conversion from Published Source",
-            "schema:termCode": "digitalConversionFromPublishedSource",
-            "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
-        },
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Synthesis from Multiple Sources",
-            "schema:termCode": "synthesisFromMultipleSources",
-            "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
-        },
-        "United States",
-        "Arizona",
-        "Geology",
-        "Geologic Map"
+    "schema:about": {
+      "@id": "https://doi.org/23609/53w7klh"
+    },
+    "dcterms:conformsTo": [
+      {
+        "@id": "https://w3id.org/cdif/core/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/discovery/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeRequired"
+      }
     ],
-    "schema:image": [
-        {
-            "@type": "schema:ImageObject",
-            "schema:contentUrl": "http://azgs.az.gov/repository/browse/3757.jpg",
-            "schema:name": "Quick view lithostratigraphic map of Arizona",
-            "schema:encodingFormat": "application/xml"
-        },
-        {
-            "@type": "schema:ImageObject",
-            "schema:contentUrl": "http://azgs.az.gov/repository/browse/2222.jpg",
-            "schema:name": "Another map of Arizona",
-            "schema:encodingFormat": "image/png"
-        }
-    ]
+    "schema:sdDatePublished": "2017-04-24"
+  },
+  "schema:additionalType": [
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Dataset",
+      "schema:termCode": "dataset",
+      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+    }
+  ],
+  "schema:keywords": [
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Geoscientific Information",
+      "schema:termCode": "geoscientificInformation",
+      "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
+    },
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Digital Conversion from Published Source",
+      "schema:termCode": "digitalConversionFromPublishedSource",
+      "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
+    },
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Synthesis from Multiple Sources",
+      "schema:termCode": "synthesisFromMultipleSources",
+      "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
+    },
+    "United States",
+    "Arizona",
+    "Geology",
+    "Geologic Map"
+  ],
+  "schema:image": [
+    {
+      "@type": "schema:ImageObject",
+      "schema:contentUrl": "http://azgs.az.gov/repository/browse/3757.jpg",
+      "schema:name": "Quick view lithostratigraphic map of Arizona",
+      "schema:encodingFormat": "application/xml"
+    },
+    {
+      "@type": "schema:ImageObject",
+      "schema:contentUrl": "http://azgs.az.gov/repository/browse/2222.jpg",
+      "schema:name": "Another map of Arizona",
+      "schema:encodingFormat": "image/png"
+    }
+  ]
 }
 
 ```
@@ -175,6 +181,12 @@ Shows a DDE geoscience metadata record with all required DDE fields: resource ty
       "@id": "https://doi.org/23609/53w7klh"
     },
     "dcterms:conformsTo": [
+      {
+        "@id": "https://w3id.org/cdif/core/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/discovery/1.0/"
+      },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeRequired"
       }
@@ -259,12 +271,12 @@ Shows a DDE geoscience metadata record with all required DDE fields: resource ty
             schema1:termCode "geoscientificInformation" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Synthesis from Multiple Sources" ;
-            schema1:termCode "synthesisFromMultipleSources" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Digital Conversion from Published Source" ;
             schema1:termCode "digitalConversionFromPublishedSource" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Synthesis from Multiple Sources" ;
+            schema1:termCode "synthesisFromMultipleSources" ],
         "Arizona",
         "Geologic Map",
         "Geology",
@@ -277,7 +289,9 @@ Shows a DDE geoscience metadata record with all required DDE fields: resource ty
     schema1:url "https://hdl.handle.net/10150/630741" .
 
 <urn:uuid:c98705ae-058a-43fb-85a2-7b5209d9a4b3> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeRequired> ;
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeRequired>,
+        <https://w3id.org/cdif/core/1.0/>,
+        <https://w3id.org/cdif/discovery/1.0/> ;
     schema1:about <https://doi.org/23609/53w7klh> ;
     schema1:additionalType "dcat:CatalogRecord" ;
     schema1:sdDatePublished "2017-04-24" .
@@ -360,9 +374,9 @@ allOf:
   - schema:image
 $defs:
   CdifMandatory:
-    $ref: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifMandatory/schema.yaml
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/schema.yaml
   DefinedTerm:
-    $ref: https://usgin.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml
   DdeSubject:
     $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema.yaml
 x-jsonld-prefixes:

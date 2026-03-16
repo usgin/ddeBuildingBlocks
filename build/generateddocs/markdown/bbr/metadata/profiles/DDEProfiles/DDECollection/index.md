@@ -35,119 +35,125 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
 #### json
 ```json
 {
-    "@context": {
-        "schema": "http://schema.org/",
-        "dde": "https://www.ddeworld.org/resource/",
-        "cdif": "https://cdif.org/profile/",
-        "dcterms": "http://purl.org/dc/terms/",
-        "dcat": "http://www.w3.org/ns/dcat#",
-        "time": "http://www.w3.org/2006/time#",
-        "prov": "http://www.w3.org/ns/prov#"
-    },
-    "@id": "urn:dde:example-onegeology-collection",
+  "@context": {
+    "schema": "http://schema.org/",
+    "dde": "https://www.ddeworld.org/resource/",
+    "cdif": "https://cdif.org/profile/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "time": "http://www.w3.org/2006/time#",
+    "prov": "http://www.w3.org/ns/prov#"
+  },
+  "@id": "urn:dde:example-onegeology-collection",
+  "@type": [
+    "schema:Dataset"
+  ],
+  "schema:name": "OneGeology Global Geological Map Collection",
+  "schema:description": "A curated collection of 1:1M scale geological maps contributed by national geological surveys through the OneGeology initiative. Each member map covers a single country or territory and uses harmonized symbology based on the GeoSciML Portrayal schema.",
+  "schema:identifier": "urn:onegeology:global-collection-2024",
+  "schema:dateModified": "2024-06-01",
+  "schema:inLanguage": "eng",
+  "schema:license": [
+    {
+      "@type": "schema:CreativeWork",
+      "schema:name": "Creative Commons Attribution 4.0",
+      "schema:url": "https://creativecommons.org/licenses/by/4.0/"
+    }
+  ],
+  "schema:url": "https://onegeology.org/",
+  "schema:subjectOf": {
+    "@id": "urn:uuid:dde-collection-catalog-record",
     "@type": [
-        "schema:Dataset"
+      "schema:Dataset"
     ],
-    "schema:name": "OneGeology Global Geological Map Collection",
-    "schema:description": "A curated collection of 1:1M scale geological maps contributed by national geological surveys through the OneGeology initiative. Each member map covers a single country or territory and uses harmonized symbology based on the GeoSciML Portrayal schema.",
-    "schema:identifier": "urn:onegeology:global-collection-2024",
-    "schema:dateModified": "2024-06-01",
-    "schema:inLanguage": "eng",
-    "schema:license": [
-        {
-            "@type": "schema:CreativeWork",
-            "schema:name": "Creative Commons Attribution 4.0",
-            "schema:url": "https://creativecommons.org/licenses/by/4.0/"
-        }
-    ],
-    "schema:url": "https://onegeology.org/",
-    "schema:subjectOf": {
-        "@id": "urn:uuid:dde-collection-catalog-record",
-        "@type": [
-            "schema:Dataset"
-        ],
-        "schema:additionalType": [
-            "dcat:CatalogRecord"
-        ],
-        "schema:about": {
-            "@id": "urn:dde:example-onegeology-collection"
-        },
-        "dcterms:conformsTo": [
-            {
-                "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDECollection"
-            }
-        ],
-        "schema:sdDatePublished": "2024-06-01"
-    },
     "schema:additionalType": [
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Series",
-            "schema:termCode": "series",
-            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-        },
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Collection",
-            "schema:termCode": "collection",
-            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-        }
+      "dcat:CatalogRecord"
     ],
-    "schema:keywords": [
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Geoscientific Information",
-            "schema:termCode": "geoscientificInformation",
-            "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
-        },
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Geological Mapping",
-            "schema:termCode": "geologicalMapping",
-            "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
-        },
-        "OneGeology",
-        "geology",
-        "geological map",
-        "global"
+    "schema:about": {
+      "@id": "urn:dde:example-onegeology-collection"
+    },
+    "dcterms:conformsTo": [
+      {
+        "@id": "https://w3id.org/cdif/core/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/discovery/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDECollection"
+      }
     ],
-    "schema:image": [
-        {
-            "@type": "schema:ImageObject",
-            "schema:contentUrl": "https://onegeology.org/images/global-map-preview.png",
-            "schema:name": "thumbnail",
-            "schema:encodingFormat": "image/png"
-        }
-    ],
-    "schema:spatialCoverage": [
-        {
-            "@type": "schema:Place",
-            "schema:geo": {
-                "@type": "schema:GeoShape",
-                "schema:box": "-90 -180 90 180"
-            }
-        }
-    ],
-    "schema:hasPart": [
-        {
-            "@type": "schema:CreativeWork",
-            "schema:name": "China 1:1M Bedrock Lithostratigraphy",
-            "schema:description": "Geological map of China compiled from 63 separate survey sheets",
-            "schema:url": "http://en.cgs.gov.cn/"
-        },
-        {
-            "@type": "schema:CreativeWork",
-            "schema:name": "Australia 1:1M Surface Geology",
-            "schema:description": "National-scale surface geology map of Australia by Geoscience Australia",
-            "schema:url": "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets"
-        },
-        {
-            "@type": "schema:CreativeWork",
-            "schema:name": "United Kingdom 1:625K Bedrock Geology",
-            "schema:description": "Bedrock geological map of the United Kingdom by the British Geological Survey",
-            "schema:url": "https://www.bgs.ac.uk/geological-data/"
-        }
-    ]
+    "schema:sdDatePublished": "2024-06-01"
+  },
+  "schema:additionalType": [
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Series",
+      "schema:termCode": "series",
+      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+    },
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Collection",
+      "schema:termCode": "collection",
+      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+    }
+  ],
+  "schema:keywords": [
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Geoscientific Information",
+      "schema:termCode": "geoscientificInformation",
+      "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
+    },
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:name": "Geological Mapping",
+      "schema:termCode": "geologicalMapping",
+      "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
+    },
+    "OneGeology",
+    "geology",
+    "geological map",
+    "global"
+  ],
+  "schema:image": [
+    {
+      "@type": "schema:ImageObject",
+      "schema:contentUrl": "https://onegeology.org/images/global-map-preview.png",
+      "schema:name": "thumbnail",
+      "schema:encodingFormat": "image/png"
+    }
+  ],
+  "schema:spatialCoverage": [
+    {
+      "@type": "schema:Place",
+      "schema:geo": {
+        "@type": "schema:GeoShape",
+        "schema:box": "-90 -180 90 180"
+      }
+    }
+  ],
+  "schema:hasPart": [
+    {
+      "@type": "schema:CreativeWork",
+      "schema:name": "China 1:1M Bedrock Lithostratigraphy",
+      "schema:description": "Geological map of China compiled from 63 separate survey sheets",
+      "schema:url": "http://en.cgs.gov.cn/"
+    },
+    {
+      "@type": "schema:CreativeWork",
+      "schema:name": "Australia 1:1M Surface Geology",
+      "schema:description": "National-scale surface geology map of Australia by Geoscience Australia",
+      "schema:url": "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets"
+    },
+    {
+      "@type": "schema:CreativeWork",
+      "schema:name": "United Kingdom 1:625K Bedrock Geology",
+      "schema:description": "Bedrock geological map of the United Kingdom by the British Geological Survey",
+      "schema:url": "https://www.bgs.ac.uk/geological-data/"
+    }
+  ]
 }
 
 ```
@@ -205,6 +211,12 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
       "@id": "urn:dde:example-onegeology-collection"
     },
     "dcterms:conformsTo": [
+      {
+        "@id": "https://w3id.org/cdif/core/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/discovery/1.0/"
+      },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDECollection"
       }
@@ -300,17 +312,17 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
     schema1:dateModified "2024-06-01" ;
     schema1:description "A curated collection of 1:1M scale geological maps contributed by national geological surveys through the OneGeology initiative. Each member map covers a single country or territory and uses harmonized symbology based on the GeoSciML Portrayal schema." ;
     schema1:hasPart [ a schema1:CreativeWork ;
-            schema1:description "Geological map of China compiled from 63 separate survey sheets" ;
-            schema1:name "China 1:1M Bedrock Lithostratigraphy" ;
-            schema1:url "http://en.cgs.gov.cn/" ],
-        [ a schema1:CreativeWork ;
             schema1:description "Bedrock geological map of the United Kingdom by the British Geological Survey" ;
             schema1:name "United Kingdom 1:625K Bedrock Geology" ;
             schema1:url "https://www.bgs.ac.uk/geological-data/" ],
         [ a schema1:CreativeWork ;
             schema1:description "National-scale surface geology map of Australia by Geoscience Australia" ;
             schema1:name "Australia 1:1M Surface Geology" ;
-            schema1:url "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets" ] ;
+            schema1:url "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets" ],
+        [ a schema1:CreativeWork ;
+            schema1:description "Geological map of China compiled from 63 separate survey sheets" ;
+            schema1:name "China 1:1M Bedrock Lithostratigraphy" ;
+            schema1:url "http://en.cgs.gov.cn/" ] ;
     schema1:identifier "urn:onegeology:global-collection-2024" ;
     schema1:image [ a schema1:ImageObject ;
             schema1:contentUrl "https://onegeology.org/images/global-map-preview.png" ;
@@ -318,13 +330,13 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
             schema1:name "thumbnail" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Geological Mapping" ;
             schema1:termCode "geologicalMapping" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "OneGeology",
         "geological map",
         "geology",
@@ -340,7 +352,9 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
     schema1:url "https://onegeology.org/" .
 
 <urn:uuid:dde-collection-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDECollection> ;
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDECollection>,
+        <https://w3id.org/cdif/core/1.0/>,
+        <https://w3id.org/cdif/discovery/1.0/> ;
     schema1:about <urn:dde:example-onegeology-collection> ;
     schema1:additionalType "dcat:CatalogRecord" ;
     schema1:sdDatePublished "2024-06-01" .

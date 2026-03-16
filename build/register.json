@@ -2,12 +2,12 @@
   "name": "DDE Building Blocks repository",
   "abstract": "Building blocks for Deep-time Digital Earth (DDE) metadata profiles,\nusing the OGC Building Blocks pattern.\n",
   "description": "Modular schema components for DDE resource type metadata. Imports shared\nschema.org and CDIF property building blocks from the CDIF Building Blocks repository.\n",
-  "modified": "2026-03-10T13:54:43.842369",
+  "modified": "2026-03-16T21:42:06.306754",
   "tooling": {
     "bblocks-postprocess": {
-      "commitId": "\"e3240b08297fa3f3c5054fa257709812ff06320d",
-      "shortCommitId": "\"e3240b",
-      "date": "2026-03-05T10:03:47+00:00\""
+      "commitId": "\"15b2aea346e16c9ef05b3a9f9ce3d78c6d0707a8",
+      "shortCommitId": "\"15b2ae",
+      "date": "2026-03-16T15:33:17+00:00\""
     }
   },
   "gitRepository": "https://github.com/usgin/ddeBuildingBlocks",
@@ -22,6 +22,116 @@
   ],
   "bblocks": [
     {
+      "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
+      "$schema": "metaschema.yaml",
+      "name": "DDE Geographic Dataset Properties",
+      "abstract": "Conditional extension for geographic dataset resources. Implements MD_SpatialRepresentation (DDE spec Table 5): mandatory spatialCoverage, plus spatialRepresentationType, spatialResolution, referenceSystemType, and referenceSystemIdentifier. Defines properties: schema:spatialCoverage, schema:additionalProperty. Uses building blocks: spatialExtent (schemaorgProperties), additionalProperty (schemaorgProperties), identifier (schemaorgProperties).",
+      "status": "under-development",
+      "dateTimeAddition": "2026-03-01T00:00:00Z",
+      "itemClass": "schema",
+      "register": "cdif-building-block-register",
+      "version": "0.1",
+      "dateOfLastChange": "2026-03-16",
+      "link": "https://github.com/opengeospatial/bblock-template",
+      "sources": [
+        {
+          "title": "DDE Metadata Standard",
+          "link": "https://www.ddeworld.org"
+        }
+      ],
+      "maturity": "draft",
+      "scope": "unstable",
+      "tags": [
+        "templates"
+      ],
+      "shaclShapes": {
+        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
+        ]
+      },
+      "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/context.jsonld",
+      "schema": {
+        "application/yaml": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema.yaml",
+        "application/json": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema.json"
+      },
+      "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/schema.yaml",
+      "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/resolvedProperties.json",
+      "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/",
+      "rdfData": [],
+      "validationPassed": true,
+      "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/DDEproperties/ddeGeographicDataset/",
+      "documentation": {
+        "markdown": {
+          "mediatype": "text/markdown",
+          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeGeographicDataset/index.md"
+        },
+        "json-full": {
+          "mediatype": "application/json",
+          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeGeographicDataset/index.json"
+        },
+        "bblocks-viewer": {
+          "mediatype": "text/html",
+          "url": "https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeGeographicDataset"
+        }
+      }
+    },
+    {
+      "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeImagery",
+      "$schema": "metaschema.yaml",
+      "name": "DDE Imagery Properties",
+      "abstract": "Conditional extension for imagery resources using the CDIF provenance pattern (cdifProv). Maps DDE imagery acquisition metadata into prov:wasGeneratedBy activities: sensor, platform, equipment, and signalGenerator become typed instruments; collector becomes a participant with DataCollector role; startTime and endTime are activity temporal bounds. Wavelength and processedLevel remain as dataset-level schema:additionalProperty values. Defines properties: prov:wasGeneratedBy, schema:additionalProperty. Uses building blocks: instrument, agentInRole, person, organization, additionalProperty (schemaorgProperties).",
+      "status": "under-development",
+      "dateTimeAddition": "2026-02-28T00:00:00Z",
+      "itemClass": "schema",
+      "register": "cdif-building-block-register",
+      "version": "0.1",
+      "dateOfLastChange": "2026-03-16",
+      "link": "https://github.com/opengeospatial/bblock-template",
+      "sources": [
+        {
+          "title": "DDE Metadata Standard",
+          "link": "https://www.ddeworld.org"
+        }
+      ],
+      "maturity": "draft",
+      "scope": "unstable",
+      "tags": [
+        "templates"
+      ],
+      "shaclShapes": {
+        "dde.bbr.metadata.DDEproperties.ddeImagery": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/rules.shacl"
+        ]
+      },
+      "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/context.jsonld",
+      "schema": {
+        "application/yaml": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema.yaml",
+        "application/json": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema.json"
+      },
+      "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/schema.yaml",
+      "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/resolvedProperties.json",
+      "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/",
+      "rdfData": [],
+      "validationPassed": true,
+      "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/DDEproperties/ddeImagery/",
+      "documentation": {
+        "markdown": {
+          "mediatype": "text/markdown",
+          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeImagery/index.md"
+        },
+        "json-full": {
+          "mediatype": "application/json",
+          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeImagery/index.json"
+        },
+        "bblocks-viewer": {
+          "mediatype": "text/html",
+          "url": "https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeImagery"
+        }
+      }
+    },
+    {
       "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeOptional",
       "$schema": "metaschema.yaml",
       "name": "Optional Fields for DDE Geoscience Metadata",
@@ -31,7 +141,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
+      "dateOfLastChange": "2026-03-16",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -47,17 +157,8 @@
       "shaclShapes": {
         "dde.bbr.metadata.DDEproperties.ddeOptional": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
         ]
       },
-      "dependsOn": [
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm"
-      ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/context.jsonld",
       "schema": {
         "application/yaml": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml",
@@ -65,6 +166,7 @@
       },
       "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/schema.yaml",
       "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/",
       "rdfData": [],
       "validationPassed": true,
@@ -85,6 +187,61 @@
       }
     },
     {
+      "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeSubject",
+      "$schema": "metaschema.yaml",
+      "name": "Metadata Conforms to for DDE",
+      "abstract": "For DDE profile, need to declare conformance with DDE profile in the metadata catalog record. Defines properties: dcterms:conformsTo. Uses building blocks: cdifCatalogRecord (cdifProperties).",
+      "status": "under-development",
+      "dateTimeAddition": "2026-02-28T00:00:00Z",
+      "itemClass": "schema",
+      "register": "cdif-building-block-register",
+      "version": "0.1",
+      "dateOfLastChange": "2026-03-16",
+      "link": "https://github.com/opengeospatial/bblock-template",
+      "sources": [
+        {
+          "title": "DDE Metadata Standard",
+          "link": "https://www.ddeworld.org"
+        }
+      ],
+      "maturity": "draft",
+      "scope": "unstable",
+      "tags": [
+        "templates"
+      ],
+      "shaclShapes": {
+        "dde.bbr.metadata.DDEproperties.ddeSubject": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
+        ]
+      },
+      "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/context.jsonld",
+      "schema": {
+        "application/yaml": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema.yaml",
+        "application/json": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema.json"
+      },
+      "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/schema.yaml",
+      "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/resolvedProperties.json",
+      "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/",
+      "rdfData": [],
+      "validationPassed": false,
+      "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/DDEproperties/ddeSubject/",
+      "documentation": {
+        "markdown": {
+          "mediatype": "text/markdown",
+          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeSubject/index.md"
+        },
+        "json-full": {
+          "mediatype": "application/json",
+          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeSubject/index.json"
+        },
+        "bblocks-viewer": {
+          "mediatype": "text/html",
+          "url": "https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeSubject"
+        }
+      }
+    },
+    {
       "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeResourceType",
       "$schema": "metaschema.yaml",
       "name": "DDE Resource Type",
@@ -94,7 +251,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
+      "dateOfLastChange": "2026-03-16",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -110,17 +267,8 @@
       "shaclShapes": {
         "dde.bbr.metadata.DDEproperties.ddeResourceType": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
         ]
       },
-      "dependsOn": [
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm"
-      ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/context.jsonld",
       "schema": {
         "application/yaml": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.yaml",
@@ -128,6 +276,7 @@
       },
       "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/schema.yaml",
       "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/",
       "rdfData": [],
       "validationPassed": true,
@@ -157,7 +306,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
+      "dateOfLastChange": "2026-03-16",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -173,22 +322,8 @@
       "shaclShapes": {
         "dde.bbr.metadata.DDEproperties.ddeServiceInfo": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeServiceInfo/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.additionalProperty": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl"
         ]
       },
-      "dependsOn": [
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm",
-        "cdif.bbr.metadata.schemaorgProperties.identifier",
-        "cdif.bbr.metadata.schemaorgProperties.additionalProperty"
-      ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeServiceInfo/context.jsonld",
       "schema": {
         "application/yaml": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeServiceInfo/schema.yaml",
@@ -196,6 +331,7 @@
       },
       "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeServiceInfo/schema.yaml",
       "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeServiceInfo/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeServiceInfo/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeServiceInfo/",
       "rdfData": [],
       "validationPassed": true,
@@ -216,237 +352,6 @@
       }
     },
     {
-      "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
-      "$schema": "metaschema.yaml",
-      "name": "DDE Geographic Dataset Properties",
-      "abstract": "Conditional extension for geographic dataset resources. Implements MD_SpatialRepresentation (DDE spec Table 5): mandatory spatialCoverage, plus spatialRepresentationType, spatialResolution, referenceSystemType, and referenceSystemIdentifier. Defines properties: schema:spatialCoverage, schema:additionalProperty. Uses building blocks: spatialExtent (schemaorgProperties), additionalProperty (schemaorgProperties), identifier (schemaorgProperties).",
-      "status": "under-development",
-      "dateTimeAddition": "2026-03-01T00:00:00Z",
-      "itemClass": "schema",
-      "register": "cdif-building-block-register",
-      "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
-      "link": "https://github.com/opengeospatial/bblock-template",
-      "sources": [
-        {
-          "title": "DDE Metadata Standard",
-          "link": "https://www.ddeworld.org"
-        }
-      ],
-      "maturity": "draft",
-      "scope": "unstable",
-      "tags": [
-        "templates"
-      ],
-      "shaclShapes": {
-        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.spatialExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.additionalProperty": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl"
-        ]
-      },
-      "dependsOn": [
-        "cdif.bbr.metadata.schemaorgProperties.spatialExtent",
-        "cdif.bbr.metadata.schemaorgProperties.identifier",
-        "cdif.bbr.metadata.schemaorgProperties.additionalProperty"
-      ],
-      "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/context.jsonld",
-      "schema": {
-        "application/yaml": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema.yaml",
-        "application/json": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema.json"
-      },
-      "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/schema.yaml",
-      "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/context.jsonld",
-      "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/",
-      "rdfData": [],
-      "validationPassed": true,
-      "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/DDEproperties/ddeGeographicDataset/",
-      "documentation": {
-        "markdown": {
-          "mediatype": "text/markdown",
-          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeGeographicDataset/index.md"
-        },
-        "json-full": {
-          "mediatype": "application/json",
-          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeGeographicDataset/index.json"
-        },
-        "bblocks-viewer": {
-          "mediatype": "text/html",
-          "url": "https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeGeographicDataset"
-        }
-      }
-    },
-    {
-      "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeSubject",
-      "$schema": "metaschema.yaml",
-      "name": "Metadata Conforms to for DDE",
-      "abstract": "For DDE profile, need to declare conformance with DDE profile in the metadata catalog record. Defines properties: dcterms:conformsTo. Uses building blocks: cdifCatalogRecord (cdifProperties).",
-      "status": "under-development",
-      "dateTimeAddition": "2026-02-28T00:00:00Z",
-      "itemClass": "schema",
-      "register": "cdif-building-block-register",
-      "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
-      "link": "https://github.com/opengeospatial/bblock-template",
-      "sources": [
-        {
-          "title": "DDE Metadata Standard",
-          "link": "https://www.ddeworld.org"
-        }
-      ],
-      "maturity": "draft",
-      "scope": "unstable",
-      "tags": [
-        "templates"
-      ],
-      "shaclShapes": {
-        "dde.bbr.metadata.DDEproperties.ddeSubject": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.organization": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.person": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
-        ]
-      },
-      "dependsOn": [
-        "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord"
-      ],
-      "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/context.jsonld",
-      "schema": {
-        "application/yaml": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema.yaml",
-        "application/json": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema.json"
-      },
-      "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/schema.yaml",
-      "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/context.jsonld",
-      "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/",
-      "rdfData": [],
-      "validationPassed": false,
-      "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/DDEproperties/ddeSubject/",
-      "documentation": {
-        "markdown": {
-          "mediatype": "text/markdown",
-          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeSubject/index.md"
-        },
-        "json-full": {
-          "mediatype": "application/json",
-          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeSubject/index.json"
-        },
-        "bblocks-viewer": {
-          "mediatype": "text/html",
-          "url": "https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeSubject"
-        }
-      }
-    },
-    {
-      "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeImagery",
-      "$schema": "metaschema.yaml",
-      "name": "DDE Imagery Properties",
-      "abstract": "Conditional extension for imagery resources using the CDIF provenance pattern (cdifProv). Maps DDE imagery acquisition metadata into prov:wasGeneratedBy activities: sensor, platform, equipment, and signalGenerator become typed instruments; collector becomes a participant with DataCollector role; startTime and endTime are activity temporal bounds. Wavelength and processedLevel remain as dataset-level schema:additionalProperty values. Defines properties: prov:wasGeneratedBy, schema:additionalProperty. Uses building blocks: instrument, agentInRole, person, organization, additionalProperty (schemaorgProperties).",
-      "status": "under-development",
-      "dateTimeAddition": "2026-02-28T00:00:00Z",
-      "itemClass": "schema",
-      "register": "cdif-building-block-register",
-      "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
-      "link": "https://github.com/opengeospatial/bblock-template",
-      "sources": [
-        {
-          "title": "DDE Metadata Standard",
-          "link": "https://www.ddeworld.org"
-        }
-      ],
-      "maturity": "draft",
-      "scope": "unstable",
-      "tags": [
-        "templates"
-      ],
-      "shaclShapes": {
-        "dde.bbr.metadata.DDEproperties.ddeImagery": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifProv": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifProv/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.organization": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.generatedBy": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.agentInRole": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.person": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.additionalProperty": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.labeledLink": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.spatialExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
-        ]
-      },
-      "dependsOn": [
-        "cdif.bbr.metadata.cdifProperties.cdifProv",
-        "cdif.bbr.metadata.schemaorgProperties.additionalProperty"
-      ],
-      "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/context.jsonld",
-      "schema": {
-        "application/yaml": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema.yaml",
-        "application/json": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema.json"
-      },
-      "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/schema.yaml",
-      "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/context.jsonld",
-      "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/",
-      "rdfData": [],
-      "validationPassed": true,
-      "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/DDEproperties/ddeImagery/",
-      "documentation": {
-        "markdown": {
-          "mediatype": "text/markdown",
-          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeImagery/index.md"
-        },
-        "json-full": {
-          "mediatype": "application/json",
-          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeImagery/index.json"
-        },
-        "bblocks-viewer": {
-          "mediatype": "text/html",
-          "url": "https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeImagery"
-        }
-      }
-    },
-    {
       "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeRequired",
       "$schema": "metaschema.yaml",
       "name": "Required Fields for DDE Geoscience Metadata",
@@ -456,7 +361,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
+      "dateOfLastChange": "2026-03-16",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -473,51 +378,16 @@
         "dde.bbr.metadata.DDEproperties.ddeRequired": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeRequired/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifMandatory": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.dataDownload": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.organization": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.person": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.webAPI": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.action": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.variableMeasured": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.labeledLink": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
-        ],
         "dde.bbr.metadata.DDEproperties.ddeSubject": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
+        ],
+        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
         ]
       },
       "dependsOn": [
-        "dde.bbr.metadata.DDEproperties.ddeResourceType",
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm",
-        "cdif.bbr.metadata.cdifProperties.cdifMandatory",
-        "dde.bbr.metadata.DDEproperties.ddeSubject"
+        "dde.bbr.metadata.DDEproperties.ddeSubject",
+        "dde.bbr.metadata.DDEproperties.ddeResourceType"
       ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeRequired/context.jsonld",
       "schema": {
@@ -526,6 +396,7 @@
       },
       "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeRequired/schema.yaml",
       "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeRequired/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeRequired/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeRequired/",
       "rdfData": [],
       "validationPassed": false,
@@ -555,7 +426,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
+      "dateOfLastChange": "2026-03-16",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -576,81 +447,22 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl"
         ],
+        "dde.bbr.metadata.DDEproperties.ddeOptional": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
+        ],
         "dde.bbr.metadata.DDEproperties.ddeRequired": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeRequired/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifMandatory": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.dataDownload": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.organization": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.person": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.webAPI": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.action": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.variableMeasured": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.labeledLink": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeSubject": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeOptional": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifOptional": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.generatedBy": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.temporalExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.funder": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.agentInRole": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.derivedFrom": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl"
-        ],
-        "cdif.bbr.metadata.qualityProperties.qualityMeasure": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.spatialExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
         ]
       },
       "dependsOn": [
-        "dde.bbr.metadata.DDEproperties.ddeRequired",
         "dde.bbr.metadata.DDEproperties.ddeOptional",
-        "cdif.bbr.metadata.cdifProperties.cdifMandatory",
-        "cdif.bbr.metadata.cdifProperties.cdifOptional"
+        "dde.bbr.metadata.DDEproperties.ddeRequired"
       ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/context.jsonld",
       "schema": {
@@ -659,6 +471,7 @@
       },
       "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/schema.yaml",
       "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/",
       "rdfData": [],
       "validationPassed": false,
@@ -688,7 +501,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
+      "dateOfLastChange": "2026-03-16",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -705,74 +518,17 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl"
         ],
+        "dde.bbr.metadata.DDEproperties.ddeOptional": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
+        ],
         "dde.bbr.metadata.DDEproperties.ddeRequired": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeRequired/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifMandatory": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.dataDownload": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.organization": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.person": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.webAPI": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.action": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.variableMeasured": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.labeledLink": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeSubject": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeOptional": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifOptional": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.generatedBy": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.temporalExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.funder": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.agentInRole": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.derivedFrom": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl"
-        ],
-        "cdif.bbr.metadata.qualityProperties.qualityMeasure": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.spatialExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
         ]
       },
       "dependsOn": [
@@ -785,6 +541,7 @@
       },
       "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEAudioVisualProduct/schema.yaml",
       "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEAudioVisualProduct/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEAudioVisualProduct/",
       "rdfData": [],
       "validationPassed": false,
@@ -814,7 +571,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
+      "dateOfLastChange": "2026-03-16",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -831,74 +588,17 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl"
         ],
+        "dde.bbr.metadata.DDEproperties.ddeOptional": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
+        ],
         "dde.bbr.metadata.DDEproperties.ddeRequired": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeRequired/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifMandatory": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.dataDownload": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.organization": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.person": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.webAPI": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.action": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.variableMeasured": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.labeledLink": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeSubject": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeOptional": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifOptional": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.generatedBy": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.temporalExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.funder": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.agentInRole": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.derivedFrom": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl"
-        ],
-        "cdif.bbr.metadata.qualityProperties.qualityMeasure": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.spatialExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
         ]
       },
       "dependsOn": [
@@ -911,6 +611,7 @@
       },
       "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDECollection/schema.yaml",
       "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDECollection/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDECollection/",
       "rdfData": [],
       "validationPassed": false,
@@ -940,7 +641,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
+      "dateOfLastChange": "2026-03-16",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -957,74 +658,17 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl"
         ],
+        "dde.bbr.metadata.DDEproperties.ddeOptional": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
+        ],
         "dde.bbr.metadata.DDEproperties.ddeRequired": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeRequired/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifMandatory": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.dataDownload": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.organization": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.person": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.webAPI": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.action": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.variableMeasured": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.labeledLink": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeSubject": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeOptional": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifOptional": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.generatedBy": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.temporalExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.funder": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.agentInRole": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.derivedFrom": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl"
-        ],
-        "cdif.bbr.metadata.qualityProperties.qualityMeasure": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.spatialExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
         ]
       },
       "dependsOn": [
@@ -1037,6 +681,7 @@
       },
       "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDataset/schema.yaml",
       "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDataset/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDataset/",
       "rdfData": [],
       "validationPassed": false,
@@ -1066,7 +711,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
+      "dateOfLastChange": "2026-03-16",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -1083,74 +728,17 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl"
         ],
+        "dde.bbr.metadata.DDEproperties.ddeOptional": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
+        ],
         "dde.bbr.metadata.DDEproperties.ddeRequired": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeRequired/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifMandatory": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.dataDownload": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.organization": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.person": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.webAPI": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.action": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.variableMeasured": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.labeledLink": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeSubject": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeOptional": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifOptional": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.generatedBy": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.temporalExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.funder": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.agentInRole": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.derivedFrom": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl"
-        ],
-        "cdif.bbr.metadata.qualityProperties.qualityMeasure": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.spatialExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
         ]
       },
       "dependsOn": [
@@ -1163,6 +751,7 @@
       },
       "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDocument/schema.yaml",
       "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDocument/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDocument/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDocument/",
       "rdfData": [],
       "validationPassed": false,
@@ -1192,7 +781,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
+      "dateOfLastChange": "2026-03-16",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -1209,74 +798,17 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl"
         ],
+        "dde.bbr.metadata.DDEproperties.ddeOptional": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
+        ],
         "dde.bbr.metadata.DDEproperties.ddeRequired": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeRequired/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifMandatory": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.dataDownload": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.organization": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.person": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.webAPI": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.action": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.variableMeasured": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.labeledLink": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeSubject": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeOptional": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifOptional": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.generatedBy": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.temporalExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.funder": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.agentInRole": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.derivedFrom": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl"
-        ],
-        "cdif.bbr.metadata.qualityProperties.qualityMeasure": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.spatialExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
         ]
       },
       "dependsOn": [
@@ -1289,6 +821,7 @@
       },
       "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEEvent/schema.yaml",
       "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEEvent/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEEvent/",
       "rdfData": [],
       "validationPassed": false,
@@ -1318,7 +851,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
+      "dateOfLastChange": "2026-03-16",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -1335,74 +868,17 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl"
         ],
+        "dde.bbr.metadata.DDEproperties.ddeOptional": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
+        ],
         "dde.bbr.metadata.DDEproperties.ddeRequired": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeRequired/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifMandatory": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.dataDownload": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.organization": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.person": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.webAPI": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.action": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.variableMeasured": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.labeledLink": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeSubject": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeOptional": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifOptional": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.generatedBy": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.temporalExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.funder": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.agentInRole": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.derivedFrom": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl"
-        ],
-        "cdif.bbr.metadata.qualityProperties.qualityMeasure": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.spatialExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
         ]
       },
       "dependsOn": [
@@ -1415,6 +891,7 @@
       },
       "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEFunctionalResource/schema.yaml",
       "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEFunctionalResource/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEFunctionalResource/",
       "rdfData": [],
       "validationPassed": false,
@@ -1444,7 +921,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
+      "dateOfLastChange": "2026-03-16",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -1461,83 +938,20 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl"
         ],
+        "dde.bbr.metadata.DDEproperties.ddeOptional": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
+        ],
         "dde.bbr.metadata.DDEproperties.ddeRequired": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeRequired/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifMandatory": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.dataDownload": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.organization": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.person": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.webAPI": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.action": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.variableMeasured": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.labeledLink": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeSubject": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeOptional": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifOptional": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.generatedBy": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.temporalExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.funder": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.agentInRole": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.derivedFrom": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl"
-        ],
-        "cdif.bbr.metadata.qualityProperties.qualityMeasure": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.spatialExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeImagery": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifProv": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifProv/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.additionalProperty": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl"
         ]
       },
       "dependsOn": [
@@ -1551,6 +965,7 @@
       },
       "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEImage/schema.yaml",
       "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEImage/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEImage/",
       "rdfData": [],
       "validationPassed": false,
@@ -1580,7 +995,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
+      "dateOfLastChange": "2026-03-16",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -1597,74 +1012,17 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl"
         ],
+        "dde.bbr.metadata.DDEproperties.ddeOptional": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
+        ],
         "dde.bbr.metadata.DDEproperties.ddeRequired": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeRequired/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifMandatory": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.dataDownload": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.organization": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.person": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.webAPI": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.action": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.variableMeasured": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.labeledLink": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeSubject": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeOptional": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifOptional": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.generatedBy": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.temporalExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.funder": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.agentInRole": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.derivedFrom": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl"
-        ],
-        "cdif.bbr.metadata.qualityProperties.qualityMeasure": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.spatialExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
         ]
       },
       "dependsOn": [
@@ -1677,6 +1035,7 @@
       },
       "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDESemanticResource/schema.yaml",
       "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDESemanticResource/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDESemanticResource/",
       "rdfData": [],
       "validationPassed": false,
@@ -1706,7 +1065,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
+      "dateOfLastChange": "2026-03-16",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -1723,80 +1082,20 @@
         "dde.bbr.metadata.DDEproperties.ddeServiceInfo": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeServiceInfo/rules.shacl"
         ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.additionalProperty": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl"
-        ],
         "dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeRequired": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeRequired/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifMandatory": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.dataDownload": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.organization": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.person": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.webAPI": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.action": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.variableMeasured": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.labeledLink": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeSubject": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeOptional": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
         ],
-        "cdif.bbr.metadata.cdifProperties.cdifOptional": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeRequired": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeRequired/rules.shacl"
         ],
-        "cdif.bbr.metadata.provProperties.generatedBy": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeSubject": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
         ],
-        "cdif.bbr.metadata.schemaorgProperties.temporalExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.funder": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.agentInRole": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.derivedFrom": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl"
-        ],
-        "cdif.bbr.metadata.qualityProperties.qualityMeasure": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.spatialExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
         ]
       },
       "dependsOn": [
@@ -1810,6 +1109,7 @@
       },
       "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEService/schema.yaml",
       "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEService/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEService/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEService/",
       "rdfData": [],
       "validationPassed": false,
@@ -1839,7 +1139,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-03-10",
+      "dateOfLastChange": "2026-03-16",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -1856,74 +1156,17 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl"
         ],
+        "dde.bbr.metadata.DDEproperties.ddeOptional": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
+        ],
         "dde.bbr.metadata.DDEproperties.ddeRequired": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeRequired/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.identifier": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifMandatory": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.dataDownload": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.organization": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.person": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.webAPI": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.action": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.variableMeasured": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.labeledLink": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeSubject": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeOptional": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.cdifProperties.cdifOptional": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.generatedBy": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.temporalExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.funder": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.agentInRole": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-        ],
-        "cdif.bbr.metadata.provProperties.derivedFrom": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl"
-        ],
-        "cdif.bbr.metadata.qualityProperties.qualityMeasure": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
-        ],
-        "cdif.bbr.metadata.schemaorgProperties.spatialExtent": [
-          "https://usgin.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
         ]
       },
       "dependsOn": [
@@ -1936,6 +1179,7 @@
       },
       "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDESoftware/schema.yaml",
       "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDESoftware/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESoftware/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDESoftware/",
       "rdfData": [],
       "validationPassed": false,
