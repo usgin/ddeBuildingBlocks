@@ -442,13 +442,13 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
             schema1:name "browse image" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Remote Sensing" ;
-            schema1:termCode "remoteSensing" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Remote Sensing" ;
+            schema1:termCode "remoteSensing" ],
         "Landsat-8",
         "Tibetan Plateau",
         "multispectral",
@@ -470,17 +470,17 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
                     schema1:roleName "DataCollector" ] ;
             schema1:startTime "2023-06-15T03:45:00Z" ;
             prov:used [ schema1:instrument [ a schema1:Thing ;
-                            schema1:additionalType "dde:platform" ;
-                            schema1:name "Landsat-8" ] ],
-                [ schema1:instrument [ a schema1:Thing ;
                             schema1:additionalType "dde:sensorType" ;
                             schema1:name "Multispectral" ] ],
                 [ schema1:instrument [ a schema1:Thing ;
-                            schema1:additionalType "dde:signalGenerator" ;
-                            schema1:name "Passive solar" ] ],
+                            schema1:additionalType "dde:platform" ;
+                            schema1:name "Landsat-8" ] ],
                 [ schema1:instrument [ a schema1:Thing ;
                             schema1:additionalType "dde:equipment" ;
-                            schema1:name "Operational Land Imager (OLI)" ] ] ] .
+                            schema1:name "Operational Land Imager (OLI)" ] ],
+                [ schema1:instrument [ a schema1:Thing ;
+                            schema1:additionalType "dde:signalGenerator" ;
+                            schema1:name "Passive solar" ] ] ] .
 
 <urn:uuid:dde-image-catalog-record> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEImage>,
@@ -500,8 +500,8 @@ $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 title: DDE Image profile
 description: DDE profile for image resources (image, photograph, explanatoryFigure,
-  map). Extends DDEDiscovery with resource type constraint and ddeImagery conditional
-  properties.
+  map). Extends DDEDiscovery with resource type constraint and ddeImagery properties.
+  If additionalType termCode is map, ddeGeographicDataset constraints are also applied.
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
@@ -527,6 +527,16 @@ allOf:
         - schema:inDefinedTermSet
         - schema:termCode
       minContains: 1
+- if:
+    properties:
+      schema:additionalType:
+        contains:
+          type: object
+          properties:
+            schema:termCode:
+              const: map
+  then:
+    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema.yaml
 x-jsonld-prefixes:
   schema: http://schema.org/
   cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/

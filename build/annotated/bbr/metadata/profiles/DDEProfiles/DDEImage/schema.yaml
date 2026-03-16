@@ -2,8 +2,8 @@ $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 title: DDE Image profile
 description: DDE profile for image resources (image, photograph, explanatoryFigure,
-  map). Extends DDEDiscovery with resource type constraint and ddeImagery conditional
-  properties.
+  map). Extends DDEDiscovery with resource type constraint and ddeImagery properties.
+  If additionalType termCode is map, ddeGeographicDataset constraints are also applied.
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
@@ -29,6 +29,16 @@ allOf:
         - schema:inDefinedTermSet
         - schema:termCode
       minContains: 1
+- if:
+    properties:
+      schema:additionalType:
+        contains:
+          type: object
+          properties:
+            schema:termCode:
+              const: map
+  then:
+    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema.yaml
 x-jsonld-prefixes:
   schema: http://schema.org/
   cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/

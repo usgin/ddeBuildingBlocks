@@ -175,6 +175,249 @@
       "x-schema-source": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
+    "dde.bbr.metadata.DDEproperties.ddeGeographicDataset": {
+      "title": "DDE Geographic Dataset properties",
+      "description": "Conditional extension for geographic dataset resources. Implements MD_SpatialRepresentation entity (DDE spec Table 5) with spatialCoverage (mandatory), spatialRepresentationType (SpatialRepresentationTypeCode enum), spatialResolution (string), referenceSystemType (ReferenceSystemTypeCode enum), and referenceSystemIdentifier (MD_Identifier pattern).",
+      "type": "object",
+      "properties": {
+        "schema:spatialCoverage": {
+          "description": "Spatial extent of the geographic dataset. Mandatory for geographicDataset resource type.",
+          "allOf": [
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeGeographicDataset/$defs/SpatialExtent"
+            }
+          ]
+        },
+        "schema:additionalProperty": {
+          "type": "array",
+          "description": "Spatial representation properties using DDE propertyIDs. Each item is a PropertyValue with a DDE propertyID and a value whose type depends on the property.",
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeGeographicDataset/$defs/SpatialRepresentationTypePV"
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeGeographicDataset/$defs/SpatialResolutionPV"
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeGeographicDataset/$defs/ReferenceSystemTypePV"
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeGeographicDataset/$defs/ReferenceSystemIdentifierPV"
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeGeographicDataset/$defs/AdditionalProperty"
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "schema:spatialCoverage"
+      ],
+      "$defs": {
+        "SpatialExtent": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_spatialExtent_schema"
+        },
+        "AdditionalProperty": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_additionalProperty_schema"
+        },
+        "Identifier": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema"
+        },
+        "SpatialRepresentationTypePV": {
+          "type": "object",
+          "description": "Method used to represent geographic information in the resource. Value from SpatialRepresentationTypeCode (XSD).",
+          "properties": {
+            "@type": {
+              "enum": [
+                "schema:PropertyValue"
+              ]
+            },
+            "schema:propertyID": {
+              "type": "array",
+              "contains": {
+                "enum": [
+                  "dde:spatialRepresentationType"
+                ]
+              },
+              "minItems": 1
+            },
+            "schema:name": {
+              "type": "string"
+            },
+            "schema:value": {
+              "type": "string",
+              "enum": [
+                "vector",
+                "grid",
+                "textTable",
+                "tin",
+                "stereoModel",
+                "video"
+              ]
+            }
+          },
+          "required": [
+            "schema:propertyID",
+            "schema:name",
+            "schema:value"
+          ]
+        },
+        "SpatialResolutionPV": {
+          "type": "object",
+          "description": "Spatial resolution of the dataset (free text, e.g. \"1:1000000\", \"30m\"). Value is a string (CharacterString_Type in XSD).",
+          "properties": {
+            "@type": {
+              "enum": [
+                "schema:PropertyValue"
+              ]
+            },
+            "schema:propertyID": {
+              "type": "array",
+              "contains": {
+                "enum": [
+                  "dde:spatialResolution"
+                ]
+              },
+              "minItems": 1
+            },
+            "schema:name": {
+              "type": "string"
+            },
+            "schema:value": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "schema:propertyID",
+            "schema:name",
+            "schema:value"
+          ]
+        },
+        "ReferenceSystemTypePV": {
+          "type": "object",
+          "description": "Type of coordinate reference system. Value from ReferenceSystemTypeCode (XSD, 28 values).",
+          "properties": {
+            "@type": {
+              "enum": [
+                "schema:PropertyValue"
+              ]
+            },
+            "schema:propertyID": {
+              "type": "array",
+              "contains": {
+                "enum": [
+                  "dde:referenceSystemType"
+                ]
+              },
+              "minItems": 1
+            },
+            "schema:name": {
+              "type": "string"
+            },
+            "schema:value": {
+              "type": "string",
+              "enum": [
+                "compoundEngineeringParametric",
+                "compoundEngineeringParametricTemporal",
+                "compoundEngineeringTemporal",
+                "compoundEngineeringVertical",
+                "compoundEngineeringVerticalTemporal",
+                "compoundGeographic2DParametric",
+                "compoundGeographic2DParametricTemporal",
+                "compoundGeographic2DTemporal",
+                "compoundGeographic2DVertical",
+                "compoundGeographicVerticalTemporal",
+                "compoundGeographic3DTemporal",
+                "compoundProjected2DParametric",
+                "compoundProjected2DParametricTemporal",
+                "compoundProjectedTemporal",
+                "compoundProjectedVertical",
+                "compoundProjectedVerticalTemporal",
+                "engineering",
+                "engineeringDesign",
+                "engineeringImage",
+                "geodeticGeocentric",
+                "geodeticGeographic2D",
+                "geodeticGeographic3D",
+                "geographicIdentifier",
+                "linear",
+                "parametric",
+                "projected",
+                "temporal",
+                "vertical"
+              ]
+            }
+          },
+          "required": [
+            "schema:propertyID",
+            "schema:name",
+            "schema:value"
+          ]
+        },
+        "ReferenceSystemIdentifierPV": {
+          "type": "object",
+          "description": "Identifier for the coordinate reference system. Follows the MD_Identifier pattern from the XSD (code + optional codeSpace, version, url). Value is the identifier code string (e.g. \"EPSG:4326\"), with optional schema:url for the resolvable form.",
+          "properties": {
+            "@type": {
+              "enum": [
+                "schema:PropertyValue"
+              ]
+            },
+            "schema:propertyID": {
+              "type": "array",
+              "contains": {
+                "enum": [
+                  "dde:referenceSystemIdentifier"
+                ]
+              },
+              "minItems": 1
+            },
+            "schema:name": {
+              "type": "string"
+            },
+            "schema:value": {
+              "type": "string",
+              "description": "The reference system identifier code (e.g. \"EPSG:4326\", \"urn:ogc:def:crs:EPSG::4326\")."
+            },
+            "schema:url": {
+              "type": "string",
+              "format": "uri",
+              "description": "Resolvable URL for the reference system identifier (e.g. \"https://epsg.io/4326\")."
+            }
+          },
+          "allOf": [
+            {
+              "required": [
+                "schema:propertyID",
+                "schema:name"
+              ]
+            },
+            {
+              "anyOf": [
+                {
+                  "required": [
+                    "schema:value"
+                  ]
+                },
+                {
+                  "required": [
+                    "schema:url"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/",
+        "dde": "https://www.ddeworld.org/resource/"
+      },
+      "x-schema-source": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema.json",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
     "dde.bbr.metadata.DDEproperties.ddeResourceType": {
       "title": "DDE Resource Type constraint",
       "description": "Constrains schema:additionalType to require at least one DefinedTerm from the DDE ResourceTypeCode codelist (32 resource types from DDE spec Table 18).",
@@ -1124,17 +1367,17 @@
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
-    "metadataBuildingBlocks__sources_schemaorgProperties_labeledLink_schema": {
-      "description": "schema for a labeled link, a profile of schema.org/CreativeWork",
+    "metadataBuildingBlocks__sources_schemaorgProperties_spatialExtent_schema": {
+      "description": "Spatial Extent description for CDIF discovery profile.  Note required prefix declaration for geoSparql ( http://www.opengis.net/ont/geosparql#) and OGC simple features (sf: http://www.opengis.net/ont/sf#)",
       "type": "object",
       "properties": {
         "@type": {
-          "default": "schema:CreativeWork",
+          "default": "schema:Place",
           "anyOf": [
             {
               "type": "string",
               "enum": [
-                "schema:CreativeWork"
+                "schema:Place"
               ]
             },
             {
@@ -1144,28 +1387,309 @@
               },
               "contains": {
                 "enum": [
-                  "schema:CreativeWork"
+                  "schema:Place"
                 ]
               }
             }
           ]
         },
         "schema:name": {
+          "description": "multiple place names or DefinedTerms that have a place name and URI for the location",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_spatialExtent_schema/$defs/DefinedTerm"
+              }
+            ]
+          }
+        },
+        "schema:geo": {
+          "description": "Either a bounding box or a point location.",
+          "anyOf": [
+            {
+              "type": "object",
+              "description": "A point location. Point locations are recommended for data that is associated with specific sample locations, particularly if these are widely spaced such that an enclosing bounding box would be a misleading representation of the spatial location. Be aware that some client applications might only index or display bounding box extents or a single point location.",
+              "properties": {
+                "@type": {
+                  "default": "schema:GeoCoordinates",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "schema:GeoCoordinates"
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "contains": {
+                        "enum": [
+                          "schema:GeoCoordinates"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "schema:latitude": {
+                  "type": "number",
+                  "minimum": -90,
+                  "maximum": 90
+                },
+                "schema:longitude": {
+                  "type": "number",
+                  "minimum": -180,
+                  "maximum": 180
+                }
+              },
+              "required": [
+                "@type",
+                "schema:latitude",
+                "schema:longitude"
+              ]
+            },
+            {
+              "type": "object",
+              "description": "A schema:GeoShape bounding box. The geometry is described with a set of latitude/longitude pairs (in that order).The documentation for schema:GeoShape states 'Either whitespace or commas can be used to separate latitude and longitude; whitespace should be used when writing a list of several such points.'",
+              "properties": {
+                "@type": {
+                  "default": "schema:GeoShape",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "schema:GeoShape"
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "contains": {
+                        "enum": [
+                          "schema:GeoShape"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "schema:box": {
+                  "type": "string",
+                  "description": "A GeoShape box defines an area on the surface of the earth defined by point locations of the southwest corner and northeast corner of the rectangle in latitude-longitude coordinates. A space should be used to separate the latitude and longitude values. The two corner coordinate points are separated by a space. 'East longitude' means positive longitude values are east of the prime (Greenwich) meridian."
+                }
+              },
+              "required": [
+                "@type",
+                "schema:box"
+              ]
+            },
+            {
+              "type": "object",
+              "description": "A schema:GeoShape curvilinear trace, for resource related to a linear trace like a ship track or airplane flight line",
+              "properties": {
+                "@type": {
+                  "default": "schema:GeoShape",
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "schema:GeoShape"
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "contains": {
+                        "enum": [
+                          "schema:GeoShape"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "schema:line": {
+                  "type": "string",
+                  "description": "A GeoShape box defines a curvilinear geometry as a string of latitude-longitude coordinates. A space should be used to separate the latitude and longitude values. The coordinate point pairs are also separated by a space. 'East longitude' means positive longitude values are east of the prime (Greenwich) meridian. e.g. '39.33 120.77 40.44 123.96 41.00 121.34' "
+                }
+              },
+              "required": [
+                "@type",
+                "schema:line"
+              ]
+            }
+          ]
+        },
+        "geosparql:hasGeometry": {
+          "type": "object",
+          "description": "Optional geographic extent using wkt geometry, see Ocean InfoHub (https://book.oceaninfohub.org/thematics/spatial/README.html#simple-geosparql-wkt). Other geometry schemes might be specified in a specific domain profile, e.g. for atmospheric, subsurface data, or local coordinate systems. NOTE that the location specified here should be the same as the schema.org point or contained within the specified bounding box.",
+          "properties": {
+            "@type": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ],
+              "description": "MUST be sf: (<http://www.opengis.net/ont/sf#>) SimpleFeature geometry type. See https://opengeospatial.github.io/ogc-geosparql/geosparql11/sf_geometries.ttl"
+            },
+            "geosparql:asWKT": {
+              "type": "object",
+              "properties": {
+                "@type": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": [
+                        "geosparql:wktLiteral"
+                      ]
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "contains": {
+                        "enum": [
+                          "geosparql:wktLiteral"
+                        ]
+                      }
+                    }
+                  ]
+                },
+                "@value": {
+                  "type": "string",
+                  "description": "a WKT geometry description string, e.g. 'POINT(-76 -18)'"
+                }
+              }
+            },
+            "geosparql:crs": {
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "type": "string",
+                  "description": "identifier string for coordinate reference system, e.g., 'CRS84'"
+                }
+              }
+            }
+          }
+        }
+      },
+      "$defs": {
+        "DefinedTerm": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema"
+        }
+      },
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "metadataBuildingBlocks__sources_schemaorgProperties_additionalProperty_schema": {
+      "type": "object",
+      "title": "additionalProperty PropertyValue",
+      "description": "PropertyValue values required to define a soft-typed property with a value. ",
+      "properties": {
+        "@type": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "schema:PropertyValue"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "contains": {
+                "enum": [
+                  "schema:PropertyValue"
+                ]
+              }
+            }
+          ]
+        },
+        "schema:propertyID": {
+          "type": "array",
+          "items": {
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_additionalProperty_schema/$defs/propertyID_item"
+          },
+          "minItems": 1,
+          "description": "identifier or name for the property concept quantified by the values in this variable slot. Multiple values can specify the property at different levels of granularity."
+        },
+        "schema:name": {
           "type": "string"
         },
-        "schema:description": {
-          "type": "string"
+        "schema:value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object"
+            }
+          ]
         },
-        "schema:url": {
-          "type": "string",
-          "format": "uri"
+        "schema:unitCode": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_additionalProperty_schema/$defs/DefinedTerm"
+            }
+          ]
+        },
+        "schema:unitText": {
+          "type": "string"
         }
       },
       "required": [
-        "@type",
-        "schema:url"
+        "schema:name",
+        "schema:value"
       ],
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/schema.yaml",
+      "$defs": {
+        "DefinedTerm": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema"
+        },
+        "propertyID_item": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_additionalProperty_schema/$defs/DefinedTerm"
+            }
+          ]
+        }
+      },
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema": {
@@ -1229,6 +1753,50 @@
         }
       ],
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "metadataBuildingBlocks__sources_schemaorgProperties_labeledLink_schema": {
+      "description": "schema for a labeled link, a profile of schema.org/CreativeWork",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "default": "schema:CreativeWork",
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "schema:CreativeWork"
+              ]
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "contains": {
+                "enum": [
+                  "schema:CreativeWork"
+                ]
+              }
+            }
+          ]
+        },
+        "schema:name": {
+          "type": "string"
+        },
+        "schema:description": {
+          "type": "string"
+        },
+        "schema:url": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "@type",
+        "schema:url"
+      ],
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "metadataBuildingBlocks__sources_schemaorgProperties_dataDownload_schema": {
@@ -2281,234 +2849,6 @@
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/statisticalVariable/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
-    "metadataBuildingBlocks__sources_schemaorgProperties_spatialExtent_schema": {
-      "description": "Spatial Extent description for CDIF discovery profile.  Note required prefix declaration for geoSparql ( http://www.opengis.net/ont/geosparql#) and OGC simple features (sf: http://www.opengis.net/ont/sf#)",
-      "type": "object",
-      "properties": {
-        "@type": {
-          "default": "schema:Place",
-          "anyOf": [
-            {
-              "type": "string",
-              "enum": [
-                "schema:Place"
-              ]
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "contains": {
-                "enum": [
-                  "schema:Place"
-                ]
-              }
-            }
-          ]
-        },
-        "schema:name": {
-          "description": "multiple place names or DefinedTerms that have a place name and URI for the location",
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_spatialExtent_schema/$defs/DefinedTerm"
-              }
-            ]
-          }
-        },
-        "schema:geo": {
-          "description": "Either a bounding box or a point location.",
-          "anyOf": [
-            {
-              "type": "object",
-              "description": "A point location. Point locations are recommended for data that is associated with specific sample locations, particularly if these are widely spaced such that an enclosing bounding box would be a misleading representation of the spatial location. Be aware that some client applications might only index or display bounding box extents or a single point location.",
-              "properties": {
-                "@type": {
-                  "default": "schema:GeoCoordinates",
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "enum": [
-                        "schema:GeoCoordinates"
-                      ]
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "contains": {
-                        "enum": [
-                          "schema:GeoCoordinates"
-                        ]
-                      }
-                    }
-                  ]
-                },
-                "schema:latitude": {
-                  "type": "number",
-                  "minimum": -90,
-                  "maximum": 90
-                },
-                "schema:longitude": {
-                  "type": "number",
-                  "minimum": -180,
-                  "maximum": 180
-                }
-              },
-              "required": [
-                "@type",
-                "schema:latitude",
-                "schema:longitude"
-              ]
-            },
-            {
-              "type": "object",
-              "description": "A schema:GeoShape bounding box. The geometry is described with a set of latitude/longitude pairs (in that order).The documentation for schema:GeoShape states 'Either whitespace or commas can be used to separate latitude and longitude; whitespace should be used when writing a list of several such points.'",
-              "properties": {
-                "@type": {
-                  "default": "schema:GeoShape",
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "enum": [
-                        "schema:GeoShape"
-                      ]
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "contains": {
-                        "enum": [
-                          "schema:GeoShape"
-                        ]
-                      }
-                    }
-                  ]
-                },
-                "schema:box": {
-                  "type": "string",
-                  "description": "A GeoShape box defines an area on the surface of the earth defined by point locations of the southwest corner and northeast corner of the rectangle in latitude-longitude coordinates. A space should be used to separate the latitude and longitude values. The two corner coordinate points are separated by a space. 'East longitude' means positive longitude values are east of the prime (Greenwich) meridian."
-                }
-              },
-              "required": [
-                "@type",
-                "schema:box"
-              ]
-            },
-            {
-              "type": "object",
-              "description": "A schema:GeoShape curvilinear trace, for resource related to a linear trace like a ship track or airplane flight line",
-              "properties": {
-                "@type": {
-                  "default": "schema:GeoShape",
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "enum": [
-                        "schema:GeoShape"
-                      ]
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "contains": {
-                        "enum": [
-                          "schema:GeoShape"
-                        ]
-                      }
-                    }
-                  ]
-                },
-                "schema:line": {
-                  "type": "string",
-                  "description": "A GeoShape box defines a curvilinear geometry as a string of latitude-longitude coordinates. A space should be used to separate the latitude and longitude values. The coordinate point pairs are also separated by a space. 'East longitude' means positive longitude values are east of the prime (Greenwich) meridian. e.g. '39.33 120.77 40.44 123.96 41.00 121.34' "
-                }
-              },
-              "required": [
-                "@type",
-                "schema:line"
-              ]
-            }
-          ]
-        },
-        "geosparql:hasGeometry": {
-          "type": "object",
-          "description": "Optional geographic extent using wkt geometry, see Ocean InfoHub (https://book.oceaninfohub.org/thematics/spatial/README.html#simple-geosparql-wkt). Other geometry schemes might be specified in a specific domain profile, e.g. for atmospheric, subsurface data, or local coordinate systems. NOTE that the location specified here should be the same as the schema.org point or contained within the specified bounding box.",
-          "properties": {
-            "@type": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              ],
-              "description": "MUST be sf: (<http://www.opengis.net/ont/sf#>) SimpleFeature geometry type. See https://opengeospatial.github.io/ogc-geosparql/geosparql11/sf_geometries.ttl"
-            },
-            "geosparql:asWKT": {
-              "type": "object",
-              "properties": {
-                "@type": {
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "enum": [
-                        "geosparql:wktLiteral"
-                      ]
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "contains": {
-                        "enum": [
-                          "geosparql:wktLiteral"
-                        ]
-                      }
-                    }
-                  ]
-                },
-                "@value": {
-                  "type": "string",
-                  "description": "a WKT geometry description string, e.g. 'POINT(-76 -18)'"
-                }
-              }
-            },
-            "geosparql:crs": {
-              "type": "object",
-              "properties": {
-                "@id": {
-                  "type": "string",
-                  "description": "identifier string for coordinate reference system, e.g., 'CRS84'"
-                }
-              }
-            }
-          }
-        }
-      },
-      "$defs": {
-        "DefinedTerm": {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema"
-        }
-      },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/schema.yaml",
-      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
-    },
     "metadataBuildingBlocks__sources_schemaorgProperties_temporalExtent_schema": {
       "description": "The time interval during which data was collected or observations were made; or a time period that an activity or collection is linked to intellectually or thematically (for example, 1997 to 1998; the 18th century) (see https://documentation.ardc.edu.au/display/DOC/Temporal+coverage). For documentation of Earth Science, Paleobiology or Paleontology datasets, we are interested in the second case-- the time period that data are linked to thematically. NOTE-- context must include \"time\": \"http://www.w3.org/2006/time#\"}",
       "anyOf": [
@@ -3260,7 +3600,7 @@
   },
   "type": "object",
   "title": "DDE Dataset profile",
-  "description": "DDE profile for dataset resources (dataset, dataCatalog, geographicDataset, nonGeographicDataset). Extends DDEDiscovery with resource type constraint. For geographicDataset, compose with ddeGeographicDataset building block.",
+  "description": "DDE profile for dataset resources (dataset, dataCatalog, geographicDataset, nonGeographicDataset). Extends DDEDiscovery with resource type constraint. If additionalType termCode is geographicDataset, ddeGeographicDataset constraints are applied.",
   "allOf": [
     {
       "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeMandatory"
@@ -3302,6 +3642,27 @@
           },
           "minContains": 1
         }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema:additionalType": {
+            "contains": {
+              "type": "object",
+              "properties": {
+                "schema:termCode": {
+                  "enum": [
+                    "geographicDataset"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeGeographicDataset"
       }
     }
   ],

@@ -33,16 +33,20 @@
     "dde.bbr.metadata.DDEproperties.ddeMandatory": [
       "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
     ],
+    "dde.bbr.metadata.DDEproperties.ddeSubject": [
+      "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
+    ],
     "dde.bbr.metadata.DDEproperties.ddeResourceType": [
       "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
     ],
-    "dde.bbr.metadata.DDEproperties.ddeSubject": [
-      "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
+    "dde.bbr.metadata.DDEproperties.ddeGeographicDataset": [
+      "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
     ]
   },
   "dependsOn": [
     "dde.bbr.metadata.DDEproperties.ddeOptional",
-    "dde.bbr.metadata.DDEproperties.ddeMandatory"
+    "dde.bbr.metadata.DDEproperties.ddeMandatory",
+    "dde.bbr.metadata.DDEproperties.ddeGeographicDataset"
   ],
   "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/context.jsonld",
   "schema": {
@@ -90,7 +94,7 @@
       ]
     }
   ],
-  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntype: object\ntitle: DDE Dataset profile\ndescription: DDE profile for dataset resources (dataset, dataCatalog, geographicDataset,\n  nonGeographicDataset). Extends DDEDiscovery with resource type constraint. For geographicDataset,\n  compose with ddeGeographicDataset building block.\nallOf:\n- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml\n- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml\n- properties:\n    schema:additionalType:\n      contains:\n        type: object\n        properties:\n          '@type':\n            const: schema:DefinedTerm\n          schema:inDefinedTermSet:\n            const: dde:codelist/ResourceTypeCode\n          schema:termCode:\n            type: string\n            enum:\n            - dataset\n            - dataCatalog\n            - geographicDataset\n            - nonGeographicDataset\n        required:\n        - '@type'\n        - schema:inDefinedTermSet\n        - schema:termCode\n      minContains: 1\nx-jsonld-prefixes:\n  schema: http://schema.org/\n  cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/\n  dcterms: http://purl.org/dc/terms/\n  geosparql: http://www.opengis.net/ont/geosparql#\n  spdx: http://spdx.org/rdf/terms#\n  time: http://www.w3.org/2006/time#\n  dde: https://www.ddeworld.org/resource/\n  dcat: http://www.w3.org/ns/dcat#\n  prov: http://www.w3.org/ns/prov#\n  dqv: http://www.w3.org/ns/dqv#\n",
+  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntype: object\ntitle: DDE Dataset profile\ndescription: DDE profile for dataset resources (dataset, dataCatalog, geographicDataset,\n  nonGeographicDataset). Extends DDEDiscovery with resource type constraint. If additionalType\n  termCode is geographicDataset, ddeGeographicDataset constraints are applied.\nallOf:\n- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml\n- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml\n- properties:\n    schema:additionalType:\n      contains:\n        type: object\n        properties:\n          '@type':\n            const: schema:DefinedTerm\n          schema:inDefinedTermSet:\n            const: dde:codelist/ResourceTypeCode\n          schema:termCode:\n            type: string\n            enum:\n            - dataset\n            - dataCatalog\n            - geographicDataset\n            - nonGeographicDataset\n        required:\n        - '@type'\n        - schema:inDefinedTermSet\n        - schema:termCode\n      minContains: 1\n- if:\n    properties:\n      schema:additionalType:\n        contains:\n          type: object\n          properties:\n            schema:termCode:\n              const: geographicDataset\n  then:\n    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema.yaml\nx-jsonld-prefixes:\n  schema: http://schema.org/\n  cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/\n  dcterms: http://purl.org/dc/terms/\n  geosparql: http://www.opengis.net/ont/geosparql#\n  spdx: http://spdx.org/rdf/terms#\n  time: http://www.w3.org/2006/time#\n  dde: https://www.ddeworld.org/resource/\n  dcat: http://www.w3.org/ns/dcat#\n  prov: http://www.w3.org/ns/prov#\n  dqv: http://www.w3.org/ns/dqv#\n",
   "gitRepository": "https://github.com/usgin/ddeBuildingBlocks",
   "gitPath": "_sources/profiles/DDEProfiles/DDEDataset"
 }

@@ -2,8 +2,8 @@ $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 title: DDE Dataset profile
 description: DDE profile for dataset resources (dataset, dataCatalog, geographicDataset,
-  nonGeographicDataset). Extends DDEDiscovery with resource type constraint. For geographicDataset,
-  compose with ddeGeographicDataset building block.
+  nonGeographicDataset). Extends DDEDiscovery with resource type constraint. If additionalType
+  termCode is geographicDataset, ddeGeographicDataset constraints are applied.
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
@@ -28,6 +28,16 @@ allOf:
         - schema:inDefinedTermSet
         - schema:termCode
       minContains: 1
+- if:
+    properties:
+      schema:additionalType:
+        contains:
+          type: object
+          properties:
+            schema:termCode:
+              const: geographicDataset
+  then:
+    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema.yaml
 x-jsonld-prefixes:
   schema: http://schema.org/
   cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/

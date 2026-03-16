@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "title": "DDE Dataset profile",
-  "description": "DDE profile for dataset resources (dataset, dataCatalog, geographicDataset, nonGeographicDataset). Extends DDEDiscovery with resource type constraint. For geographicDataset, compose with ddeGeographicDataset building block.",
+  "description": "DDE profile for dataset resources (dataset, dataCatalog, geographicDataset, nonGeographicDataset). Extends DDEDiscovery with resource type constraint. If additionalType termCode is geographicDataset, ddeGeographicDataset constraints are applied.",
   "allOf": [
     {
       "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.json"
@@ -40,6 +40,25 @@
           },
           "minContains": 1
         }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema:additionalType": {
+            "contains": {
+              "type": "object",
+              "properties": {
+                "schema:termCode": {
+                  "const": "geographicDataset"
+                }
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema.json"
       }
     }
   ],
