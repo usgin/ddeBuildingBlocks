@@ -8,7 +8,7 @@
           "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeMandatory/$defs/CdifMandatory"
         },
         {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeResourceType"
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeResourceType_1"
         },
         {
           "type": "object",
@@ -191,6 +191,97 @@
               },
               {
                 "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeResourceType/$defs/DefinedTerm"
+              }
+            ]
+          },
+          "contains": {
+            "type": "object",
+            "properties": {
+              "@type": {
+                "enum": [
+                  "schema:DefinedTerm"
+                ]
+              },
+              "schema:inDefinedTermSet": {
+                "enum": [
+                  "dde:codelist/ResourceTypeCode"
+                ]
+              },
+              "schema:termCode": {
+                "type": "string",
+                "enum": [
+                  "aggregate",
+                  "application",
+                  "webApplication",
+                  "collection",
+                  "dataset",
+                  "dataCatalog",
+                  "geographicDataset",
+                  "nonGeographicDataset",
+                  "document",
+                  "article",
+                  "thesis",
+                  "book",
+                  "poster",
+                  "webPage",
+                  "image",
+                  "map",
+                  "photograph",
+                  "explanatoryFigure",
+                  "initiative",
+                  "fieldSession",
+                  "learningResource",
+                  "guide",
+                  "model",
+                  "movie",
+                  "repository",
+                  "semanticResource",
+                  "definedTermSet",
+                  "series",
+                  "service",
+                  "webAPI",
+                  "software",
+                  "sound"
+                ]
+              }
+            },
+            "required": [
+              "@type",
+              "schema:inDefinedTermSet",
+              "schema:termCode"
+            ]
+          },
+          "minContains": 1
+        }
+      },
+      "$defs": {
+        "DefinedTerm": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.json#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema"
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/",
+        "dde": "https://www.ddeworld.org/resource/"
+      },
+      "x-schema-source": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.json",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "dde.bbr.metadata.DDEproperties.ddeResourceType_1": {
+      "title": "DDE Resource Type constraint",
+      "description": "Constrains schema:additionalType to require at least one DefinedTerm from the DDE ResourceTypeCode codelist (32 resource types from DDE spec Table 18).",
+      "type": "object",
+      "properties": {
+        "schema:additionalType": {
+          "type": "array",
+          "description": "Must include at least one DefinedTerm from the DDE ResourceTypeCode codelist.",
+          "minItems": 1,
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeResourceType_1/$defs/DefinedTerm"
               }
             ]
           },
@@ -3305,28 +3396,37 @@
         },
         "schema:hasPart": {
           "type": "array",
-          "description": "Members of the collection. At least one part is required.",
+          "description": "Members of the collection. Each must have a DDE resource type classification and basic descriptive properties.",
           "minItems": 1,
           "items": {
-            "type": "object",
-            "properties": {
-              "@type": {
-                "type": "string",
-                "default": "schema:CreativeWork"
+            "allOf": [
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeResourceType"
               },
-              "schema:name": {
-                "type": "string"
-              },
-              "schema:description": {
-                "type": "string"
-              },
-              "schema:url": {
-                "type": "string",
-                "format": "uri"
+              {
+                "type": "object",
+                "properties": {
+                  "@type": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "default": [
+                      "schema:CreativeWork"
+                    ]
+                  },
+                  "schema:name": {
+                    "type": "string"
+                  },
+                  "schema:description": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "@type",
+                  "schema:name"
+                ]
               }
-            },
-            "required": [
-              "schema:name"
             ]
           }
         }

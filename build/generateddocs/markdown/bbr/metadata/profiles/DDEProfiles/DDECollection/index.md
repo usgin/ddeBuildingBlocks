@@ -303,12 +303,12 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
 <urn:dde:example-onegeology-collection> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Series" ;
-            schema1:termCode "series" ],
+            schema1:name "Collection" ;
+            schema1:termCode "collection" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Collection" ;
-            schema1:termCode "collection" ] ;
+            schema1:name "Series" ;
+            schema1:termCode "series" ] ;
     schema1:dateModified "2024-06-01" ;
     schema1:description "A curated collection of 1:1M scale geological maps contributed by national geological surveys through the OneGeology initiative. Each member map covers a single country or territory and uses harmonized symbology based on the GeoSciML Portrayal schema." ;
     schema1:hasPart [ a schema1:CreativeWork ;
@@ -398,23 +398,27 @@ allOf:
       minContains: 1
     schema:hasPart:
       type: array
-      description: Members of the collection. At least one part is required.
+      description: Members of the collection. Each must have a DDE resource type classification
+        and basic descriptive properties.
       minItems: 1
       items:
-        type: object
-        properties:
-          '@type':
-            type: string
-            default: schema:CreativeWork
-          schema:name:
-            type: string
-          schema:description:
-            type: string
-          schema:url:
-            type: string
-            format: uri
-        required:
-        - schema:name
+        allOf:
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.yaml
+        - type: object
+          properties:
+            '@type':
+              type: array
+              items:
+                type: string
+              default:
+              - schema:CreativeWork
+            schema:name:
+              type: string
+            schema:description:
+              type: string
+          required:
+          - '@type'
+          - schema:name
   required:
   - schema:hasPart
 x-jsonld-prefixes:
