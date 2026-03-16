@@ -312,17 +312,17 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
     schema1:dateModified "2024-06-01" ;
     schema1:description "A curated collection of 1:1M scale geological maps contributed by national geological surveys through the OneGeology initiative. Each member map covers a single country or territory and uses harmonized symbology based on the GeoSciML Portrayal schema." ;
     schema1:hasPart [ a schema1:CreativeWork ;
+            schema1:description "Bedrock geological map of the United Kingdom by the British Geological Survey" ;
+            schema1:name "United Kingdom 1:625K Bedrock Geology" ;
+            schema1:url "https://www.bgs.ac.uk/geological-data/" ],
+        [ a schema1:CreativeWork ;
             schema1:description "Geological map of China compiled from 63 separate survey sheets" ;
             schema1:name "China 1:1M Bedrock Lithostratigraphy" ;
             schema1:url "http://en.cgs.gov.cn/" ],
         [ a schema1:CreativeWork ;
             schema1:description "National-scale surface geology map of Australia by Geoscience Australia" ;
             schema1:name "Australia 1:1M Surface Geology" ;
-            schema1:url "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets" ],
-        [ a schema1:CreativeWork ;
-            schema1:description "Bedrock geological map of the United Kingdom by the British Geological Survey" ;
-            schema1:name "United Kingdom 1:625K Bedrock Geology" ;
-            schema1:url "https://www.bgs.ac.uk/geological-data/" ] ;
+            schema1:url "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets" ] ;
     schema1:identifier "urn:onegeology:global-collection-2024" ;
     schema1:image [ a schema1:ImageObject ;
             schema1:contentUrl "https://onegeology.org/images/global-map-preview.png" ;
@@ -372,7 +372,8 @@ description: DDE profile for collection resources (aggregate, collection, series
   learningResource, guide). Extends DDEDiscovery with resource type constraint and
   requires schema:hasPart to describe collection members.
 allOf:
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/schema.yaml
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
 - properties:
     schema:additionalType:
       contains:
@@ -448,7 +449,6 @@ Links to the schema:
     "geosparql": "http://www.opengis.net/ont/geosparql#",
     "spdx": "http://spdx.org/rdf/terms#",
     "time": "http://www.w3.org/2006/time#",
-    "skos": "http://www.w3.org/2004/02/skos/core#",
     "dcat": "http://www.w3.org/ns/dcat#",
     "prov": "http://www.w3.org/ns/prov#",
     "dqv": "http://www.w3.org/ns/dqv#",

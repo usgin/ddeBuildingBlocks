@@ -298,12 +298,12 @@ DDE discovery metadata for a published research article on global plate tectonic
 <urn:dde:example-plate-tectonics-article> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Article" ;
-            schema1:termCode "article" ],
+            schema1:name "Document" ;
+            schema1:termCode "document" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Document" ;
-            schema1:termCode "document" ] ;
+            schema1:name "Article" ;
+            schema1:termCode "article" ] ;
     schema1:creator ( [ a schema1:Person ;
                 schema1:affiliation [ a schema1:Organization ;
                         schema1:name "University of Sydney" ] ;
@@ -364,7 +364,8 @@ title: DDE Document profile
 description: DDE profile for document resources (document, article, thesis, book,
   poster, webPage). Extends DDEDiscovery with resource type constraint.
 allOf:
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/schema.yaml
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
 - properties:
     schema:additionalType:
       contains:
@@ -420,7 +421,6 @@ Links to the schema:
     "geosparql": "http://www.opengis.net/ont/geosparql#",
     "spdx": "http://spdx.org/rdf/terms#",
     "time": "http://www.w3.org/2006/time#",
-    "skos": "http://www.w3.org/2004/02/skos/core#",
     "dcat": "http://www.w3.org/ns/dcat#",
     "prov": "http://www.w3.org/ns/prov#",
     "dqv": "http://www.w3.org/ns/dqv#",

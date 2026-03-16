@@ -27,8 +27,8 @@
     "dde.bbr.metadata.profiles.DDEProfiles.DDEService": [
       "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEService/rules.shacl"
     ],
-    "dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery": [
-      "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl"
+    "dde.bbr.metadata.DDEproperties.ddeServiceInfo": [
+      "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeServiceInfo/rules.shacl"
     ],
     "dde.bbr.metadata.DDEproperties.ddeOptional": [
       "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
@@ -41,14 +41,12 @@
     ],
     "dde.bbr.metadata.DDEproperties.ddeSubject": [
       "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl"
-    ],
-    "dde.bbr.metadata.DDEproperties.ddeServiceInfo": [
-      "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeServiceInfo/rules.shacl"
     ]
   },
   "dependsOn": [
-    "dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery",
-    "dde.bbr.metadata.DDEproperties.ddeServiceInfo"
+    "dde.bbr.metadata.DDEproperties.ddeServiceInfo",
+    "dde.bbr.metadata.DDEproperties.ddeOptional",
+    "dde.bbr.metadata.DDEproperties.ddeMandatory"
   ],
   "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEService/context.jsonld",
   "schema": {
@@ -95,7 +93,7 @@
       ]
     }
   ],
-  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntype: object\ntitle: DDE Service profile\ndescription: DDE profile for service resources (repository, service, webAPI). Extends\n  DDEDiscovery with resource type constraint and ddeServiceInfo conditional properties.\nallOf:\n- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/schema.yaml\n- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeServiceInfo/schema.yaml\n- properties:\n    schema:additionalType:\n      contains:\n        type: object\n        properties:\n          '@type':\n            const: schema:DefinedTerm\n          schema:inDefinedTermSet:\n            const: dde:codelist/ResourceTypeCode\n          schema:termCode:\n            type: string\n            enum:\n            - repository\n            - service\n            - webAPI\n        required:\n        - '@type'\n        - schema:inDefinedTermSet\n        - schema:termCode\n      minContains: 1\nx-jsonld-prefixes:\n  schema: http://schema.org/\n  cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/\n  dcterms: http://purl.org/dc/terms/\n  geosparql: http://www.opengis.net/ont/geosparql#\n  spdx: http://spdx.org/rdf/terms#\n  time: http://www.w3.org/2006/time#\n  dde: https://www.ddeworld.org/resource/\n  dcat: http://www.w3.org/ns/dcat#\n  prov: http://www.w3.org/ns/prov#\n  dqv: http://www.w3.org/ns/dqv#\n",
+  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntype: object\ntitle: DDE Service profile\ndescription: DDE profile for service resources (repository, service, webAPI). Extends\n  DDEDiscovery with resource type constraint and ddeServiceInfo conditional properties.\nallOf:\n- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml\n- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml\n- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeServiceInfo/schema.yaml\n- properties:\n    schema:additionalType:\n      contains:\n        type: object\n        properties:\n          '@type':\n            const: schema:DefinedTerm\n          schema:inDefinedTermSet:\n            const: dde:codelist/ResourceTypeCode\n          schema:termCode:\n            type: string\n            enum:\n            - repository\n            - service\n            - webAPI\n        required:\n        - '@type'\n        - schema:inDefinedTermSet\n        - schema:termCode\n      minContains: 1\nx-jsonld-prefixes:\n  schema: http://schema.org/\n  cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/\n  dcterms: http://purl.org/dc/terms/\n  geosparql: http://www.opengis.net/ont/geosparql#\n  spdx: http://spdx.org/rdf/terms#\n  time: http://www.w3.org/2006/time#\n  dde: https://www.ddeworld.org/resource/\n  dcat: http://www.w3.org/ns/dcat#\n  prov: http://www.w3.org/ns/prov#\n  dqv: http://www.w3.org/ns/dqv#\n",
   "gitRepository": "https://github.com/usgin/ddeBuildingBlocks",
   "gitPath": "_sources/profiles/DDEProfiles/DDEService"
 }

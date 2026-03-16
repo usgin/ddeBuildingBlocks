@@ -328,7 +328,8 @@ title: DDE Software profile
 description: DDE profile for software resources. Extends DDEDiscovery with resource
   type constraint.
 allOf:
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/schema.yaml
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
 - properties:
     schema:additionalType:
       contains:
@@ -379,7 +380,6 @@ Links to the schema:
     "geosparql": "http://www.opengis.net/ont/geosparql#",
     "spdx": "http://spdx.org/rdf/terms#",
     "time": "http://www.w3.org/2006/time#",
-    "skos": "http://www.w3.org/2004/02/skos/core#",
     "dcat": "http://www.w3.org/ns/dcat#",
     "prov": "http://www.w3.org/ns/prov#",
     "dqv": "http://www.w3.org/ns/dqv#",
