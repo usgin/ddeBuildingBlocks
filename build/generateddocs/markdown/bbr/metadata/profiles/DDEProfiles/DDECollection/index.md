@@ -303,22 +303,22 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
 <urn:dde:example-onegeology-collection> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Collection" ;
-            schema1:termCode "collection" ],
+            schema1:name "Series" ;
+            schema1:termCode "series" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Series" ;
-            schema1:termCode "series" ] ;
+            schema1:name "Collection" ;
+            schema1:termCode "collection" ] ;
     schema1:dateModified "2024-06-01" ;
     schema1:description "A curated collection of 1:1M scale geological maps contributed by national geological surveys through the OneGeology initiative. Each member map covers a single country or territory and uses harmonized symbology based on the GeoSciML Portrayal schema." ;
     schema1:hasPart [ a schema1:CreativeWork ;
-            schema1:description "Geological map of China compiled from 63 separate survey sheets" ;
-            schema1:name "China 1:1M Bedrock Lithostratigraphy" ;
-            schema1:url "http://en.cgs.gov.cn/" ],
-        [ a schema1:CreativeWork ;
             schema1:description "National-scale surface geology map of Australia by Geoscience Australia" ;
             schema1:name "Australia 1:1M Surface Geology" ;
             schema1:url "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets" ],
+        [ a schema1:CreativeWork ;
+            schema1:description "Geological map of China compiled from 63 separate survey sheets" ;
+            schema1:name "China 1:1M Bedrock Lithostratigraphy" ;
+            schema1:url "http://en.cgs.gov.cn/" ],
         [ a schema1:CreativeWork ;
             schema1:description "Bedrock geological map of the United Kingdom by the British Geological Survey" ;
             schema1:name "United Kingdom 1:625K Bedrock Geology" ;
@@ -330,13 +330,13 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
             schema1:name "thumbnail" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Geological Mapping" ;
             schema1:termCode "geologicalMapping" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "OneGeology",
         "geological map",
         "geology",
