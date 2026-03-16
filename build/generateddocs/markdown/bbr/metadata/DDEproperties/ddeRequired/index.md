@@ -258,21 +258,21 @@ Shows a DDE geoscience metadata record with all required DDE fields: resource ty
             schema1:url "https://doi.org/23609/53w7klh" ;
             schema1:value "doi:23609/53w7klh" ] ;
     schema1:image [ a schema1:ImageObject ;
-            schema1:contentUrl "http://azgs.az.gov/repository/browse/3757.jpg" ;
-            schema1:encodingFormat "application/xml" ;
-            schema1:name "Quick view lithostratigraphic map of Arizona" ],
-        [ a schema1:ImageObject ;
             schema1:contentUrl "http://azgs.az.gov/repository/browse/2222.jpg" ;
             schema1:encodingFormat "image/png" ;
-            schema1:name "Another map of Arizona" ] ;
+            schema1:name "Another map of Arizona" ],
+        [ a schema1:ImageObject ;
+            schema1:contentUrl "http://azgs.az.gov/repository/browse/3757.jpg" ;
+            schema1:encodingFormat "application/xml" ;
+            schema1:name "Quick view lithostratigraphic map of Arizona" ] ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Synthesis from Multiple Sources" ;
             schema1:termCode "synthesisFromMultipleSources" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Digital Conversion from Published Source" ;
@@ -307,12 +307,11 @@ title: DDE Required metadata properties
 description: Extends CDIF mandatory metadata with DDE-specific required fields.
 allOf:
 - $ref: '#/$defs/CdifMandatory'
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.yaml
 - type: object
   properties:
     schema:subjectOf:
       $ref: '#/$defs/DdeSubject'
-    schema:additionalType:
-      $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.yaml#/properties/schema:additionalType
     schema:keywords:
       type: array
       description: Extends base CDIF keyword schema to require DefinedTerms from both
