@@ -4,7 +4,8 @@ type: object
 title: DDE Image profile
 description: DDE profile for image resources (image, photograph, explanatoryFigure,
   map). Extends DDEDiscovery with resource type constraint and ddeImagery
-  conditional properties.
+  properties. If additionalType termCode is map, ddeGeographicDataset
+  constraints are also applied.
 allOf:
 - $ref: ../../../DDEproperties/ddeMandatory/schema.yaml
 - $ref: ../../../DDEproperties/ddeOptional/schema.yaml
@@ -30,3 +31,13 @@ allOf:
         - 'schema:inDefinedTermSet'
         - 'schema:termCode'
       minContains: 1
+- if:
+    properties:
+      'schema:additionalType':
+        contains:
+          type: object
+          properties:
+            'schema:termCode':
+              const: map
+  then:
+    $ref: ../../../DDEproperties/ddeGeographicDataset/schema.yaml
