@@ -17,7 +17,7 @@ Metadata profiles that compose property building blocks with CDIF base schemas:
 
 ## Cross-repo imports
 
-This repository imports shared schema.org and CDIF property building blocks from [metadataBuildingBlocks](https://github.com/usgin/metadataBuildingBlocks) via the OGC Building Blocks import mechanism.
+This repository imports shared schema.org and CDIF property building blocks from [metadataBuildingBlocks](https://github.com/Cross-Domain-Interoperability-Framework/metadataBuildingBlocks) via the OGC Building Blocks import mechanism.
 
 ## Viewer
 
