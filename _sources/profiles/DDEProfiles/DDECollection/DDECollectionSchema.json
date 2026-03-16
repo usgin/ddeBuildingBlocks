@@ -43,28 +43,37 @@
                 },
                 "schema:hasPart": {
                     "type": "array",
-                    "description": "Members of the collection. At least one part is required.",
+                    "description": "Members of the collection. Each must have a DDE resource type classification and basic descriptive properties.",
                     "minItems": 1,
                     "items": {
-                        "type": "object",
-                        "properties": {
-                            "@type": {
-                                "type": "string",
-                                "default": "schema:CreativeWork"
+                        "allOf": [
+                            {
+                                "$ref": "../../../DDEproperties/ddeResourceType/ddeResourceTypeSchema.json"
                             },
-                            "schema:name": {
-                                "type": "string"
-                            },
-                            "schema:description": {
-                                "type": "string"
-                            },
-                            "schema:url": {
-                                "type": "string",
-                                "format": "uri"
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "@type": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "default": [
+                                            "schema:CreativeWork"
+                                        ]
+                                    },
+                                    "schema:name": {
+                                        "type": "string"
+                                    },
+                                    "schema:description": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "@type",
+                                    "schema:name"
+                                ]
                             }
-                        },
-                        "required": [
-                            "schema:name"
                         ]
                     }
                 }
