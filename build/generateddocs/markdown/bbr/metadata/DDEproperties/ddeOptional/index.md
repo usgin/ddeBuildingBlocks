@@ -146,19 +146,9 @@ allOf:
       - type: array
         items:
           type: string
-    schema:measurementTechnique:
-      description: Techniques, methods, or instruments used in the measurement or
-        creation of the data.
-      type: array
-      items:
-        anyOf:
-        - type: string
-        - $ref: '#/$defs/DefinedTerm'
 $defs:
   CdifOptional:
     $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/schema.yaml
-  DefinedTerm:
-    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml
 x-jsonld-prefixes:
   schema: http://schema.org/
   dde: https://www.ddeworld.org/resource/
