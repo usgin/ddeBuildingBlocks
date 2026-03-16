@@ -1,39 +1,49 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "type": "object",
   "title": "DDE Optional metadata properties",
   "description": "Optional DDE-specific properties that extend CDIF optional metadata.",
-  "properties": {
-    "schema:alternateName": {
-      "description": "Alternative names or aliases for the resource.",
-      "anyOf": [
-        {
-          "type": "string"
+  "allOf": [
+    {
+      "$ref": "#/$defs/CdifOptional"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema:alternateName": {
+          "description": "Alternative names or aliases for the resource.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
         },
-        {
+        "schema:measurementTechnique": {
+          "description": "Techniques, methods, or instruments used in the measurement or creation of the data.",
           "type": "array",
           "items": {
-            "type": "string"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/$defs/DefinedTerm"
+              }
+            ]
           }
         }
-      ]
-    },
-    "schema:measurementTechnique": {
-      "description": "Techniques, methods, or instruments used in the measurement or creation of the data.",
-      "type": "array",
-      "items": {
-        "anyOf": [
-          {
-            "type": "string"
-          },
-          {
-            "$ref": "#/$defs/DefinedTerm"
-          }
-        ]
       }
     }
-  },
+  ],
   "$defs": {
+    "CdifOptional": {
+      "$ref": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifOptional/schema.yaml"
+    },
     "DefinedTerm": {
       "$ref": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml"
     }

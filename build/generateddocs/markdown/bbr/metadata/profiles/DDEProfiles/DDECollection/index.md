@@ -303,26 +303,26 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
 <urn:dde:example-onegeology-collection> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Series" ;
-            schema1:termCode "series" ],
+            schema1:name "Collection" ;
+            schema1:termCode "collection" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Collection" ;
-            schema1:termCode "collection" ] ;
+            schema1:name "Series" ;
+            schema1:termCode "series" ] ;
     schema1:dateModified "2024-06-01" ;
     schema1:description "A curated collection of 1:1M scale geological maps contributed by national geological surveys through the OneGeology initiative. Each member map covers a single country or territory and uses harmonized symbology based on the GeoSciML Portrayal schema." ;
     schema1:hasPart [ a schema1:CreativeWork ;
-            schema1:description "National-scale surface geology map of Australia by Geoscience Australia" ;
-            schema1:name "Australia 1:1M Surface Geology" ;
-            schema1:url "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets" ],
+            schema1:description "Bedrock geological map of the United Kingdom by the British Geological Survey" ;
+            schema1:name "United Kingdom 1:625K Bedrock Geology" ;
+            schema1:url "https://www.bgs.ac.uk/geological-data/" ],
         [ a schema1:CreativeWork ;
             schema1:description "Geological map of China compiled from 63 separate survey sheets" ;
             schema1:name "China 1:1M Bedrock Lithostratigraphy" ;
             schema1:url "http://en.cgs.gov.cn/" ],
         [ a schema1:CreativeWork ;
-            schema1:description "Bedrock geological map of the United Kingdom by the British Geological Survey" ;
-            schema1:name "United Kingdom 1:625K Bedrock Geology" ;
-            schema1:url "https://www.bgs.ac.uk/geological-data/" ] ;
+            schema1:description "National-scale surface geology map of Australia by Geoscience Australia" ;
+            schema1:name "Australia 1:1M Surface Geology" ;
+            schema1:url "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets" ] ;
     schema1:identifier "urn:onegeology:global-collection-2024" ;
     schema1:image [ a schema1:ImageObject ;
             schema1:contentUrl "https://onegeology.org/images/global-map-preview.png" ;
@@ -330,13 +330,13 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
             schema1:name "thumbnail" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Geological Mapping" ;
-            schema1:termCode "geologicalMapping" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Geological Mapping" ;
+            schema1:termCode "geologicalMapping" ],
         "OneGeology",
         "geological map",
         "geology",
@@ -442,13 +442,13 @@ Links to the schema:
 {
   "@context": {
     "schema": "http://schema.org/",
-    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
+    "dde": "https://www.ddeworld.org/resource/",
     "dcterms": "http://purl.org/dc/terms/",
+    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
     "geosparql": "http://www.opengis.net/ont/geosparql#",
     "spdx": "http://spdx.org/rdf/terms#",
     "time": "http://www.w3.org/2006/time#",
     "skos": "http://www.w3.org/2004/02/skos/core#",
-    "dde": "https://www.ddeworld.org/resource/",
     "dcat": "http://www.w3.org/ns/dcat#",
     "prov": "http://www.w3.org/ns/prov#",
     "dqv": "http://www.w3.org/ns/dqv#",

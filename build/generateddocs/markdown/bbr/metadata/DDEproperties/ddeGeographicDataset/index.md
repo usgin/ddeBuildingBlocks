@@ -130,9 +130,10 @@ Shows spatialCoverage with GeoShape bounding box and additionalProperty entries 
 @prefix schema1: <http://schema.org/> .
 
 [] schema1:additionalProperty [ a schema1:PropertyValue ;
-            schema1:name "Spatial Resolution" ;
-            schema1:propertyID "dde:spatialResolution" ;
-            schema1:value "1:1000000" ],
+            schema1:name "Coordinate Reference System" ;
+            schema1:propertyID "dde:referenceSystemIdentifier" ;
+            schema1:url "https://epsg.io/4326" ;
+            schema1:value "EPSG:4326" ],
         [ a schema1:PropertyValue ;
             schema1:name "Spatial Representation Type" ;
             schema1:propertyID "dde:spatialRepresentationType" ;
@@ -142,10 +143,9 @@ Shows spatialCoverage with GeoShape bounding box and additionalProperty entries 
             schema1:propertyID "dde:referenceSystemType" ;
             schema1:value "geodeticGeographic2D" ],
         [ a schema1:PropertyValue ;
-            schema1:name "Coordinate Reference System" ;
-            schema1:propertyID "dde:referenceSystemIdentifier" ;
-            schema1:url "https://epsg.io/4326" ;
-            schema1:value "EPSG:4326" ] ;
+            schema1:name "Spatial Resolution" ;
+            schema1:propertyID "dde:spatialResolution" ;
+            schema1:value "1:1000000" ] ;
     schema1:spatialCoverage [ a schema1:Place ;
             schema1:geo [ a schema1:GeoShape ;
                     schema1:box "18.1609 73.499 53.5585 135.08" ] ] .

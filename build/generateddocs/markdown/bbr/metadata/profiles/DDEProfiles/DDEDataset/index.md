@@ -15,7 +15,7 @@ DDE profile for dataset resources. Extends DDEDiscovery with a resource type con
 
 ### Composed building blocks
 
-1. **DDEDiscovery** — Base DDE discovery profile (cdifMandatory + cdifOptional + ddeRequired + ddeOptional)
+1. **DDEDiscovery** — Base DDE discovery profile (cdifMandatory + cdifOptional + ddeMandatory + ddeOptional)
 2. **Resource type constraint** — `schema:termCode` must be one of the dataset group codes
 
 ### Sub-profile: geographicDataset
@@ -392,14 +392,14 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
             schema1:propertyID "dde:spatialRepresentationType" ;
             schema1:value "vector" ],
         [ a schema1:PropertyValue ;
-            schema1:name "Spatial Resolution" ;
-            schema1:propertyID "dde:spatialResolution" ;
-            schema1:value "1:500000" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Coordinate Reference System" ;
             schema1:propertyID "dde:referenceSystemIdentifier" ;
             schema1:url "https://epsg.io/4326" ;
-            schema1:value "EPSG:4326" ] ;
+            schema1:value "EPSG:4326" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Spatial Resolution" ;
+            schema1:propertyID "dde:spatialResolution" ;
+            schema1:value "1:500000" ] ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
             schema1:name "Geographic Dataset" ;
@@ -515,13 +515,13 @@ Links to the schema:
 {
   "@context": {
     "schema": "http://schema.org/",
-    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
+    "dde": "https://www.ddeworld.org/resource/",
     "dcterms": "http://purl.org/dc/terms/",
+    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
     "geosparql": "http://www.opengis.net/ont/geosparql#",
     "spdx": "http://spdx.org/rdf/terms#",
     "time": "http://www.w3.org/2006/time#",
     "skos": "http://www.w3.org/2004/02/skos/core#",
-    "dde": "https://www.ddeworld.org/resource/",
     "dcat": "http://www.w3.org/ns/dcat#",
     "prov": "http://www.w3.org/ns/prov#",
     "dqv": "http://www.w3.org/ns/dqv#",
