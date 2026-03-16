@@ -459,16 +459,16 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
     schema1:inLanguage "zho" ;
     schema1:keywords [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Data Integration Synthesis" ;
-            schema1:termCode "dataIntegrationSynthesis" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Geological Mapping" ;
             schema1:termCode "geologicalMapping" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Data Integration Synthesis" ;
+            schema1:termCode "dataIntegrationSynthesis" ],
         "Asia",
         "China",
         "OneGeology",
@@ -1191,21 +1191,21 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
     schema1:description "Lithostratigraphic unit distribution for the Geologic Map of Arizona at 1:1,000,000-scale. Shows entire state with map units defined broadly by age and lithologic type. The map was compiled by modifying the previous 1:1000000 statemap version with more recent mapping." ;
     schema1:distribution [ a schema1:DataDownload ;
             dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
-            schema1:contentUrl "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology/MapServer/WMSServer?" ;
-            schema1:description "OGC get map URL" ;
-            schema1:encodingFormat "image/jpg",
-                "image/png",
-                "image/tif" ;
-            schema1:name "US-AZ_AZGS_1M_Lithostratigraphy" ],
-        [ a schema1:DataDownload ;
-            dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
             schema1:contentUrl "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology_WFS/MapServer/WFSServer?" ;
             schema1:description "OGC get capabilities URL" ;
             schema1:encodingFormat "application/xml" ;
             schema1:name "gsmlp:GeologicUnitView" ;
             schema1:provider [ a schema1:Organization ;
                     schema1:identifier "https://ror.org/00vcszp55" ;
-                    schema1:name "Arizona Geological Survey" ] ] ;
+                    schema1:name "Arizona Geological Survey" ] ],
+        [ a schema1:DataDownload ;
+            dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
+            schema1:contentUrl "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology/MapServer/WMSServer?" ;
+            schema1:description "OGC get map URL" ;
+            schema1:encodingFormat "image/jpg",
+                "image/png",
+                "image/tif" ;
+            schema1:name "US-AZ_AZGS_1M_Lithostratigraphy" ] ;
     schema1:identifier [ a schema1:PropertyValue ;
             schema1:propertyID "https://registry.identifiers.org/registry/doi" ;
             schema1:url "https://doi.org/23609/53w7klh" ;
@@ -1222,31 +1222,31 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Environment" ;
+            schema1:termCode "environment" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Hydrogeology" ;
+            schema1:termCode "GI_HG_hydrogeology" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Paleontology" ;
             schema1:termCode "GI_PO_paleontology" ],
         [ a schema1:DefinedTerm ;
             schema1:identifier "https://edits.nationalmap.gov/apps/gaz-domestic/public/gaz-record/1779777" ;
             schema1:name "Arizona" ],
         [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Synthesis from Multiple Sources" ;
-            schema1:termCode "synthesisFromMultipleSources" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
         [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Hydrogeology" ;
-            schema1:termCode "GI_HG_hydrogeology" ],
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Synthesis from Multiple Sources" ;
+            schema1:termCode "synthesisFromMultipleSources" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Digital Conversion from Published Source" ;
             schema1:termCode "digitalConversionFromPublishedSource" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Environment" ;
-            schema1:termCode "environment" ],
         "Geologic Map",
         "Geology",
         "United States" ;
