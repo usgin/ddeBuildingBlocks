@@ -152,22 +152,6 @@ properties:
       anyOf:
       - type: string
       - $ref: '#/$defs/DefinedTerm'
-  schema:keywords:
-    description: Additional keywords beyond the required DDE vocabulary-constrained
-      keywords.
-    type: array
-    items:
-      anyOf:
-      - $ref: '#/$defs/DefinedTerm'
-      - type: string
-  schema:additionalType:
-    description: Additional type classifications beyond the required DDE resource
-      type.
-    type: array
-    items:
-      anyOf:
-      - type: string
-      - $ref: '#/$defs/DefinedTerm'
 $defs:
   DefinedTerm:
     $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml
