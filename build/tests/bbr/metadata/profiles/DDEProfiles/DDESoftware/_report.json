@@ -2,7 +2,7 @@
   "title": "Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDESoftware - DDE Software profile",
   "bblockName": "DDE Software profile",
   "bblockId": "dde.bbr.metadata.profiles.DDEProfiles.DDESoftware",
-  "generated": "2026-03-16T21:42:24.987688+00:00",
+  "generated": "2026-03-16T22:02:43.823544+00:00",
   "result": false,
   "items": [
     {
@@ -66,6 +66,26 @@
           "entries": [
             {
               "op": "shacl-report",
+              "shaclFile": "_sources/profiles/DDEProfiles/DDESoftware/rules.shacl",
+              "graph": "@prefix dcterms: <http://purl.org/dc/terms/> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode <urn:dde:example-gplates> ;\n            sh:resultMessage \"DDESoftware profile: metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware\" ;\n            sh:resultPath dcterms:conformsTo ;\n            sh:resultSeverity sh:Warning ;\n            sh:sourceConstraintComponent sh:HasValueConstraintComponent ;\n            sh:sourceShape [ sh:hasValue <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware> ;\n                    sh:message \"DDESoftware profile: metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware\" ;\n                    sh:path dcterms:conformsTo ;\n                    sh:severity sh:Warning ] ] .\n\n",
+              "isError": true,
+              "message": "Validation result for _sources/profiles/DDEProfiles/DDESoftware/rules.shacl:\n  Validation Report\n  Conforms: False\n  Results (1):\n  Validation Result in HasValueConstraintComponent (http://www.w3.org/ns/shacl#HasValueConstraintComponent):\n  \tSeverity: sh:Warning\n  \tSource Shape: [ sh:hasValue <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware> ; sh:message Literal(\"DDESoftware profile: metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware\") ; sh:path dcterms:conformsTo ; sh:severity sh:Warning ]\n  \tFocus Node: <urn:dde:example-gplates>\n  \tResult Path: dcterms:conformsTo\n  \tMessage: DDESoftware profile: metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware\n  "
+            },
+            {
+              "shaclFile": "_sources/profiles/DDEProfiles/DDESoftware/rules.shacl",
+              "focusNodes": {
+                "cdifd:DDESoftwareConformanceShape/sh:property/sh:qualifiedValueShape": {
+                  "nodes": []
+                },
+                "cdifd:DDESoftwareConformanceShape": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/profiles/DDEProfiles/DDESoftware/rules.shacl:\n - Shape cdifd:DDESoftwareConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n - Shape cdifd:DDESoftwareConformanceShape: *none*\n"
+            },
+            {
+              "op": "shacl-report",
               "shaclFile": "_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
@@ -74,13 +94,18 @@
             {
               "shaclFile": "_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl",
               "focusNodes": {
-                "cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first": {
+                "_:n4c9ed99a401c4d21be7a4169b0cba45ab22": {
                   "nodes": []
                 },
-                "cdifd:DDECatalogRecordShape": {
+                "cdifd:rightsProperty/sh:or/rdf:rest/rdf:first": {
                   "nodes": []
                 },
-                "_:n88d8e93bcc994300bbf0c668af7f58dfb22": {
+                "cdifd:DDEImageObjectShape": {
+                  "nodes": [
+                    "<urn:dde:example-gplates>/schema1:image"
+                  ]
+                },
+                "cdifd:DDEDatasetMandatoryShape": {
                   "nodes": []
                 },
                 "cdifd:resourceIdentifierProperty/sh:or/rdf:first": {
@@ -89,26 +114,21 @@
                 "cdifd:rightsProperty/sh:or/rdf:first": {
                   "nodes": []
                 },
-                "_:n88d8e93bcc994300bbf0c668af7f58dfb11": {
+                "cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first": {
                   "nodes": []
                 },
-                "cdifd:rightsProperty/sh:or/rdf:rest/rdf:first": {
+                "_:n4c9ed99a401c4d21be7a4169b0cba45ab9": {
                   "nodes": []
                 },
-                "_:n88d8e93bcc994300bbf0c668af7f58dfb9": {
+                "cdifd:DDECatalogRecordShape": {
                   "nodes": []
                 },
-                "cdifd:DDEDatasetMandatoryShape": {
+                "_:n4c9ed99a401c4d21be7a4169b0cba45ab11": {
                   "nodes": []
-                },
-                "cdifd:DDEImageObjectShape": {
-                  "nodes": [
-                    "<urn:dde:example-gplates>/schema1:image"
-                  ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl:\n - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape cdifd:DDECatalogRecordShape: *none*\n - Shape _:n88d8e93bcc994300bbf0c668af7f58dfb22: *none*\n - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:first: *none*\n - Shape cdifd:rightsProperty/sh:or/rdf:first: *none*\n - Shape _:n88d8e93bcc994300bbf0c668af7f58dfb11: *none*\n - Shape cdifd:rightsProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape _:n88d8e93bcc994300bbf0c668af7f58dfb9: *none*\n - Shape cdifd:DDEDatasetMandatoryShape: *none*\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-gplates>/schema1:image\n"
+              "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl:\n - Shape _:n4c9ed99a401c4d21be7a4169b0cba45ab22: *none*\n - Shape cdifd:rightsProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-gplates>/schema1:image\n - Shape cdifd:DDEDatasetMandatoryShape: *none*\n - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:first: *none*\n - Shape cdifd:rightsProperty/sh:or/rdf:first: *none*\n - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape _:n4c9ed99a401c4d21be7a4169b0cba45ab9: *none*\n - Shape cdifd:DDECatalogRecordShape: *none*\n - Shape _:n4c9ed99a401c4d21be7a4169b0cba45ab11: *none*\n"
             },
             {
               "op": "shacl-report",

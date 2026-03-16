@@ -217,13 +217,13 @@ Shows a distribution with a WebAPI using a DDE ServiceTypeCode and an optional o
 @prefix schema1: <http://schema.org/> .
 
 [] schema1:dataset [ a schema1:PropertyValue ;
-            schema1:name "Arizona Geologic Units (GeoJSON)" ;
-            schema1:propertyID "schema:identifier" ;
-            schema1:url "https://data.azgs.az.gov/geologic-units.geojson" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Arizona Geologic Units (Shapefile)" ;
             schema1:propertyID "schema:identifier" ;
-            schema1:value "urn:azgs:geologic-units-shp" ] ;
+            schema1:value "urn:azgs:geologic-units-shp" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Arizona Geologic Units (GeoJSON)" ;
+            schema1:propertyID "schema:identifier" ;
+            schema1:url "https://data.azgs.az.gov/geologic-units.geojson" ] ;
     schema1:distribution [ a schema1:WebAPI ;
             schema1:description "OGC WMS service providing map tile views of Arizona lithostratigraphy" ;
             schema1:name "Arizona Lithostratigraphy WMS" ;
