@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "DDE Required metadata properties",
-  "description": "Extends CDIF mandatory metadata with DDE-specific required fields.",
+  "title": "DDE Mandatory metadata properties",
+  "description": "Extends CDIF mandatory metadata with DDE-specific mandatory fields.",
   "allOf": [
     {
       "type": "object",
@@ -152,7 +152,7 @@
                 }
               },
               {
-                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\labeledLink\\schema.yaml"
+                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_xqqkn6qp\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\labeledLink\\schema.yaml"
               }
             ]
           }
@@ -176,7 +176,7 @@
                 }
               },
               {
-                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\labeledLink\\schema.yaml"
+                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_xqqkn6qp\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\labeledLink\\schema.yaml"
               }
             ]
           }
@@ -192,10 +192,10 @@
           "items": {
             "anyOf": [
               {
-                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\dataDownload\\schema.yaml"
+                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_xqqkn6qp\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\dataDownload\\schema.yaml"
               },
               {
-                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\webAPI\\schema.yaml"
+                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_xqqkn6qp\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\webAPI\\schema.yaml"
               }
             ]
           }
@@ -203,7 +203,7 @@
         "schema:subjectOf": {
           "allOf": [
             {
-              "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\cdifProperties\\cdifCatalogRecord\\schema.yaml"
+              "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_xqqkn6qp\\metadataBuildingBlocks\\_sources\\cdifProperties\\cdifCatalogRecord\\schema.yaml"
             },
             {
               "properties": {
@@ -276,204 +276,10 @@
       ]
     },
     {
+      "title": "DDE Resource Type constraint",
+      "description": "Constrains schema:additionalType to require at least one DefinedTerm from the DDE ResourceTypeCode codelist (32 resource types from DDE spec Table 18).",
       "type": "object",
       "properties": {
-        "schema:subjectOf": {
-          "type": "object",
-          "allOf": [
-            {
-              "type": "object",
-              "description": "see https://github.com/Cross-Domain-Interoperability-Framework/Discovery/issues/13 for discussion on how to make assertion about the sample registration and metadata distinct from statements about the physical object",
-              "properties": {
-                "@type": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  },
-                  "contains": {
-                    "const": "schema:Dataset"
-                  },
-                  "minItems": 1
-                },
-                "schema:additionalType": {
-                  "type": "array",
-                  "description": "additional type assertions for the catalog record node. dcat:CatalogRecord is required.",
-                  "items": {
-                    "type": "string"
-                  },
-                  "contains": {
-                    "const": "dcat:CatalogRecord"
-                  },
-                  "minItems": 1
-                },
-                "@id": {
-                  "type": "string",
-                  "description": "identifier for the metadata record"
-                },
-                "schema:about": {
-                  "type": "object",
-                  "properties": {
-                    "@id": {
-                      "type": "string",
-                      "description": "this must be the @id value of the node containing the resource description metadata"
-                    }
-                  }
-                },
-                "dcterms:conformsTo": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "@id": {
-                        "type": "string",
-                        "description": "uri for specifications that this metadata record conforms to"
-                      }
-                    }
-                  },
-                  "minItems": 1,
-                  "description": "uri for specifications that this metadata record conforms to. Minimimally should specify uri for CDIF discovery profile.  Implement as $def to facilitate extension for profiles that need to add conformance statements"
-                },
-                "schema:maintainer": {
-                  "description": "iSamples Registrant. identification of the agent that registered the sample, with contact information. Should include person name and affiliation, or position name and affiliation, or just organization name. e-mail address is preferred contact information.",
-                  "anyOf": [
-                    {
-                      "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
-                    },
-                    {
-                      "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_4i3872p7\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
-                    }
-                  ]
-                },
-                "schema:sdDatePublished": {
-                  "description": "date of most recent update to the metadata content, extends iSamples schema",
-                  "type": "string",
-                  "format": "date"
-                },
-                "schema:includedInDataCatalog": {
-                  "type": "object",
-                  "description": "identify the data collection or repository that contains the described dataset. The value is expected to be a schema:DataCatalog",
-                  "properties": {
-                    "@id": {
-                      "type": "string",
-                      "description": "identifier for the containing catalog or repository; example data at https://github.com/ESIPFed/science-on-schema.org/blob/develop/guides/Dataset.md#catalog puts identifier here"
-                    },
-                    "@type": {
-                      "default": "schema:DataCatalog",
-                      "anyOf": [
-                        {
-                          "type": "string",
-                          "const": "schema:DataCatalog"
-                        },
-                        {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          },
-                          "contains": {
-                            "const": "schema:DataCatalog"
-                          }
-                        }
-                      ]
-                    },
-                    "schema:name": {
-                      "type": "string"
-                    },
-                    "schema:url": {
-                      "type": "string",
-                      "format": "uri",
-                      "description": "locator to access a landing page for the collection or catalog"
-                    },
-                    "schema:identifier": {
-                      "description": "identifier for the collection or catalog; use identifier_type to provide information on identifier scheme and context for identifier",
-                      "type": "object",
-                      "properties": {
-                        "@type": {
-                          "anyOf": [
-                            {
-                              "type": "string",
-                              "const": "schema:PropertyValue"
-                            },
-                            {
-                              "type": "array",
-                              "items": {
-                                "type": "string"
-                              },
-                              "contains": {
-                                "const": "schema:PropertyValue"
-                              }
-                            }
-                          ]
-                        },
-                        "schema:propertyID": {
-                          "type": "string",
-                          "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
-                        },
-                        "schema:value": {
-                          "type": "string",
-                          "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
-                        },
-                        "schema:url": {
-                          "type": "string",
-                          "format": "uri",
-                          "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
-                        }
-                      },
-                      "allOf": [
-                        {
-                          "required": [
-                            "@type"
-                          ]
-                        },
-                        {
-                          "anyOf": [
-                            {
-                              "required": [
-                                "schema:value"
-                              ]
-                            },
-                            {
-                              "required": [
-                                "schema:url"
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                }
-              },
-              "required": [
-                "schema:about",
-                "dcterms:conformsTo",
-                "schema:additionalType",
-                "@type",
-                "@id"
-              ]
-            },
-            {
-              "properties": {
-                "dcterms:conformsTo": {
-                  "type": "array",
-                  "items": "type:string",
-                  "minItems": 1,
-                  "contains": {
-                    "type": "object",
-                    "properties": {
-                      "@id": {
-                        "const": "https://w3id.org/cdif/bbr/metadata/DDEProfiles/DDEDiscovery"
-                      }
-                    },
-                    "required": [
-                      "@id"
-                    ]
-                  },
-                  "minContains": 1
-                }
-              }
-            }
-          ]
-        },
         "schema:additionalType": {
           "type": "array",
           "description": "Must include at least one DefinedTerm from the DDE ResourceTypeCode codelist.",
@@ -664,6 +470,209 @@
             ]
           },
           "minContains": 1
+        }
+      }
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema:subjectOf": {
+          "type": "object",
+          "allOf": [
+            {
+              "type": "object",
+              "description": "see https://github.com/Cross-Domain-Interoperability-Framework/Discovery/issues/13 for discussion on how to make assertion about the sample registration and metadata distinct from statements about the physical object",
+              "properties": {
+                "@type": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "contains": {
+                    "const": "schema:Dataset"
+                  },
+                  "minItems": 1
+                },
+                "schema:additionalType": {
+                  "type": "array",
+                  "description": "additional type assertions for the catalog record node. dcat:CatalogRecord is required.",
+                  "items": {
+                    "type": "string"
+                  },
+                  "contains": {
+                    "const": "dcat:CatalogRecord"
+                  },
+                  "minItems": 1
+                },
+                "@id": {
+                  "type": "string",
+                  "description": "identifier for the metadata record"
+                },
+                "schema:about": {
+                  "type": "object",
+                  "properties": {
+                    "@id": {
+                      "type": "string",
+                      "description": "this must be the @id value of the node containing the resource description metadata"
+                    }
+                  }
+                },
+                "dcterms:conformsTo": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "@id": {
+                        "type": "string",
+                        "description": "uri for specifications that this metadata record conforms to"
+                      }
+                    }
+                  },
+                  "minItems": 1,
+                  "description": "uri for specifications that this metadata record conforms to. Minimimally should specify uri for CDIF discovery profile.  Implement as $def to facilitate extension for profiles that need to add conformance statements"
+                },
+                "schema:maintainer": {
+                  "description": "iSamples Registrant. identification of the agent that registered the sample, with contact information. Should include person name and affiliation, or position name and affiliation, or just organization name. e-mail address is preferred contact information.",
+                  "anyOf": [
+                    {
+                      "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_xqqkn6qp\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
+                    },
+                    {
+                      "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_xqqkn6qp\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
+                    }
+                  ]
+                },
+                "schema:sdDatePublished": {
+                  "description": "date of most recent update to the metadata content, extends iSamples schema",
+                  "type": "string",
+                  "format": "date"
+                },
+                "schema:includedInDataCatalog": {
+                  "type": "object",
+                  "description": "identify the data collection or repository that contains the described dataset. The value is expected to be a schema:DataCatalog",
+                  "properties": {
+                    "@id": {
+                      "type": "string",
+                      "description": "identifier for the containing catalog or repository; example data at https://github.com/ESIPFed/science-on-schema.org/blob/develop/guides/Dataset.md#catalog puts identifier here"
+                    },
+                    "@type": {
+                      "default": "schema:DataCatalog",
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "const": "schema:DataCatalog"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "contains": {
+                            "const": "schema:DataCatalog"
+                          }
+                        }
+                      ]
+                    },
+                    "schema:name": {
+                      "type": "string"
+                    },
+                    "schema:url": {
+                      "type": "string",
+                      "format": "uri",
+                      "description": "locator to access a landing page for the collection or catalog"
+                    },
+                    "schema:identifier": {
+                      "description": "identifier for the collection or catalog; use identifier_type to provide information on identifier scheme and context for identifier",
+                      "type": "object",
+                      "properties": {
+                        "@type": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "const": "schema:PropertyValue"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "contains": {
+                                "const": "schema:PropertyValue"
+                              }
+                            }
+                          ]
+                        },
+                        "schema:propertyID": {
+                          "type": "string",
+                          "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
+                        },
+                        "schema:value": {
+                          "type": "string",
+                          "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
+                        },
+                        "schema:url": {
+                          "type": "string",
+                          "format": "uri",
+                          "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
+                        }
+                      },
+                      "allOf": [
+                        {
+                          "required": [
+                            "@type"
+                          ]
+                        },
+                        {
+                          "anyOf": [
+                            {
+                              "required": [
+                                "schema:value"
+                              ]
+                            },
+                            {
+                              "required": [
+                                "schema:url"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "required": [
+                "schema:about",
+                "dcterms:conformsTo",
+                "schema:additionalType",
+                "@type",
+                "@id"
+              ]
+            },
+            {
+              "properties": {
+                "dcterms:conformsTo": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "minItems": 1,
+                  "contains": {
+                    "type": "object",
+                    "properties": {
+                      "@id": {
+                        "const": "https://w3id.org/cdif/bbr/metadata/DDEProfiles/DDEDiscovery"
+                      }
+                    },
+                    "required": [
+                      "@id"
+                    ]
+                  },
+                  "minContains": 1
+                }
+              }
+            }
+          ]
         },
         "schema:keywords": {
           "type": "array",

@@ -6,7 +6,7 @@ Composes CDIF discovery metadata building blocks with DDE-specific extensions to
 
 1. **cdifMandatory** — Base CDIF mandatory fields: @id, @type, name, identifier, dateModified, subjectOf, license/conditionsOfAccess, url/distribution.
 2. **cdifOptional** — CDIF optional fields: description, creator, contributor, publisher, provider, keywords, spatialCoverage, temporalCoverage, distribution, provenance, quality, funding, etc.
-3. **ddeRequired** — DDE mandatory extensions:
+3. **ddeMandatory** — DDE mandatory extensions:
    - Resource type from `dde:codelist/ResourceTypeCode` (42 geoscience types)
    - Topic category keywords from `dde:codelist/TopicCategoryCode`
    - Acquisition type keywords from `dde:codelist/AcquisitionTypeCode`
