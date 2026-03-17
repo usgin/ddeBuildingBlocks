@@ -4,16 +4,39 @@ Modular metadata schema components for [Deep-time Digital Earth (DDE)](https://w
 
 ## Structure
 
-### DDEproperties (7 schema components)
+### DDEproperties (6 schema components)
 
-Property building blocks that define DDE-specific metadata elements: geographic dataset, imagery, optional/required fields, resource types, service info, and subject classification.
+Property building blocks that define DDE-specific metadata elements:
+
+- **ddeMandatory** — DDE mandatory fields: resource type (ResourceTypeCode), topic/acquisition keywords, browse graphics, conformance declaration. Composes cdifMandatory + ddeResourceType.
+- **ddeOptional** — DDE optional fields: alternate names. Composes cdifOptional.
+- **ddeResourceType** — Constrains schema:additionalType to require a DefinedTerm from the DDE ResourceTypeCode codelist.
+- **ddeSubject** — DDE catalog record conformance declaration.
+- **ddeGeographicDataset** — Geographic extent, CRS, and resolution for geographic resources.
+- **ddeImagery** — Imagery acquisition metadata: sensor, platform, wavelength, signal generator, processing level.
 
 ### DDEProfiles (11 resource type profiles)
 
-Metadata profiles that compose property building blocks with CDIF base schemas:
+Metadata profiles that compose property building blocks for specific resource types:
 
-- **DDEDiscovery** — base DDE discovery profile (composes cdifMandatory + cdifOptional + DDE properties)
-- **10 resource type profiles** — DDEAudioVisualProduct, DDECollection, DDEDataset, DDEDocument, DDEEvent, DDEFunctionalResource, DDEImage, DDESemanticResource, DDEService, DDESoftware
+- **DDEDiscovery** — base DDE discovery profile (ddeMandatory + ddeOptional)
+- **DDEDataset** — datasets; conditional ddeGeographicDataset for geographicDataset type
+- **DDEImage** — imagery; includes ddeImagery; conditional ddeGeographicDataset for map type
+- **DDEWebAPI** — service resources; composes CDIF webAPI BB with DDE ServiceTypeCode constraints
+- **DDECollection** — collections; hasPart items require DDE resource type classification
+- **DDEDocument**, **DDEEvent**, **DDESoftware**, **DDEFunctionalResource**, **DDEAudioVisualProduct**, **DDESemanticResource** — resource-type-specific additionalType constraints
+
+### archive/deprecated
+
+Superseded building blocks retained for reference:
+
+- **DDEService** — replaced by DDEWebAPI
+- **ddeServiceInfo** — service properties now inherited from CDIF webAPI building block
+
+## Tools
+
+- `tools/regenerate_schema_json.py` — Generate *Schema.json from schema.yaml sources
+- `tools/resolve_schema.py` — Resolve all $ref into single resolvedSchema.json files
 
 ## Cross-repo imports
 

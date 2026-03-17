@@ -11,12 +11,14 @@ Composes CDIF discovery metadata building blocks with DDE-specific extensions to
    - Topic category keywords from `dde:codelist/TopicCategoryCode`
    - Acquisition type keywords from `dde:codelist/AcquisitionTypeCode`
    - Browse graphic images (`schema:ImageObject`)
-   - DDE profile conformance (`cdif:profile_ddeCDIF`)
-4. **ddeOptional** — DDE optional extensions: alternate names, measurement techniques, additional keywords and types.
+   - DDE profile conformance
+4. **ddeOptional** — DDE optional extensions: alternate names.
 
-### Conditional extensions (NOT included)
+### Resource-type profiles
 
-The following building blocks are conditional and should be composed into separate sub-profiles:
+The following profiles extend DDEDiscovery with resource-type-specific constraints:
 
-- **ddeImagery** — For imagery resources: sensor type, platform, wavelength range, signal generator, processing level.
-- **ddeServiceInfo** — For service resources: DDE service type from `dde:codelist/ServiceTypeCode`, operated datasets.
+- **DDEDataset** — Datasets; conditional ddeGeographicDataset for geographicDataset type.
+- **DDEImage** — Imagery resources; includes ddeImagery; conditional ddeGeographicDataset for map type.
+- **DDEWebAPI** — Service resources described as WebAPIs; composes CDIF webAPI building block with DDE ServiceTypeCode constraints.
+- **DDECollection**, **DDEDocument**, **DDEEvent**, **DDESoftware**, etc. — Resource-type-specific additionalType constraints.

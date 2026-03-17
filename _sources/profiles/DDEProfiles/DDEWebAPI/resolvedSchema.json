@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
-  "title": "DDE Collection profile",
-  "description": "DDE profile for collection resources (aggregate, collection, series, learningResource, guide). Extends DDEDiscovery with resource type constraint and requires schema:hasPart to describe collection members.",
+  "title": "DDE WebAPI profile",
+  "description": "DDE profile for resources that ARE web services. The resource itself is described as a WebAPI with service type, operations, terms of service, and documentation. Composes ddeMandatory + ddeOptional for discovery metadata, and the CDIF webAPI building block for service-specific properties (serviceType, potentialAction, termsOfService, documentation). DDE narrows serviceType to require a term from the DDE ServiceTypeCode codelist. schema:dataset identifies datasets operated on by the service.",
   "allOf": [
     {
       "title": "DDE Mandatory metadata properties",
@@ -200,7 +200,189 @@
                     "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_lhif7awx\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\dataDownload\\schema.yaml"
                   },
                   {
-                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_lhif7awx\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\webAPI\\schema.yaml"
+                    "title": "Direct data access to a resource via web servcie",
+                    "description": "use schema.org Action to document url or url template and parameters to request data through a web accessible location. At this point, schema is set up for one action-- an HTTP Get that requests data. The url template parameters (in curly brackets '{}') specify query paramters to filter the source data, request particular output formats or other aspects of data.",
+                    "type": "object",
+                    "properties": {
+                      "@type": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "contains": {
+                          "const": "schema:WebAPI"
+                        },
+                        "minItems": 1
+                      },
+                      "schema:serviceType": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "description": "schema.org Defined Term schema",
+                            "type": "object",
+                            "properties": {
+                              "@type": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "const": "schema:DefinedTerm"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "contains": {
+                                      "const": "schema:DefinedTerm"
+                                    }
+                                  }
+                                ]
+                              },
+                              "schema:name": {
+                                "type": "string",
+                                "description": "text label for the term that is useful to human user"
+                              },
+                              "schema:identifier": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "description": "Properties for a schema.org identifier",
+                                    "type": "object",
+                                    "properties": {
+                                      "@type": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string",
+                                            "const": "schema:PropertyValue"
+                                          },
+                                          {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "string"
+                                            },
+                                            "contains": {
+                                              "const": "schema:PropertyValue"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "schema:propertyID": {
+                                        "type": "string",
+                                        "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
+                                      },
+                                      "schema:value": {
+                                        "type": "string",
+                                        "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
+                                      },
+                                      "schema:url": {
+                                        "type": "string",
+                                        "format": "uri",
+                                        "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
+                                      }
+                                    },
+                                    "allOf": [
+                                      {
+                                        "required": [
+                                          "@type"
+                                        ]
+                                      },
+                                      {
+                                        "anyOf": [
+                                          {
+                                            "required": [
+                                              "schema:value"
+                                            ]
+                                          },
+                                          {
+                                            "required": [
+                                              "schema:url"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "schema:inDefinedTermSet": {
+                                "type": "string",
+                                "description": "Identifier for the controlled vocabulary responsible for this keyword."
+                              },
+                              "schema:termCode": {
+                                "type": "string",
+                                "description": "A representative code for this keyword in the controlled vocabulary (Optional).  Analogous to skos:Notation"
+                              }
+                            },
+                            "allOf": [
+                              {
+                                "required": [
+                                  "@type"
+                                ]
+                              },
+                              {
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "schema:name"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "schema:identifier"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "schema:termCode"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ],
+                        "description": "specify the kind of service. Ideally this should be a resolvable identifier. Currently there is no widely adopted registry for serviceType identifiers, in large part because services might be defined at different levels of granularity, and classifications might focus on function, data formats, thematic content, security, or other aspects of the service definition. For interoperability, there must be an external arrangement between data providers and consumers on the strings that will be used to specify service types."
+                      },
+                      "schema:termsOfService": {
+                        "description": "Description of access privileges required to use the API, e.g. registration, licensing, payments. Note that access constraints applying to all distributions of the resource should be specified in the access constraints for the resource description as a whole.",
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "default": "not specified"
+                          },
+                          {
+                            "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_lhif7awx\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\labeledLink\\schema.yaml"
+                          }
+                        ]
+                      },
+                      "schema:documentation": {
+                        "description": "a document that provides a machine-actionable description of a service instance. Examples include OpenAPI documents, OGC Capabilities documents. Software designed to utilise a particular service type will typically include functionality to parse such a description document and engage with the service endpoint. If such a document is available for the service instance providing the resource distribution, it should be included in the distribution metadata.",
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_lhif7awx\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\labeledLink\\schema.yaml"
+                          }
+                        ]
+                      },
+                      "schema:potentialAction": {
+                        "type": "array",
+                        "description": "actions that can be invoked via the API",
+                        "items": {
+                          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_lhif7awx\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\action\\schema.yaml"
+                        }
+                      }
+                    },
+                    "required": [
+                      "schema:serviceType",
+                      "schema:potentialAction",
+                      "schema:termsOfService"
+                    ]
                   }
                 ]
               }
@@ -2458,7 +2640,189 @@
                     "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_lhif7awx\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\dataDownload\\schema.yaml"
                   },
                   {
-                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_lhif7awx\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\webAPI\\schema.yaml"
+                    "title": "Direct data access to a resource via web servcie",
+                    "description": "use schema.org Action to document url or url template and parameters to request data through a web accessible location. At this point, schema is set up for one action-- an HTTP Get that requests data. The url template parameters (in curly brackets '{}') specify query paramters to filter the source data, request particular output formats or other aspects of data.",
+                    "type": "object",
+                    "properties": {
+                      "@type": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "contains": {
+                          "const": "schema:WebAPI"
+                        },
+                        "minItems": 1
+                      },
+                      "schema:serviceType": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "description": "schema.org Defined Term schema",
+                            "type": "object",
+                            "properties": {
+                              "@type": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "const": "schema:DefinedTerm"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "contains": {
+                                      "const": "schema:DefinedTerm"
+                                    }
+                                  }
+                                ]
+                              },
+                              "schema:name": {
+                                "type": "string",
+                                "description": "text label for the term that is useful to human user"
+                              },
+                              "schema:identifier": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "description": "Properties for a schema.org identifier",
+                                    "type": "object",
+                                    "properties": {
+                                      "@type": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string",
+                                            "const": "schema:PropertyValue"
+                                          },
+                                          {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "string"
+                                            },
+                                            "contains": {
+                                              "const": "schema:PropertyValue"
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      "schema:propertyID": {
+                                        "type": "string",
+                                        "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
+                                      },
+                                      "schema:value": {
+                                        "type": "string",
+                                        "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
+                                      },
+                                      "schema:url": {
+                                        "type": "string",
+                                        "format": "uri",
+                                        "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
+                                      }
+                                    },
+                                    "allOf": [
+                                      {
+                                        "required": [
+                                          "@type"
+                                        ]
+                                      },
+                                      {
+                                        "anyOf": [
+                                          {
+                                            "required": [
+                                              "schema:value"
+                                            ]
+                                          },
+                                          {
+                                            "required": [
+                                              "schema:url"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "schema:inDefinedTermSet": {
+                                "type": "string",
+                                "description": "Identifier for the controlled vocabulary responsible for this keyword."
+                              },
+                              "schema:termCode": {
+                                "type": "string",
+                                "description": "A representative code for this keyword in the controlled vocabulary (Optional).  Analogous to skos:Notation"
+                              }
+                            },
+                            "allOf": [
+                              {
+                                "required": [
+                                  "@type"
+                                ]
+                              },
+                              {
+                                "anyOf": [
+                                  {
+                                    "required": [
+                                      "schema:name"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "schema:identifier"
+                                    ]
+                                  },
+                                  {
+                                    "required": [
+                                      "schema:termCode"
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ],
+                        "description": "specify the kind of service. Ideally this should be a resolvable identifier. Currently there is no widely adopted registry for serviceType identifiers, in large part because services might be defined at different levels of granularity, and classifications might focus on function, data formats, thematic content, security, or other aspects of the service definition. For interoperability, there must be an external arrangement between data providers and consumers on the strings that will be used to specify service types."
+                      },
+                      "schema:termsOfService": {
+                        "description": "Description of access privileges required to use the API, e.g. registration, licensing, payments. Note that access constraints applying to all distributions of the resource should be specified in the access constraints for the resource description as a whole.",
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "default": "not specified"
+                          },
+                          {
+                            "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_lhif7awx\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\labeledLink\\schema.yaml"
+                          }
+                        ]
+                      },
+                      "schema:documentation": {
+                        "description": "a document that provides a machine-actionable description of a service instance. Examples include OpenAPI documents, OGC Capabilities documents. Software designed to utilise a particular service type will typically include functionality to parse such a description document and engage with the service endpoint. If such a document is available for the service instance providing the resource distribution, it should be included in the distribution metadata.",
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_lhif7awx\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\labeledLink\\schema.yaml"
+                          }
+                        ]
+                      },
+                      "schema:potentialAction": {
+                        "type": "array",
+                        "description": "actions that can be invoked via the API",
+                        "items": {
+                          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_lhif7awx\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\action\\schema.yaml"
+                        }
+                      }
+                    },
+                    "required": [
+                      "schema:serviceType",
+                      "schema:potentialAction",
+                      "schema:termsOfService"
+                    ]
                   }
                 ]
               }
@@ -2487,7 +2851,329 @@
       ]
     },
     {
+      "title": "Direct data access to a resource via web servcie",
+      "description": "use schema.org Action to document url or url template and parameters to request data through a web accessible location. At this point, schema is set up for one action-- an HTTP Get that requests data. The url template parameters (in curly brackets '{}') specify query paramters to filter the source data, request particular output formats or other aspects of data.",
+      "type": "object",
       "properties": {
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "const": "schema:WebAPI"
+          },
+          "minItems": 1
+        },
+        "schema:serviceType": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "description": "schema.org Defined Term schema",
+              "type": "object",
+              "properties": {
+                "@type": {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "const": "schema:DefinedTerm"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "contains": {
+                        "const": "schema:DefinedTerm"
+                      }
+                    }
+                  ]
+                },
+                "schema:name": {
+                  "type": "string",
+                  "description": "text label for the term that is useful to human user"
+                },
+                "schema:identifier": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "description": "Properties for a schema.org identifier",
+                      "type": "object",
+                      "properties": {
+                        "@type": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "const": "schema:PropertyValue"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "contains": {
+                                "const": "schema:PropertyValue"
+                              }
+                            }
+                          ]
+                        },
+                        "schema:propertyID": {
+                          "type": "string",
+                          "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
+                        },
+                        "schema:value": {
+                          "type": "string",
+                          "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
+                        },
+                        "schema:url": {
+                          "type": "string",
+                          "format": "uri",
+                          "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
+                        }
+                      },
+                      "allOf": [
+                        {
+                          "required": [
+                            "@type"
+                          ]
+                        },
+                        {
+                          "anyOf": [
+                            {
+                              "required": [
+                                "schema:value"
+                              ]
+                            },
+                            {
+                              "required": [
+                                "schema:url"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "schema:inDefinedTermSet": {
+                  "type": "string",
+                  "description": "Identifier for the controlled vocabulary responsible for this keyword."
+                },
+                "schema:termCode": {
+                  "type": "string",
+                  "description": "A representative code for this keyword in the controlled vocabulary (Optional).  Analogous to skos:Notation"
+                }
+              },
+              "allOf": [
+                {
+                  "required": [
+                    "@type"
+                  ]
+                },
+                {
+                  "anyOf": [
+                    {
+                      "required": [
+                        "schema:name"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "schema:identifier"
+                      ]
+                    },
+                    {
+                      "required": [
+                        "schema:termCode"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "description": "specify the kind of service. Ideally this should be a resolvable identifier. Currently there is no widely adopted registry for serviceType identifiers, in large part because services might be defined at different levels of granularity, and classifications might focus on function, data formats, thematic content, security, or other aspects of the service definition. For interoperability, there must be an external arrangement between data providers and consumers on the strings that will be used to specify service types."
+        },
+        "schema:termsOfService": {
+          "description": "Description of access privileges required to use the API, e.g. registration, licensing, payments. Note that access constraints applying to all distributions of the resource should be specified in the access constraints for the resource description as a whole.",
+          "oneOf": [
+            {
+              "type": "string",
+              "default": "not specified"
+            },
+            {
+              "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_lhif7awx\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\labeledLink\\schema.yaml"
+            }
+          ]
+        },
+        "schema:documentation": {
+          "description": "a document that provides a machine-actionable description of a service instance. Examples include OpenAPI documents, OGC Capabilities documents. Software designed to utilise a particular service type will typically include functionality to parse such a description document and engage with the service endpoint. If such a document is available for the service instance providing the resource distribution, it should be included in the distribution metadata.",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_lhif7awx\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\labeledLink\\schema.yaml"
+            }
+          ]
+        },
+        "schema:potentialAction": {
+          "type": "array",
+          "description": "actions that can be invoked via the API",
+          "items": {
+            "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_lhif7awx\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\action\\schema.yaml"
+          }
+        }
+      },
+      "required": [
+        "schema:serviceType",
+        "schema:potentialAction",
+        "schema:termsOfService"
+      ]
+    },
+    {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "const": "schema:WebAPI"
+          },
+          "description": "Must include schema:WebAPI since the resource itself is a service."
+        },
+        "schema:serviceType": {
+          "description": "DDE service type classification from the ServiceTypeCode codelist.",
+          "type": "object",
+          "properties": {
+            "@type": {
+              "const": "schema:DefinedTerm"
+            },
+            "schema:inDefinedTermSet": {
+              "const": "dde:codelist/ServiceTypeCode"
+            },
+            "schema:termCode": {
+              "type": "string",
+              "enum": [
+                "DataService>DataAccess",
+                "DataService>DataWorkflow",
+                "DataService>DataProcessing",
+                "DataService>MapView",
+                "DataService>Other",
+                "DDE_GeoscienceKnowledgeDirectory",
+                "DDE_GeoscienceKnowledgeContent",
+                "DDE_KnowledgeReasoning",
+                "DDE_DeepShovel",
+                "DDE_Scholar",
+                "DDE_OtherKnowledge",
+                "DDE_PlatformCatalogue",
+                "DDE_PlatformRegistry",
+                "DDE_PlatformModel",
+                "DDE_PlatformCloudComputing",
+                "DDE_PlatformAnnotation",
+                "DDE_API_Information",
+                "DDE_EarthExplorer",
+                "DDE_Platform>DataEvaluation",
+                "DDE_Platform>DataIdentifier",
+                "DDE_Platform>Other",
+                "Theme>MineralResourceAssessment",
+                "Theme>GeologicMapping",
+                "Theme>GeologicalTime",
+                "Theme>GeologicalOccurrence",
+                "Theme>Dinosaur",
+                "Theme>GeographicName",
+                "Theme>GeomorphologyMapping",
+                "Theme>GeoscienceStandard",
+                "Theme>Other",
+                "VocabularyService",
+                "RegistryService",
+                "DiscoveryService",
+                "ViewService",
+                "OtherService"
+              ]
+            }
+          },
+          "required": [
+            "@type",
+            "schema:inDefinedTermSet",
+            "schema:termCode"
+          ]
+        },
+        "schema:dataset": {
+          "type": "array",
+          "description": "Datasets operated on by the service (DDE operatedDataset).",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "description": "Properties for a schema.org identifier",
+                "type": "object",
+                "properties": {
+                  "@type": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "const": "schema:PropertyValue"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "contains": {
+                          "const": "schema:PropertyValue"
+                        }
+                      }
+                    ]
+                  },
+                  "schema:propertyID": {
+                    "type": "string",
+                    "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
+                  },
+                  "schema:value": {
+                    "type": "string",
+                    "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
+                  },
+                  "schema:url": {
+                    "type": "string",
+                    "format": "uri",
+                    "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
+                  }
+                },
+                "allOf": [
+                  {
+                    "required": [
+                      "@type"
+                    ]
+                  },
+                  {
+                    "anyOf": [
+                      {
+                        "required": [
+                          "schema:value"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "schema:url"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
         "schema:additionalType": {
           "contains": {
             "type": "object",
@@ -2501,11 +3187,9 @@
               "schema:termCode": {
                 "type": "string",
                 "enum": [
-                  "aggregate",
-                  "collection",
-                  "series",
-                  "learningResource",
-                  "guide"
+                  "service",
+                  "webAPI",
+                  "repository"
                 ]
               }
             },
@@ -2516,241 +3200,10 @@
             ]
           },
           "minContains": 1
-        },
-        "schema:hasPart": {
-          "type": "array",
-          "description": "Members of the collection. Each must have a DDE resource type classification and basic descriptive properties.",
-          "minItems": 1,
-          "items": {
-            "allOf": [
-              {
-                "title": "DDE Resource Type constraint",
-                "description": "Constrains schema:additionalType to require at least one DefinedTerm from the DDE ResourceTypeCode codelist (32 resource types from DDE spec Table 18).",
-                "type": "object",
-                "properties": {
-                  "schema:additionalType": {
-                    "type": "array",
-                    "description": "Must include at least one DefinedTerm from the DDE ResourceTypeCode codelist.",
-                    "minItems": 1,
-                    "items": {
-                      "anyOf": [
-                        {
-                          "type": "string"
-                        },
-                        {
-                          "description": "schema.org Defined Term schema",
-                          "type": "object",
-                          "properties": {
-                            "@type": {
-                              "anyOf": [
-                                {
-                                  "type": "string",
-                                  "const": "schema:DefinedTerm"
-                                },
-                                {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "string"
-                                  },
-                                  "contains": {
-                                    "const": "schema:DefinedTerm"
-                                  }
-                                }
-                              ]
-                            },
-                            "schema:name": {
-                              "type": "string",
-                              "description": "text label for the term that is useful to human user"
-                            },
-                            "schema:identifier": {
-                              "anyOf": [
-                                {
-                                  "type": "string"
-                                },
-                                {
-                                  "description": "Properties for a schema.org identifier",
-                                  "type": "object",
-                                  "properties": {
-                                    "@type": {
-                                      "anyOf": [
-                                        {
-                                          "type": "string",
-                                          "const": "schema:PropertyValue"
-                                        },
-                                        {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "string"
-                                          },
-                                          "contains": {
-                                            "const": "schema:PropertyValue"
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    "schema:propertyID": {
-                                      "type": "string",
-                                      "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
-                                    },
-                                    "schema:value": {
-                                      "type": "string",
-                                      "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
-                                    },
-                                    "schema:url": {
-                                      "type": "string",
-                                      "format": "uri",
-                                      "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
-                                    }
-                                  },
-                                  "allOf": [
-                                    {
-                                      "required": [
-                                        "@type"
-                                      ]
-                                    },
-                                    {
-                                      "anyOf": [
-                                        {
-                                          "required": [
-                                            "schema:value"
-                                          ]
-                                        },
-                                        {
-                                          "required": [
-                                            "schema:url"
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            "schema:inDefinedTermSet": {
-                              "type": "string",
-                              "description": "Identifier for the controlled vocabulary responsible for this keyword."
-                            },
-                            "schema:termCode": {
-                              "type": "string",
-                              "description": "A representative code for this keyword in the controlled vocabulary (Optional).  Analogous to skos:Notation"
-                            }
-                          },
-                          "allOf": [
-                            {
-                              "required": [
-                                "@type"
-                              ]
-                            },
-                            {
-                              "anyOf": [
-                                {
-                                  "required": [
-                                    "schema:name"
-                                  ]
-                                },
-                                {
-                                  "required": [
-                                    "schema:identifier"
-                                  ]
-                                },
-                                {
-                                  "required": [
-                                    "schema:termCode"
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    "contains": {
-                      "type": "object",
-                      "properties": {
-                        "@type": {
-                          "const": "schema:DefinedTerm"
-                        },
-                        "schema:inDefinedTermSet": {
-                          "const": "dde:codelist/ResourceTypeCode"
-                        },
-                        "schema:termCode": {
-                          "type": "string",
-                          "enum": [
-                            "aggregate",
-                            "application",
-                            "webApplication",
-                            "collection",
-                            "dataset",
-                            "dataCatalog",
-                            "geographicDataset",
-                            "nonGeographicDataset",
-                            "document",
-                            "article",
-                            "thesis",
-                            "book",
-                            "poster",
-                            "webPage",
-                            "image",
-                            "map",
-                            "photograph",
-                            "explanatoryFigure",
-                            "initiative",
-                            "fieldSession",
-                            "learningResource",
-                            "guide",
-                            "model",
-                            "movie",
-                            "repository",
-                            "semanticResource",
-                            "definedTermSet",
-                            "series",
-                            "service",
-                            "webAPI",
-                            "software",
-                            "sound"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "@type",
-                        "schema:inDefinedTermSet",
-                        "schema:termCode"
-                      ]
-                    },
-                    "minContains": 1
-                  }
-                }
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "@type": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "default": [
-                      "schema:CreativeWork"
-                    ]
-                  },
-                  "schema:name": {
-                    "type": "string"
-                  },
-                  "schema:description": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "@type",
-                  "schema:name"
-                ]
-              }
-            ]
-          }
         }
       },
       "required": [
-        "schema:hasPart"
+        "@type"
       ]
     }
   ]
