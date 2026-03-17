@@ -298,12 +298,12 @@ DDE discovery metadata for a published research article on global plate tectonic
 <urn:dde:example-plate-tectonics-article> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Article" ;
-            schema1:termCode "article" ],
+            schema1:name "Document" ;
+            schema1:termCode "document" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Document" ;
-            schema1:termCode "document" ] ;
+            schema1:name "Article" ;
+            schema1:termCode "article" ] ;
     schema1:creator ( [ a schema1:Person ;
                 schema1:affiliation [ a schema1:Organization ;
                         schema1:name "University of Sydney" ] ;
@@ -327,13 +327,13 @@ DDE discovery metadata for a published research article on global plate tectonic
             schema1:name "article thumbnail" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Data Integration Synthesis" ;
-            schema1:termCode "dataIntegrationSynthesis" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Data Integration Synthesis" ;
+            schema1:termCode "dataIntegrationSynthesis" ],
         "Pangaea",
         "continental drift",
         "paleogeography",

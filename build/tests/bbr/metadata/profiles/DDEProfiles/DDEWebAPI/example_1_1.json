@@ -1,0 +1,113 @@
+{
+  "@context": {
+    "schema": "http://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dcat": "http://www.w3.org/ns/dcat#",
+    "dde": "https://www.ddeworld.org/resource/",
+    "ex": "https://example.org/"
+  },
+  "@id": "ex:dde-webapi-001",
+  "@type": [
+    "schema:Dataset",
+    "schema:WebAPI",
+    "schema:Product"
+  ],
+  "schema:name": "DDE Global Geological Map Service",
+  "schema:identifier": "https://doi.org/10.1234/dde-geomap-api",
+  "schema:description": "A WMS/WFS service providing access to the DDE Global Geological Map, offering tiled map views and vector feature queries for geological units, faults, and contacts at 1:5M scale.",
+  "schema:url": "https://example.org/services/dde-geomap",
+  "schema:dateModified": "2026-02-15",
+  "schema:license": [
+    "https://creativecommons.org/licenses/by/4.0/"
+  ],
+  "schema:additionalType": [
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode",
+      "schema:termCode": "webAPI",
+      "schema:name": "Web API"
+    }
+  ],
+  "schema:keywords": [
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode",
+      "schema:termCode": "GeologicMapping",
+      "schema:name": "Geologic Mapping"
+    },
+    {
+      "@type": "schema:DefinedTerm",
+      "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode",
+      "schema:termCode": "Compilation",
+      "schema:name": "Compilation"
+    }
+  ],
+  "schema:image": [
+    {
+      "@type": "schema:ImageObject",
+      "schema:contentUrl": "https://example.org/services/dde-geomap/preview.png",
+      "schema:name": "Service preview showing geological map tiles"
+    }
+  ],
+  "schema:serviceType": {
+    "@type": "schema:DefinedTerm",
+    "schema:inDefinedTermSet": "dde:codelist/ServiceTypeCode",
+    "schema:termCode": "DataService>MapView",
+    "schema:name": "Map View Data Service"
+  },
+  "schema:termsOfService": "Open access, no authentication required. Rate limit: 1000 requests/hour.",
+  "schema:documentation": {
+    "@type": "schema:CreativeWork",
+    "schema:name": "OGC WMS GetCapabilities",
+    "schema:url": "https://example.org/services/dde-geomap/wms?service=WMS&request=GetCapabilities"
+  },
+  "schema:potentialAction": [
+    {
+      "@type": "schema:Action",
+      "schema:name": "GetMap",
+      "schema:description": "Request a rendered map image for a geographic extent",
+      "schema:target": {
+        "@type": "schema:EntryPoint",
+        "schema:urlTemplate": "https://example.org/services/dde-geomap/wms?service=WMS&request=GetMap&layers={layer}&bbox={bbox}&width={width}&height={height}&format={format}",
+        "schema:httpMethod": "GET",
+        "schema:encodingFormat": "image/png"
+      }
+    },
+    {
+      "@type": "schema:Action",
+      "schema:name": "GetFeature",
+      "schema:description": "Query vector features for geological units within a bounding box",
+      "schema:target": {
+        "@type": "schema:EntryPoint",
+        "schema:urlTemplate": "https://example.org/services/dde-geomap/wfs?service=WFS&request=GetFeature&typeName={typeName}&bbox={bbox}&outputFormat={format}",
+        "schema:httpMethod": "GET",
+        "schema:encodingFormat": "application/json"
+      }
+    }
+  ],
+  "schema:dataset": [
+    "https://doi.org/10.1234/dde-global-geomap-v1"
+  ],
+  "schema:subjectOf": {
+    "@type": [
+      "schema:Dataset"
+    ],
+    "schema:additionalType": [
+      "dcat:CatalogRecord"
+    ],
+    "schema:about": {
+      "@id": "ex:dde-webapi-001"
+    },
+    "dcterms:conformsTo": [
+      {
+        "@id": "https://w3id.org/cdif/core/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/discovery/1.0/"
+      },
+      {
+        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEWebAPI"
+      }
+    ]
+  }
+}

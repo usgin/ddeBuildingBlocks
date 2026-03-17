@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "DDE WebAPI profile",
+  "description": "DDE profile for resources that ARE web services. The resource itself is described as a WebAPI with service type, operations, terms of service, and documentation. Composes ddeMandatory + ddeOptional for discovery metadata, and the CDIF webAPI building block for service-specific properties (serviceType, potentialAction, termsOfService, documentation). DDE narrows serviceType to require a term from the DDE ServiceTypeCode codelist. schema:dataset identifies datasets operated on by the service.",
+  "allOf": [
+    {
+      "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.json"
+    },
+    {
+      "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.json"
+    },
+    {
+      "$ref": "#/$defs/CdifWebAPI"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "const": "schema:WebAPI"
+          },
+          "description": "Must include schema:WebAPI since the resource itself is a service."
+        },
+        "schema:serviceType": {
+          "description": "DDE service type classification from the ServiceTypeCode codelist.",
+          "type": "object",
+          "properties": {
+            "@type": {
+              "const": "schema:DefinedTerm"
+            },
+            "schema:inDefinedTermSet": {
+              "const": "dde:codelist/ServiceTypeCode"
+            },
+            "schema:termCode": {
+              "type": "string",
+              "enum": [
+                "DataService>DataAccess",
+                "DataService>DataWorkflow",
+                "DataService>DataProcessing",
+                "DataService>MapView",
+                "DataService>Other",
+                "DDE_GeoscienceKnowledgeDirectory",
+                "DDE_GeoscienceKnowledgeContent",
+                "DDE_KnowledgeReasoning",
+                "DDE_DeepShovel",
+                "DDE_Scholar",
+                "DDE_OtherKnowledge",
+                "DDE_PlatformCatalogue",
+                "DDE_PlatformRegistry",
+                "DDE_PlatformModel",
+                "DDE_PlatformCloudComputing",
+                "DDE_PlatformAnnotation",
+                "DDE_API_Information",
+                "DDE_EarthExplorer",
+                "DDE_Platform>DataEvaluation",
+                "DDE_Platform>DataIdentifier",
+                "DDE_Platform>Other",
+                "Theme>MineralResourceAssessment",
+                "Theme>GeologicMapping",
+                "Theme>GeologicalTime",
+                "Theme>GeologicalOccurrence",
+                "Theme>Dinosaur",
+                "Theme>GeographicName",
+                "Theme>GeomorphologyMapping",
+                "Theme>GeoscienceStandard",
+                "Theme>Other",
+                "VocabularyService",
+                "RegistryService",
+                "DiscoveryService",
+                "ViewService",
+                "OtherService"
+              ]
+            }
+          },
+          "required": [
+            "@type",
+            "schema:inDefinedTermSet",
+            "schema:termCode"
+          ]
+        },
+        "schema:dataset": {
+          "type": "array",
+          "description": "Datasets operated on by the service (DDE operatedDataset).",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "$ref": "#/$defs/Identifier"
+              }
+            ]
+          }
+        },
+        "schema:additionalType": {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "@type": {
+                "const": "schema:DefinedTerm"
+              },
+              "schema:inDefinedTermSet": {
+                "const": "dde:codelist/ResourceTypeCode"
+              },
+              "schema:termCode": {
+                "type": "string",
+                "enum": [
+                  "service",
+                  "webAPI",
+                  "repository"
+                ]
+              }
+            },
+            "required": [
+              "@type",
+              "schema:inDefinedTermSet",
+              "schema:termCode"
+            ]
+          },
+          "minContains": 1
+        }
+      },
+      "required": [
+        "@type"
+      ]
+    }
+  ],
+  "$defs": {
+    "CdifWebAPI": {
+      "$ref": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/schema.yaml"
+    },
+    "Identifier": {
+      "$ref": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/schema.yaml"
+    }
+  }
+}

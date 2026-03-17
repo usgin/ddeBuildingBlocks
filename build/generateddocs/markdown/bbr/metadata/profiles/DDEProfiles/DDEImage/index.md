@@ -470,17 +470,17 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
                     schema1:roleName "DataCollector" ] ;
             schema1:startTime "2023-06-15T03:45:00Z" ;
             prov:used [ schema1:instrument [ a schema1:Thing ;
-                            schema1:additionalType "dde:sensorType" ;
-                            schema1:name "Multispectral" ] ],
-                [ schema1:instrument [ a schema1:Thing ;
-                            schema1:additionalType "dde:signalGenerator" ;
-                            schema1:name "Passive solar" ] ],
-                [ schema1:instrument [ a schema1:Thing ;
                             schema1:additionalType "dde:platform" ;
                             schema1:name "Landsat-8" ] ],
                 [ schema1:instrument [ a schema1:Thing ;
                             schema1:additionalType "dde:equipment" ;
-                            schema1:name "Operational Land Imager (OLI)" ] ] ] .
+                            schema1:name "Operational Land Imager (OLI)" ] ],
+                [ schema1:instrument [ a schema1:Thing ;
+                            schema1:additionalType "dde:signalGenerator" ;
+                            schema1:name "Passive solar" ] ],
+                [ schema1:instrument [ a schema1:Thing ;
+                            schema1:additionalType "dde:sensorType" ;
+                            schema1:name "Multispectral" ] ] ] .
 
 <urn:uuid:dde-image-catalog-record> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEImage>,

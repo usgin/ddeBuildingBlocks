@@ -393,13 +393,13 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
             schema1:propertyID "dde:referenceSystemType" ;
             schema1:value "geodeticGeographic2D" ],
         [ a schema1:PropertyValue ;
-            schema1:name "Spatial Resolution" ;
-            schema1:propertyID "dde:spatialResolution" ;
-            schema1:value "1:500000" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Spatial Representation Type" ;
             schema1:propertyID "dde:spatialRepresentationType" ;
-            schema1:value "vector" ] ;
+            schema1:value "vector" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Spatial Resolution" ;
+            schema1:propertyID "dde:spatialResolution" ;
+            schema1:value "1:500000" ] ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
             schema1:name "Geographic Dataset" ;
@@ -418,13 +418,13 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
             schema1:name "thumbnail" ] ;
     schema1:inLanguage "zho" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Geological Mapping" ;
             schema1:termCode "geologicalMapping" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "China",
         "aquifer",
         "groundwater",
