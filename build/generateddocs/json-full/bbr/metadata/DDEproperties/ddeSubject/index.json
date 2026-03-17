@@ -38,7 +38,7 @@
   "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/resolvedProperties.json",
   "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/",
   "rdfData": [],
-  "validationPassed": false,
+  "validationPassed": true,
   "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/DDEproperties/ddeSubject/",
   "description": "## Metadata metadata for DDE profile properties\n\nOnly addition is declaration of conformance with the DDE CDIF profile. Extends cdifCatalogRecord to require that `dcterms:conformsTo` includes `cdif:profile_ddeCDIF`.\n",
   "examples": [
@@ -68,7 +68,7 @@
       ]
     }
   ],
-  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntype: object\nallOf:\n- $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/schema.yaml\n- properties:\n    dcterms:conformsTo:\n      type: array\n      items:\n        type: string\n      minItems: 1\n      contains:\n        type: object\n        properties:\n          '@id':\n            const: https://w3id.org/cdif/bbr/metadata/DDEProfiles/DDEDiscovery\n        required:\n        - '@id'\n      minContains: 1\nx-jsonld-prefixes:\n  schema: http://schema.org/\n",
+  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntype: object\nallOf:\n- $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/schema.yaml\n- properties:\n    dcterms:conformsTo:\n      type: array\n      items:\n        type: object\n        properties:\n          '@id':\n            type: string\n      minItems: 1\n      contains:\n        type: object\n        properties:\n          '@id':\n            const: https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery\n        required:\n        - '@id'\n      minContains: 1\nx-jsonld-prefixes:\n  schema: http://schema.org/\n",
   "gitRepository": "https://github.com/usgin/ddeBuildingBlocks",
   "gitPath": "_sources/DDEproperties/ddeSubject"
 }

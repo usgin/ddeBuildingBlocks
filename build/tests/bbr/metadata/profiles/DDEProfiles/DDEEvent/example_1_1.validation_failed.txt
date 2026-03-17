@@ -1,5 +1,5 @@
 Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDEEvent - DDE Event profile
-Generated 2026-03-17T01:05:28.846315+00:00
+Generated 2026-03-17T14:29:51.377661+00:00
 === Files ===
 Using exampleDDEEvent.json from examples
 JSON-LD context is present - uplifting
@@ -13,10 +13,10 @@ Output Turtle example_1_1.ttl created
 ValidationError: [{'@id': 'https://w3id.org/cdif/core/1.0/'}, {'@id': 'https://w3id.org/cdif/discovery/1.0/'}, {'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEEvent'}] does not contain items matching the given schema
 
 Failed validating 'contains' in schema['allOf'][0]['allOf'][2]['properties']['schema:subjectOf']['allOf'][1]['properties']['dcterms:conformsTo']:
-    {'contains': {'properties': {'@id': {'const': 'https://w3id.org/cdif/bbr/metadata/DDEProfiles/DDEDiscovery'}},
+    {'contains': {'properties': {'@id': {'const': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery'}},
                   'required': ['@id'],
                   'type': 'object'},
-     'items': {'type': 'string'},
+     'items': {'properties': {'@id': {'type': 'string'}}, 'type': 'object'},
      'minContains': 1,
      'minItems': 1,
      'type': 'array'}
@@ -42,15 +42,8 @@ Validation result for _sources/profiles/DDEProfiles/DDEEvent/rules.shacl:
   	Message: DDEEvent profile: metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEEvent
   
 Focus nodes for _sources/profiles/DDEProfiles/DDEEvent/rules.shacl:
- - Shape cdifd:DDEEventConformanceShape/sh:property/sh:qualifiedValueShape: *none*
  - Shape cdifd:DDEEventConformanceShape: *none*
-
-Validation result for _sources/DDEproperties/ddeOptional/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for _sources/DDEproperties/ddeOptional/rules.shacl:
- - Shape cdifd:DDEOptionalDatasetShape: *none*
+ - Shape cdifd:DDEEventConformanceShape/sh:property/sh:qualifiedValueShape: *none*
 
 Validation result for _sources/DDEproperties/ddeMandatory/rules.shacl:
   Validation Report
@@ -60,6 +53,13 @@ Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:
  - Shape cdifd:DDEImageObjectShape: <urn:dde:example-iodp-expedition-396>/schema1:image
  - Shape cdifd:DDERequiredDatasetShape: *none*
 
+Validation result for _sources/DDEproperties/ddeResourceType/rules.shacl:
+  Validation Report
+  Conforms: True
+  
+Focus nodes for _sources/DDEproperties/ddeResourceType/rules.shacl:
+ - Shape cdifd:DDEResourceTypeShape: *none*
+
 Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:
   Validation Report
   Conforms: True
@@ -67,12 +67,12 @@ Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:
 Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:
  - Shape cdifd:DDECatalogRecordShape: *none*
 
-Validation result for _sources/DDEproperties/ddeResourceType/rules.shacl:
+Validation result for _sources/DDEproperties/ddeOptional/rules.shacl:
   Validation Report
   Conforms: True
   
-Focus nodes for _sources/DDEproperties/ddeResourceType/rules.shacl:
- - Shape cdifd:DDEResourceTypeShape: *none*
+Focus nodes for _sources/DDEproperties/ddeOptional/rules.shacl:
+ - Shape cdifd:DDEOptionalDatasetShape: *none*
 
 === End SHACL ===
 

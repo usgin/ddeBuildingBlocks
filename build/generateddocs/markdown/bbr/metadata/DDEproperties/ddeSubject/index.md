@@ -130,13 +130,16 @@ allOf:
     dcterms:conformsTo:
       type: array
       items:
-        type: string
+        type: object
+        properties:
+          '@id':
+            type: string
       minItems: 1
       contains:
         type: object
         properties:
           '@id':
-            const: https://w3id.org/cdif/bbr/metadata/DDEProfiles/DDEDiscovery
+            const: https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery
         required:
         - '@id'
       minContains: 1
