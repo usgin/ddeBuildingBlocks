@@ -20,29 +20,29 @@ ex:dde-webapi-001 a schema1:Dataset,
             schema1:contentUrl "https://example.org/services/dde-geomap/preview.png" ;
             schema1:name "Service preview showing geological map tiles" ] ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geologic Mapping" ;
-            schema1:termCode "GeologicMapping" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Compilation" ;
-            schema1:termCode "Compilation" ] ;
+            schema1:termCode "Compilation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geologic Mapping" ;
+            schema1:termCode "GeologicMapping" ] ;
     schema1:license "https://creativecommons.org/licenses/by/4.0/" ;
     schema1:name "DDE Global Geological Map Service" ;
     schema1:potentialAction [ a schema1:Action ;
-            schema1:description "Query vector features for geological units within a bounding box" ;
-            schema1:name "GetFeature" ;
-            schema1:target [ a schema1:EntryPoint ;
-                    schema1:encodingFormat "application/json" ;
-                    schema1:httpMethod "GET" ;
-                    schema1:urlTemplate "https://example.org/services/dde-geomap/wfs?service=WFS&request=GetFeature&typeName={typeName}&bbox={bbox}&outputFormat={format}" ] ],
-        [ a schema1:Action ;
             schema1:description "Request a rendered map image for a geographic extent" ;
             schema1:name "GetMap" ;
             schema1:target [ a schema1:EntryPoint ;
                     schema1:encodingFormat "image/png" ;
                     schema1:httpMethod "GET" ;
-                    schema1:urlTemplate "https://example.org/services/dde-geomap/wms?service=WMS&request=GetMap&layers={layer}&bbox={bbox}&width={width}&height={height}&format={format}" ] ] ;
+                    schema1:urlTemplate "https://example.org/services/dde-geomap/wms?service=WMS&request=GetMap&layers={layer}&bbox={bbox}&width={width}&height={height}&format={format}" ] ],
+        [ a schema1:Action ;
+            schema1:description "Query vector features for geological units within a bounding box" ;
+            schema1:name "GetFeature" ;
+            schema1:target [ a schema1:EntryPoint ;
+                    schema1:encodingFormat "application/json" ;
+                    schema1:httpMethod "GET" ;
+                    schema1:urlTemplate "https://example.org/services/dde-geomap/wfs?service=WFS&request=GetFeature&typeName={typeName}&bbox={bbox}&outputFormat={format}" ] ] ;
     schema1:serviceType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ServiceTypeCode" ;
             schema1:name "Map View Data Service" ;
