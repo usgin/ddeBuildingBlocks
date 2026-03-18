@@ -2,8 +2,8 @@
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix ns1: <http://www.w3.org/ns/oa#> .
-@prefix ns2: <http://www.iana.org/assignments/> .
+@prefix ns1: <http://www.iana.org/assignments/> .
+@prefix ns2: <http://www.w3.org/ns/oa#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix prof: <http://www.w3.org/ns/dx/prof/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
@@ -23,12 +23,12 @@
     dct:created "2026-03-16T00:00:00+00:00"^^xsd:dateTime ;
     dct:description [ dct:format "text/markdown" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/index.md> ],
-        [ dct:format "text/html" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.profiles.DDEProfiles.DDEWebAPI> ],
         [ dct:format "application/json" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/index.json> ] ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/index.json> ],
+        [ dct:format "text/html" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.profiles.DDEProfiles.DDEWebAPI> ] ;
     dct:hasVersion "0.1" ;
-    dct:modified "2026-03-17"^^xsd:date ;
+    dct:modified "2026-03-18"^^xsd:date ;
     dct:source schema:WebAPI,
         <https://www.ddeworld.org> ;
     skos:inScheme <https://usgin.github.io/ddeBuildingBlocks/> ;
@@ -36,14 +36,24 @@
     skos:topConceptOf <https://usgin.github.io/ddeBuildingBlocks/> ;
     dcat:keyword "dde",
         "templates" ;
-    prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/yaml" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema.yaml> ;
-            prof:hasRole role:schema ],
+    prof:hasResource [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
+            prof:hasRole role:validation ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/json" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema.json> ;
             prof:hasRole role:schema ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/yaml" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema.yaml> ;
+            prof:hasRole role:schema ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl> ;
+            prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory> ;
@@ -53,16 +63,6 @@
             dct:format "application/ld+json" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/context.jsonld> ;
             prof:hasRole role:mapping ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
-            prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
@@ -80,18 +80,18 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
 
 <https://usgin.github.io/ddeBuildingBlocks/build/bblocks.ttl> a prov:Entity ;
     dct:format "text/turtle" ;
-    prov:wasAttributedTo _:Nd2309de21fb7427dbbd6a1669fe340b2 ;
+    prov:wasAttributedTo _:N1d010b142be34119a7dba95c17752004 ;
     prov:wasGeneratedBy [ a prov:Activity ;
-            prov:endedAtTime "2026-03-17T15:25:03.459364"^^xsd:dateTime ;
-            prov:startedAtTime "2026-03-17T15:25:03.204395"^^xsd:dateTime ;
+            prov:endedAtTime "2026-03-18T13:57:20.572274"^^xsd:dateTime ;
+            prov:startedAtTime "2026-03-18T13:57:20.370676"^^xsd:dateTime ;
             prov:used [ a prov:Entity ;
-                    dct:format "application/yaml" ;
-                    rdfs:seeAlso <file:///src/ogc/bblocks/register-context.yaml> ],
-                [ a prov:Entity ;
                     dct:format "application/json" ;
-                    dct:hasVersion "git:b20bbee4dd73ed3b9b09e19f622ef39853fb8518" ;
-                    rdfs:seeAlso <https://usgin.github.io/ddeBuildingBlocks/build/register.json> ] ;
-            prov:wasAssociatedWith _:Nd2309de21fb7427dbbd6a1669fe340b2 ] .
+                    dct:hasVersion "git:840eb04448719afd7d6255be30a08ef286156ca9" ;
+                    rdfs:seeAlso <https://usgin.github.io/ddeBuildingBlocks/build/register.json> ],
+                [ a prov:Entity ;
+                    dct:format "application/yaml" ;
+                    rdfs:seeAlso <file:///src/ogc/bblocks/register-context.yaml> ] ;
+            prov:wasAssociatedWith _:N1d010b142be34119a7dba95c17752004 ] .
 
 <bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDEAudioVisualProduct> a skos:Concept,
         dcat:Dataset,
@@ -100,37 +100,42 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     rdfs:label "DDE AudioVisual Product profile" ;
     dct:abstract "DDE profile for audiovisual resources (movie, sound). Extends DDEDiscovery with resource type constraint and schema:duration."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-03-01T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "application/json" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/index.json> ],
+    dct:description [ dct:format "text/html" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.profiles.DDEProfiles.DDEAudioVisualProduct> ],
         [ dct:format "text/markdown" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/index.md> ],
-        [ dct:format "text/html" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.profiles.DDEProfiles.DDEAudioVisualProduct> ] ;
+        [ dct:format "application/json" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/index.json> ] ;
     dct:hasVersion "0.1" ;
-    dct:modified "2026-03-17"^^xsd:date ;
+    dct:modified "2026-03-18"^^xsd:date ;
     dct:source <https://www.ddeworld.org> ;
     skos:inScheme <https://usgin.github.io/ddeBuildingBlocks/> ;
     skos:prefLabel "DDE AudioVisual Product profile" ;
     skos:topConceptOf <https://usgin.github.io/ddeBuildingBlocks/> ;
     dcat:keyword "templates" ;
-    prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema.json> ;
-            prof:hasRole role:schema ],
+    prof:hasResource [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/context.jsonld> ;
+            prof:hasRole role:mapping ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl> ;
+            prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDEAudioVisualProduct> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEAudioVisualProduct/rules.shacl> ;
             prof:hasRole role:validation ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema.json> ;
+            prof:hasRole role:schema ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl> ;
             prof:hasRole role:validation ],
-        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/context.jsonld> ;
-            prof:hasRole role:mapping ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/yaml" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema.yaml> ;
@@ -139,11 +144,6 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl> ;
             prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
@@ -164,38 +164,20 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     rdfs:label "DDE Collection profile" ;
     dct:abstract "DDE profile for collection resources (aggregate, collection, series, learningResource, guide). Extends DDEDiscovery with resource type constraint and requires schema:hasPart for collection members."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-03-01T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "text/html" ;
+    dct:description [ dct:format "text/markdown" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/profiles/DDEProfiles/DDECollection/index.md> ],
+        [ dct:format "text/html" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.profiles.DDEProfiles.DDECollection> ],
         [ dct:format "application/json" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/profiles/DDEProfiles/DDECollection/index.json> ],
-        [ dct:format "text/markdown" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/profiles/DDEProfiles/DDECollection/index.md> ] ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/profiles/DDEProfiles/DDECollection/index.json> ] ;
     dct:hasVersion "0.1" ;
-    dct:modified "2026-03-17"^^xsd:date ;
+    dct:modified "2026-03-18"^^xsd:date ;
     dct:source <https://www.ddeworld.org> ;
     skos:inScheme <https://usgin.github.io/ddeBuildingBlocks/> ;
     skos:prefLabel "DDE Collection profile" ;
     skos:topConceptOf <https://usgin.github.io/ddeBuildingBlocks/> ;
     dcat:keyword "templates" ;
-    prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema.json> ;
-            prof:hasRole role:schema ],
-        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/context.jsonld> ;
-            prof:hasRole role:mapping ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo shacl: ;
+    prof:hasResource [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDECollection> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDECollection/rules.shacl> ;
@@ -205,6 +187,24 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl> ;
             prof:hasRole role:validation ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema.json> ;
+            prof:hasRole role:schema ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
+            prof:hasRole role:validation ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl> ;
+            prof:hasRole role:validation ],
+        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/context.jsonld> ;
+            prof:hasRole role:mapping ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/yaml" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema.yaml> ;
@@ -236,7 +236,7 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
         [ dct:format "text/markdown" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/profiles/DDEProfiles/DDEDataset/index.md> ] ;
     dct:hasVersion "0.1" ;
-    dct:modified "2026-03-17"^^xsd:date ;
+    dct:modified "2026-03-18"^^xsd:date ;
     dct:source <https://www.ddeworld.org> ;
     skos:inScheme <https://usgin.github.io/ddeBuildingBlocks/> ;
     skos:prefLabel "DDE Dataset profile" ;
@@ -244,17 +244,26 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     dcat:keyword "templates" ;
     prof:hasResource [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl> ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl> ;
             prof:hasRole role:validation ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/yaml" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema.yaml> ;
+            dct:format "application/json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema.json> ;
             prof:hasRole role:schema ],
+        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/context.jsonld> ;
+            prof:hasRole role:mapping ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl> ;
+            prof:hasRole role:validation ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl> ;
             prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
@@ -263,26 +272,17 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
             prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDEDataset> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDataset/rules.shacl> ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
             prof:hasRole role:validation ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/context.jsonld> ;
-            prof:hasRole role:mapping ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema.json> ;
+            dct:format "application/yaml" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema.yaml> ;
             prof:hasRole role:schema ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl> ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDEDataset> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDataset/rules.shacl> ;
             prof:hasRole role:validation ] ;
     bblocks:dependsOn <bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset>,
         <bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory>,
@@ -299,14 +299,14 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     rdfs:label "DDE Geoscience Discovery metadata" ;
     dct:abstract "Gather building blocks to generate a DDE Geoscience Discovery record. Composes CDIF mandatory and optional properties with DDE required and optional extensions for geoscience metadata."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-02-28T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "text/html" ;
+    dct:description [ dct:format "application/json" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/index.json> ],
+        [ dct:format "text/html" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery> ],
         [ dct:format "text/markdown" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/index.md> ],
-        [ dct:format "application/json" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/index.json> ] ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/index.md> ] ;
     dct:hasVersion "0.1" ;
-    dct:modified "2026-03-17"^^xsd:date ;
+    dct:modified "2026-03-18"^^xsd:date ;
     dct:source <https://cross-domain-interoperability-framework.github.io/cdifbook/metadata/schemaorgimplementation.html#schema-org-implementation-of-cdif-metadata>,
         <https://www.ddeworld.org> ;
     skos:inScheme <https://usgin.github.io/ddeBuildingBlocks/> ;
@@ -315,25 +315,21 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     dcat:keyword "templates" ;
     prof:hasResource [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/yaml" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/schema.yaml> ;
-            prof:hasRole role:schema ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl> ;
             prof:hasRole role:validation ],
-        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/context.jsonld> ;
-            prof:hasRole role:mapping ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
+            prof:hasRole role:validation ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/json" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/schema.json> ;
+            prof:hasRole role:schema ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/yaml" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/schema.yaml> ;
             prof:hasRole role:schema ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
@@ -342,20 +338,24 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
             prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl> ;
+            prof:hasRole role:validation ],
+        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/context.jsonld> ;
+            prof:hasRole role:mapping ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl> ;
             prof:hasRole role:validation ] ;
     bblocks:dependsOn <bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory>,
         <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
     bblocks:hasSourceJsonLdContext <https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/context.jsonld> ;
     bblocks:scope <http://www.opengis.net/def/bblocks/scope/unstable> ;
     bblocks:status <http://www.opengis.net/def/status/under-development> ;
-    bblocks:validationPassed false .
+    bblocks:validationPassed true .
 
 <bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDEDocument> a skos:Concept,
         dcat:Dataset,
@@ -371,30 +371,21 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
         [ dct:format "text/markdown" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/profiles/DDEProfiles/DDEDocument/index.md> ] ;
     dct:hasVersion "0.1" ;
-    dct:modified "2026-03-17"^^xsd:date ;
+    dct:modified "2026-03-18"^^xsd:date ;
     dct:source <https://www.ddeworld.org> ;
     skos:inScheme <https://usgin.github.io/ddeBuildingBlocks/> ;
     skos:prefLabel "DDE Document profile" ;
     skos:topConceptOf <https://usgin.github.io/ddeBuildingBlocks/> ;
     dcat:keyword "templates" ;
-    prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDocument/schema.json> ;
-            prof:hasRole role:schema ],
-        [ dct:conformsTo shacl: ;
+    prof:hasResource [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
             prof:hasRole role:validation ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDocument/context.jsonld> ;
-            prof:hasRole role:mapping ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDocument/schema.json> ;
+            prof:hasRole role:schema ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/yaml" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDocument/schema.yaml> ;
@@ -404,10 +395,19 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl> ;
             prof:hasRole role:validation ],
+        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDocument/context.jsonld> ;
+            prof:hasRole role:mapping ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDEDocument> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDocument/rules.shacl> ;
+            prof:hasRole role:validation ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl> ;
             prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
@@ -428,14 +428,14 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     rdfs:label "DDE Event profile" ;
     dct:abstract "DDE profile for event resources (initiative, fieldSession). Extends DDEDiscovery with resource type constraint and requires schema:temporalCoverage."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-03-01T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "text/markdown" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/profiles/DDEProfiles/DDEEvent/index.md> ],
-        [ dct:format "text/html" ;
+    dct:description [ dct:format "text/html" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.profiles.DDEProfiles.DDEEvent> ],
         [ dct:format "application/json" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/profiles/DDEProfiles/DDEEvent/index.json> ] ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/profiles/DDEProfiles/DDEEvent/index.json> ],
+        [ dct:format "text/markdown" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/profiles/DDEProfiles/DDEEvent/index.md> ] ;
     dct:hasVersion "0.1" ;
-    dct:modified "2026-03-17"^^xsd:date ;
+    dct:modified "2026-03-18"^^xsd:date ;
     dct:source <https://www.ddeworld.org> ;
     skos:inScheme <https://usgin.github.io/ddeBuildingBlocks/> ;
     skos:prefLabel "DDE Event profile" ;
@@ -446,19 +446,20 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl> ;
             prof:hasRole role:validation ],
+        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/context.jsonld> ;
+            prof:hasRole role:mapping ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDEEvent> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEEvent/rules.shacl> ;
+            prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl> ;
             prof:hasRole role:validation ],
-        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/context.jsonld> ;
-            prof:hasRole role:mapping ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/yaml" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema.yaml> ;
-            prof:hasRole role:schema ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory> ;
@@ -468,15 +469,14 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
             dct:format "application/json" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema.json> ;
             prof:hasRole role:schema ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/yaml" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/schema.yaml> ;
+            prof:hasRole role:schema ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDEEvent> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEEvent/rules.shacl> ;
             prof:hasRole role:validation ] ;
     bblocks:dependsOn <bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory>,
         <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
@@ -492,14 +492,14 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     rdfs:label "DDE Functional Resource profile" ;
     dct:abstract "DDE profile for functional resources (application, webApplication, model). Extends DDEDiscovery with resource type constraint and requires a relatedLink with implementationSoftware linkRelationship."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-03-01T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "text/markdown" ;
+    dct:description [ dct:format "text/html" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.profiles.DDEProfiles.DDEFunctionalResource> ],
+        [ dct:format "text/markdown" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource/index.md> ],
         [ dct:format "application/json" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource/index.json> ],
-        [ dct:format "text/html" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.profiles.DDEProfiles.DDEFunctionalResource> ] ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource/index.json> ] ;
     dct:hasVersion "0.1" ;
-    dct:modified "2026-03-17"^^xsd:date ;
+    dct:modified "2026-03-18"^^xsd:date ;
     dct:source <https://www.ddeworld.org> ;
     skos:inScheme <https://usgin.github.io/ddeBuildingBlocks/> ;
     skos:prefLabel "DDE Functional Resource profile" ;
@@ -510,37 +510,37 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl> ;
             prof:hasRole role:validation ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl> ;
+            prof:hasRole role:validation ],
         [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
             dct:format "application/ld+json" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource/context.jsonld> ;
             prof:hasRole role:mapping ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDEFunctionalResource> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEFunctionalResource/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource/schema.json> ;
-            prof:hasRole role:schema ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/yaml" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource/schema.yaml> ;
             prof:hasRole role:schema ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl> ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
             prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl> ;
             prof:hasRole role:validation ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource/schema.json> ;
+            prof:hasRole role:schema ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDEFunctionalResource> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEFunctionalResource/rules.shacl> ;
             prof:hasRole role:validation ] ;
     bblocks:dependsOn <bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory>,
         <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
@@ -556,42 +556,31 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     rdfs:label "DDE Image profile" ;
     dct:abstract "DDE profile for image resources (image, photograph, explanatoryFigure, map). Extends DDEDiscovery with resource type constraint and ddeImagery conditional properties (sensor, platform, equipment, etc.)."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-03-01T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "text/html" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.profiles.DDEProfiles.DDEImage> ],
-        [ dct:format "application/json" ;
+    dct:description [ dct:format "application/json" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/profiles/DDEProfiles/DDEImage/index.json> ],
         [ dct:format "text/markdown" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/profiles/DDEProfiles/DDEImage/index.md> ] ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/profiles/DDEProfiles/DDEImage/index.md> ],
+        [ dct:format "text/html" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.profiles.DDEProfiles.DDEImage> ] ;
     dct:hasVersion "0.1" ;
-    dct:modified "2026-03-17"^^xsd:date ;
+    dct:modified "2026-03-18"^^xsd:date ;
     dct:source <https://www.ddeworld.org> ;
     skos:inScheme <https://usgin.github.io/ddeBuildingBlocks/> ;
     skos:prefLabel "DDE Image profile" ;
     skos:topConceptOf <https://usgin.github.io/ddeBuildingBlocks/> ;
     dcat:keyword "templates" ;
-    prof:hasResource [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeImagery> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+    prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/yaml" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema.yaml> ;
             prof:hasRole role:schema ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema.json> ;
+            prof:hasRole role:schema ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl> ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeImagery> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/rules.shacl> ;
             prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
@@ -600,22 +589,33 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
             prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl> ;
+            prof:hasRole role:validation ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
+            prof:hasRole role:validation ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDEImage> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEImage/rules.shacl> ;
+            prof:hasRole role:validation ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl> ;
+            prof:hasRole role:validation ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl> ;
             prof:hasRole role:validation ],
         [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
             dct:format "application/ld+json" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/context.jsonld> ;
-            prof:hasRole role:mapping ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema.json> ;
-            prof:hasRole role:schema ] ;
+            prof:hasRole role:mapping ] ;
     bblocks:dependsOn <bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset>,
         <bblocks://dde.bbr.metadata.DDEproperties.ddeImagery>,
         <bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory>,
@@ -632,25 +632,20 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     rdfs:label "DDE Semantic Resource profile" ;
     dct:abstract "DDE profile for semantic resources (semanticResource, definedTermSet). Extends DDEDiscovery with resource type constraint."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-03-01T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "application/json" ;
+    dct:description [ dct:format "text/markdown" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/index.md> ],
+        [ dct:format "application/json" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/index.json> ],
         [ dct:format "text/html" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.profiles.DDEProfiles.DDESemanticResource> ],
-        [ dct:format "text/markdown" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/index.md> ] ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.profiles.DDEProfiles.DDESemanticResource> ] ;
     dct:hasVersion "0.1" ;
-    dct:modified "2026-03-17"^^xsd:date ;
+    dct:modified "2026-03-18"^^xsd:date ;
     dct:source <https://www.ddeworld.org> ;
     skos:inScheme <https://usgin.github.io/ddeBuildingBlocks/> ;
     skos:prefLabel "DDE Semantic Resource profile" ;
     skos:topConceptOf <https://usgin.github.io/ddeBuildingBlocks/> ;
     dcat:keyword "templates" ;
-    prof:hasResource [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDESemanticResource> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDESemanticResource/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+    prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/yaml" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/schema.yaml> ;
             prof:hasRole role:schema ],
@@ -658,10 +653,6 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
             dct:format "application/json" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/schema.json> ;
             prof:hasRole role:schema ],
-        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/context.jsonld> ;
-            prof:hasRole role:mapping ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory> ;
@@ -669,18 +660,27 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
             prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl> ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDESemanticResource> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDESemanticResource/rules.shacl> ;
+            prof:hasRole role:validation ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
             prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl> ;
             prof:hasRole role:validation ],
+        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/context.jsonld> ;
+            prof:hasRole role:mapping ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl> ;
             prof:hasRole role:validation ] ;
     bblocks:dependsOn <bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory>,
         <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
@@ -696,14 +696,14 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     rdfs:label "DDE Software profile" ;
     dct:abstract "DDE profile for software resources. Extends DDEDiscovery with resource type constraint."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-03-01T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "text/html" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.profiles.DDEProfiles.DDESoftware> ],
-        [ dct:format "text/markdown" ;
+    dct:description [ dct:format "text/markdown" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/profiles/DDEProfiles/DDESoftware/index.md> ],
+        [ dct:format "text/html" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.profiles.DDEProfiles.DDESoftware> ],
         [ dct:format "application/json" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/profiles/DDEProfiles/DDESoftware/index.json> ] ;
     dct:hasVersion "0.1" ;
-    dct:modified "2026-03-17"^^xsd:date ;
+    dct:modified "2026-03-18"^^xsd:date ;
     dct:source <https://www.ddeworld.org> ;
     skos:inScheme <https://usgin.github.io/ddeBuildingBlocks/> ;
     skos:prefLabel "DDE Software profile" ;
@@ -711,8 +711,13 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     dcat:keyword "templates" ;
     prof:hasResource [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDESoftware> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDESoftware/rules.shacl> ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl> ;
+            prof:hasRole role:validation ],
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl> ;
             prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
@@ -723,15 +728,14 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
             dct:format "application/json" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESoftware/schema.json> ;
             prof:hasRole role:schema ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/yaml" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESoftware/schema.yaml> ;
+            prof:hasRole role:schema ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl> ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDESoftware> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDESoftware/rules.shacl> ;
             prof:hasRole role:validation ],
         [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
             dct:format "application/ld+json" ;
@@ -739,13 +743,9 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
             prof:hasRole role:mapping ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/yaml" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESoftware/schema.yaml> ;
-            prof:hasRole role:schema ] ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
+            prof:hasRole role:validation ] ;
     bblocks:dependsOn <bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory>,
         <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
     bblocks:hasSourceJsonLdContext <https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDESoftware/context.jsonld> ;
@@ -760,35 +760,35 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     rdfs:label "DDE Imagery Properties" ;
     dct:abstract "Conditional extension for imagery resources using the CDIF provenance pattern (cdifProv). Maps DDE imagery acquisition metadata into prov:wasGeneratedBy activities: sensor, platform, equipment, and signalGenerator become typed instruments; collector becomes a participant with DataCollector role; startTime and endTime are activity temporal bounds. Wavelength and processedLevel remain as dataset-level schema:additionalProperty values. Defines properties: prov:wasGeneratedBy, schema:additionalProperty. Uses building blocks: instrument, agentInRole, person, organization, additionalProperty (schemaorgProperties)."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-02-28T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "text/markdown" ;
+    dct:description [ dct:format "text/html" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeImagery> ],
+        [ dct:format "text/markdown" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeImagery/index.md> ],
         [ dct:format "application/json" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeImagery/index.json> ],
-        [ dct:format "text/html" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeImagery> ] ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeImagery/index.json> ] ;
     dct:hasVersion "0.1" ;
-    dct:modified "2026-03-17"^^xsd:date ;
+    dct:modified "2026-03-18"^^xsd:date ;
     dct:source <https://www.ddeworld.org> ;
     skos:inScheme <https://usgin.github.io/ddeBuildingBlocks/> ;
     skos:prefLabel "DDE Imagery Properties" ;
     skos:topConceptOf <https://usgin.github.io/ddeBuildingBlocks/> ;
     dcat:keyword "templates" ;
     prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema.json> ;
+            dct:format "application/yaml" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema.yaml> ;
             prof:hasRole role:schema ],
-        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/context.jsonld> ;
-            prof:hasRole role:mapping ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeImagery> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/rules.shacl> ;
             prof:hasRole role:validation ],
+        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/context.jsonld> ;
+            prof:hasRole role:mapping ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/yaml" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema.yaml> ;
+            dct:format "application/json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema.json> ;
             prof:hasRole role:schema ] ;
     bblocks:hasSourceJsonLdContext <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/context.jsonld> ;
     bblocks:scope <http://www.opengis.net/def/bblocks/scope/unstable> ;
@@ -802,36 +802,36 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     rdfs:label "DDE Geographic Dataset Properties" ;
     dct:abstract "Conditional extension for geographic dataset resources. Implements MD_SpatialRepresentation (DDE spec Table 5): mandatory spatialCoverage, plus spatialRepresentationType, spatialResolution, referenceSystemType, and referenceSystemIdentifier. Defines properties: schema:spatialCoverage, schema:additionalProperty. Uses building blocks: spatialExtent (schemaorgProperties), additionalProperty (schemaorgProperties), identifier (schemaorgProperties)."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-03-01T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "text/markdown" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeGeographicDataset/index.md> ],
-        [ dct:format "text/html" ;
+    dct:description [ dct:format "text/html" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeGeographicDataset> ],
         [ dct:format "application/json" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeGeographicDataset/index.json> ] ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeGeographicDataset/index.json> ],
+        [ dct:format "text/markdown" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeGeographicDataset/index.md> ] ;
     dct:hasVersion "0.1" ;
-    dct:modified "2026-03-17"^^xsd:date ;
+    dct:modified "2026-03-18"^^xsd:date ;
     dct:source <https://www.ddeworld.org> ;
     skos:inScheme <https://usgin.github.io/ddeBuildingBlocks/> ;
     skos:prefLabel "DDE Geographic Dataset Properties" ;
     skos:topConceptOf <https://usgin.github.io/ddeBuildingBlocks/> ;
     dcat:keyword "templates" ;
-    prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/yaml" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema.yaml> ;
+    prof:hasResource [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl> ;
+            prof:hasRole role:validation ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema.json> ;
             prof:hasRole role:schema ],
         [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
             dct:format "application/ld+json" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/context.jsonld> ;
             prof:hasRole role:mapping ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema.json> ;
-            prof:hasRole role:schema ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl> ;
-            prof:hasRole role:validation ] ;
+            dct:format "application/yaml" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema.yaml> ;
+            prof:hasRole role:schema ] ;
     bblocks:hasSourceJsonLdContext <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/context.jsonld> ;
     bblocks:scope <http://www.opengis.net/def/bblocks/scope/unstable> ;
     bblocks:status <http://www.opengis.net/def/status/under-development> ;
@@ -844,30 +844,30 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     rdfs:label "Metadata Conforms to for DDE" ;
     dct:abstract "For DDE profile, need to declare conformance with DDE profile in the metadata catalog record. Defines properties: dcterms:conformsTo. Uses building blocks: cdifCatalogRecord (cdifProperties)."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-02-28T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "text/markdown" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeSubject/index.md> ],
+    dct:description [ dct:format "text/html" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeSubject> ],
         [ dct:format "application/json" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeSubject/index.json> ],
-        [ dct:format "text/html" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeSubject> ] ;
+        [ dct:format "text/markdown" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeSubject/index.md> ] ;
     dct:hasVersion "0.1" ;
-    dct:modified "2026-03-17"^^xsd:date ;
+    dct:modified "2026-03-18"^^xsd:date ;
     dct:source <https://www.ddeworld.org> ;
     skos:inScheme <https://usgin.github.io/ddeBuildingBlocks/> ;
     skos:prefLabel "Metadata Conforms to for DDE" ;
     skos:topConceptOf <https://usgin.github.io/ddeBuildingBlocks/> ;
     dcat:keyword "templates" ;
     prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/yaml" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema.yaml> ;
+            dct:format "application/json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema.json> ;
             prof:hasRole role:schema ],
         [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
             dct:format "application/ld+json" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/context.jsonld> ;
             prof:hasRole role:mapping ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema.json> ;
+            dct:format "application/yaml" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema.yaml> ;
             prof:hasRole role:schema ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
@@ -877,7 +877,7 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     bblocks:hasSourceJsonLdContext <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/context.jsonld> ;
     bblocks:scope <http://www.opengis.net/def/bblocks/scope/unstable> ;
     bblocks:status <http://www.opengis.net/def/status/under-development> ;
-    bblocks:validationPassed false .
+    bblocks:validationPassed true .
 
 <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> a skos:Concept,
         dcat:Dataset,
@@ -888,18 +888,22 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     dct:created "2026-02-28T00:00:00+00:00"^^xsd:dateTime ;
     dct:description [ dct:format "text/markdown" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeResourceType/index.md> ],
-        [ dct:format "text/html" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeResourceType> ],
         [ dct:format "application/json" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeResourceType/index.json> ] ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeResourceType/index.json> ],
+        [ dct:format "text/html" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeResourceType> ] ;
     dct:hasVersion "0.1" ;
-    dct:modified "2026-03-17"^^xsd:date ;
+    dct:modified "2026-03-18"^^xsd:date ;
     dct:source <https://www.ddeworld.org> ;
     skos:inScheme <https://usgin.github.io/ddeBuildingBlocks/> ;
     skos:prefLabel "DDE Resource Type" ;
     skos:topConceptOf <https://usgin.github.io/ddeBuildingBlocks/> ;
     dcat:keyword "templates" ;
-    prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+    prof:hasResource [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/context.jsonld> ;
+            prof:hasRole role:mapping ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/json" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.json> ;
             prof:hasRole role:schema ],
@@ -911,11 +915,7 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/context.jsonld> ;
-            prof:hasRole role:mapping ] ;
+            prof:hasRole role:validation ] ;
     bblocks:hasSourceJsonLdContext <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/context.jsonld> ;
     bblocks:scope <http://www.opengis.net/def/bblocks/scope/unstable> ;
     bblocks:status <http://www.opengis.net/def/status/under-development> ;
@@ -930,46 +930,46 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     rdfs:label "DDE Mandatory metadata properties" ;
     dct:abstract "DDE profile extensions that add mandatory fields beyond CDIF discovery: DDE resource type (from ResourceTypeCode), topic category keywords (from TopicCategoryCode), acquisition type keywords (from AcquisitionTypeCode), browse graphic images, and DDE profile conformance declaration. Defines properties: schema:subjectOf, schema:additionalType, schema:keywords, schema:image. Uses building blocks: cdifMandatory (cdifProperties), definedTerm (schemaorgProperties), ddeSubject (DDEproperties), ddeResourceType (DDEproperties)."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-02-28T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "text/html" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeMandatory> ],
-        [ dct:format "text/markdown" ;
+    dct:description [ dct:format "text/markdown" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeMandatory/index.md> ],
+        [ dct:format "text/html" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeMandatory> ],
         [ dct:format "application/json" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeMandatory/index.json> ] ;
     dct:hasVersion "0.1" ;
-    dct:modified "2026-03-17"^^xsd:date ;
+    dct:modified "2026-03-18"^^xsd:date ;
     dct:source <https://www.ddeworld.org> ;
     skos:inScheme <https://usgin.github.io/ddeBuildingBlocks/> ;
     skos:prefLabel "DDE Mandatory metadata properties" ;
     skos:topConceptOf <https://usgin.github.io/ddeBuildingBlocks/> ;
     dcat:keyword "templates" ;
-    prof:hasResource [ dct:conformsTo shacl: ;
+    prof:hasResource [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/yaml" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml> ;
+            prof:hasRole role:schema ],
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.json> ;
+            prof:hasRole role:schema ],
+        [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl> ;
             prof:hasRole role:validation ],
         [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
-            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
-            prof:hasRole role:validation ],
-        [ dct:conformsTo shacl: ;
-            dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeSubject/rules.shacl> ;
             prof:hasRole role:validation ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.json> ;
-            prof:hasRole role:schema ],
         [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
             dct:format "application/ld+json" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/context.jsonld> ;
             prof:hasRole role:mapping ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/yaml" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml> ;
-            prof:hasRole role:schema ] ;
+        [ dct:conformsTo shacl: ;
+            dct:format "text/turtle" ;
+            rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType> ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl> ;
+            prof:hasRole role:validation ] ;
     bblocks:dependsOn <bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType>,
         <bblocks://dde.bbr.metadata.DDEproperties.ddeSubject> ;
     bblocks:hasSourceJsonLdContext <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/context.jsonld> ;
@@ -984,36 +984,36 @@ schema:WebAPI rdfs:label "schema.org WebAPI" .
     rdfs:label "Optional Fields for DDE Geoscience Metadata" ;
     dct:abstract "DDE profile optional properties beyond CDIF optional: alternate names, measurement techniques, and additional unconstrained keywords and types. Defines properties: schema:alternateName, schema:measurementTechnique, schema:keywords, schema:additionalType. Uses building blocks: definedTerm (schemaorgProperties)."^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
     dct:created "2026-02-28T00:00:00+00:00"^^xsd:dateTime ;
-    dct:description [ dct:format "text/markdown" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeOptional/index.md> ],
+    dct:description [ dct:format "application/json" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeOptional/index.json> ],
         [ dct:format "text/html" ;
             rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeOptional> ],
-        [ dct:format "application/json" ;
-            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeOptional/index.json> ] ;
+        [ dct:format "text/markdown" ;
+            rdfs:isDefinedBy <https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeOptional/index.md> ] ;
     dct:hasVersion "0.1" ;
-    dct:modified "2026-03-17"^^xsd:date ;
+    dct:modified "2026-03-18"^^xsd:date ;
     dct:source <https://www.ddeworld.org> ;
     skos:inScheme <https://usgin.github.io/ddeBuildingBlocks/> ;
     skos:prefLabel "Optional Fields for DDE Geoscience Metadata" ;
     skos:topConceptOf <https://usgin.github.io/ddeBuildingBlocks/> ;
     dcat:keyword "templates" ;
-    prof:hasResource [ dct:conformsTo shacl: ;
+    prof:hasResource [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
+            dct:format "application/ld+json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/context.jsonld> ;
+            prof:hasRole role:mapping ],
+        [ dct:conformsTo shacl: ;
             dct:format "text/turtle" ;
             rdfs:seeAlso <bblocks://dde.bbr.metadata.DDEproperties.ddeOptional> ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl> ;
             prof:hasRole role:validation ],
         [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
-            dct:format "application/json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.json> ;
-            prof:hasRole role:schema ],
-        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
             dct:format "application/yaml" ;
             prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml> ;
             prof:hasRole role:schema ],
-        [ dct:conformsTo <https://www.w3.org/TR/json-ld11/> ;
-            dct:format "application/ld+json" ;
-            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/context.jsonld> ;
-            prof:hasRole role:mapping ] ;
+        [ dct:conformsTo <https://json-schema.org/draft/2020-12/schema> ;
+            dct:format "application/json" ;
+            prof:hasArtifact <https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.json> ;
+            prof:hasRole role:schema ] ;
     bblocks:hasSourceJsonLdContext <https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/context.jsonld> ;
     bblocks:scope <http://www.opengis.net/def/bblocks/scope/unstable> ;
     bblocks:status <http://www.opengis.net/def/status/under-development> ;
@@ -1029,7 +1029,7 @@ using the OGC Building Blocks pattern.
     dct:description """Modular schema components for DDE resource type metadata. Imports shared
 schema.org and CDIF property building blocks from the CDIF Building Blocks repository.
 """^^<https://www.w3.org/ns/iana/media-types/text/markdown> ;
-    dct:modified "2026-03-17T15:24:44.964060"^^xsd:dateTime ;
+    dct:modified "2026-03-18T13:57:06.623314"^^xsd:dateTime ;
     owl:imports <https://opengeospatial.github.io/bblocks/register.json>,
         <https://usgin.github.io/metadataBuildingBlocks/build/register.json> ;
     skos:hasTopConcept <bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset>,
@@ -1052,22 +1052,22 @@ schema.org and CDIF property building blocks from the CDIF Building Blocks repos
     skos:prefLabel "Building Blocks - DDE Building Blocks repository" ;
     prof:hasResource [ rdfs:label "This Building Blocks Register in JSON-LD format" ;
             dct:type "application/ld+json" ;
-            ns2:relation <http://www.iana.org/assignments/relation/self> ;
-            ns1:hasTarget <https://usgin.github.io/ddeBuildingBlocks/build/bblocks.jsonld> ],
-        [ rdfs:label "This Building Blocks Register in RDF Turtle format" ;
-            dct:type "text/turtle" ;
-            ns2:relation <http://www.iana.org/assignments/relation/self> ;
-            ns1:hasTarget <https://usgin.github.io/ddeBuildingBlocks/build/bblocks.ttl> ],
+            ns1:relation <http://www.iana.org/assignments/relation/self> ;
+            ns2:hasTarget <https://usgin.github.io/ddeBuildingBlocks/build/bblocks.jsonld> ],
         [ rdfs:label "This Building Blocks Register in JSON format" ;
             dct:type "application/json" ;
-            ns2:relation <http://www.iana.org/assignments/relation/self> ;
-            ns1:hasTarget <https://usgin.github.io/ddeBuildingBlocks/build/register.json> ] ;
+            ns1:relation <http://www.iana.org/assignments/relation/self> ;
+            ns2:hasTarget <https://usgin.github.io/ddeBuildingBlocks/build/register.json> ],
+        [ rdfs:label "This Building Blocks Register in RDF Turtle format" ;
+            dct:type "text/turtle" ;
+            ns1:relation <http://www.iana.org/assignments/relation/self> ;
+            ns2:hasTarget <https://usgin.github.io/ddeBuildingBlocks/build/bblocks.ttl> ] ;
     foaf:homepage <https://usgin.github.io/ddeBuildingBlocks/> ;
     bblocks:hasValidationReport <https://usgin.github.io/ddeBuildingBlocks/build/tests/report.html> .
 
-_:Nd2309de21fb7427dbbd6a1669fe340b2 a prov:Agent,
+_:N1d010b142be34119a7dba95c17752004 a prov:Agent,
         schema:SoftwareApplication ;
     rdfs:label "OGC-NA tools" ;
-    dct:hasVersion "0.5.23" ;
+    dct:hasVersion "0.5.24" ;
     rdfs:seeAlso <https://github.com/opengeospatial/ogc-na-tools> .
 

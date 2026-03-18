@@ -79,6 +79,9 @@ DDE discovery metadata for a published research article on global plate tectonic
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument"
+      },
+      {
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
       }
     ],
     "schema:sdDatePublished": "2021-02-15"
@@ -217,6 +220,9 @@ DDE discovery metadata for a published research article on global plate tectonic
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument"
+      },
+      {
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
       }
     ],
     "schema:sdDatePublished": "2021-02-15"
@@ -327,13 +333,13 @@ DDE discovery metadata for a published research article on global plate tectonic
             schema1:name "article thumbnail" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Data Integration Synthesis" ;
-            schema1:termCode "dataIntegrationSynthesis" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Data Integration Synthesis" ;
+            schema1:termCode "dataIntegrationSynthesis" ],
         "Pangaea",
         "continental drift",
         "paleogeography",
@@ -345,7 +351,8 @@ DDE discovery metadata for a published research article on global plate tectonic
     schema1:subjectOf <urn:uuid:dde-document-catalog-record> .
 
 <urn:uuid:dde-document-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument>,
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,
+        <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument>,
         <https://w3id.org/cdif/core/1.0/>,
         <https://w3id.org/cdif/discovery/1.0/> ;
     schema1:about <urn:dde:example-plate-tectonics-article> ;

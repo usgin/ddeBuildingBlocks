@@ -74,6 +74,9 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware"
+      },
+      {
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
       }
     ],
     "schema:sdDatePublished": "2024-01-20"
@@ -198,6 +201,9 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware"
+      },
+      {
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
       }
     ],
     "schema:sdDatePublished": "2024-01-20"
@@ -309,7 +315,8 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
     schema1:version "2.5" .
 
 <urn:uuid:dde-software-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware>,
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,
+        <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware>,
         <https://w3id.org/cdif/core/1.0/>,
         <https://w3id.org/cdif/discovery/1.0/> ;
     schema1:about <urn:dde:example-gplates> ;

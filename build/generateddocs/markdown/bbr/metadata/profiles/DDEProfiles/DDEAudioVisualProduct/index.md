@@ -74,6 +74,9 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct"
+      },
+      {
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
       }
     ],
     "schema:sdDatePublished": "2023-09-15"
@@ -204,6 +207,9 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct"
+      },
+      {
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
       }
     ],
     "schema:sdDatePublished": "2023-09-15"
@@ -326,7 +332,8 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
     schema1:url "https://example.org/videos/plate-tectonics-explained" .
 
 <urn:uuid:dde-audiovisual-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct>,
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,
+        <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct>,
         <https://w3id.org/cdif/core/1.0/>,
         <https://w3id.org/cdif/discovery/1.0/> ;
     schema1:about <urn:dde:example-plate-tectonics-video> ;

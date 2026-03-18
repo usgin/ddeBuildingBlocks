@@ -2,7 +2,7 @@
   "title": "Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDESoftware - DDE Software profile",
   "bblockName": "DDE Software profile",
   "bblockId": "dde.bbr.metadata.profiles.DDEProfiles.DDESoftware",
-  "generated": "2026-03-17T15:25:02.609028+00:00",
+  "generated": "2026-03-18T13:57:19.969112+00:00",
   "result": false,
   "items": [
     {
@@ -40,7 +40,7 @@
               "op": "ttl-create",
               "empty": false,
               "filename": "example_1_1.ttl",
-              "size": 56,
+              "size": 57,
               "isError": false,
               "message": "Output Turtle example_1_1.ttl created"
             }
@@ -52,11 +52,9 @@
           "entries": [
             {
               "op": "validation",
-              "result": false,
-              "exception": "ValidationError",
-              "errorMessage": "[{'@id': 'https://w3id.org/cdif/core/1.0/'}, {'@id': 'https://w3id.org/cdif/discovery/1.0/'}, {'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware'}] does not contain items matching the given schema",
-              "isError": true,
-              "message": "ValidationError: [{'@id': 'https://w3id.org/cdif/core/1.0/'}, {'@id': 'https://w3id.org/cdif/discovery/1.0/'}, {'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware'}] does not contain items matching the given schema\n\nFailed validating 'contains' in schema['allOf'][0]['allOf'][2]['properties']['schema:subjectOf']['allOf'][1]['properties']['dcterms:conformsTo']:\n    {'contains': {'properties': {'@id': {'const': 'https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory'}},\n                  'required': ['@id'],\n                  'type': 'object'},\n     'items': {'properties': {'@id': {'type': 'string'}}, 'type': 'object'},\n     'minContains': 1,\n     'minItems': 1,\n     'type': 'array'}\n\nOn instance['schema:subjectOf']['dcterms:conformsTo']:\n    [{'@id': 'https://w3id.org/cdif/core/1.0/'},\n     {'@id': 'https://w3id.org/cdif/discovery/1.0/'},\n     {'@id': 'https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware'}]"
+              "result": true,
+              "isError": false,
+              "message": "Validation passed"
             }
           ]
         },
@@ -74,32 +72,15 @@
             {
               "shaclFile": "_sources/profiles/DDEProfiles/DDESoftware/rules.shacl",
               "focusNodes": {
-                "cdifd:DDESoftwareConformanceShape": {
-                  "nodes": []
-                },
                 "cdifd:DDESoftwareConformanceShape/sh:property/sh:qualifiedValueShape": {
                   "nodes": []
-                }
-              },
-              "isError": false,
-              "message": "Focus nodes for _sources/profiles/DDEProfiles/DDESoftware/rules.shacl:\n - Shape cdifd:DDESoftwareConformanceShape: *none*\n - Shape cdifd:DDESoftwareConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n"
-            },
-            {
-              "op": "shacl-report",
-              "shaclFile": "_sources/DDEproperties/ddeOptional/rules.shacl",
-              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
-              "isError": false,
-              "message": "Validation result for _sources/DDEproperties/ddeOptional/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
-            },
-            {
-              "shaclFile": "_sources/DDEproperties/ddeOptional/rules.shacl",
-              "focusNodes": {
-                "cdifd:DDEOptionalDatasetShape": {
+                },
+                "cdifd:DDESoftwareConformanceShape": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/DDEproperties/ddeOptional/rules.shacl:\n - Shape cdifd:DDEOptionalDatasetShape: *none*\n"
+              "message": "Focus nodes for _sources/profiles/DDEProfiles/DDESoftware/rules.shacl:\n - Shape cdifd:DDESoftwareConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n - Shape cdifd:DDESoftwareConformanceShape: *none*\n"
             },
             {
               "op": "shacl-report",
@@ -111,17 +92,34 @@
             {
               "shaclFile": "_sources/DDEproperties/ddeMandatory/rules.shacl",
               "focusNodes": {
+                "cdifd:DDERequiredDatasetShape": {
+                  "nodes": []
+                },
                 "cdifd:DDEImageObjectShape": {
                   "nodes": [
                     "<urn:dde:example-gplates>/schema1:image"
                   ]
-                },
-                "cdifd:DDERequiredDatasetShape": {
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDERequiredDatasetShape: *none*\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-gplates>/schema1:image\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/DDEproperties/ddeResourceType/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/DDEproperties/ddeResourceType/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/DDEproperties/ddeResourceType/rules.shacl",
+              "focusNodes": {
+                "cdifd:DDEResourceTypeShape": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-gplates>/schema1:image\n - Shape cdifd:DDERequiredDatasetShape: *none*\n"
+              "message": "Focus nodes for _sources/DDEproperties/ddeResourceType/rules.shacl:\n - Shape cdifd:DDEResourceTypeShape: *none*\n"
             },
             {
               "op": "shacl-report",
@@ -142,20 +140,20 @@
             },
             {
               "op": "shacl-report",
-              "shaclFile": "_sources/DDEproperties/ddeResourceType/rules.shacl",
+              "shaclFile": "_sources/DDEproperties/ddeOptional/rules.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/DDEproperties/ddeResourceType/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/DDEproperties/ddeOptional/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
             },
             {
-              "shaclFile": "_sources/DDEproperties/ddeResourceType/rules.shacl",
+              "shaclFile": "_sources/DDEproperties/ddeOptional/rules.shacl",
               "focusNodes": {
-                "cdifd:DDEResourceTypeShape": {
+                "cdifd:DDEOptionalDatasetShape": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/DDEproperties/ddeResourceType/rules.shacl:\n - Shape cdifd:DDEResourceTypeShape: *none*\n"
+              "message": "Focus nodes for _sources/DDEproperties/ddeOptional/rules.shacl:\n - Shape cdifd:DDEOptionalDatasetShape: *none*\n"
             }
           ]
         }

@@ -74,6 +74,9 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource"
+      },
+      {
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
       }
     ],
     "schema:sdDatePublished": "2024-09-01"
@@ -201,6 +204,9 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource"
+      },
+      {
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
       }
     ],
     "schema:sdDatePublished": "2024-09-01"
@@ -295,13 +301,13 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
             schema1:name "Geological Time Viewer screenshot" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Data Integration Synthesis" ;
             schema1:termCode "dataIntegrationSynthesis" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "ICS",
         "chronostratigraphy",
         "geological time",
@@ -316,7 +322,8 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
     schema1:url "https://deep-time.org/geological-time/" .
 
 <urn:uuid:dde-funcres-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource>,
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,
+        <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource>,
         <https://w3id.org/cdif/core/1.0/>,
         <https://w3id.org/cdif/discovery/1.0/> ;
     schema1:about <urn:dde:example-geological-time-viewer> ;

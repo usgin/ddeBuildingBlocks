@@ -75,6 +75,9 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEEvent"
+      },
+      {
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
       }
     ],
     "schema:sdDatePublished": "2022-09-01"
@@ -210,6 +213,9 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEEvent"
+      },
+      {
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
       }
     ],
     "schema:sdDatePublished": "2022-09-01"
@@ -335,7 +341,8 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
     schema1:url "https://www.iodp.org/expedition396" .
 
 <urn:uuid:dde-event-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEEvent>,
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,
+        <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEEvent>,
         <https://w3id.org/cdif/core/1.0/>,
         <https://w3id.org/cdif/discovery/1.0/> ;
     schema1:about <urn:dde:example-iodp-expedition-396> ;

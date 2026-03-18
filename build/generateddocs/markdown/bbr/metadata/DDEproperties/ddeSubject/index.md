@@ -42,8 +42,7 @@ Import base schema.org SubjectOf, add requirement that dcterms:conformsTo has DD
     "schema:description": "Metadata record for a DDE geoscience dataset",
     "dcterms:conformsTo": [
         {"@id": "https://w3id.org/cdif/core/1.0/"},
-        {"@id": "https://w3id.org/cdif/discovery/1.0/"},
-        {"@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery"}
+        {"@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"}
     ]
 }
 
@@ -89,10 +88,7 @@ Import base schema.org SubjectOf, add requirement that dcterms:conformsTo has DD
       "@id": "https://w3id.org/cdif/core/1.0/"
     },
     {
-      "@id": "https://w3id.org/cdif/discovery/1.0/"
-    },
-    {
-      "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery"
+      "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
     }
   ]
 }
@@ -104,9 +100,8 @@ Import base schema.org SubjectOf, add requirement that dcterms:conformsTo has DD
 @prefix schema1: <http://schema.org/> .
 
 <https://example.org/metadata/geo-dataset-001> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery>,
-        <https://w3id.org/cdif/core/1.0/>,
-        <https://w3id.org/cdif/discovery/1.0/> ;
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,
+        <https://w3id.org/cdif/core/1.0/> ;
     schema1:about <https://example.org/dataset/geo-dataset-001> ;
     schema1:additionalType "dcat:CatalogRecord" ;
     schema1:creator <https://orcid.org/0000-0002-7933-2154> ;
