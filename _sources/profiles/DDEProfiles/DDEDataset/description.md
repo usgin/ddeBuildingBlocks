@@ -4,7 +4,7 @@ DDE profile for dataset resources. Extends DDEDiscovery with a resource type con
 
 ### Composed building blocks
 
-1. **DDEDiscovery** — Base DDE discovery profile (cdifMandatory + cdifOptional + ddeMandatory + ddeOptional)
+1. **DDEDiscovery** — Base DDE discovery profile (cdifCore + cdifOptional + ddeMandatory + ddeOptional)
 2. **Resource type constraint** — `schema:termCode` must be one of the dataset group codes
 
 ### Sub-profile: geographicDataset

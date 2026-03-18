@@ -160,7 +160,7 @@ def deep_merge(base: dict, overlay: dict) -> dict:
     property definition that already exists in the base AND the overlay looks
     like a complete schema definition (has ``type``, ``oneOf``, ``anyOf``,
     ``allOf``, or ``$ref``), the overlay **replaces** the base definition
-    entirely.  This prevents invalid schemas where, e.g., cdifMandatory's
+    entirely.  This prevents invalid schemas where, e.g., cdifCore's
     distribution (``anyOf``) and adaProduct's (``oneOf``) get combined.
 
     When the overlay is a partial constraint patch (no ``type`` or composition

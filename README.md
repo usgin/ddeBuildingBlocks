@@ -8,7 +8,7 @@ Modular metadata schema components for [Deep-time Digital Earth (DDE)](https://w
 
 Property building blocks that define DDE-specific metadata elements:
 
-- **ddeMandatory** — DDE mandatory fields: resource type (ResourceTypeCode), topic/acquisition keywords, browse graphics, conformance declaration. Composes cdifMandatory + ddeResourceType.
+- **ddeMandatory** — DDE mandatory fields: resource type (ResourceTypeCode), topic/acquisition keywords, browse graphics, conformance declaration. Composes cdifCore + ddeResourceType.
 - **ddeOptional** — DDE optional fields: alternate names. Composes cdifOptional.
 - **ddeResourceType** — Constrains schema:additionalType to require a DefinedTerm from the DDE ResourceTypeCode codelist.
 - **ddeSubject** — DDE catalog record conformance declaration.

@@ -9,443 +9,7 @@
       "description": "Extends CDIF mandatory metadata with DDE-specific mandatory fields.",
       "allOf": [
         {
-          "type": "object",
-          "title": "Optional properties for CDIF Discovery metadata schema, with schema: prefixes",
-          "description": "Building block specifies properties for minimal CDIF schama.org discovery record",
-          "properties": {
-            "@context": {
-              "type": "object",
-              "description": "JSON-LD context declaring namespace prefixes used in the metadata record.",
-              "properties": {
-                "schema": {
-                  "const": "http://schema.org/"
-                },
-                "dcterms": {
-                  "const": "http://purl.org/dc/terms/"
-                },
-                "spdx": {
-                  "const": "http://spdx.org/rdf/terms#"
-                },
-                "dcat": {
-                  "const": "http://www.w3.org/ns/dcat#"
-                }
-              },
-              "required": [
-                "schema",
-                "dcterms"
-              ]
-            },
-            "@id": {
-              "type": "string",
-              "description": "The URI for the resource should be the @id value for the root of the JSON instance document tree. Must be an IRI (e.g. https://doi.org/..., urn:..., or a relative URI like #localid). Note that this identifier can be interpreted to identify the resource that is the subject of this metadata record, or the JSON-LD object that is the digital object containing the metadata information."
-            },
-            "@type": {
-              "description": "a schema.org Class that specifies the expected information content for the metadata record. The array must include at least one schema.org type value. Default is schema:Dataset.",
-              "type": "array",
-              "items": {
-                "type": "string",
-                "enum": [
-                  "schema:CreativeWork",
-                  "schema:SoftwareApplication",
-                  "schema:SoftwareSourceCode",
-                  "schema:Product",
-                  "schema:WebAPI",
-                  "schema:Dataset",
-                  "schema:DigitalDocument",
-                  "schema:Collection",
-                  "schema:ImageObject",
-                  "schema:DataCatalog",
-                  "schema:DefinedTermSet",
-                  "schema:MediaObject"
-                ]
-              },
-              "default": "schema:Dataset",
-              "minItems": 1,
-              "contains": {
-                "const": "schema:Dataset"
-              }
-            },
-            "schema:name": {
-              "type": "string",
-              "description": "A descriptive name of a dataset (e.g., 'Snow depth in Northern Hemisphere'). The name should uniquely identify the described resource for human use, in the scope of the metadata catalog containing this metadata record."
-            },
-            "schema:identifier": {
-              "description": "The primary identifier for the dataset; other identifiers should be listed in the sameAs field. Schema.org has three ways of encoding identifiers-- a text description, a URL, or by using the schema:PropertyValue field. The Science on Schema.org guidance strongly recommends using the PropertyValue approach. see https://github.com/ESIPFed/science-on-schema.org   .... Dataset.md#identifier.  Ideally, for any given data provided they would provide identifiers either all as strings or all as identifier_type.",
-              "anyOf": [
-                {
-                  "description": "Properties for a schema.org identifier",
-                  "type": "object",
-                  "properties": {
-                    "@type": {
-                      "anyOf": [
-                        {
-                          "type": "string",
-                          "const": "schema:PropertyValue"
-                        },
-                        {
-                          "type": "array",
-                          "items": {
-                            "type": "string"
-                          },
-                          "contains": {
-                            "const": "schema:PropertyValue"
-                          }
-                        }
-                      ]
-                    },
-                    "schema:propertyID": {
-                      "type": "string",
-                      "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
-                    },
-                    "schema:value": {
-                      "type": "string",
-                      "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
-                    },
-                    "schema:url": {
-                      "type": "string",
-                      "format": "uri",
-                      "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
-                    }
-                  },
-                  "allOf": [
-                    {
-                      "required": [
-                        "@type"
-                      ]
-                    },
-                    {
-                      "anyOf": [
-                        {
-                          "required": [
-                            "schema:value"
-                          ]
-                        },
-                        {
-                          "required": [
-                            "schema:url"
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "string"
-                }
-              ]
-            },
-            "schema:dateModified": {
-              "type": "string",
-              "description": "ISO8601 formatted date (and optional time if relevant) when Dataset was last updated"
-            },
-            "schema:conditionsOfAccess": {
-              "description": "text statement of conditions for use and access; if an online resource documents the restrictions or a URI is used to identify the conditions, recommend using schema:CreativeWork to provide a label (name) and an identifier (URI or URL). ",
-              "type": "array",
-              "minItems": 0,
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "@id": {
-                        "type": "string",
-                        "description": "a reference to a resource defining conditions of Access"
-                      }
-                    }
-                  },
-                  {
-                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\labeledLink\\schema.yaml"
-                  }
-                ]
-              }
-            },
-            "schema:license": {
-              "description": "legal statement of conditions for use and access; recommend using schema:CreativeWork to provide a label (name) for the license, and an identifier. Sources of license identifiers: https://opensource.org/licenses/, https://creativecommons.org/about/cclicenses/, https://spdx.org/licenses/, http://cor.esipfed.org/ont/earthcube/swl. If only a string is provided, it should be an identifier for the license, ideally a resolvable URI",
-              "type": "array",
-              "minItems": 0,
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "@id": {
-                        "type": "string",
-                        "description": "a reference to a license defintion"
-                      }
-                    }
-                  },
-                  {
-                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\labeledLink\\schema.yaml"
-                  }
-                ]
-              }
-            },
-            "schema:url": {
-              "type": "string",
-              "format": "uri",
-              "description": "Web Location of a page describing the dataset (landing page), typically providing links or instructions to get the actual resource content; analogous to dcat:accessURL. If a direct link is available to get the data, put in distribution/contentUrl"
-            },
-            "schema:distribution": {
-              "description": "specifies how to download the data in a specific format or access via a web API. This property describes where to get the data and in what format by using the schema:DataDownload type. If user must access data through a landing page, provide link to landing page in the 'url' property for the dataset",
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\dataDownload\\schema.yaml"
-                  },
-                  {
-                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\webAPI\\schema.yaml"
-                  }
-                ]
-              }
-            },
-            "schema:subjectOf": {
-              "allOf": [
-                {
-                  "type": "object",
-                  "description": "see https://github.com/Cross-Domain-Interoperability-Framework/Discovery/issues/13 for discussion on how to make assertion about the sample registration and metadata distinct from statements about the physical object",
-                  "properties": {
-                    "@type": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "contains": {
-                        "const": "schema:Dataset"
-                      },
-                      "minItems": 1
-                    },
-                    "schema:additionalType": {
-                      "type": "array",
-                      "description": "additional type assertions for the catalog record node. dcat:CatalogRecord is required.",
-                      "items": {
-                        "type": "string"
-                      },
-                      "contains": {
-                        "const": "dcat:CatalogRecord"
-                      },
-                      "minItems": 1
-                    },
-                    "@id": {
-                      "type": "string",
-                      "description": "identifier for the metadata record"
-                    },
-                    "schema:about": {
-                      "type": "object",
-                      "properties": {
-                        "@id": {
-                          "type": "string",
-                          "description": "this must be the @id value of the node containing the resource description metadata"
-                        }
-                      }
-                    },
-                    "dcterms:conformsTo": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "@id": {
-                            "type": "string",
-                            "description": "uri for specifications that this metadata record conforms to"
-                          }
-                        }
-                      },
-                      "minItems": 1,
-                      "description": "uri for specifications that this metadata record conforms to. Minimimally should specify uri for CDIF discovery profile.  Implement as $def to facilitate extension for profiles that need to add conformance statements"
-                    },
-                    "schema:maintainer": {
-                      "description": "iSamples Registrant. identification of the agent that registered the sample, with contact information. Should include person name and affiliation, or position name and affiliation, or just organization name. e-mail address is preferred contact information.",
-                      "anyOf": [
-                        {
-                          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
-                        },
-                        {
-                          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
-                        }
-                      ]
-                    },
-                    "schema:sdDatePublished": {
-                      "description": "date of most recent update to the metadata content, extends iSamples schema",
-                      "type": "string",
-                      "format": "date"
-                    },
-                    "schema:includedInDataCatalog": {
-                      "type": "object",
-                      "description": "identify the data collection or repository that contains the described dataset. The value is expected to be a schema:DataCatalog",
-                      "properties": {
-                        "@id": {
-                          "type": "string",
-                          "description": "identifier for the containing catalog or repository; example data at https://github.com/ESIPFed/science-on-schema.org/blob/develop/guides/Dataset.md#catalog puts identifier here"
-                        },
-                        "@type": {
-                          "default": "schema:DataCatalog",
-                          "anyOf": [
-                            {
-                              "type": "string",
-                              "const": "schema:DataCatalog"
-                            },
-                            {
-                              "type": "array",
-                              "items": {
-                                "type": "string"
-                              },
-                              "contains": {
-                                "const": "schema:DataCatalog"
-                              }
-                            }
-                          ]
-                        },
-                        "schema:name": {
-                          "type": "string"
-                        },
-                        "schema:url": {
-                          "type": "string",
-                          "format": "uri",
-                          "description": "locator to access a landing page for the collection or catalog"
-                        },
-                        "schema:identifier": {
-                          "description": "identifier for the collection or catalog; use identifier_type to provide information on identifier scheme and context for identifier",
-                          "type": "object",
-                          "properties": {
-                            "@type": {
-                              "anyOf": [
-                                {
-                                  "type": "string",
-                                  "const": "schema:PropertyValue"
-                                },
-                                {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "string"
-                                  },
-                                  "contains": {
-                                    "const": "schema:PropertyValue"
-                                  }
-                                }
-                              ]
-                            },
-                            "schema:propertyID": {
-                              "type": "string",
-                              "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
-                            },
-                            "schema:value": {
-                              "type": "string",
-                              "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
-                            },
-                            "schema:url": {
-                              "type": "string",
-                              "format": "uri",
-                              "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
-                            }
-                          },
-                          "allOf": [
-                            {
-                              "required": [
-                                "@type"
-                              ]
-                            },
-                            {
-                              "anyOf": [
-                                {
-                                  "required": [
-                                    "schema:value"
-                                  ]
-                                },
-                                {
-                                  "required": [
-                                    "schema:url"
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  },
-                  "required": [
-                    "schema:about",
-                    "dcterms:conformsTo",
-                    "schema:additionalType",
-                    "@type",
-                    "@id"
-                  ]
-                },
-                {
-                  "properties": {
-                    "dcterms:conformsTo": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "@id": {
-                            "type": "string",
-                            "description": "uri for specifications that this metadata record conforms to"
-                          }
-                        }
-                      },
-                      "minItems": 1,
-                      "contains": {
-                        "type": "object",
-                        "properties": {
-                          "@id": {
-                            "const": "https://w3id.org/cdif/core/1.0/"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              ]
-            }
-          },
-          "allOf": [
-            {
-              "required": [
-                "@id",
-                "@type",
-                "@context",
-                "schema:name",
-                "schema:identifier",
-                "schema:dateModified",
-                "schema:subjectOf"
-              ]
-            },
-            {
-              "anyOf": [
-                {
-                  "required": [
-                    "schema:license"
-                  ]
-                },
-                {
-                  "required": [
-                    "schema:conditionsOfAccess"
-                  ]
-                }
-              ]
-            },
-            {
-              "anyOf": [
-                {
-                  "required": [
-                    "schema:url"
-                  ]
-                },
-                {
-                  "required": [
-                    "schema:distribution"
-                  ]
-                }
-              ]
-            }
-          ]
+          "$comment": "failed to fetch URL: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCore/schema.yaml"
         },
         {
           "title": "DDE Resource Type constraint",
@@ -707,10 +271,10 @@
                       "description": "iSamples Registrant. identification of the agent that registered the sample, with contact information. Should include person name and affiliation, or position name and affiliation, or just organization name. e-mail address is preferred contact information.",
                       "anyOf": [
                         {
-                          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
+                          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
                         },
                         {
-                          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
+                          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
                         }
                       ]
                     },
@@ -1536,7 +1100,7 @@
                     }
                   },
                   {
-                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\labeledLink\\schema.yaml"
+                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\labeledLink\\schema.yaml"
                   }
                 ]
               }
@@ -1966,10 +1530,10 @@
                         ]
                       },
                       {
-                        "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
+                        "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
                       },
                       {
-                        "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
+                        "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
                       }
                     ]
                   }
@@ -1994,13 +1558,13 @@
                     ]
                   },
                   {
-                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
+                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
                   },
                   {
-                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
+                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
                   },
                   {
-                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\agentInRole\\schema.yaml"
+                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\agentInRole\\schema.yaml"
                   }
                 ]
               }
@@ -2021,10 +1585,10 @@
                   ]
                 },
                 {
-                  "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
+                  "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
                 },
                 {
-                  "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
+                  "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
                 }
               ]
             },
@@ -2046,10 +1610,10 @@
                     ]
                   },
                   {
-                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
+                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
                   },
                   {
-                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
+                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
                   }
                 ]
               }
@@ -2057,7 +1621,7 @@
             "schema:funding": {
               "type": "array",
               "items": {
-                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\funder\\schema.yaml"
+                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\funder\\schema.yaml"
               }
             },
             "schema:variableMeasured": {
@@ -2066,10 +1630,10 @@
               "items": {
                 "anyOf": [
                   {
-                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\cdifProperties\\cdifVariableMeasured\\schema.yaml"
+                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\cdifProperties\\cdifVariableMeasured\\schema.yaml"
                   },
                   {
-                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\statisticalVariable\\schema.yaml"
+                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\statisticalVariable\\schema.yaml"
                   }
                 ]
               }
@@ -2405,28 +1969,28 @@
               "description": "The time interval during which data was collected or observations were made; or a time period that an activity or collection is linked to intellectually or thematically (for example, 1997 to 1998; the 18th century) (see https://documentation.ardc.edu.au/display/DOC/Temporal+coverage). For documentation of Earth Science, Paleobiology or Paleontology datasets, we are interested in the second case-- the time period that data are linked to thematically.",
               "type": "array",
               "items": {
-                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\temporalExtent\\schema.yaml"
+                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\temporalExtent\\schema.yaml"
               }
             },
             "prov:wasGeneratedBy": {
               "description": "Brief information about instruments, software or experimental protocols used",
               "type": "array",
               "items": {
-                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\provProperties\\generatedBy\\schema.yaml"
+                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\provProperties\\generatedBy\\schema.yaml"
               }
             },
             "prov:wasDerivedFrom": {
               "description": "Brief information about sources of data used in aggregate datasets",
               "type": "array",
               "items": {
-                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\provProperties\\derivedFrom\\schema.yaml"
+                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\provProperties\\derivedFrom\\schema.yaml"
               }
             },
             "dqv:hasQualityMeasurement": {
               "description": "Brief information quality measurements reported to assess the resource",
               "type": "array",
               "items": {
-                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\qualityProperties\\qualityMeasure\\schema.yaml"
+                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\qualityProperties\\qualityMeasure\\schema.yaml"
               }
             },
             "schema:subjectOf": {
@@ -2460,10 +2024,10 @@
               "items": {
                 "anyOf": [
                   {
-                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\dataDownload\\schema.yaml"
+                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\dataDownload\\schema.yaml"
                   },
                   {
-                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\webAPI\\schema.yaml"
+                    "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\webAPI\\schema.yaml"
                   }
                 ]
               }
@@ -2505,7 +2069,7 @@
             "type": "object",
             "allOf": [
               {
-                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\provProperties\\generatedBy\\schema.yaml"
+                "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\provProperties\\generatedBy\\schema.yaml"
               },
               {
                 "type": "object",
@@ -2542,7 +2106,7 @@
                           "description": "an item used by the activity that includes a schema:instrument sub-key",
                           "properties": {
                             "schema:instrument": {
-                              "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\instrument\\schema.yaml"
+                              "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\instrument\\schema.yaml"
                             }
                           },
                           "required": [
@@ -2629,13 +2193,13 @@
                     "description": "Primary responsible agent for this activity (maps to PROV wasAssociatedWith)",
                     "anyOf": [
                       {
-                        "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
+                        "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
                       },
                       {
-                        "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
+                        "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
                       },
                       {
-                        "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\agentInRole\\schema.yaml"
+                        "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\agentInRole\\schema.yaml"
                       },
                       {
                         "type": "object",
@@ -2657,13 +2221,13 @@
                     "items": {
                       "anyOf": [
                         {
-                          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
+                          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\person\\schema.yaml"
                         },
                         {
-                          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
+                          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\organization\\schema.yaml"
                         },
                         {
-                          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_9cjtusu3\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\agentInRole\\schema.yaml"
+                          "$comment": "file not found: C:\\Users\\smrTu\\AppData\\Local\\Temp\\resolve_schema_5uef2wfk\\metadataBuildingBlocks\\_sources\\schemaorgProperties\\agentInRole\\schema.yaml"
                         },
                         {
                           "type": "object",
