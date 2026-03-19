@@ -6,6 +6,6 @@ Extends CDIF mandatory metadata with DDE-specific required fields:
 - **Topic category keywords** (`schema:keywords`): At least one `schema:DefinedTerm` from the DDE `TopicCategoryCode` codelist.
 - **Acquisition type keywords** (`schema:keywords`): At least one `schema:DefinedTerm` from the DDE `AcquisitionTypeCode` codelist.
 - **Browse graphics** (`schema:image`): At least one `schema:ImageObject` with a `schema:contentUrl`.
-- **Profile conformance** (`schema:subjectOf`): The catalog record must declare conformance with `cdif:profile_ddeCDIF` via the ddeSubject extension.
+- **Profile conformance** (`schema:subjectOf`): The catalog record must declare conformance with ddeMandatory BB URI via the ddeCatalogRecord extension.
 
 This building block uses `allOf` to compose the CDIF mandatory base schema with the DDE-specific constraints.
