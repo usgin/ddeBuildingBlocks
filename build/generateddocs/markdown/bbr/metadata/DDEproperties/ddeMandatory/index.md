@@ -266,17 +266,17 @@ Shows a DDE geoscience metadata record with all mandatory DDE fields: resource t
             schema1:encodingFormat "image/png" ;
             schema1:name "Another map of Arizona" ] ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Digital Conversion from Published Source" ;
+            schema1:termCode "digitalConversionFromPublishedSource" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Synthesis from Multiple Sources" ;
             schema1:termCode "synthesisFromMultipleSources" ],
         [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Digital Conversion from Published Source" ;
-            schema1:termCode "digitalConversionFromPublishedSource" ],
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "Arizona",
         "Geologic Map",
         "Geology",

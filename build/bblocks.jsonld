@@ -167,7 +167,7 @@
   "name": "Building Blocks - DDE Building Blocks repository",
   "abstract": "Building blocks for Deep-time Digital Earth (DDE) metadata profiles,\nusing the OGC Building Blocks pattern.\n",
   "description": "Modular schema components for DDE resource type metadata. Imports shared\nschema.org and CDIF property building blocks from the CDIF Building Blocks repository.\n",
-  "modified": "2026-03-19T15:53:42.655313",
+  "modified": "2026-03-19T16:45:46.369241",
   "tooling": {
     "bblocks-postprocess": {
       "commitId": "\"3fc65d41a50349289c9eb3b793e00778fe6fbcaa",
@@ -363,7 +363,7 @@
       "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/",
       "rdfData": [],
-      "validationPassed": true,
+      "validationPassed": false,
       "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/DDEproperties/ddeGeographicDataset/",
       "documentation": {
         "markdown": {
@@ -1010,7 +1010,7 @@
       "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDECollection/",
       "rdfData": [],
-      "validationPassed": false,
+      "validationPassed": true,
       "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/profiles/DDEProfiles/DDECollection/",
       "documentation": {
         "markdown": {
@@ -1076,6 +1076,15 @@
         },
         {
           "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
             "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory",
@@ -1109,21 +1118,12 @@
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
         }
       ],
       "dependsOn": [
+        "bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
         "bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory",
-        "bblocks://dde.bbr.metadata.DDEproperties.ddeOptional",
-        "bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset"
+        "bblocks://dde.bbr.metadata.DDEproperties.ddeOptional"
       ],
       "ldContext": {
         "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/context.jsonld",
@@ -1150,7 +1150,7 @@
       "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDataset/",
       "rdfData": [],
-      "validationPassed": false,
+      "validationPassed": true,
       "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/profiles/DDEProfiles/DDEDataset/",
       "documentation": {
         "markdown": {
@@ -1284,7 +1284,7 @@
       "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/",
       "rdfData": [],
-      "validationPassed": false,
+      "validationPassed": true,
       "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/",
       "documentation": {
         "markdown": {
@@ -1740,9 +1740,9 @@
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/rules.shacl"
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeImagery",
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -1785,19 +1785,19 @@
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeImagery",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         }
       ],
       "dependsOn": [
-        "bblocks://dde.bbr.metadata.DDEproperties.ddeImagery",
+        "bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
         "bblocks://dde.bbr.metadata.DDEproperties.ddeMandatory",
         "bblocks://dde.bbr.metadata.DDEproperties.ddeOptional",
-        "bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset"
+        "bblocks://dde.bbr.metadata.DDEproperties.ddeImagery"
       ],
       "ldContext": {
         "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/context.jsonld",

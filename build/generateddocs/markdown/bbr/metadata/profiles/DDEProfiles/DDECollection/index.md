@@ -55,7 +55,7 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": "schema:CreativeWork",
+      "@type": ["schema:CreativeWork"],
       "schema:name": "Creative Commons Attribution 4.0",
       "schema:url": "https://creativecommons.org/licenses/by/4.0/"
     }
@@ -139,19 +139,19 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
   ],
   "schema:hasPart": [
     {
-      "@type": "schema:CreativeWork",
+      "@type": ["schema:CreativeWork"],
       "schema:name": "China 1:1M Bedrock Lithostratigraphy",
       "schema:description": "Geological map of China compiled from 63 separate survey sheets",
       "schema:url": "http://en.cgs.gov.cn/"
     },
     {
-      "@type": "schema:CreativeWork",
+      "@type": ["schema:CreativeWork"],
       "schema:name": "Australia 1:1M Surface Geology",
       "schema:description": "National-scale surface geology map of Australia by Geoscience Australia",
       "schema:url": "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets"
     },
     {
-      "@type": "schema:CreativeWork",
+      "@type": ["schema:CreativeWork"],
       "schema:name": "United Kingdom 1:625K Bedrock Geology",
       "schema:description": "Bedrock geological map of the United Kingdom by the British Geological Survey",
       "schema:url": "https://www.bgs.ac.uk/geological-data/"
@@ -196,7 +196,9 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": "schema:CreativeWork",
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "Creative Commons Attribution 4.0",
       "schema:url": "https://creativecommons.org/licenses/by/4.0/"
     }
@@ -280,19 +282,25 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
   ],
   "schema:hasPart": [
     {
-      "@type": "schema:CreativeWork",
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "China 1:1M Bedrock Lithostratigraphy",
       "schema:description": "Geological map of China compiled from 63 separate survey sheets",
       "schema:url": "http://en.cgs.gov.cn/"
     },
     {
-      "@type": "schema:CreativeWork",
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "Australia 1:1M Surface Geology",
       "schema:description": "National-scale surface geology map of Australia by Geoscience Australia",
       "schema:url": "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets"
     },
     {
-      "@type": "schema:CreativeWork",
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "United Kingdom 1:625K Bedrock Geology",
       "schema:description": "Bedrock geological map of the United Kingdom by the British Geological Survey",
       "schema:url": "https://www.bgs.ac.uk/geological-data/"
