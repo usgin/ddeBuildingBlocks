@@ -2,7 +2,7 @@
   "name": "DDE Building Blocks repository",
   "abstract": "Building blocks for Deep-time Digital Earth (DDE) metadata profiles,\nusing the OGC Building Blocks pattern.\n",
   "description": "Modular schema components for DDE resource type metadata. Imports shared\nschema.org and CDIF property building blocks from the CDIF Building Blocks repository.\n",
-  "modified": "2026-03-19T17:46:37.429954",
+  "modified": "2026-03-19T17:50:47.970901",
   "tooling": {
     "bblocks-postprocess": {
       "commitId": "\"3fc65d41a50349289c9eb3b793e00778fe6fbcaa",
@@ -59,7 +59,7 @@
       "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCatalogRecord/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/",
       "rdfData": [],
-      "validationPassed": false,
+      "validationPassed": true,
       "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/DDEproperties/ddeCatalogRecord/",
       "documentation": {
         "markdown": {
@@ -459,11 +459,11 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDECollection": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDECollection/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeMandatory": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
-        ],
         "dde.bbr.metadata.DDEproperties.ddeResourceType": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+        ],
+        "dde.bbr.metadata.DDEproperties.ddeMandatory": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeCatalogRecord": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
@@ -473,9 +473,9 @@
         ]
       },
       "dependsOn": [
+        "dde.bbr.metadata.DDEproperties.ddeResourceType",
         "dde.bbr.metadata.DDEproperties.ddeMandatory",
-        "dde.bbr.metadata.DDEproperties.ddeOptional",
-        "dde.bbr.metadata.DDEproperties.ddeResourceType"
+        "dde.bbr.metadata.DDEproperties.ddeOptional"
       ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/context.jsonld",
       "schema": {
@@ -531,6 +531,9 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEDataset": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDataset/rules.shacl"
         ],
+        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
+        ],
         "dde.bbr.metadata.DDEproperties.ddeMandatory": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
         ],
@@ -542,15 +545,12 @@
         ],
         "dde.bbr.metadata.DDEproperties.ddeOptional": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
         ]
       },
       "dependsOn": [
+        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
         "dde.bbr.metadata.DDEproperties.ddeMandatory",
-        "dde.bbr.metadata.DDEproperties.ddeOptional",
-        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset"
+        "dde.bbr.metadata.DDEproperties.ddeOptional"
       ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/context.jsonld",
       "schema": {
@@ -894,6 +894,12 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEImage": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEImage/rules.shacl"
         ],
+        "dde.bbr.metadata.DDEproperties.ddeImagery": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/rules.shacl"
+        ],
+        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
+        ],
         "dde.bbr.metadata.DDEproperties.ddeMandatory": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
         ],
@@ -905,19 +911,13 @@
         ],
         "dde.bbr.metadata.DDEproperties.ddeOptional": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeImagery": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
         ]
       },
       "dependsOn": [
-        "dde.bbr.metadata.DDEproperties.ddeMandatory",
-        "dde.bbr.metadata.DDEproperties.ddeOptional",
         "dde.bbr.metadata.DDEproperties.ddeImagery",
-        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset"
+        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
+        "dde.bbr.metadata.DDEproperties.ddeMandatory",
+        "dde.bbr.metadata.DDEproperties.ddeOptional"
       ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/context.jsonld",
       "schema": {

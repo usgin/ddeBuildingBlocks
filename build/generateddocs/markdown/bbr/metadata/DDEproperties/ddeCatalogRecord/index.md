@@ -26,30 +26,16 @@ Import base cdifCatalogRecord, add requirement that dcterms:conformsTo has ddeMa
         "dcterms": "http://purl.org/dc/terms/",
         "dcat": "http://www.w3.org/ns/dcat#"
     },
-    "@id": "https://example.org/dataset/geo-dataset-001",
+    "@id": "urn:uuid:example-dde-catalog-record",
     "@type": ["schema:Dataset"],
-    "schema:name": "Example DDE Geoscience Dataset",
-    "schema:identifier": "https://example.org/dataset/geo-dataset-001",
+    "schema:additionalType": ["dcat:CatalogRecord"],
+    "schema:about": {"@id": "https://example.org/dataset/geo-dataset-001"},
     "schema:dateModified": "2026-02-28",
-    "schema:license": [
-        {
-            "@type": "schema:CreativeWork",
-            "schema:name": "Creative Commons Attribution 4.0",
-            "schema:url": "https://creativecommons.org/licenses/by/4.0/"
-        }
+    "dcterms:conformsTo": [
+        {"@id": "https://w3id.org/cdif/core/1.0/"},
+        {"@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"}
     ],
-    "schema:url": "https://example.org/dataset/geo-dataset-001",
-    "schema:subjectOf": {
-        "@id": "urn:uuid:example-dde-catalog-record",
-        "@type": ["schema:Dataset"],
-        "schema:additionalType": ["dcat:CatalogRecord"],
-        "schema:about": {"@id": "https://example.org/dataset/geo-dataset-001"},
-        "dcterms:conformsTo": [
-            {"@id": "https://w3id.org/cdif/core/1.0/"},
-            {"@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"}
-        ],
-        "schema:sdDatePublished": "2026-02-28"
-    }
+    "schema:sdDatePublished": "2026-02-28"
 }
 
 ```
@@ -69,42 +55,26 @@ Import base cdifCatalogRecord, add requirement that dcterms:conformsTo has ddeMa
       "dcat": "http://www.w3.org/ns/dcat#"
     }
   ],
-  "@id": "https://example.org/dataset/geo-dataset-001",
+  "@id": "urn:uuid:example-dde-catalog-record",
   "@type": [
     "schema:Dataset"
   ],
-  "schema:name": "Example DDE Geoscience Dataset",
-  "schema:identifier": "https://example.org/dataset/geo-dataset-001",
+  "schema:additionalType": [
+    "dcat:CatalogRecord"
+  ],
+  "schema:about": {
+    "@id": "https://example.org/dataset/geo-dataset-001"
+  },
   "schema:dateModified": "2026-02-28",
-  "schema:license": [
+  "dcterms:conformsTo": [
     {
-      "@type": "schema:CreativeWork",
-      "schema:name": "Creative Commons Attribution 4.0",
-      "schema:url": "https://creativecommons.org/licenses/by/4.0/"
+      "@id": "https://w3id.org/cdif/core/1.0/"
+    },
+    {
+      "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
     }
   ],
-  "schema:url": "https://example.org/dataset/geo-dataset-001",
-  "schema:subjectOf": {
-    "@id": "urn:uuid:example-dde-catalog-record",
-    "@type": [
-      "schema:Dataset"
-    ],
-    "schema:additionalType": [
-      "dcat:CatalogRecord"
-    ],
-    "schema:about": {
-      "@id": "https://example.org/dataset/geo-dataset-001"
-    },
-    "dcterms:conformsTo": [
-      {
-        "@id": "https://w3id.org/cdif/core/1.0/"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
-      }
-    ],
-    "schema:sdDatePublished": "2026-02-28"
-  }
+  "schema:sdDatePublished": "2026-02-28"
 }
 ```
 
@@ -113,21 +83,12 @@ Import base cdifCatalogRecord, add requirement that dcterms:conformsTo has ddeMa
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix schema1: <http://schema.org/> .
 
-<https://example.org/dataset/geo-dataset-001> a schema1:Dataset ;
-    schema1:dateModified "2026-02-28" ;
-    schema1:identifier "https://example.org/dataset/geo-dataset-001" ;
-    schema1:license [ a schema1:CreativeWork ;
-            schema1:name "Creative Commons Attribution 4.0" ;
-            schema1:url "https://creativecommons.org/licenses/by/4.0/" ] ;
-    schema1:name "Example DDE Geoscience Dataset" ;
-    schema1:subjectOf <urn:uuid:example-dde-catalog-record> ;
-    schema1:url "https://example.org/dataset/geo-dataset-001" .
-
 <urn:uuid:example-dde-catalog-record> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,
         <https://w3id.org/cdif/core/1.0/> ;
     schema1:about <https://example.org/dataset/geo-dataset-001> ;
     schema1:additionalType "dcat:CatalogRecord" ;
+    schema1:dateModified "2026-02-28" ;
     schema1:sdDatePublished "2026-02-28" .
 
 
