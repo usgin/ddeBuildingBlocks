@@ -4,7 +4,7 @@
   "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
   "$schema": "metaschema.yaml",
   "name": "DDE Catalog Record",
-  "abstract": "Extends cdifCatalogRecord to require DDE conformance declaration. Adds dcterms:conformsTo constraint for ddeMandatory BB URI.",
+  "abstract": "Extends cdifCatalogRecord to require DDE conformance declaration. Adds dcterms:conformsTo constraint for ddeCore BB URI.",
   "status": "under-development",
   "dateTimeAddition": "2026-02-28T00:00:00Z",
   "itemClass": "schema",
@@ -40,11 +40,11 @@
   "rdfData": [],
   "validationPassed": true,
   "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/DDEproperties/ddeCatalogRecord/",
-  "description": "## DDE Catalog Record\n\nExtends cdifCatalogRecord to require that `dcterms:conformsTo` includes the ddeMandatory building block URI (`https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory`).\n",
+  "description": "## DDE Catalog Record\n\nExtends cdifCatalogRecord to require that `dcterms:conformsTo` includes the ddeCore building block URI (`https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore`).\n",
   "examples": [
     {
       "title": "Example DDE catalog record conformance extension.",
-      "content": "Import base cdifCatalogRecord, add requirement that dcterms:conformsTo has ddeMandatory BB URI.",
+      "content": "Import base cdifCatalogRecord, add requirement that dcterms:conformsTo has ddeCore BB URI.",
       "prefixes": {
         "schema": "http://schema.org/"
       },
@@ -52,23 +52,23 @@
         {
           "language": "json",
           "ref": "exampleDdeCatalogRecord.json",
-          "code": "{\n    \"@context\": {\n        \"schema\": \"http://schema.org/\",\n        \"dde\": \"https://www.ddeworld.org/resource/\",\n        \"dcterms\": \"http://purl.org/dc/terms/\",\n        \"dcat\": \"http://www.w3.org/ns/dcat#\"\n    },\n    \"@id\": \"urn:uuid:example-dde-catalog-record\",\n    \"@type\": [\"schema:Dataset\"],\n    \"schema:additionalType\": [\"dcat:CatalogRecord\"],\n    \"schema:about\": {\"@id\": \"https://example.org/dataset/geo-dataset-001\"},\n    \"schema:dateModified\": \"2026-02-28\",\n    \"dcterms:conformsTo\": [\n        {\"@id\": \"https://w3id.org/cdif/core/1.0/\"},\n        {\"@id\": \"https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory\"}\n    ],\n    \"schema:sdDatePublished\": \"2026-02-28\"\n}\n",
+          "code": "{\n    \"@context\": {\n        \"schema\": \"http://schema.org/\",\n        \"dde\": \"https://www.ddeworld.org/resource/\",\n        \"dcterms\": \"http://purl.org/dc/terms/\",\n        \"dcat\": \"http://www.w3.org/ns/dcat#\"\n    },\n    \"@id\": \"urn:uuid:example-dde-catalog-record\",\n    \"@type\": [\"schema:Dataset\"],\n    \"schema:additionalType\": [\"dcat:CatalogRecord\"],\n    \"schema:about\": {\"@id\": \"https://example.org/dataset/geo-dataset-001\"},\n    \"schema:dateModified\": \"2026-02-28\",\n    \"dcterms:conformsTo\": [\n        {\"@id\": \"https://w3id.org/cdif/core/1.0/\"},\n        {\"@id\": \"https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore\"}\n    ],\n    \"schema:sdDatePublished\": \"2026-02-28\"\n}\n",
           "url": "https://usgin.github.io/ddeBuildingBlocks/build/tests/bbr/metadata/DDEproperties/ddeCatalogRecord/example_1_1.json"
         },
         {
           "language": "jsonld",
-          "code": "{\n  \"@context\": [\n    {\n      \"schema\": \"http://schema.org/\"\n    },\n    \"https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCatalogRecord/context.jsonld\",\n    {\n      \"schema\": \"http://schema.org/\",\n      \"dde\": \"https://www.ddeworld.org/resource/\",\n      \"dcterms\": \"http://purl.org/dc/terms/\",\n      \"dcat\": \"http://www.w3.org/ns/dcat#\"\n    }\n  ],\n  \"@id\": \"urn:uuid:example-dde-catalog-record\",\n  \"@type\": [\n    \"schema:Dataset\"\n  ],\n  \"schema:additionalType\": [\n    \"dcat:CatalogRecord\"\n  ],\n  \"schema:about\": {\n    \"@id\": \"https://example.org/dataset/geo-dataset-001\"\n  },\n  \"schema:dateModified\": \"2026-02-28\",\n  \"dcterms:conformsTo\": [\n    {\n      \"@id\": \"https://w3id.org/cdif/core/1.0/\"\n    },\n    {\n      \"@id\": \"https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory\"\n    }\n  ],\n  \"schema:sdDatePublished\": \"2026-02-28\"\n}",
+          "code": "{\n  \"@context\": [\n    {\n      \"schema\": \"http://schema.org/\"\n    },\n    \"https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCatalogRecord/context.jsonld\",\n    {\n      \"schema\": \"http://schema.org/\",\n      \"dde\": \"https://www.ddeworld.org/resource/\",\n      \"dcterms\": \"http://purl.org/dc/terms/\",\n      \"dcat\": \"http://www.w3.org/ns/dcat#\"\n    }\n  ],\n  \"@id\": \"urn:uuid:example-dde-catalog-record\",\n  \"@type\": [\n    \"schema:Dataset\"\n  ],\n  \"schema:additionalType\": [\n    \"dcat:CatalogRecord\"\n  ],\n  \"schema:about\": {\n    \"@id\": \"https://example.org/dataset/geo-dataset-001\"\n  },\n  \"schema:dateModified\": \"2026-02-28\",\n  \"dcterms:conformsTo\": [\n    {\n      \"@id\": \"https://w3id.org/cdif/core/1.0/\"\n    },\n    {\n      \"@id\": \"https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore\"\n    }\n  ],\n  \"schema:sdDatePublished\": \"2026-02-28\"\n}",
           "url": "https://usgin.github.io/ddeBuildingBlocks/build/tests/bbr/metadata/DDEproperties/ddeCatalogRecord/example_1_1.jsonld"
         },
         {
           "language": "ttl",
-          "code": "@prefix dcterms: <http://purl.org/dc/terms/> .\n@prefix schema1: <http://schema.org/> .\n\n<urn:uuid:example-dde-catalog-record> a schema1:Dataset ;\n    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,\n        <https://w3id.org/cdif/core/1.0/> ;\n    schema1:about <https://example.org/dataset/geo-dataset-001> ;\n    schema1:additionalType \"dcat:CatalogRecord\" ;\n    schema1:dateModified \"2026-02-28\" ;\n    schema1:sdDatePublished \"2026-02-28\" .\n\n",
+          "code": "@prefix dcterms: <http://purl.org/dc/terms/> .\n@prefix schema1: <http://schema.org/> .\n\n<urn:uuid:example-dde-catalog-record> a schema1:Dataset ;\n    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,\n        <https://w3id.org/cdif/core/1.0/> ;\n    schema1:about <https://example.org/dataset/geo-dataset-001> ;\n    schema1:additionalType \"dcat:CatalogRecord\" ;\n    schema1:dateModified \"2026-02-28\" ;\n    schema1:sdDatePublished \"2026-02-28\" .\n\n",
           "url": "https://usgin.github.io/ddeBuildingBlocks/build/tests/bbr/metadata/DDEproperties/ddeCatalogRecord/example_1_1.ttl"
         }
       ]
     }
   ],
-  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntype: object\nallOf:\n- $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/schema.yaml\n- properties:\n    dcterms:conformsTo:\n      type: array\n      items:\n        type: object\n        properties:\n          '@id':\n            type: string\n      minItems: 1\n      contains:\n        type: object\n        properties:\n          '@id':\n            const: https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory\n        required:\n        - '@id'\n      minContains: 1\nx-jsonld-prefixes:\n  schema: http://schema.org/\n",
+  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntype: object\nallOf:\n- $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/schema.yaml\n- properties:\n    dcterms:conformsTo:\n      type: array\n      items:\n        type: object\n        properties:\n          '@id':\n            type: string\n      minItems: 1\n      contains:\n        type: object\n        properties:\n          '@id':\n            const: https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore\n        required:\n        - '@id'\n      minContains: 1\nx-jsonld-prefixes:\n  schema: http://schema.org/\n",
   "gitRepository": "https://github.com/usgin/ddeBuildingBlocks",
   "gitPath": "_sources/DDEproperties/ddeCatalogRecord"
 }

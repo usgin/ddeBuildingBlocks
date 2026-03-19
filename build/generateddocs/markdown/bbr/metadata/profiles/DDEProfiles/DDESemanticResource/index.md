@@ -82,7 +82,7 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESemanticResource"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
       }
     ],
     "schema:sdDatePublished": "2024-12-01"
@@ -242,7 +242,7 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESemanticResource"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
       }
     ],
     "schema:sdDatePublished": "2024-12-01"
@@ -396,7 +396,7 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
     schema1:version "2024/12" .
 
 <urn:uuid:dde-semres-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESemanticResource>,
         <https://w3id.org/cdif/core/1.0/>,
         <https://w3id.org/cdif/discovery/1.0/> ;
@@ -416,7 +416,7 @@ title: DDE Semantic Resource profile
 description: DDE profile for semantic resources (semanticResource, definedTermSet).
   Extends DDEDiscovery with resource type constraint.
 allOf:
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
 - properties:
     schema:additionalType:

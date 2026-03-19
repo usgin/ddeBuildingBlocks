@@ -77,7 +77,7 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEEvent"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
       }
     ],
     "schema:sdDatePublished": "2022-09-01"
@@ -215,7 +215,7 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEEvent"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
       }
     ],
     "schema:sdDatePublished": "2022-09-01"
@@ -313,13 +313,13 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
             schema1:name "Expedition 396 drill site locations" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Field Campaign Expedition" ;
-            schema1:termCode "fieldCampaignExpedition" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Field Campaign Expedition" ;
+            schema1:termCode "fieldCampaignExpedition" ],
         "IODP",
         "mid-Norwegian margin",
         "ocean drilling",
@@ -341,7 +341,7 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
     schema1:url "https://www.iodp.org/expedition396" .
 
 <urn:uuid:dde-event-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEEvent>,
         <https://w3id.org/cdif/core/1.0/>,
         <https://w3id.org/cdif/discovery/1.0/> ;
@@ -362,7 +362,7 @@ description: DDE profile for event resources (initiative, fieldSession). Extends
   with resource type constraint and requires schema:temporalCoverage (mandatory temporal
   extent for events).
 allOf:
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
 - properties:
     schema:additionalType:

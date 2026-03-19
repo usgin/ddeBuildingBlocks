@@ -76,7 +76,7 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
       }
     ],
     "schema:sdDatePublished": "2024-09-01"
@@ -206,7 +206,7 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
       }
     ],
     "schema:sdDatePublished": "2024-09-01"
@@ -301,13 +301,13 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
             schema1:name "Geological Time Viewer screenshot" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Data Integration Synthesis" ;
-            schema1:termCode "dataIntegrationSynthesis" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Data Integration Synthesis" ;
+            schema1:termCode "dataIntegrationSynthesis" ],
         "ICS",
         "chronostratigraphy",
         "geological time",
@@ -322,7 +322,7 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
     schema1:url "https://deep-time.org/geological-time/" .
 
 <urn:uuid:dde-funcres-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource>,
         <https://w3id.org/cdif/core/1.0/>,
         <https://w3id.org/cdif/discovery/1.0/> ;
@@ -343,7 +343,7 @@ description: DDE profile for functional resources (application, webApplication, 
   Extends DDEDiscovery with resource type constraint and requires a schema:relatedLink
   with linkRelationship "implementationSoftware".
 allOf:
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
 - properties:
     schema:additionalType:

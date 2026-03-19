@@ -76,7 +76,7 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
       }
     ],
     "schema:sdDatePublished": "2024-01-20"
@@ -203,7 +203,7 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
       }
     ],
     "schema:sdDatePublished": "2024-01-20"
@@ -315,7 +315,7 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
     schema1:version "2.5" .
 
 <urn:uuid:dde-software-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware>,
         <https://w3id.org/cdif/core/1.0/>,
         <https://w3id.org/cdif/discovery/1.0/> ;
@@ -335,7 +335,7 @@ title: DDE Software profile
 description: DDE profile for software resources. Extends DDEDiscovery with resource
   type constraint.
 allOf:
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
 - properties:
     schema:additionalType:

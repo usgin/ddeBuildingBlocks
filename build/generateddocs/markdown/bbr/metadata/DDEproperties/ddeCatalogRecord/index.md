@@ -3,7 +3,7 @@
 
 `dde.bbr.metadata.DDEproperties.ddeCatalogRecord` *v0.1*
 
-Extends cdifCatalogRecord to require DDE conformance declaration. Adds dcterms:conformsTo constraint for ddeMandatory BB URI.
+Extends cdifCatalogRecord to require DDE conformance declaration. Adds dcterms:conformsTo constraint for ddeCore BB URI.
 
 [*Status*](http://www.opengis.net/def/status): Under development
 
@@ -11,12 +11,12 @@ Extends cdifCatalogRecord to require DDE conformance declaration. Adds dcterms:c
 
 ## DDE Catalog Record
 
-Extends cdifCatalogRecord to require that `dcterms:conformsTo` includes the ddeMandatory building block URI (`https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory`).
+Extends cdifCatalogRecord to require that `dcterms:conformsTo` includes the ddeCore building block URI (`https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore`).
 
 ## Examples
 
 ### Example DDE catalog record conformance extension.
-Import base cdifCatalogRecord, add requirement that dcterms:conformsTo has ddeMandatory BB URI.
+Import base cdifCatalogRecord, add requirement that dcterms:conformsTo has ddeCore BB URI.
 #### json
 ```json
 {
@@ -33,7 +33,7 @@ Import base cdifCatalogRecord, add requirement that dcterms:conformsTo has ddeMa
     "schema:dateModified": "2026-02-28",
     "dcterms:conformsTo": [
         {"@id": "https://w3id.org/cdif/core/1.0/"},
-        {"@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"}
+        {"@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"}
     ],
     "schema:sdDatePublished": "2026-02-28"
 }
@@ -71,7 +71,7 @@ Import base cdifCatalogRecord, add requirement that dcterms:conformsTo has ddeMa
       "@id": "https://w3id.org/cdif/core/1.0/"
     },
     {
-      "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
+      "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
     }
   ],
   "schema:sdDatePublished": "2026-02-28"
@@ -84,7 +84,7 @@ Import base cdifCatalogRecord, add requirement that dcterms:conformsTo has ddeMa
 @prefix schema1: <http://schema.org/> .
 
 <urn:uuid:example-dde-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/core/1.0/> ;
     schema1:about <https://example.org/dataset/geo-dataset-001> ;
     schema1:additionalType "dcat:CatalogRecord" ;
@@ -114,7 +114,7 @@ allOf:
         type: object
         properties:
           '@id':
-            const: https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory
+            const: https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore
         required:
         - '@id'
       minContains: 1

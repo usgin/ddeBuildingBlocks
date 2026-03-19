@@ -2,7 +2,7 @@
   "name": "DDE Building Blocks repository",
   "abstract": "Building blocks for Deep-time Digital Earth (DDE) metadata profiles,\nusing the OGC Building Blocks pattern.\n",
   "description": "Modular schema components for DDE resource type metadata. Imports shared\nschema.org and CDIF property building blocks from the CDIF Building Blocks repository.\n",
-  "modified": "2026-03-19T17:50:47.970901",
+  "modified": "2026-03-19T21:20:24.846405",
   "tooling": {
     "bblocks-postprocess": {
       "commitId": "\"3fc65d41a50349289c9eb3b793e00778fe6fbcaa",
@@ -25,7 +25,7 @@
       "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
       "$schema": "metaschema.yaml",
       "name": "DDE Catalog Record",
-      "abstract": "Extends cdifCatalogRecord to require DDE conformance declaration. Adds dcterms:conformsTo constraint for ddeMandatory BB URI.",
+      "abstract": "Extends cdifCatalogRecord to require DDE conformance declaration. Adds dcterms:conformsTo constraint for ddeCore BB URI.",
       "status": "under-development",
       "dateTimeAddition": "2026-02-28T00:00:00Z",
       "itemClass": "schema",
@@ -73,6 +73,61 @@
         "bblocks-viewer": {
           "mediatype": "text/html",
           "url": "https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeCatalogRecord"
+        }
+      }
+    },
+    {
+      "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeResourceType",
+      "$schema": "metaschema.yaml",
+      "name": "DDE Resource Type",
+      "abstract": "Constrains schema:additionalType to require at least one DefinedTerm from the DDE ResourceTypeCode codelist. The DDE resource type vocabulary includes 32 resource types from the DDE spec Table 18. Defines properties: schema:additionalType. Uses building blocks: definedTerm (schemaorgProperties).",
+      "status": "under-development",
+      "dateTimeAddition": "2026-02-28T00:00:00Z",
+      "itemClass": "schema",
+      "register": "cdif-building-block-register",
+      "version": "0.1",
+      "dateOfLastChange": "2026-03-19",
+      "link": "https://github.com/opengeospatial/bblock-template",
+      "sources": [
+        {
+          "title": "DDE Metadata Standard",
+          "link": "https://www.ddeworld.org"
+        }
+      ],
+      "maturity": "draft",
+      "scope": "unstable",
+      "tags": [
+        "templates"
+      ],
+      "shaclShapes": {
+        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+        ]
+      },
+      "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/context.jsonld",
+      "schema": {
+        "application/yaml": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.yaml",
+        "application/json": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.json"
+      },
+      "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/schema.yaml",
+      "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/resolvedProperties.json",
+      "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/",
+      "rdfData": [],
+      "validationPassed": true,
+      "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/DDEproperties/ddeResourceType/",
+      "documentation": {
+        "markdown": {
+          "mediatype": "text/markdown",
+          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeResourceType/index.md"
+        },
+        "json-full": {
+          "mediatype": "application/json",
+          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeResourceType/index.json"
+        },
+        "bblocks-viewer": {
+          "mediatype": "text/html",
+          "url": "https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeResourceType"
         }
       }
     },
@@ -187,61 +242,6 @@
       }
     },
     {
-      "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeResourceType",
-      "$schema": "metaschema.yaml",
-      "name": "DDE Resource Type",
-      "abstract": "Constrains schema:additionalType to require at least one DefinedTerm from the DDE ResourceTypeCode codelist. The DDE resource type vocabulary includes 32 resource types from the DDE spec Table 18. Defines properties: schema:additionalType. Uses building blocks: definedTerm (schemaorgProperties).",
-      "status": "under-development",
-      "dateTimeAddition": "2026-02-28T00:00:00Z",
-      "itemClass": "schema",
-      "register": "cdif-building-block-register",
-      "version": "0.1",
-      "dateOfLastChange": "2026-03-19",
-      "link": "https://github.com/opengeospatial/bblock-template",
-      "sources": [
-        {
-          "title": "DDE Metadata Standard",
-          "link": "https://www.ddeworld.org"
-        }
-      ],
-      "maturity": "draft",
-      "scope": "unstable",
-      "tags": [
-        "templates"
-      ],
-      "shaclShapes": {
-        "dde.bbr.metadata.DDEproperties.ddeResourceType": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
-        ]
-      },
-      "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/context.jsonld",
-      "schema": {
-        "application/yaml": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.yaml",
-        "application/json": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.json"
-      },
-      "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/schema.yaml",
-      "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/context.jsonld",
-      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/resolvedProperties.json",
-      "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/",
-      "rdfData": [],
-      "validationPassed": true,
-      "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/DDEproperties/ddeResourceType/",
-      "documentation": {
-        "markdown": {
-          "mediatype": "text/markdown",
-          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeResourceType/index.md"
-        },
-        "json-full": {
-          "mediatype": "application/json",
-          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeResourceType/index.json"
-        },
-        "bblocks-viewer": {
-          "mediatype": "text/html",
-          "url": "https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeResourceType"
-        }
-      }
-    },
-    {
       "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeOptional",
       "$schema": "metaschema.yaml",
       "name": "Optional Fields for DDE Geoscience Metadata",
@@ -297,10 +297,10 @@
       }
     },
     {
-      "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeMandatory",
+      "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeCore",
       "$schema": "metaschema.yaml",
-      "name": "DDE Mandatory metadata properties",
-      "abstract": "DDE profile extensions that add mandatory fields beyond CDIF discovery: DDE resource type (from ResourceTypeCode), topic category keywords (from TopicCategoryCode), acquisition type keywords (from AcquisitionTypeCode), browse graphic images, and DDE profile conformance declaration. Defines properties: schema:subjectOf, schema:additionalType, schema:keywords, schema:image. Uses building blocks: cdifCore (cdifProperties), definedTerm (schemaorgProperties), ddeCatalogRecord (DDEproperties), ddeResourceType (DDEproperties).",
+      "name": "DDE Core metadata properties",
+      "abstract": "DDE core extensions beyond CDIF discovery: DDE resource type (from ResourceTypeCode), topic category keywords (from TopicCategoryCode), acquisition type keywords (from AcquisitionTypeCode), browse graphic images, and DDE profile conformance declaration. Defines properties: schema:subjectOf, schema:additionalType, schema:keywords, schema:image. Uses building blocks: cdifCore (cdifProperties), definedTerm (schemaorgProperties), ddeCatalogRecord (DDEproperties), ddeResourceType (DDEproperties).",
       "status": "under-development",
       "dateTimeAddition": "2026-02-28T00:00:00Z",
       "itemClass": "schema",
@@ -320,8 +320,8 @@
         "templates"
       ],
       "shaclShapes": {
-        "dde.bbr.metadata.DDEproperties.ddeMandatory": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeCore": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeResourceType": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
@@ -334,30 +334,30 @@
         "dde.bbr.metadata.DDEproperties.ddeResourceType",
         "dde.bbr.metadata.DDEproperties.ddeCatalogRecord"
       ],
-      "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/context.jsonld",
+      "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/context.jsonld",
       "schema": {
-        "application/yaml": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml",
-        "application/json": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.json"
+        "application/yaml": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml",
+        "application/json": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.json"
       },
-      "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/schema.yaml",
-      "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/context.jsonld",
-      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/resolvedProperties.json",
-      "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/",
+      "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/schema.yaml",
+      "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/context.jsonld",
+      "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/resolvedProperties.json",
+      "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/",
       "rdfData": [],
       "validationPassed": true,
-      "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/DDEproperties/ddeMandatory/",
+      "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/DDEproperties/ddeCore/",
       "documentation": {
         "markdown": {
           "mediatype": "text/markdown",
-          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeMandatory/index.md"
+          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/markdown/bbr/metadata/DDEproperties/ddeCore/index.md"
         },
         "json-full": {
           "mediatype": "application/json",
-          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeMandatory/index.json"
+          "url": "https://usgin.github.io/ddeBuildingBlocks/build/generateddocs/json-full/bbr/metadata/DDEproperties/ddeCore/index.json"
         },
         "bblocks-viewer": {
           "mediatype": "text/html",
-          "url": "https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeMandatory"
+          "url": "https://usgin.github.io/ddeBuildingBlocks/bblock/dde.bbr.metadata.DDEproperties.ddeCore"
         }
       }
     },
@@ -388,8 +388,8 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEAudioVisualProduct": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEAudioVisualProduct/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeMandatory": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeCore": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeResourceType": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
@@ -402,7 +402,7 @@
         ]
       },
       "dependsOn": [
-        "dde.bbr.metadata.DDEproperties.ddeMandatory",
+        "dde.bbr.metadata.DDEproperties.ddeCore",
         "dde.bbr.metadata.DDEproperties.ddeOptional"
       ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/context.jsonld",
@@ -462,8 +462,8 @@
         "dde.bbr.metadata.DDEproperties.ddeResourceType": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeMandatory": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeCore": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeCatalogRecord": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
@@ -474,7 +474,7 @@
       },
       "dependsOn": [
         "dde.bbr.metadata.DDEproperties.ddeResourceType",
-        "dde.bbr.metadata.DDEproperties.ddeMandatory",
+        "dde.bbr.metadata.DDEproperties.ddeCore",
         "dde.bbr.metadata.DDEproperties.ddeOptional"
       ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/context.jsonld",
@@ -531,11 +531,8 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEDataset": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDataset/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeMandatory": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeCore": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeResourceType": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
@@ -545,12 +542,15 @@
         ],
         "dde.bbr.metadata.DDEproperties.ddeOptional": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
+        ],
+        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
         ]
       },
       "dependsOn": [
-        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
-        "dde.bbr.metadata.DDEproperties.ddeMandatory",
-        "dde.bbr.metadata.DDEproperties.ddeOptional"
+        "dde.bbr.metadata.DDEproperties.ddeCore",
+        "dde.bbr.metadata.DDEproperties.ddeOptional",
+        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset"
       ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/context.jsonld",
       "schema": {
@@ -610,8 +610,8 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeMandatory": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeCore": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeResourceType": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
@@ -624,7 +624,7 @@
         ]
       },
       "dependsOn": [
-        "dde.bbr.metadata.DDEproperties.ddeMandatory",
+        "dde.bbr.metadata.DDEproperties.ddeCore",
         "dde.bbr.metadata.DDEproperties.ddeOptional"
       ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/context.jsonld",
@@ -681,8 +681,8 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEDocument": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDocument/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeMandatory": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeCore": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeResourceType": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
@@ -695,7 +695,7 @@
         ]
       },
       "dependsOn": [
-        "dde.bbr.metadata.DDEproperties.ddeMandatory",
+        "dde.bbr.metadata.DDEproperties.ddeCore",
         "dde.bbr.metadata.DDEproperties.ddeOptional"
       ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDocument/context.jsonld",
@@ -752,8 +752,8 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEEvent": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEEvent/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeMandatory": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeCore": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeResourceType": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
@@ -766,7 +766,7 @@
         ]
       },
       "dependsOn": [
-        "dde.bbr.metadata.DDEproperties.ddeMandatory",
+        "dde.bbr.metadata.DDEproperties.ddeCore",
         "dde.bbr.metadata.DDEproperties.ddeOptional"
       ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/context.jsonld",
@@ -823,8 +823,8 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEFunctionalResource": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEFunctionalResource/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeMandatory": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeCore": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeResourceType": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
@@ -837,7 +837,7 @@
         ]
       },
       "dependsOn": [
-        "dde.bbr.metadata.DDEproperties.ddeMandatory",
+        "dde.bbr.metadata.DDEproperties.ddeCore",
         "dde.bbr.metadata.DDEproperties.ddeOptional"
       ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource/context.jsonld",
@@ -894,14 +894,8 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDEImage": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEImage/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeImagery": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
-        ],
-        "dde.bbr.metadata.DDEproperties.ddeMandatory": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeCore": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeResourceType": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
@@ -909,15 +903,21 @@
         "dde.bbr.metadata.DDEproperties.ddeCatalogRecord": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
         ],
+        "dde.bbr.metadata.DDEproperties.ddeImagery": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/rules.shacl"
+        ],
         "dde.bbr.metadata.DDEproperties.ddeOptional": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeOptional/rules.shacl"
+        ],
+        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
         ]
       },
       "dependsOn": [
+        "dde.bbr.metadata.DDEproperties.ddeCore",
         "dde.bbr.metadata.DDEproperties.ddeImagery",
-        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
-        "dde.bbr.metadata.DDEproperties.ddeMandatory",
-        "dde.bbr.metadata.DDEproperties.ddeOptional"
+        "dde.bbr.metadata.DDEproperties.ddeOptional",
+        "dde.bbr.metadata.DDEproperties.ddeGeographicDataset"
       ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/context.jsonld",
       "schema": {
@@ -973,8 +973,8 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDESemanticResource": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDESemanticResource/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeMandatory": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeCore": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeResourceType": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
@@ -987,7 +987,7 @@
         ]
       },
       "dependsOn": [
-        "dde.bbr.metadata.DDEproperties.ddeMandatory",
+        "dde.bbr.metadata.DDEproperties.ddeCore",
         "dde.bbr.metadata.DDEproperties.ddeOptional"
       ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/context.jsonld",
@@ -1044,8 +1044,8 @@
         "dde.bbr.metadata.profiles.DDEProfiles.DDESoftware": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDESoftware/rules.shacl"
         ],
-        "dde.bbr.metadata.DDEproperties.ddeMandatory": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeCore": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeResourceType": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
@@ -1058,7 +1058,7 @@
         ]
       },
       "dependsOn": [
-        "dde.bbr.metadata.DDEproperties.ddeMandatory",
+        "dde.bbr.metadata.DDEproperties.ddeCore",
         "dde.bbr.metadata.DDEproperties.ddeOptional"
       ],
       "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESoftware/context.jsonld",
@@ -1092,7 +1092,7 @@
       "itemIdentifier": "dde.bbr.metadata.profiles.DDEProfiles.DDEWebAPI",
       "$schema": "metaschema.yaml",
       "name": "DDE WebAPI profile",
-      "abstract": "DDE profile for resources that are web services. Composes ddeMandatory, ddeOptional, and the CDIF webAPI building block. Narrows serviceType to the DDE ServiceTypeCode codelist. Includes dataset references for operated datasets.",
+      "abstract": "DDE profile for resources that are web services. Composes ddeCore, ddeOptional, and the CDIF webAPI building block. Narrows serviceType to the DDE ServiceTypeCode codelist. Includes dataset references for operated datasets.",
       "status": "under-development",
       "dateTimeAddition": "2026-03-16T00:00:00Z",
       "itemClass": "schema",
@@ -1116,8 +1116,8 @@
         "templates"
       ],
       "shaclShapes": {
-        "dde.bbr.metadata.DDEproperties.ddeMandatory": [
-          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeMandatory/rules.shacl"
+        "dde.bbr.metadata.DDEproperties.ddeCore": [
+          "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
         ],
         "dde.bbr.metadata.DDEproperties.ddeResourceType": [
           "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
@@ -1130,7 +1130,7 @@
         ]
       },
       "dependsOn": [
-        "dde.bbr.metadata.DDEproperties.ddeMandatory",
+        "dde.bbr.metadata.DDEproperties.ddeCore",
         "dde.bbr.metadata.DDEproperties.ddeOptional"
       ],
       "schema": {

@@ -15,7 +15,7 @@ DDE profile for dataset resources. Extends DDEDiscovery with a resource type con
 
 ### Composed building blocks
 
-1. **DDEDiscovery** — Base DDE discovery profile (cdifCore + cdifOptional + ddeMandatory + ddeOptional)
+1. **DDEDiscovery** — Base DDE discovery profile (cdifCore + cdifOptional + ddeCore + ddeOptional)
 2. **Resource type constraint** — `schema:termCode` must be one of the dataset group codes
 
 ### Sub-profile: geographicDataset
@@ -73,7 +73,7 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDataset"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
       }
     ],
     "schema:sdDatePublished": "2020-11-15"
@@ -257,7 +257,7 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDataset"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
       }
     ],
     "schema:sdDatePublished": "2020-11-15"
@@ -390,10 +390,6 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
 
 <urn:dde:example-hydrogeological-map> a schema1:Dataset ;
     schema1:additionalProperty [ a schema1:PropertyValue ;
-            schema1:name "Reference System Type" ;
-            schema1:propertyID "dde:referenceSystemType" ;
-            schema1:value "geodeticGeographic2D" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Spatial Representation Type" ;
             schema1:propertyID "dde:spatialRepresentationType" ;
             schema1:value "vector" ],
@@ -405,7 +401,11 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
             schema1:name "Coordinate Reference System" ;
             schema1:propertyID "dde:referenceSystemIdentifier" ;
             schema1:url "https://epsg.io/4326" ;
-            schema1:value "EPSG:4326" ] ;
+            schema1:value "EPSG:4326" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Reference System Type" ;
+            schema1:propertyID "dde:referenceSystemType" ;
+            schema1:value "geodeticGeographic2D" ] ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
             schema1:name "Geographic Dataset" ;
@@ -424,13 +424,13 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
             schema1:name "thumbnail" ] ;
     schema1:inLanguage "zho" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Geological Mapping" ;
-            schema1:termCode "geologicalMapping" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Geological Mapping" ;
+            schema1:termCode "geologicalMapping" ],
         "China",
         "aquifer",
         "groundwater",
@@ -453,7 +453,7 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
     schema1:url "http://en.cgs.gov.cn/" .
 
 <urn:uuid:dde-dataset-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDataset>,
         <https://w3id.org/cdif/core/1.0/>,
         <https://w3id.org/cdif/discovery/1.0/> ;
@@ -474,7 +474,7 @@ description: DDE profile for dataset resources (dataset, dataCatalog, geographic
   nonGeographicDataset). Extends DDEDiscovery with resource type constraint. If additionalType
   termCode is geographicDataset, ddeGeographicDataset constraints are applied.
 allOf:
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
 - properties:
     schema:additionalType:

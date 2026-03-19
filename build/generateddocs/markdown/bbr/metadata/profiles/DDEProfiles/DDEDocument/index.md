@@ -81,7 +81,7 @@ DDE discovery metadata for a published research article on global plate tectonic
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
       }
     ],
     "schema:sdDatePublished": "2021-02-15"
@@ -222,7 +222,7 @@ DDE discovery metadata for a published research article on global plate tectonic
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
       }
     ],
     "schema:sdDatePublished": "2021-02-15"
@@ -304,12 +304,12 @@ DDE discovery metadata for a published research article on global plate tectonic
 <urn:dde:example-plate-tectonics-article> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Article" ;
-            schema1:termCode "article" ],
+            schema1:name "Document" ;
+            schema1:termCode "document" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Document" ;
-            schema1:termCode "document" ] ;
+            schema1:name "Article" ;
+            schema1:termCode "article" ] ;
     schema1:creator ( [ a schema1:Person ;
                 schema1:affiliation [ a schema1:Organization ;
                         schema1:name "University of Sydney" ] ;
@@ -333,13 +333,13 @@ DDE discovery metadata for a published research article on global plate tectonic
             schema1:name "article thumbnail" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Data Integration Synthesis" ;
             schema1:termCode "dataIntegrationSynthesis" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "Pangaea",
         "continental drift",
         "paleogeography",
@@ -351,7 +351,7 @@ DDE discovery metadata for a published research article on global plate tectonic
     schema1:subjectOf <urn:uuid:dde-document-catalog-record> .
 
 <urn:uuid:dde-document-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument>,
         <https://w3id.org/cdif/core/1.0/>,
         <https://w3id.org/cdif/discovery/1.0/> ;
@@ -371,7 +371,7 @@ title: DDE Document profile
 description: DDE profile for document resources (document, article, thesis, book,
   poster, webPage). Extends DDEDiscovery with resource type constraint.
 allOf:
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
 - properties:
     schema:additionalType:

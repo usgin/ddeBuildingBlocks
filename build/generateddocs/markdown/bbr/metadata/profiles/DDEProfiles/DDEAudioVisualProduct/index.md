@@ -76,7 +76,7 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
       }
     ],
     "schema:sdDatePublished": "2023-09-15"
@@ -209,7 +209,7 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
       }
     ],
     "schema:sdDatePublished": "2023-09-15"
@@ -289,12 +289,12 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
 <urn:dde:example-plate-tectonics-video> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Movie" ;
-            schema1:termCode "movie" ],
+            schema1:name "Product" ;
+            schema1:termCode "product" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Product" ;
-            schema1:termCode "product" ] ;
+            schema1:name "Movie" ;
+            schema1:termCode "movie" ] ;
     schema1:creator ( [ a schema1:Organization ;
                 schema1:name "Deep-time Digital Earth (DDE)" ;
                 schema1:url "https://www.ddeworld.org/" ] ) ;
@@ -332,7 +332,7 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
     schema1:url "https://example.org/videos/plate-tectonics-explained" .
 
 <urn:uuid:dde-audiovisual-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct>,
         <https://w3id.org/cdif/core/1.0/>,
         <https://w3id.org/cdif/discovery/1.0/> ;
@@ -352,7 +352,7 @@ title: DDE AudioVisual Product profile
 description: DDE profile for audiovisual resources (movie, sound). Extends DDEDiscovery
   with resource type constraint and schema:duration.
 allOf:
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
 - properties:
     schema:additionalType:

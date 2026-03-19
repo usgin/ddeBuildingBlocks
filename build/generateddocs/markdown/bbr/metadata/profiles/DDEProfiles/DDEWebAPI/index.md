@@ -3,7 +3,7 @@
 
 `dde.bbr.metadata.profiles.DDEProfiles.DDEWebAPI` *v0.1*
 
-DDE profile for resources that are web services. Composes ddeMandatory, ddeOptional, and the CDIF webAPI building block. Narrows serviceType to the DDE ServiceTypeCode codelist. Includes dataset references for operated datasets.
+DDE profile for resources that are web services. Composes ddeCore, ddeOptional, and the CDIF webAPI building block. Narrows serviceType to the DDE ServiceTypeCode codelist. Includes dataset references for operated datasets.
 
 [*Status*](http://www.opengis.net/def/status): Under development
 
@@ -127,7 +127,7 @@ terms of service, and capability document reference.
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEWebAPI"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
       }
     ]
   }
@@ -256,7 +256,7 @@ terms of service, and capability document reference.
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEWebAPI"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory"
+        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
       }
     ]
   }
@@ -287,13 +287,13 @@ ex:dde-webapi-001 a schema1:Dataset,
             schema1:contentUrl "https://example.org/services/dde-geomap/preview.png" ;
             schema1:name "Service preview showing geological map tiles" ] ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geologic Mapping" ;
-            schema1:termCode "GeologicMapping" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Compilation" ;
-            schema1:termCode "Compilation" ] ;
+            schema1:termCode "Compilation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geologic Mapping" ;
+            schema1:termCode "GeologicMapping" ] ;
     schema1:license "https://creativecommons.org/licenses/by/4.0/" ;
     schema1:name "DDE Global Geological Map Service" ;
     schema1:potentialAction [ a schema1:Action ;
@@ -319,7 +319,7 @@ ex:dde-webapi-001 a schema1:Dataset,
     schema1:url "https://example.org/services/dde-geomap" .
 
 <urn:uuid:dde-webapi-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,
+    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEWebAPI>,
         <https://w3id.org/cdif/core/1.0/>,
         <https://w3id.org/cdif/discovery/1.0/> ;
@@ -337,12 +337,12 @@ type: object
 title: DDE WebAPI profile
 description: DDE profile for resources that ARE web services. The resource itself
   is described as a WebAPI with service type, operations, terms of service, and documentation.
-  Composes ddeMandatory + ddeOptional for discovery metadata, and the CDIF webAPI
-  building block for service-specific properties (serviceType, potentialAction, termsOfService,
+  Composes ddeCore + ddeOptional for discovery metadata, and the CDIF webAPI building
+  block for service-specific properties (serviceType, potentialAction, termsOfService,
   documentation). DDE narrows serviceType to require a term from the DDE ServiceTypeCode
   codelist. schema:dataset identifies datasets operated on by the service.
 allOf:
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
 - $ref: '#/$defs/CdifWebAPI'
 - type: object

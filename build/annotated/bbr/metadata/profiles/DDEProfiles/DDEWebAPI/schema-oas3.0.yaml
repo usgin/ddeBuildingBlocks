@@ -1,14 +1,14 @@
 x-defs:
-  dde.bbr.metadata.DDEproperties.ddeMandatory:
+  dde.bbr.metadata.DDEproperties.ddeCore:
     title: DDE Mandatory metadata properties
     description: Extends CDIF mandatory metadata with DDE-specific mandatory fields.
     allOf:
-    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeMandatory/$defs/CdifMandatory
+    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeCore/$defs/CdifMandatory
     - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeResourceType
     - type: object
       properties:
         schema:subjectOf:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeMandatory/$defs/DdeCatalogRecord
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeCore/$defs/DdeCatalogRecord
         schema:keywords:
           type: array
           description: Extends base CDIF keyword schema to require DefinedTerms from
@@ -16,7 +16,7 @@ x-defs:
           minItems: 2
           items:
             anyOf:
-            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeMandatory/$defs/DefinedTerm
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeCore/$defs/DefinedTerm
             - type: string
           allOf:
           - contains:
@@ -84,7 +84,7 @@ x-defs:
       schema: http://schema.org/
       dde: https://www.ddeworld.org/resource/
       dcterms: http://purl.org/dc/terms/
-    x-schema-source: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeMandatory/schema.yaml
+    x-schema-source: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   dde.bbr.metadata.DDEproperties.ddeOptional:
     title: DDE Optional metadata properties
@@ -417,28 +417,28 @@ x-defs:
           dataset
         type: array
         items:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCore_schema/$defs/DataDownload
+          if:
+            properties:
+              '@type':
+                contains:
+                  enum:
+                  - schema:DataDownload
+          then:
+            required:
+            - schema:contentUrl
       schema:subjectOf:
-        allOf:
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCore_schema/$defs/CdifCatalogRecord
-        - properties:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCore_schema/$defs/CdifCatalogRecord
+    allOf:
+    - properties:
+        schema:subjectOf:
+          properties:
             dcterms:conformsTo:
-              type: array
-              items:
-                type: object
-                properties:
-                  '@id':
-                    type: string
-                    description: uri for specifications that this metadata record
-                      conforms to
-              minItems: 1
               contains:
                 type: object
                 properties:
                   '@id':
                     enum:
                     - https://w3id.org/cdif/core/1.0/
-    allOf:
     - required:
       - '@id'
       - '@type'
@@ -532,7 +532,7 @@ x-defs:
             properties:
               '@id':
                 enum:
-                - https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory
+                - https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore
             required:
             - '@id'
           minContains: 1
@@ -841,7 +841,7 @@ x-defs:
       Funder:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_funder_schema
       VariableMeasured:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifVariableMeasured_schema
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_variableMeasured_schema
       StatisticalVariable:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_statisticalVariable_schema
       SpatialExtent:
@@ -1544,68 +1544,43 @@ x-defs:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/funder/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  metadataBuildingBlocks__sources_cdifProperties_cdifVariableMeasured_schema:
-    description: Extends cdif variableMeasured with properties for DDI-CDI InstanceVariable
+  metadataBuildingBlocks__sources_schemaorgProperties_variableMeasured_schema:
+    description: Schema.org PropertyValue-based variableMeasured. Defines properties
+      for a measured variable in a dataset, typed as schema:PropertyValue.
     type: object
     properties:
       '@type':
         type: array
-        description: Must include both schema:PropertyValue and cdi:InstanceVariable.
-          Additional types may be included.
         items:
           type: string
-        minItems: 2
-        allOf:
-        - contains:
-            enum:
-            - schema:PropertyValue
-        - contains:
-            enum:
-            - cdi:InstanceVariable
-      cdi:identifier:
+        contains:
+          enum:
+          - schema:PropertyValue
+        minItems: 1
+      '@id':
         type: string
-      cdi:physicalDataType:
+      schema:name:
+        type: string
+        description: string label associated with the variable in the dataset serialization
+      schema:description:
+        type: string
+        default: missing
+      schema:alternateName:
         type: array
         items:
-          anyOf:
-          - type: string
-          - type: object
-            properties:
-              '@id':
-                type: string
-                description: reference to a skos concept for the data type
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifVariableMeasured_schema/$defs/DefinedTerm
-        description: identifier or name for the data type concept.
-      cdi:intendedDataType:
-        type: string
-        description: The intended data type for values of this variable, from DDI-CDI
-          RepresentedVariable.hasIntendedDataType. Recommended values are XML Schema
-          datatypes (e.g. https://www.w3.org/TR/xmlschema-2/#decimal).
-      cdi:role:
-        type: string
-        enum:
-        - MeasureComponent
-        - AttributeComponent
-        - DimensionComponent
-        - DescriptorComponent
-        - ReferenceValueComponent
-        description: Specifies the relation of the variable to the data structure,
-          corresponding to DDI-CDI DataStructureComponent subtypes.
-      cdi:describedUnitOfMeasure:
-        description: A structured unit of measure from a controlled vocabulary, from
-          DDI-CDI RepresentedVariable.describedUnitOfMeasure.
-        allOf:
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifVariableMeasured_schema/$defs/DefinedTerm
-      cdi:simpleUnitOfMeasure:
+          type: string
+          description: human intelligible name for variable that conveys semantics
+      schema:measurementTechnique:
         anyOf:
         - type: string
         - type: object
           properties:
             '@id':
               type: string
-              description: reference to a skos concept for the data type
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifVariableMeasured_schema/$defs/DefinedTerm
-      cdi:uses:
+              description: reference to a skos concept
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_variableMeasured_schema/$defs/DefinedTerm
+        description: Text description or URI identifying the measurement method.
+      schema:propertyID:
         type: array
         items:
           anyOf:
@@ -1614,26 +1589,37 @@ x-defs:
             properties:
               '@id':
                 type: string
-                description: reference to a skos concept for the property
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifVariableMeasured_schema/$defs/DefinedTerm
-        description: Essentially the same as schema:propertyID. References to concepts
-          that this variable measures or represents.
-      cdi:name:
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_variableMeasured_schema/$defs/DefinedTerm
+        description: identifier or name for the property concept
+      schema:unitText:
         type: string
-        description: DDI-CDI Concept.name. The name of this variable in the DDI-CDI
-          model.
-      cdi:displayLabel:
+        description: unit of measurement as text
+      schema:unitCode:
+        anyOf:
+        - type: string
+        - type: object
+          properties:
+            '@id':
+              type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_variableMeasured_schema/$defs/DefinedTerm
+        description: URI or code identifying the unit of measure
+      schema:minValue:
+        type: number
+        description: minimum numeric value in the dataset
+      schema:maxValue:
+        type: number
+        description: maximum numeric value in the dataset
+      schema:url:
         type: string
-        description: DDI-CDI Concept.displayLabel. A human-readable label for display
-          purposes.
+        format: uri
+        description: link to a web page useful for interpreting the variable
+    required:
+    - '@type'
+    - schema:name
     $defs:
       DefinedTerm:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
-    allOf:
-    - required:
-      - '@type'
-    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_variableMeasured_schema
-    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifVariableMeasured/schema.yaml
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   metadataBuildingBlocks__sources_schemaorgProperties_statisticalVariable_schema:
     description: A statistical variable description using schema.org/StatisticalVariable.
@@ -2088,93 +2074,16 @@ x-defs:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  metadataBuildingBlocks__sources_schemaorgProperties_variableMeasured_schema:
-    description: Schema.org PropertyValue-based variableMeasured. Defines properties
-      for a measured variable in a dataset, typed as schema:PropertyValue.
-    type: object
-    properties:
-      '@type':
-        type: array
-        items:
-          type: string
-        contains:
-          enum:
-          - schema:PropertyValue
-        minItems: 1
-      '@id':
-        type: string
-      schema:name:
-        type: string
-        description: string label associated with the variable in the dataset serialization
-      schema:description:
-        type: string
-        default: missing
-      schema:alternateName:
-        type: array
-        items:
-          type: string
-          description: human intelligible name for variable that conveys semantics
-      schema:measurementTechnique:
-        anyOf:
-        - type: string
-        - type: object
-          properties:
-            '@id':
-              type: string
-              description: reference to a skos concept
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_variableMeasured_schema/$defs/DefinedTerm
-        description: Text description or URI identifying the measurement method.
-      schema:propertyID:
-        type: array
-        items:
-          anyOf:
-          - type: string
-          - type: object
-            properties:
-              '@id':
-                type: string
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_variableMeasured_schema/$defs/DefinedTerm
-        description: identifier or name for the property concept
-      schema:unitText:
-        type: string
-        description: unit of measurement as text
-      schema:unitCode:
-        anyOf:
-        - type: string
-        - type: object
-          properties:
-            '@id':
-              type: string
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_variableMeasured_schema/$defs/DefinedTerm
-        description: URI or code identifying the unit of measure
-      schema:minValue:
-        type: number
-        description: minimum numeric value in the dataset
-      schema:maxValue:
-        type: number
-        description: maximum numeric value in the dataset
-      schema:url:
-        type: string
-        format: uri
-        description: link to a web page useful for interpreting the variable
-    required:
-    - '@type'
-    - schema:name
-    $defs:
-      DefinedTerm:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
-    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/schema.yaml
-    x-schema-version: https://json-schema.org/draft/2020-12/schema
 type: object
 title: DDE WebAPI profile
 description: DDE profile for resources that ARE web services. The resource itself
   is described as a WebAPI with service type, operations, terms of service, and documentation.
-  Composes ddeMandatory + ddeOptional for discovery metadata, and the CDIF webAPI
-  building block for service-specific properties (serviceType, potentialAction, termsOfService,
+  Composes ddeCore + ddeOptional for discovery metadata, and the CDIF webAPI building
+  block for service-specific properties (serviceType, potentialAction, termsOfService,
   documentation). DDE narrows serviceType to require a term from the DDE ServiceTypeCode
   codelist. schema:dataset identifies datasets operated on by the service.
 allOf:
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeMandatory
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeCore
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeOptional
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema-oas3.0.yaml#/$defs/CdifWebAPI
 - type: object
