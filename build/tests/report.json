@@ -10,7 +10,7 @@
       "title": "Validation report for dde.bbr.metadata.DDEproperties.ddeCatalogRecord - DDE Catalog Record",
       "bblockName": "DDE Catalog Record",
       "bblockId": "dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
-      "generated": "2026-03-19T16:45:54.629331+00:00",
+      "generated": "2026-03-19T17:45:17.225441+00:00",
       "result": false,
       "items": [
         {
@@ -48,7 +48,7 @@
                   "op": "ttl-create",
                   "empty": false,
                   "filename": "example_1_1.ttl",
-                  "size": 10,
+                  "size": 16,
                   "isError": false,
                   "message": "Output Turtle example_1_1.ttl created"
                 }
@@ -60,9 +60,11 @@
               "entries": [
                 {
                   "op": "validation",
-                  "result": true,
-                  "isError": false,
-                  "message": "Validation passed"
+                  "result": false,
+                  "exception": "ValidationError",
+                  "errorMessage": "'schema:about' is a required property",
+                  "isError": true,
+                  "message": "ValidationError: 'schema:about' is a required property\n\nFailed validating 'required' in schema['allOf'][0]:\n    {'$defs': {'Identifier': {'$ref': '../../schemaorgProperties/identifier/schema.yaml'},\n               'Organization': {'$ref': '../../schemaorgProperties/organization/schema.yaml'},\n               'Person': {'$ref': '../../schemaorgProperties/person/schema.yaml'}},\n     '$schema': 'https://json-schema.org/draft/2020-12/schema',\n     'description': 'see '\n                    'https://github.com/Cross-Domain-Interoperability-Framework/Discovery/issues/13 '\n                    'for discussion on how to make assertion about the '\n                    'sample registration and metadata distinct from '\n                    'statements about the physical object',\n     'properties': {'@id': {'description': 'identifier for the metadata '\n                                           'record',\n                            'type': 'string'},\n                    '@type': {'contains': {'const': 'schema:Dataset'},\n                              'items': {'type': 'string'},\n                              'minItems': 1,\n                              'type': 'array'},\n                    'dcterms:conformsTo': {'description': 'uri for '\n                                                          'specifications '\n                                                          'that this '\n                                                          'metadata record '\n                                                          'conforms to. '\n                                                          'Minimimally '\n                                                          'should specify '\n                                                          'uri for CDIF '\n                                                          'discovery '\n                                                          'profile.',\n                                           'items': {'properties': {'@id': {'description': 'uri '\n                                                                                           'for '\n                                                                                           'specifications '\n                                                                                           'that '\n                                                                                           'this '\n                                                                                           'metadata '\n                                                                                           'record '\n                                                                                           'conforms '\n                                                                                           'to',\n                                                                            'type': 'string'}},\n                                                     'type': 'object'},\n                                           'minItems': 1,\n                                           'type': 'array'},\n                    'schema:about': {'properties': {'@id': {'description': 'this '\n                                                                           'must '\n                                                                           'be '\n                                                                           'the '\n                                                                           '@id '\n                                                                           'value '\n                                                                           'of '\n                                                                           'the '\n                                                                           'node '\n                                                                           'containing '\n                                                                           'the '\n                                                                           'resource '\n                                                                           'description '\n                                                                           'metadata',\n                                                            'type': 'string'}},\n                                     'type': 'object'},\n                    'schema:additionalType': {'contains': {'const': 'dcat:CatalogRecord'},\n                                              'description': 'additional '\n                                                             'type '\n                                                             'assertions '\n                                                             'for the '\n                                                             'catalog '\n                                                             'record node. '\n                                                             'dcat:CatalogRecord '\n                                                             'is required.',\n                                              'items': {'type': 'string'},\n                                              'minItems': 1,\n                                              'type': 'array'},\n                    'schema:includedInDataCatalog': {'description': 'identify '\n                                                                    'the '\n                                                                    'data '\n                                                                    'collection '\n                                                                    'or '\n                                                                    'repository '\n                                                                    'that '\n                                                                    'contains '\n                                                                    'the '\n                                                                    'described '\n                                                                    'dataset. '\n                                                                    'The '\n                                                                    'value '\n                                                                    'is '\n                                                                    'expected '\n                                                                    'to be '\n                                                                    'a '\n                                                                    'schema:DataCatalog',\n                                                     'properties': {'@id': {'description': 'identifier '\n                                                                                           'for '\n                                                                                           'the '\n                                                                                           'containing '\n                                                                                           'catalog '\n                                                                                           'or '\n                                                                                           'repository; '\n                                                                                           'example '\n                                                                                           'data '\n                                                                                           'at '\n                                                                                           'https://github.com/ESIPFed/science-on-schema.org/blob/develop/guides/Dataset.md#catalog '\n                                                                                           'puts '\n                                                                                           'identifier '\n                                                                                           'here',\n                                                                            'type': 'string'},\n                                                                    '@type': {'anyOf': [{'const': 'schema:DataCatalog',\n                                                                                         'type': 'string'},\n                                                                                        {'contains': {'const': 'schema:DataCatalog'},\n                                                                                         'items': {'type': 'string'},\n                                                                                         'type': 'array'}],\n                                                                              'default': 'schema:DataCatalog'},\n                                                                    'schema:identifier': {'$ref': '#/$defs/Identifier',\n                                                                                          'description': 'identifier '\n                                                                                                         'for '\n                                                                                                         'the '\n                                                                                                         'collection '\n                                                                                                         'or '\n                                                                                                         'catalog; '\n                                                                                                         'use '\n                                                                                                         'identifier_type '\n                                                                                                         'to '\n                                                                                                         'provide '\n                                                                                                         'information '\n                                                                                                         'on '\n                                                                                                         'identifier '\n                                                                                                         'scheme '\n                                                                                                         'and '\n                                                                                                         'context '\n                                                                                                         'for '\n                                                                                                         'identifier'},\n                                                                    'schema:name': {'type': 'string'},\n                                                                    'schema:url': {'description': 'locator '\n                                                                                                  'to '\n                                                                                                  'access '\n                                                                                                  'a '\n                                                                                                  'landing '\n                                                                                                  'page '\n                                                                                                  'for '\n                                                                                                  'the '\n                                                                                                  'collection '\n                                                                                                  'or '\n                                                                                                  'catalog',\n                                                                                   'format': 'uri',\n                                                                                   'type': 'string'}},\n                                                     'type': 'object'},\n                    'schema:maintainer': {'anyOf': [{'$ref': '#/$defs/Person'},\n                                                    {'$ref': '#/$defs/Organization'}],\n                                          'description': 'iSamples '\n                                                         'Registrant. '\n                                                         'identification '\n                                                         'of the agent '\n                                                         'that registered '\n                                                         'the sample, with '\n                                                         'contact '\n                                                         'information. '\n                                                         'Should include '\n                                                         'person name and '\n                                                         'affiliation, or '\n                                                         'position name '\n                                                         'and affiliation, '\n                                                         'or just '\n                                                         'organization '\n                                                         'name. e-mail '\n                                                         'address is '\n                                                         'preferred '\n                                                         'contact '\n                                                         'information.'},\n                    'schema:sdDatePublished': {'description': 'date of '\n                                                              'most recent '\n                                                              'update to '\n                                                              'the '\n                                                              'metadata '\n                                                              'content, '\n                                                              'extends '\n                                                              'iSamples '\n                                                              'schema',\n                                               'format': 'date',\n                                               'type': 'string'}},\n     'required': ['schema:about',\n                  'dcterms:conformsTo',\n                  'schema:additionalType',\n                  '@type',\n                  '@id'],\n     'type': 'object'}\n\nOn instance:\n    {'@context': {'dcat': 'http://www.w3.org/ns/dcat#',\n                  'dcterms': 'http://purl.org/dc/terms/',\n                  'dde': 'https://www.ddeworld.org/resource/',\n                  'schema': 'http://schema.org/'},\n     '@id': 'https://example.org/dataset/geo-dataset-001',\n     '@type': ['schema:Dataset'],\n     'schema:dateModified': '2026-02-28',\n     'schema:identifier': 'https://example.org/dataset/geo-dataset-001',\n     'schema:license': [{'@type': 'schema:CreativeWork',\n                         'schema:name': 'Creative Commons Attribution 4.0',\n                         'schema:url': 'https://creativecommons.org/licenses/by/4.0/'}],\n     'schema:name': 'Example DDE Geoscience Dataset',\n     'schema:subjectOf': {'@id': 'urn:uuid:example-dde-catalog-record',\n                          '@type': ['schema:Dataset'],\n                          'dcterms:conformsTo': [{'@id': 'https://w3id.org/cdif/core/1.0/'},\n                                                 {'@id': 'https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory'}],\n                          'schema:about': {'@id': 'https://example.org/dataset/geo-dataset-001'},\n                          'schema:additionalType': ['dcat:CatalogRecord'],\n                          'schema:sdDatePublished': '2026-02-28'},\n     'schema:url': 'https://example.org/dataset/geo-dataset-001'}"
                 }
               ]
             },
@@ -73,9 +75,9 @@
                 {
                   "op": "shacl-report",
                   "shaclFile": "_sources/DDEproperties/ddeCatalogRecord/rules.shacl",
-                  "graph": "@prefix dcterms: <http://purl.org/dc/terms/> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix schema1: <http://schema.org/> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode <https://example.org/metadata/geo-dataset-001> ;\n            sh:resultMessage \"DDE metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory\" ;\n            sh:resultPath ( schema1:subjectOf dcterms:conformsTo ) ;\n            sh:resultSeverity sh:Warning ;\n            sh:sourceConstraintComponent sh:HasValueConstraintComponent ;\n            sh:sourceShape [ sh:hasValue <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory> ;\n                    sh:message \"DDE metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory\" ;\n                    sh:path ( schema1:subjectOf dcterms:conformsTo ) ;\n                    sh:severity sh:Warning ] ] .\n\n",
-                  "isError": true,
-                  "message": "Validation result for _sources/DDEproperties/ddeCatalogRecord/rules.shacl:\n  Validation Report\n  Conforms: False\n  Results (1):\n  Validation Result in HasValueConstraintComponent (http://www.w3.org/ns/shacl#HasValueConstraintComponent):\n  \tSeverity: sh:Warning\n  \tSource Shape: [ sh:hasValue <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory> ; sh:message Literal(\"DDE metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory\") ; sh:path ( schema1:subjectOf dcterms:conformsTo ) ; sh:severity sh:Warning ]\n  \tFocus Node: <https://example.org/metadata/geo-dataset-001>\n  \tResult Path: ( schema1:subjectOf dcterms:conformsTo )\n  \tMessage: DDE metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory\n  "
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/DDEproperties/ddeCatalogRecord/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
                 },
                 {
                   "shaclFile": "_sources/DDEproperties/ddeCatalogRecord/rules.shacl",
@@ -103,7 +105,7 @@
       "title": "Validation report for dde.bbr.metadata.DDEproperties.ddeGeographicDataset - DDE Geographic Dataset Properties",
       "bblockName": "DDE Geographic Dataset Properties",
       "bblockId": "dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
-      "generated": "2026-03-19T16:45:54.656808+00:00",
+      "generated": "2026-03-19T17:45:17.252150+00:00",
       "result": false,
       "items": [
         {
@@ -177,12 +179,12 @@
                   "focusNodes": {
                     "cdifd:DDEGeographicDatasetPlaceShape": {
                       "nodes": [
-                        "_:Naacdd965066045dea032ed509ae0da1d"
+                        "_:Nc807a88ca90347d58ea6f765300f4d22"
                       ]
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeGeographicDataset/rules.shacl:\n - Shape cdifd:DDEGeographicDatasetPlaceShape: _:Naacdd965066045dea032ed509ae0da1d\n"
+                  "message": "Focus nodes for _sources/DDEproperties/ddeGeographicDataset/rules.shacl:\n - Shape cdifd:DDEGeographicDatasetPlaceShape: _:Nc807a88ca90347d58ea6f765300f4d22\n"
                 }
               ]
             }
@@ -200,7 +202,7 @@
       "title": "Validation report for dde.bbr.metadata.DDEproperties.ddeImagery - DDE Imagery Properties",
       "bblockName": "DDE Imagery Properties",
       "bblockId": "dde.bbr.metadata.DDEproperties.ddeImagery",
-      "generated": "2026-03-19T16:45:54.806206+00:00",
+      "generated": "2026-03-19T17:45:17.393416+00:00",
       "result": true,
       "items": [
         {
@@ -270,23 +272,23 @@
                 {
                   "shaclFile": "_sources/DDEproperties/ddeImagery/rules.shacl",
                   "focusNodes": {
-                    "cdifd:DDEImageryInstrumentShape": {
-                      "nodes": [
-                        "_:N67a6afd4aae6492184d4a8d22dda34c7",
-                        "_:N87d9e160a23e47129823d72aec5cb830",
-                        "_:Na2272ead3f814bb6a7dcbf51a000d7d5",
-                        "_:N848a122225214fafb2a9936bb72fe713"
-                      ]
-                    },
                     "cdifd:DDEImageryPropertyShape": {
                       "nodes": [
-                        "_:Neaf0763c6c564564a527016290b97136",
-                        "_:Nf7d0d02260944bdea0955fb498812c39"
+                        "_:N9374e5109bf0407ba4b9706499c83937",
+                        "_:Ne852089736ac437797826b66b6b54406"
+                      ]
+                    },
+                    "cdifd:DDEImageryInstrumentShape": {
+                      "nodes": [
+                        "_:N5adf19fd3dff47108a87e6e65373e7f2",
+                        "_:N04d4f9ef3b744c7ea955e5c6a57bf91b",
+                        "_:Naf5a62f46b424020b3a0d7d0e5aede4d",
+                        "_:N83fcb47df2e646ce8a9d520ad68858f2"
                       ]
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeImagery/rules.shacl:\n - Shape cdifd:DDEImageryInstrumentShape: _:N67a6afd4aae6492184d4a8d22dda34c7,_:N87d9e160a23e47129823d72aec5cb830,_:Na2272ead3f814bb6a7dcbf51a000d7d5,_:N848a122225214fafb2a9936bb72fe713\n - Shape cdifd:DDEImageryPropertyShape: _:Neaf0763c6c564564a527016290b97136,_:Nf7d0d02260944bdea0955fb498812c39\n"
+                  "message": "Focus nodes for _sources/DDEproperties/ddeImagery/rules.shacl:\n - Shape cdifd:DDEImageryPropertyShape: _:N9374e5109bf0407ba4b9706499c83937,_:Ne852089736ac437797826b66b6b54406\n - Shape cdifd:DDEImageryInstrumentShape: _:N5adf19fd3dff47108a87e6e65373e7f2,_:N04d4f9ef3b744c7ea955e5c6a57bf91b,_:Naf5a62f46b424020b3a0d7d0e5aede4d,_:N83fcb47df2e646ce8a9d520ad68858f2\n"
                 }
               ]
             }
@@ -304,7 +306,7 @@
       "title": "Validation report for dde.bbr.metadata.DDEproperties.ddeResourceType - DDE Resource Type",
       "bblockName": "DDE Resource Type",
       "bblockId": "dde.bbr.metadata.DDEproperties.ddeResourceType",
-      "generated": "2026-03-19T16:45:54.855904+00:00",
+      "generated": "2026-03-19T17:45:17.438487+00:00",
       "result": true,
       "items": [
         {
@@ -397,7 +399,7 @@
       "title": "Validation report for dde.bbr.metadata.DDEproperties.ddeOptional - Optional Fields for DDE Geoscience Metadata",
       "bblockName": "Optional Fields for DDE Geoscience Metadata",
       "bblockId": "dde.bbr.metadata.DDEproperties.ddeOptional",
-      "generated": "2026-03-19T16:45:54.924679+00:00",
+      "generated": "2026-03-19T17:45:17.508948+00:00",
       "result": true,
       "items": [
         {
@@ -490,7 +492,7 @@
       "title": "Validation report for dde.bbr.metadata.DDEproperties.ddeMandatory - DDE Mandatory metadata properties",
       "bblockName": "DDE Mandatory metadata properties",
       "bblockId": "dde.bbr.metadata.DDEproperties.ddeMandatory",
-      "generated": "2026-03-19T16:45:55.118222+00:00",
+      "generated": "2026-03-19T17:45:17.704762+00:00",
       "result": true,
       "items": [
         {
@@ -560,18 +562,18 @@
                 {
                   "shaclFile": "_sources/DDEproperties/ddeMandatory/rules.shacl",
                   "focusNodes": {
+                    "cdifd:DDERequiredDatasetShape": {
+                      "nodes": []
+                    },
                     "cdifd:DDEImageObjectShape": {
                       "nodes": [
                         "<https://doi.org/23609/53w7klh>/schema1:image",
                         "<https://doi.org/23609/53w7klh>/schema1:image"
                       ]
-                    },
-                    "cdifd:DDERequiredDatasetShape": {
-                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDEImageObjectShape: <https://doi.org/23609/53w7klh>/schema1:image,<https://doi.org/23609/53w7klh>/schema1:image\n - Shape cdifd:DDERequiredDatasetShape: *none*\n"
+                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDERequiredDatasetShape: *none*\n - Shape cdifd:DDEImageObjectShape: <https://doi.org/23609/53w7klh>/schema1:image,<https://doi.org/23609/53w7klh>/schema1:image\n"
                 },
                 {
                   "op": "shacl-report",
@@ -623,7 +625,7 @@
       "title": "Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDEAudioVisualProduct - DDE AudioVisual Product profile",
       "bblockName": "DDE AudioVisual Product profile",
       "bblockId": "dde.bbr.metadata.profiles.DDEProfiles.DDEAudioVisualProduct",
-      "generated": "2026-03-19T16:45:55.407562+00:00",
+      "generated": "2026-03-19T17:45:17.979759+00:00",
       "result": true,
       "items": [
         {
@@ -693,15 +695,15 @@
                 {
                   "shaclFile": "_sources/profiles/DDEProfiles/DDEAudioVisualProduct/rules.shacl",
                   "focusNodes": {
-                    "cdifd:DDEAudioVisualProductConformanceShape/sh:property/sh:qualifiedValueShape": {
+                    "cdifd:DDEAudioVisualProductConformanceShape": {
                       "nodes": []
                     },
-                    "cdifd:DDEAudioVisualProductConformanceShape": {
+                    "cdifd:DDEAudioVisualProductConformanceShape/sh:property/sh:qualifiedValueShape": {
                       "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEAudioVisualProduct/rules.shacl:\n - Shape cdifd:DDEAudioVisualProductConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n - Shape cdifd:DDEAudioVisualProductConformanceShape: *none*\n"
+                  "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEAudioVisualProduct/rules.shacl:\n - Shape cdifd:DDEAudioVisualProductConformanceShape: *none*\n - Shape cdifd:DDEAudioVisualProductConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n"
                 },
                 {
                   "op": "shacl-report",
@@ -713,17 +715,17 @@
                 {
                   "shaclFile": "_sources/DDEproperties/ddeMandatory/rules.shacl",
                   "focusNodes": {
+                    "cdifd:DDERequiredDatasetShape": {
+                      "nodes": []
+                    },
                     "cdifd:DDEImageObjectShape": {
                       "nodes": [
                         "<urn:dde:example-plate-tectonics-video>/schema1:image"
                       ]
-                    },
-                    "cdifd:DDERequiredDatasetShape": {
-                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-plate-tectonics-video>/schema1:image\n - Shape cdifd:DDERequiredDatasetShape: *none*\n"
+                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDERequiredDatasetShape: *none*\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-plate-tectonics-video>/schema1:image\n"
                 },
                 {
                   "op": "shacl-report",
@@ -792,7 +794,7 @@
       "title": "Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDECollection - DDE Collection profile",
       "bblockName": "DDE Collection profile",
       "bblockId": "dde.bbr.metadata.profiles.DDEProfiles.DDECollection",
-      "generated": "2026-03-19T16:45:55.644094+00:00",
+      "generated": "2026-03-19T17:45:18.216588+00:00",
       "result": true,
       "items": [
         {
@@ -885,17 +887,17 @@
                 {
                   "shaclFile": "_sources/DDEproperties/ddeMandatory/rules.shacl",
                   "focusNodes": {
+                    "cdifd:DDERequiredDatasetShape": {
+                      "nodes": []
+                    },
                     "cdifd:DDEImageObjectShape": {
                       "nodes": [
                         "<urn:dde:example-onegeology-collection>/schema1:image"
                       ]
-                    },
-                    "cdifd:DDERequiredDatasetShape": {
-                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-onegeology-collection>/schema1:image\n - Shape cdifd:DDERequiredDatasetShape: *none*\n"
+                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDERequiredDatasetShape: *none*\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-onegeology-collection>/schema1:image\n"
                 },
                 {
                   "op": "shacl-report",
@@ -964,7 +966,7 @@
       "title": "Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDEDataset - DDE Dataset profile",
       "bblockName": "DDE Dataset profile",
       "bblockId": "dde.bbr.metadata.profiles.DDEProfiles.DDEDataset",
-      "generated": "2026-03-19T16:45:55.930416+00:00",
+      "generated": "2026-03-19T17:45:18.526439+00:00",
       "result": true,
       "items": [
         {
@@ -1034,34 +1036,15 @@
                 {
                   "shaclFile": "_sources/profiles/DDEProfiles/DDEDataset/rules.shacl",
                   "focusNodes": {
-                    "cdifd:DDEDatasetConformanceShape": {
-                      "nodes": []
-                    },
                     "cdifd:DDEDatasetConformanceShape/sh:property/sh:qualifiedValueShape": {
                       "nodes": []
+                    },
+                    "cdifd:DDEDatasetConformanceShape": {
+                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEDataset/rules.shacl:\n - Shape cdifd:DDEDatasetConformanceShape: *none*\n - Shape cdifd:DDEDatasetConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n"
-                },
-                {
-                  "op": "shacl-report",
-                  "shaclFile": "_sources/DDEproperties/ddeGeographicDataset/rules.shacl",
-                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
-                  "isError": false,
-                  "message": "Validation result for _sources/DDEproperties/ddeGeographicDataset/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
-                },
-                {
-                  "shaclFile": "_sources/DDEproperties/ddeGeographicDataset/rules.shacl",
-                  "focusNodes": {
-                    "cdifd:DDEGeographicDatasetPlaceShape": {
-                      "nodes": [
-                        "<urn:dde:example-hydrogeological-map>/schema1:spatialCoverage"
-                      ]
-                    }
-                  },
-                  "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeGeographicDataset/rules.shacl:\n - Shape cdifd:DDEGeographicDatasetPlaceShape: <urn:dde:example-hydrogeological-map>/schema1:spatialCoverage\n"
+                  "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEDataset/rules.shacl:\n - Shape cdifd:DDEDatasetConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n - Shape cdifd:DDEDatasetConformanceShape: *none*\n"
                 },
                 {
                   "op": "shacl-report",
@@ -1073,17 +1056,17 @@
                 {
                   "shaclFile": "_sources/DDEproperties/ddeMandatory/rules.shacl",
                   "focusNodes": {
+                    "cdifd:DDERequiredDatasetShape": {
+                      "nodes": []
+                    },
                     "cdifd:DDEImageObjectShape": {
                       "nodes": [
                         "<urn:dde:example-hydrogeological-map>/schema1:image"
                       ]
-                    },
-                    "cdifd:DDERequiredDatasetShape": {
-                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-hydrogeological-map>/schema1:image\n - Shape cdifd:DDERequiredDatasetShape: *none*\n"
+                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDERequiredDatasetShape: *none*\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-hydrogeological-map>/schema1:image\n"
                 },
                 {
                   "op": "shacl-report",
@@ -1121,6 +1104,25 @@
                 },
                 {
                   "op": "shacl-report",
+                  "shaclFile": "_sources/DDEproperties/ddeGeographicDataset/rules.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/DDEproperties/ddeGeographicDataset/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/DDEproperties/ddeGeographicDataset/rules.shacl",
+                  "focusNodes": {
+                    "cdifd:DDEGeographicDatasetPlaceShape": {
+                      "nodes": [
+                        "<urn:dde:example-hydrogeological-map>/schema1:spatialCoverage"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/DDEproperties/ddeGeographicDataset/rules.shacl:\n - Shape cdifd:DDEGeographicDatasetPlaceShape: <urn:dde:example-hydrogeological-map>/schema1:spatialCoverage\n"
+                },
+                {
+                  "op": "shacl-report",
                   "shaclFile": "_sources/DDEproperties/ddeOptional/rules.shacl",
                   "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
                   "isError": false,
@@ -1152,7 +1154,7 @@
       "title": "Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery - DDE Geoscience Discovery metadata",
       "bblockName": "DDE Geoscience Discovery metadata",
       "bblockId": "dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery",
-      "generated": "2026-03-19T16:45:56.487091+00:00",
+      "generated": "2026-03-19T17:45:19.055450+00:00",
       "result": true,
       "items": [
         {
@@ -1222,13 +1224,19 @@
                 {
                   "shaclFile": "_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl",
                   "focusNodes": {
-                    "cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first": {
+                    "cdifd:DDEDatasetMandatoryShape": {
+                      "nodes": []
+                    },
+                    "cdifd:resourceIdentifierProperty/sh:or/rdf:first": {
                       "nodes": []
                     },
                     "cdifd:rightsProperty/sh:or/rdf:rest/rdf:first": {
                       "nodes": []
                     },
-                    "cdifd:rightsProperty/sh:or/rdf:first": {
+                    "_:n9513a1b2b4104a2d9d7b2ee3e3522c85b9": {
+                      "nodes": []
+                    },
+                    "cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first": {
                       "nodes": []
                     },
                     "cdifd:DDEImageObjectShape": {
@@ -1237,27 +1245,21 @@
                         "<urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654>/schema1:image"
                       ]
                     },
-                    "cdifd:resourceIdentifierProperty/sh:or/rdf:first": {
-                      "nodes": []
-                    },
-                    "_:nf39819d0d7184680a485fa7f01a53ba0b22": {
-                      "nodes": []
-                    },
-                    "_:nf39819d0d7184680a485fa7f01a53ba0b9": {
-                      "nodes": []
-                    },
-                    "cdifd:DDEDatasetMandatoryShape": {
-                      "nodes": []
-                    },
-                    "_:nf39819d0d7184680a485fa7f01a53ba0b11": {
+                    "_:n9513a1b2b4104a2d9d7b2ee3e3522c85b11": {
                       "nodes": []
                     },
                     "cdifd:DDECatalogRecordShape": {
                       "nodes": []
+                    },
+                    "_:n9513a1b2b4104a2d9d7b2ee3e3522c85b22": {
+                      "nodes": []
+                    },
+                    "cdifd:rightsProperty/sh:or/rdf:first": {
+                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl:\n - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape cdifd:rightsProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape cdifd:rightsProperty/sh:or/rdf:first: *none*\n - Shape cdifd:DDEImageObjectShape: <urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654>/schema1:image,<urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654>/schema1:image\n - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:first: *none*\n - Shape _:nf39819d0d7184680a485fa7f01a53ba0b22: *none*\n - Shape _:nf39819d0d7184680a485fa7f01a53ba0b9: *none*\n - Shape cdifd:DDEDatasetMandatoryShape: *none*\n - Shape _:nf39819d0d7184680a485fa7f01a53ba0b11: *none*\n - Shape cdifd:DDECatalogRecordShape: *none*\n"
+                  "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl:\n - Shape cdifd:DDEDatasetMandatoryShape: *none*\n - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:first: *none*\n - Shape cdifd:rightsProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape _:n9513a1b2b4104a2d9d7b2ee3e3522c85b9: *none*\n - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape cdifd:DDEImageObjectShape: <urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654>/schema1:image,<urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654>/schema1:image\n - Shape _:n9513a1b2b4104a2d9d7b2ee3e3522c85b11: *none*\n - Shape cdifd:DDECatalogRecordShape: *none*\n - Shape _:n9513a1b2b4104a2d9d7b2ee3e3522c85b22: *none*\n - Shape cdifd:rightsProperty/sh:or/rdf:first: *none*\n"
                 },
                 {
                   "op": "shacl-report",
@@ -1269,18 +1271,18 @@
                 {
                   "shaclFile": "_sources/DDEproperties/ddeMandatory/rules.shacl",
                   "focusNodes": {
+                    "cdifd:DDERequiredDatasetShape": {
+                      "nodes": []
+                    },
                     "cdifd:DDEImageObjectShape": {
                       "nodes": [
                         "<urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654>/schema1:image",
                         "<urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654>/schema1:image"
                       ]
-                    },
-                    "cdifd:DDERequiredDatasetShape": {
-                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDEImageObjectShape: <urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654>/schema1:image,<urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654>/schema1:image\n - Shape cdifd:DDERequiredDatasetShape: *none*\n"
+                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDERequiredDatasetShape: *none*\n - Shape cdifd:DDEImageObjectShape: <urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654>/schema1:image,<urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654>/schema1:image\n"
                 },
                 {
                   "op": "shacl-report",
@@ -1404,13 +1406,19 @@
                 {
                   "shaclFile": "_sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl",
                   "focusNodes": {
-                    "cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first": {
+                    "cdifd:DDEDatasetMandatoryShape": {
+                      "nodes": []
+                    },
+                    "cdifd:resourceIdentifierProperty/sh:or/rdf:first": {
                       "nodes": []
                     },
                     "cdifd:rightsProperty/sh:or/rdf:rest/rdf:first": {
                       "nodes": []
                     },
-                    "cdifd:rightsProperty/sh:or/rdf:first": {
+                    "_:n9513a1b2b4104a2d9d7b2ee3e3522c85b9": {
+                      "nodes": []
+                    },
+                    "cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first": {
                       "nodes": []
                     },
                     "cdifd:DDEImageObjectShape": {
@@ -1419,27 +1427,21 @@
                         "<https://doi.org/23609/53w7klh>/schema1:image"
                       ]
                     },
-                    "cdifd:resourceIdentifierProperty/sh:or/rdf:first": {
-                      "nodes": []
-                    },
-                    "_:nf39819d0d7184680a485fa7f01a53ba0b22": {
-                      "nodes": []
-                    },
-                    "_:nf39819d0d7184680a485fa7f01a53ba0b9": {
-                      "nodes": []
-                    },
-                    "cdifd:DDEDatasetMandatoryShape": {
-                      "nodes": []
-                    },
-                    "_:nf39819d0d7184680a485fa7f01a53ba0b11": {
+                    "_:n9513a1b2b4104a2d9d7b2ee3e3522c85b11": {
                       "nodes": []
                     },
                     "cdifd:DDECatalogRecordShape": {
                       "nodes": []
+                    },
+                    "_:n9513a1b2b4104a2d9d7b2ee3e3522c85b22": {
+                      "nodes": []
+                    },
+                    "cdifd:rightsProperty/sh:or/rdf:first": {
+                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl:\n - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape cdifd:rightsProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape cdifd:rightsProperty/sh:or/rdf:first: *none*\n - Shape cdifd:DDEImageObjectShape: <https://doi.org/23609/53w7klh>/schema1:image,<https://doi.org/23609/53w7klh>/schema1:image\n - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:first: *none*\n - Shape _:nf39819d0d7184680a485fa7f01a53ba0b22: *none*\n - Shape _:nf39819d0d7184680a485fa7f01a53ba0b9: *none*\n - Shape cdifd:DDEDatasetMandatoryShape: *none*\n - Shape _:nf39819d0d7184680a485fa7f01a53ba0b11: *none*\n - Shape cdifd:DDECatalogRecordShape: *none*\n"
+                  "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEDiscovery/rules.shacl:\n - Shape cdifd:DDEDatasetMandatoryShape: *none*\n - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:first: *none*\n - Shape cdifd:rightsProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape _:n9513a1b2b4104a2d9d7b2ee3e3522c85b9: *none*\n - Shape cdifd:resourceIdentifierProperty/sh:or/rdf:rest/rdf:first: *none*\n - Shape cdifd:DDEImageObjectShape: <https://doi.org/23609/53w7klh>/schema1:image,<https://doi.org/23609/53w7klh>/schema1:image\n - Shape _:n9513a1b2b4104a2d9d7b2ee3e3522c85b11: *none*\n - Shape cdifd:DDECatalogRecordShape: *none*\n - Shape _:n9513a1b2b4104a2d9d7b2ee3e3522c85b22: *none*\n - Shape cdifd:rightsProperty/sh:or/rdf:first: *none*\n"
                 },
                 {
                   "op": "shacl-report",
@@ -1451,18 +1453,18 @@
                 {
                   "shaclFile": "_sources/DDEproperties/ddeMandatory/rules.shacl",
                   "focusNodes": {
+                    "cdifd:DDERequiredDatasetShape": {
+                      "nodes": []
+                    },
                     "cdifd:DDEImageObjectShape": {
                       "nodes": [
                         "<https://doi.org/23609/53w7klh>/schema1:image",
                         "<https://doi.org/23609/53w7klh>/schema1:image"
                       ]
-                    },
-                    "cdifd:DDERequiredDatasetShape": {
-                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDEImageObjectShape: <https://doi.org/23609/53w7klh>/schema1:image,<https://doi.org/23609/53w7klh>/schema1:image\n - Shape cdifd:DDERequiredDatasetShape: *none*\n"
+                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDERequiredDatasetShape: *none*\n - Shape cdifd:DDEImageObjectShape: <https://doi.org/23609/53w7klh>/schema1:image,<https://doi.org/23609/53w7klh>/schema1:image\n"
                 },
                 {
                   "op": "shacl-report",
@@ -1531,7 +1533,7 @@
       "title": "Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDEDocument - DDE Document profile",
       "bblockName": "DDE Document profile",
       "bblockId": "dde.bbr.metadata.profiles.DDEProfiles.DDEDocument",
-      "generated": "2026-03-19T16:45:56.754636+00:00",
+      "generated": "2026-03-19T17:45:19.325103+00:00",
       "result": true,
       "items": [
         {
@@ -1601,15 +1603,15 @@
                 {
                   "shaclFile": "_sources/profiles/DDEProfiles/DDEDocument/rules.shacl",
                   "focusNodes": {
-                    "cdifd:DDEDocumentConformanceShape": {
+                    "cdifd:DDEDocumentConformanceShape/sh:property/sh:qualifiedValueShape": {
                       "nodes": []
                     },
-                    "cdifd:DDEDocumentConformanceShape/sh:property/sh:qualifiedValueShape": {
+                    "cdifd:DDEDocumentConformanceShape": {
                       "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEDocument/rules.shacl:\n - Shape cdifd:DDEDocumentConformanceShape: *none*\n - Shape cdifd:DDEDocumentConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n"
+                  "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEDocument/rules.shacl:\n - Shape cdifd:DDEDocumentConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n - Shape cdifd:DDEDocumentConformanceShape: *none*\n"
                 },
                 {
                   "op": "shacl-report",
@@ -1621,17 +1623,17 @@
                 {
                   "shaclFile": "_sources/DDEproperties/ddeMandatory/rules.shacl",
                   "focusNodes": {
+                    "cdifd:DDERequiredDatasetShape": {
+                      "nodes": []
+                    },
                     "cdifd:DDEImageObjectShape": {
                       "nodes": [
                         "<urn:dde:example-plate-tectonics-article>/schema1:image"
                       ]
-                    },
-                    "cdifd:DDERequiredDatasetShape": {
-                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-plate-tectonics-article>/schema1:image\n - Shape cdifd:DDERequiredDatasetShape: *none*\n"
+                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDERequiredDatasetShape: *none*\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-plate-tectonics-article>/schema1:image\n"
                 },
                 {
                   "op": "shacl-report",
@@ -1700,7 +1702,7 @@
       "title": "Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDEEvent - DDE Event profile",
       "bblockName": "DDE Event profile",
       "bblockId": "dde.bbr.metadata.profiles.DDEProfiles.DDEEvent",
-      "generated": "2026-03-19T16:45:57.042212+00:00",
+      "generated": "2026-03-19T17:45:19.600876+00:00",
       "result": true,
       "items": [
         {
@@ -1770,15 +1772,15 @@
                 {
                   "shaclFile": "_sources/profiles/DDEProfiles/DDEEvent/rules.shacl",
                   "focusNodes": {
-                    "cdifd:DDEEventConformanceShape": {
+                    "cdifd:DDEEventConformanceShape/sh:property/sh:qualifiedValueShape": {
                       "nodes": []
                     },
-                    "cdifd:DDEEventConformanceShape/sh:property/sh:qualifiedValueShape": {
+                    "cdifd:DDEEventConformanceShape": {
                       "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEEvent/rules.shacl:\n - Shape cdifd:DDEEventConformanceShape: *none*\n - Shape cdifd:DDEEventConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n"
+                  "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEEvent/rules.shacl:\n - Shape cdifd:DDEEventConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n - Shape cdifd:DDEEventConformanceShape: *none*\n"
                 },
                 {
                   "op": "shacl-report",
@@ -1790,17 +1792,17 @@
                 {
                   "shaclFile": "_sources/DDEproperties/ddeMandatory/rules.shacl",
                   "focusNodes": {
+                    "cdifd:DDERequiredDatasetShape": {
+                      "nodes": []
+                    },
                     "cdifd:DDEImageObjectShape": {
                       "nodes": [
                         "<urn:dde:example-iodp-expedition-396>/schema1:image"
                       ]
-                    },
-                    "cdifd:DDERequiredDatasetShape": {
-                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-iodp-expedition-396>/schema1:image\n - Shape cdifd:DDERequiredDatasetShape: *none*\n"
+                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDERequiredDatasetShape: *none*\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-iodp-expedition-396>/schema1:image\n"
                 },
                 {
                   "op": "shacl-report",
@@ -1869,7 +1871,7 @@
       "title": "Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDEFunctionalResource - DDE Functional Resource profile",
       "bblockName": "DDE Functional Resource profile",
       "bblockId": "dde.bbr.metadata.profiles.DDEProfiles.DDEFunctionalResource",
-      "generated": "2026-03-19T16:45:57.292292+00:00",
+      "generated": "2026-03-19T17:45:19.834201+00:00",
       "result": true,
       "items": [
         {
@@ -1947,7 +1949,7 @@
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEFunctionalResource/rules.shacl:\n - Shape cdifd:DDEFunctionalResourceConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n - Shape cdifd:DDEFunctionalResourceConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n - Shape cdifd:DDEFunctionalResourceConformanceShape: *none*\n"
+                  "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEFunctionalResource/rules.shacl:\n - Shape cdifd:DDEFunctionalResourceConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n - Shape cdifd:DDEFunctionalResourceConformanceShape: *none*\n - Shape cdifd:DDEFunctionalResourceConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n"
                 },
                 {
                   "op": "shacl-report",
@@ -1959,17 +1961,17 @@
                 {
                   "shaclFile": "_sources/DDEproperties/ddeMandatory/rules.shacl",
                   "focusNodes": {
+                    "cdifd:DDERequiredDatasetShape": {
+                      "nodes": []
+                    },
                     "cdifd:DDEImageObjectShape": {
                       "nodes": [
                         "<urn:dde:example-geological-time-viewer>/schema1:image"
                       ]
-                    },
-                    "cdifd:DDERequiredDatasetShape": {
-                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-geological-time-viewer>/schema1:image\n - Shape cdifd:DDERequiredDatasetShape: *none*\n"
+                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDERequiredDatasetShape: *none*\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-geological-time-viewer>/schema1:image\n"
                 },
                 {
                   "op": "shacl-report",
@@ -2038,7 +2040,7 @@
       "title": "Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDEImage - DDE Image profile",
       "bblockName": "DDE Image profile",
       "bblockId": "dde.bbr.metadata.profiles.DDEProfiles.DDEImage",
-      "generated": "2026-03-19T16:45:57.707563+00:00",
+      "generated": "2026-03-19T17:45:20.233375+00:00",
       "result": true,
       "items": [
         {
@@ -2120,25 +2122,6 @@
                 },
                 {
                   "op": "shacl-report",
-                  "shaclFile": "_sources/DDEproperties/ddeGeographicDataset/rules.shacl",
-                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
-                  "isError": false,
-                  "message": "Validation result for _sources/DDEproperties/ddeGeographicDataset/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
-                },
-                {
-                  "shaclFile": "_sources/DDEproperties/ddeGeographicDataset/rules.shacl",
-                  "focusNodes": {
-                    "cdifd:DDEGeographicDatasetPlaceShape": {
-                      "nodes": [
-                        "<urn:dde:example-landsat8-tibet>/schema1:spatialCoverage"
-                      ]
-                    }
-                  },
-                  "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeGeographicDataset/rules.shacl:\n - Shape cdifd:DDEGeographicDatasetPlaceShape: <urn:dde:example-landsat8-tibet>/schema1:spatialCoverage\n"
-                },
-                {
-                  "op": "shacl-report",
                   "shaclFile": "_sources/DDEproperties/ddeMandatory/rules.shacl",
                   "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
                   "isError": false,
@@ -2147,17 +2130,17 @@
                 {
                   "shaclFile": "_sources/DDEproperties/ddeMandatory/rules.shacl",
                   "focusNodes": {
+                    "cdifd:DDERequiredDatasetShape": {
+                      "nodes": []
+                    },
                     "cdifd:DDEImageObjectShape": {
                       "nodes": [
                         "<urn:dde:example-landsat8-tibet>/schema1:image"
                       ]
-                    },
-                    "cdifd:DDERequiredDatasetShape": {
-                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-landsat8-tibet>/schema1:image\n - Shape cdifd:DDERequiredDatasetShape: *none*\n"
+                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDERequiredDatasetShape: *none*\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-landsat8-tibet>/schema1:image\n"
                 },
                 {
                   "op": "shacl-report",
@@ -2195,6 +2178,25 @@
                 },
                 {
                   "op": "shacl-report",
+                  "shaclFile": "_sources/DDEproperties/ddeGeographicDataset/rules.shacl",
+                  "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+                  "isError": false,
+                  "message": "Validation result for _sources/DDEproperties/ddeGeographicDataset/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+                },
+                {
+                  "shaclFile": "_sources/DDEproperties/ddeGeographicDataset/rules.shacl",
+                  "focusNodes": {
+                    "cdifd:DDEGeographicDatasetPlaceShape": {
+                      "nodes": [
+                        "<urn:dde:example-landsat8-tibet>/schema1:spatialCoverage"
+                      ]
+                    }
+                  },
+                  "isError": false,
+                  "message": "Focus nodes for _sources/DDEproperties/ddeGeographicDataset/rules.shacl:\n - Shape cdifd:DDEGeographicDatasetPlaceShape: <urn:dde:example-landsat8-tibet>/schema1:spatialCoverage\n"
+                },
+                {
+                  "op": "shacl-report",
                   "shaclFile": "_sources/DDEproperties/ddeOptional/rules.shacl",
                   "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
                   "isError": false,
@@ -2220,6 +2222,12 @@
                 {
                   "shaclFile": "_sources/DDEproperties/ddeImagery/rules.shacl",
                   "focusNodes": {
+                    "cdifd:DDEImageryPropertyShape": {
+                      "nodes": [
+                        "<urn:dde:example-landsat8-tibet>/schema1:additionalProperty",
+                        "<urn:dde:example-landsat8-tibet>/schema1:additionalProperty"
+                      ]
+                    },
                     "cdifd:DDEImageryInstrumentShape": {
                       "nodes": [
                         "<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument",
@@ -2227,16 +2235,10 @@
                         "<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument",
                         "<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument"
                       ]
-                    },
-                    "cdifd:DDEImageryPropertyShape": {
-                      "nodes": [
-                        "<urn:dde:example-landsat8-tibet>/schema1:additionalProperty",
-                        "<urn:dde:example-landsat8-tibet>/schema1:additionalProperty"
-                      ]
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeImagery/rules.shacl:\n - Shape cdifd:DDEImageryInstrumentShape: <urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument,<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument,<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument,<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument\n - Shape cdifd:DDEImageryPropertyShape: <urn:dde:example-landsat8-tibet>/schema1:additionalProperty,<urn:dde:example-landsat8-tibet>/schema1:additionalProperty\n"
+                  "message": "Focus nodes for _sources/DDEproperties/ddeImagery/rules.shacl:\n - Shape cdifd:DDEImageryPropertyShape: <urn:dde:example-landsat8-tibet>/schema1:additionalProperty,<urn:dde:example-landsat8-tibet>/schema1:additionalProperty\n - Shape cdifd:DDEImageryInstrumentShape: <urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument,<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument,<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument,<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument\n"
                 }
               ]
             }
@@ -2254,7 +2256,7 @@
       "title": "Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDESemanticResource - DDE Semantic Resource profile",
       "bblockName": "DDE Semantic Resource profile",
       "bblockId": "dde.bbr.metadata.profiles.DDEProfiles.DDESemanticResource",
-      "generated": "2026-03-19T16:45:57.969436+00:00",
+      "generated": "2026-03-19T17:45:20.494037+00:00",
       "result": true,
       "items": [
         {
@@ -2324,15 +2326,15 @@
                 {
                   "shaclFile": "_sources/profiles/DDEProfiles/DDESemanticResource/rules.shacl",
                   "focusNodes": {
-                    "cdifd:DDESemanticResourceConformanceShape": {
+                    "cdifd:DDESemanticResourceConformanceShape/sh:property/sh:qualifiedValueShape": {
                       "nodes": []
                     },
-                    "cdifd:DDESemanticResourceConformanceShape/sh:property/sh:qualifiedValueShape": {
+                    "cdifd:DDESemanticResourceConformanceShape": {
                       "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/profiles/DDEProfiles/DDESemanticResource/rules.shacl:\n - Shape cdifd:DDESemanticResourceConformanceShape: *none*\n - Shape cdifd:DDESemanticResourceConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n"
+                  "message": "Focus nodes for _sources/profiles/DDEProfiles/DDESemanticResource/rules.shacl:\n - Shape cdifd:DDESemanticResourceConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n - Shape cdifd:DDESemanticResourceConformanceShape: *none*\n"
                 },
                 {
                   "op": "shacl-report",
@@ -2344,17 +2346,17 @@
                 {
                   "shaclFile": "_sources/DDEproperties/ddeMandatory/rules.shacl",
                   "focusNodes": {
+                    "cdifd:DDERequiredDatasetShape": {
+                      "nodes": []
+                    },
                     "cdifd:DDEImageObjectShape": {
                       "nodes": [
                         "<urn:dde:example-chronostrat-chart>/schema1:image"
                       ]
-                    },
-                    "cdifd:DDERequiredDatasetShape": {
-                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-chronostrat-chart>/schema1:image\n - Shape cdifd:DDERequiredDatasetShape: *none*\n"
+                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDERequiredDatasetShape: *none*\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-chronostrat-chart>/schema1:image\n"
                 },
                 {
                   "op": "shacl-report",
@@ -2423,7 +2425,7 @@
       "title": "Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDESoftware - DDE Software profile",
       "bblockName": "DDE Software profile",
       "bblockId": "dde.bbr.metadata.profiles.DDEProfiles.DDESoftware",
-      "generated": "2026-03-19T16:45:58.240061+00:00",
+      "generated": "2026-03-19T17:45:20.748467+00:00",
       "result": true,
       "items": [
         {
@@ -2513,17 +2515,17 @@
                 {
                   "shaclFile": "_sources/DDEproperties/ddeMandatory/rules.shacl",
                   "focusNodes": {
+                    "cdifd:DDERequiredDatasetShape": {
+                      "nodes": []
+                    },
                     "cdifd:DDEImageObjectShape": {
                       "nodes": [
                         "<urn:dde:example-gplates>/schema1:image"
                       ]
-                    },
-                    "cdifd:DDERequiredDatasetShape": {
-                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-gplates>/schema1:image\n - Shape cdifd:DDERequiredDatasetShape: *none*\n"
+                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDERequiredDatasetShape: *none*\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-gplates>/schema1:image\n"
                 },
                 {
                   "op": "shacl-report",
@@ -2592,7 +2594,7 @@
       "title": "Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDEWebAPI - DDE WebAPI profile",
       "bblockName": "DDE WebAPI profile",
       "bblockId": "dde.bbr.metadata.profiles.DDEProfiles.DDEWebAPI",
-      "generated": "2026-03-19T16:45:58.503385+00:00",
+      "generated": "2026-03-19T17:45:20.994256+00:00",
       "result": false,
       "items": [
         {
@@ -2664,17 +2666,17 @@
                 {
                   "shaclFile": "_sources/DDEproperties/ddeMandatory/rules.shacl",
                   "focusNodes": {
+                    "cdifd:DDERequiredDatasetShape": {
+                      "nodes": []
+                    },
                     "cdifd:DDEImageObjectShape": {
                       "nodes": [
                         "ex:dde-webapi-001/schema1:image"
                       ]
-                    },
-                    "cdifd:DDERequiredDatasetShape": {
-                      "nodes": []
                     }
                   },
                   "isError": false,
-                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDEImageObjectShape: ex:dde-webapi-001/schema1:image\n - Shape cdifd:DDERequiredDatasetShape: *none*\n"
+                  "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDERequiredDatasetShape: *none*\n - Shape cdifd:DDEImageObjectShape: ex:dde-webapi-001/schema1:image\n"
                 },
                 {
                   "op": "shacl-report",

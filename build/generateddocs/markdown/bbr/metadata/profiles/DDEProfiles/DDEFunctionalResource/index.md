@@ -283,12 +283,12 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
 <urn:dde:example-geological-time-viewer> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Web Application" ;
-            schema1:termCode "webApplication" ],
+            schema1:name "Software" ;
+            schema1:termCode "software" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Software" ;
-            schema1:termCode "software" ] ;
+            schema1:name "Web Application" ;
+            schema1:termCode "webApplication" ] ;
     schema1:creator ( [ a schema1:Organization ;
                 schema1:name "Deep-time Digital Earth (DDE)" ;
                 schema1:url "https://www.ddeworld.org/" ] ) ;
@@ -301,13 +301,13 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
             schema1:name "Geological Time Viewer screenshot" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Data Integration Synthesis" ;
             schema1:termCode "dataIntegrationSynthesis" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "ICS",
         "chronostratigraphy",
         "geological time",
