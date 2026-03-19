@@ -1,5 +1,5 @@
 Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDESoftware - DDE Software profile
-Generated 2026-03-18T13:57:19.969043+00:00
+Generated 2026-03-19T15:29:52.043030+00:00
 === Files ===
 Using exampleDDESoftware.json from examples
 JSON-LD context is present - uplifting
@@ -12,22 +12,13 @@ Validation passed
 === End JSON Schema ===
 
 === SHACL ===
-
-** Validation error **
 Validation result for _sources/profiles/DDEProfiles/DDESoftware/rules.shacl:
   Validation Report
-  Conforms: False
-  Results (1):
-  Validation Result in HasValueConstraintComponent (http://www.w3.org/ns/shacl#HasValueConstraintComponent):
-  	Severity: sh:Warning
-  	Source Shape: [ sh:hasValue <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware> ; sh:message Literal("DDESoftware profile: metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware") ; sh:path dcterms:conformsTo ; sh:severity sh:Warning ]
-  	Focus Node: <urn:dde:example-gplates>
-  	Result Path: dcterms:conformsTo
-  	Message: DDESoftware profile: metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware
+  Conforms: True
   
 Focus nodes for _sources/profiles/DDEProfiles/DDESoftware/rules.shacl:
- - Shape cdifd:DDESoftwareConformanceShape/sh:property/sh:qualifiedValueShape: *none*
  - Shape cdifd:DDESoftwareConformanceShape: *none*
+ - Shape cdifd:DDESoftwareConformanceShape/sh:property/sh:qualifiedValueShape: *none*
 
 Validation result for _sources/DDEproperties/ddeMandatory/rules.shacl:
   Validation Report
@@ -37,19 +28,28 @@ Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:
  - Shape cdifd:DDERequiredDatasetShape: *none*
  - Shape cdifd:DDEImageObjectShape: <urn:dde:example-gplates>/schema1:image
 
+
+** Validation error **
+Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:
+  Validation Report
+  Conforms: False
+  Results (1):
+  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
+  	Severity: sh:Violation
+  	Source Shape: [ sh:message Literal("DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF") ; sh:minCount Literal("2", datatype=xsd:integer) ; sh:path ( schema1:subjectOf dcterms:conformsTo ) ]
+  	Focus Node: <urn:uuid:dde-software-catalog-record>
+  	Result Path: ( schema1:subjectOf dcterms:conformsTo )
+  	Message: DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF
+  
+Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:
+ - Shape cdifd:DDECatalogRecordShape: *none*
+
 Validation result for _sources/DDEproperties/ddeResourceType/rules.shacl:
   Validation Report
   Conforms: True
   
 Focus nodes for _sources/DDEproperties/ddeResourceType/rules.shacl:
  - Shape cdifd:DDEResourceTypeShape: *none*
-
-Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:
- - Shape cdifd:DDECatalogRecordShape: *none*
 
 Validation result for _sources/DDEproperties/ddeOptional/rules.shacl:
   Validation Report

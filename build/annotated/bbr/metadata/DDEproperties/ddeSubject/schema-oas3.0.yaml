@@ -36,11 +36,15 @@ x-defs:
       dcterms:conformsTo:
         type: array
         items:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCatalogRecord_schema/$defs/conformsTo_item
+          type: object
+          properties:
+            '@id':
+              type: string
+              description: uri for specifications that this metadata record conforms
+                to
         minItems: 1
         description: uri for specifications that this metadata record conforms to.
-          Minimimally should specify uri for CDIF discovery profile.  Implement as
-          $def to facilitate extension for profiles that need to add conformance statements
+          Minimimally should specify uri for CDIF discovery profile.
       schema:maintainer:
         description: iSamples Registrant. identification of the agent that registered
           the sample, with contact information. Should include person name and affiliation,
@@ -100,13 +104,6 @@ x-defs:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_person_schema
       Organization:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_organization_schema
-      conformsTo_item:
-        type: object
-        properties:
-          '@id':
-            type: string
-            description: uri for specifications that this metadata record conforms
-              to
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   metadataBuildingBlocks__sources_schemaorgProperties_identifier_schema:

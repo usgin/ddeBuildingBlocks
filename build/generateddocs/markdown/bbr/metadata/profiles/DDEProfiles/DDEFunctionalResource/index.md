@@ -283,12 +283,12 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
 <urn:dde:example-geological-time-viewer> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Web Application" ;
-            schema1:termCode "webApplication" ],
+            schema1:name "Software" ;
+            schema1:termCode "software" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Software" ;
-            schema1:termCode "software" ] ;
+            schema1:name "Web Application" ;
+            schema1:termCode "webApplication" ] ;
     schema1:creator ( [ a schema1:Organization ;
                 schema1:name "Deep-time Digital Earth (DDE)" ;
                 schema1:url "https://www.ddeworld.org/" ] ) ;

@@ -2,7 +2,7 @@
   "title": "Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDEAudioVisualProduct - DDE AudioVisual Product profile",
   "bblockName": "DDE AudioVisual Product profile",
   "bblockId": "dde.bbr.metadata.profiles.DDEProfiles.DDEAudioVisualProduct",
-  "generated": "2026-03-18T13:57:16.043507+00:00",
+  "generated": "2026-03-19T15:29:49.091653+00:00",
   "result": false,
   "items": [
     {
@@ -65,22 +65,22 @@
             {
               "op": "shacl-report",
               "shaclFile": "_sources/profiles/DDEProfiles/DDEAudioVisualProduct/rules.shacl",
-              "graph": "@prefix dcterms: <http://purl.org/dc/terms/> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode <urn:dde:example-plate-tectonics-video> ;\n            sh:resultMessage \"DDEAudioVisualProduct profile: metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct\" ;\n            sh:resultPath dcterms:conformsTo ;\n            sh:resultSeverity sh:Warning ;\n            sh:sourceConstraintComponent sh:HasValueConstraintComponent ;\n            sh:sourceShape [ sh:hasValue <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct> ;\n                    sh:message \"DDEAudioVisualProduct profile: metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct\" ;\n                    sh:path dcterms:conformsTo ;\n                    sh:severity sh:Warning ] ] .\n\n",
-              "isError": true,
-              "message": "Validation result for _sources/profiles/DDEProfiles/DDEAudioVisualProduct/rules.shacl:\n  Validation Report\n  Conforms: False\n  Results (1):\n  Validation Result in HasValueConstraintComponent (http://www.w3.org/ns/shacl#HasValueConstraintComponent):\n  \tSeverity: sh:Warning\n  \tSource Shape: [ sh:hasValue <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct> ; sh:message Literal(\"DDEAudioVisualProduct profile: metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct\") ; sh:path dcterms:conformsTo ; sh:severity sh:Warning ]\n  \tFocus Node: <urn:dde:example-plate-tectonics-video>\n  \tResult Path: dcterms:conformsTo\n  \tMessage: DDEAudioVisualProduct profile: metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct\n  "
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/profiles/DDEProfiles/DDEAudioVisualProduct/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
             },
             {
               "shaclFile": "_sources/profiles/DDEProfiles/DDEAudioVisualProduct/rules.shacl",
               "focusNodes": {
-                "cdifd:DDEAudioVisualProductConformanceShape": {
+                "cdifd:DDEAudioVisualProductConformanceShape/sh:property/sh:qualifiedValueShape": {
                   "nodes": []
                 },
-                "cdifd:DDEAudioVisualProductConformanceShape/sh:property/sh:qualifiedValueShape": {
+                "cdifd:DDEAudioVisualProductConformanceShape": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEAudioVisualProduct/rules.shacl:\n - Shape cdifd:DDEAudioVisualProductConformanceShape: *none*\n - Shape cdifd:DDEAudioVisualProductConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n"
+              "message": "Focus nodes for _sources/profiles/DDEProfiles/DDEAudioVisualProduct/rules.shacl:\n - Shape cdifd:DDEAudioVisualProductConformanceShape/sh:property/sh:qualifiedValueShape: *none*\n - Shape cdifd:DDEAudioVisualProductConformanceShape: *none*\n"
             },
             {
               "op": "shacl-report",
@@ -106,6 +106,23 @@
             },
             {
               "op": "shacl-report",
+              "shaclFile": "_sources/DDEproperties/ddeSubject/rules.shacl",
+              "graph": "@prefix dcterms: <http://purl.org/dc/terms/> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix schema1: <http://schema.org/> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode <urn:uuid:dde-audiovisual-catalog-record> ;\n            sh:resultMessage \"DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\" ;\n            sh:resultPath ( schema1:subjectOf dcterms:conformsTo ) ;\n            sh:resultSeverity sh:Violation ;\n            sh:sourceConstraintComponent sh:MinCountConstraintComponent ;\n            sh:sourceShape [ sh:message \"DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\" ;\n                    sh:minCount 2 ;\n                    sh:path ( schema1:subjectOf dcterms:conformsTo ) ] ] .\n\n",
+              "isError": true,
+              "message": "Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:\n  Validation Report\n  Conforms: False\n  Results (1):\n  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):\n  \tSeverity: sh:Violation\n  \tSource Shape: [ sh:message Literal(\"DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\") ; sh:minCount Literal(\"2\", datatype=xsd:integer) ; sh:path ( schema1:subjectOf dcterms:conformsTo ) ]\n  \tFocus Node: <urn:uuid:dde-audiovisual-catalog-record>\n  \tResult Path: ( schema1:subjectOf dcterms:conformsTo )\n  \tMessage: DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\n  "
+            },
+            {
+              "shaclFile": "_sources/DDEproperties/ddeSubject/rules.shacl",
+              "focusNodes": {
+                "cdifd:DDECatalogRecordShape": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:\n - Shape cdifd:DDECatalogRecordShape: *none*\n"
+            },
+            {
+              "op": "shacl-report",
               "shaclFile": "_sources/DDEproperties/ddeResourceType/rules.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
@@ -120,23 +137,6 @@
               },
               "isError": false,
               "message": "Focus nodes for _sources/DDEproperties/ddeResourceType/rules.shacl:\n - Shape cdifd:DDEResourceTypeShape: *none*\n"
-            },
-            {
-              "op": "shacl-report",
-              "shaclFile": "_sources/DDEproperties/ddeSubject/rules.shacl",
-              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
-              "isError": false,
-              "message": "Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
-            },
-            {
-              "shaclFile": "_sources/DDEproperties/ddeSubject/rules.shacl",
-              "focusNodes": {
-                "cdifd:DDECatalogRecordShape": {
-                  "nodes": []
-                }
-              },
-              "isError": false,
-              "message": "Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:\n - Shape cdifd:DDECatalogRecordShape: *none*\n"
             },
             {
               "op": "shacl-report",

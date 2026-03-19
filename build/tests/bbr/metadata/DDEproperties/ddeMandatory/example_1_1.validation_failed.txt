@@ -1,5 +1,5 @@
 Validation report for dde.bbr.metadata.DDEproperties.ddeMandatory - DDE Mandatory metadata properties
-Generated 2026-03-18T13:57:15.608653+00:00
+Generated 2026-03-19T15:29:48.811392+00:00
 === Files ===
 Using exampleDdeMandatory.json from examples
 JSON-LD context is present - uplifting
@@ -20,19 +20,28 @@ Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:
  - Shape cdifd:DDERequiredDatasetShape: *none*
  - Shape cdifd:DDEImageObjectShape: <https://doi.org/23609/53w7klh>/schema1:image,<https://doi.org/23609/53w7klh>/schema1:image
 
+
+** Validation error **
+Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:
+  Validation Report
+  Conforms: False
+  Results (1):
+  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
+  	Severity: sh:Violation
+  	Source Shape: [ sh:message Literal("DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF") ; sh:minCount Literal("2", datatype=xsd:integer) ; sh:path ( schema1:subjectOf dcterms:conformsTo ) ]
+  	Focus Node: <urn:uuid:c98705ae-058a-43fb-85a2-7b5209d9a4b3>
+  	Result Path: ( schema1:subjectOf dcterms:conformsTo )
+  	Message: DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF
+  
+Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:
+ - Shape cdifd:DDECatalogRecordShape: *none*
+
 Validation result for _sources/DDEproperties/ddeResourceType/rules.shacl:
   Validation Report
   Conforms: True
   
 Focus nodes for _sources/DDEproperties/ddeResourceType/rules.shacl:
  - Shape cdifd:DDEResourceTypeShape: *none*
-
-Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:
- - Shape cdifd:DDECatalogRecordShape: *none*
 
 === End SHACL ===
 

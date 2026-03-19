@@ -75,7 +75,7 @@ x-defs:
       - schema:image
     $defs:
       CdifMandatory:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifMandatory_schema
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCore_schema
       DefinedTerm:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema
       DdeSubject:
@@ -181,7 +181,7 @@ x-defs:
       dde: https://www.ddeworld.org/resource/
     x-schema-source: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  metadataBuildingBlocks__sources_cdifProperties_cdifMandatory_schema:
+  metadataBuildingBlocks__sources_cdifProperties_cdifCore_schema:
     type: object
     title: 'Optional properties for CDIF Discovery metadata schema, with schema: prefixes'
     description: Building block specifies properties for minimal CDIF schama.org discovery
@@ -207,6 +207,7 @@ x-defs:
         required:
         - schema
         - dcterms
+        - dcat
       '@id':
         type: string
         description: 'The URI for the resource should be the @id value for the root
@@ -255,7 +256,7 @@ x-defs:
           for any given data provided they would provide identifiers either all as
           strings or all as identifier_type.
         anyOf:
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifMandatory_schema/$defs/Identifier
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCore_schema/$defs/Identifier
         - type: string
       schema:dateModified:
         type: string
@@ -276,7 +277,7 @@ x-defs:
               '@id':
                 type: string
                 description: a reference to a resource defining conditions of Access
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifMandatory_schema/$defs/LabeledLink
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCore_schema/$defs/LabeledLink
       schema:license:
         description: 'legal statement of conditions for use and access; recommend
           using schema:CreativeWork to provide a label (name) for the license, and
@@ -294,7 +295,7 @@ x-defs:
               '@id':
                 type: string
                 description: a reference to a license defintion
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifMandatory_schema/$defs/LabeledLink
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCore_schema/$defs/LabeledLink
       schema:url:
         type: string
         format: uri
@@ -310,12 +311,10 @@ x-defs:
           dataset
         type: array
         items:
-          anyOf:
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifMandatory_schema/$defs/DataDownload
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifMandatory_schema/$defs/WebAPI
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCore_schema/$defs/DataDownload
       schema:subjectOf:
         allOf:
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifMandatory_schema/$defs/CdifCatalogRecord
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCore_schema/$defs/CdifCatalogRecord
         - properties:
             dcterms:conformsTo:
               type: array
@@ -365,7 +364,7 @@ x-defs:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_webAPI_schema
       CdifCatalogRecord:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCatalogRecord_schema
-    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/schema.yaml
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCore/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   metadataBuildingBlocks__sources_schemaorgProperties_definedTerm_schema:
     description: schema.org Defined Term schema
@@ -1014,11 +1013,15 @@ x-defs:
       dcterms:conformsTo:
         type: array
         items:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_cdifProperties_cdifCatalogRecord_schema/$defs/conformsTo_item
+          type: object
+          properties:
+            '@id':
+              type: string
+              description: uri for specifications that this metadata record conforms
+                to
         minItems: 1
         description: uri for specifications that this metadata record conforms to.
-          Minimimally should specify uri for CDIF discovery profile.  Implement as
-          $def to facilitate extension for profiles that need to add conformance statements
+          Minimimally should specify uri for CDIF discovery profile.
       schema:maintainer:
         description: iSamples Registrant. identification of the agent that registered
           the sample, with contact information. Should include person name and affiliation,
@@ -1078,13 +1081,6 @@ x-defs:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_person_schema
       Organization:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/metadataBuildingBlocks__sources_schemaorgProperties_organization_schema
-      conformsTo_item:
-        type: object
-        properties:
-          '@id':
-            type: string
-            description: uri for specifications that this metadata record conforms
-              to
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   metadataBuildingBlocks__sources_schemaorgProperties_person_schema:

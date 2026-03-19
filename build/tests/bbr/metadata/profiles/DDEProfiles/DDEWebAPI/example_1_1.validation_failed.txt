@@ -1,5 +1,5 @@
 Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDEWebAPI - DDE WebAPI profile
-Generated 2026-03-18T13:57:20.345358+00:00
+Generated 2026-03-19T15:29:52.321017+00:00
 === Files ===
 Using exampleDDEWebAPI.json from examples
 JSON-LD context is present - uplifting
@@ -15,18 +15,7 @@ ValidationError: '@id' is a required property
 Failed validating 'required' in schema['allOf'][0]['allOf'][0]['properties']['schema:subjectOf']['allOf'][0]:
     {'$defs': {'Identifier': {'$ref': '../../schemaorgProperties/identifier/schema.yaml'},
                'Organization': {'$ref': '../../schemaorgProperties/organization/schema.yaml'},
-               'Person': {'$ref': '../../schemaorgProperties/person/schema.yaml'},
-               'conformsTo_item': {'properties': {'@id': {'description': 'uri '
-                                                                         'for '
-                                                                         'specifications '
-                                                                         'that '
-                                                                         'this '
-                                                                         'metadata '
-                                                                         'record '
-                                                                         'conforms '
-                                                                         'to',
-                                                          'type': 'string'}},
-                                   'type': 'object'}},
+               'Person': {'$ref': '../../schemaorgProperties/person/schema.yaml'}},
      '$schema': 'https://json-schema.org/draft/2020-12/schema',
      'description': 'see '
                     'https://github.com/Cross-Domain-Interoperability-Framework/Discovery/issues/13 '
@@ -49,16 +38,18 @@ Failed validating 'required' in schema['allOf'][0]['allOf'][0]['properties']['sc
                                                           'should specify '
                                                           'uri for CDIF '
                                                           'discovery '
-                                                          'profile.  '
-                                                          'Implement as '
-                                                          '$def to '
-                                                          'facilitate '
-                                                          'extension for '
-                                                          'profiles that '
-                                                          'need to add '
-                                                          'conformance '
-                                                          'statements',
-                                           'items': {'$ref': '#/$defs/conformsTo_item'},
+                                                          'profile.',
+                                           'items': {'properties': {'@id': {'description': 'uri '
+                                                                                           'for '
+                                                                                           'specifications '
+                                                                                           'that '
+                                                                                           'this '
+                                                                                           'metadata '
+                                                                                           'record '
+                                                                                           'conforms '
+                                                                                           'to',
+                                                                            'type': 'string'}},
+                                                     'type': 'object'},
                                            'minItems': 1,
                                            'type': 'array'},
                     'schema:about': {'properties': {'@id': {'description': 'this '
@@ -221,19 +212,28 @@ Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:
  - Shape cdifd:DDERequiredDatasetShape: *none*
  - Shape cdifd:DDEImageObjectShape: ex:dde-webapi-001/schema1:image
 
+
+** Validation error **
+Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:
+  Validation Report
+  Conforms: False
+  Results (1):
+  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):
+  	Severity: sh:Violation
+  	Source Shape: [ sh:message Literal("DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF") ; sh:minCount Literal("2", datatype=xsd:integer) ; sh:path ( schema1:subjectOf dcterms:conformsTo ) ]
+  	Focus Node: [ dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>, <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEWebAPI>, <https://w3id.org/cdif/core/1.0/>, <https://w3id.org/cdif/discovery/1.0/> ; rdf:type schema1:Dataset ; schema1:about ex:dde-webapi-001 ; schema1:additionalType Literal("dcat:CatalogRecord") ]
+  	Result Path: ( schema1:subjectOf dcterms:conformsTo )
+  	Message: DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF
+  
+Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:
+ - Shape cdifd:DDECatalogRecordShape: *none*
+
 Validation result for _sources/DDEproperties/ddeResourceType/rules.shacl:
   Validation Report
   Conforms: True
   
 Focus nodes for _sources/DDEproperties/ddeResourceType/rules.shacl:
  - Shape cdifd:DDEResourceTypeShape: *none*
-
-Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:
-  Validation Report
-  Conforms: True
-  
-Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:
- - Shape cdifd:DDECatalogRecordShape: *none*
 
 Validation result for _sources/DDEproperties/ddeOptional/rules.shacl:
   Validation Report

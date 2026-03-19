@@ -3,7 +3,7 @@
 
 `dde.bbr.metadata.DDEproperties.ddeMandatory` *v0.1*
 
-DDE profile extensions that add mandatory fields beyond CDIF discovery: DDE resource type (from ResourceTypeCode), topic category keywords (from TopicCategoryCode), acquisition type keywords (from AcquisitionTypeCode), browse graphic images, and DDE profile conformance declaration. Defines properties: schema:subjectOf, schema:additionalType, schema:keywords, schema:image. Uses building blocks: cdifMandatory (cdifProperties), definedTerm (schemaorgProperties), ddeSubject (DDEproperties), ddeResourceType (DDEproperties).
+DDE profile extensions that add mandatory fields beyond CDIF discovery: DDE resource type (from ResourceTypeCode), topic category keywords (from TopicCategoryCode), acquisition type keywords (from AcquisitionTypeCode), browse graphic images, and DDE profile conformance declaration. Defines properties: schema:subjectOf, schema:additionalType, schema:keywords, schema:image. Uses building blocks: cdifCore (cdifProperties), definedTerm (schemaorgProperties), ddeSubject (DDEproperties), ddeResourceType (DDEproperties).
 
 [*Status*](http://www.opengis.net/def/status): Under development
 
@@ -266,17 +266,17 @@ Shows a DDE geoscience metadata record with all mandatory DDE fields: resource t
             schema1:encodingFormat "application/xml" ;
             schema1:name "Quick view lithostratigraphic map of Arizona" ] ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Digital Conversion from Published Source" ;
+            schema1:termCode "digitalConversionFromPublishedSource" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Synthesis from Multiple Sources" ;
             schema1:termCode "synthesisFromMultipleSources" ],
         [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Digital Conversion from Published Source" ;
-            schema1:termCode "digitalConversionFromPublishedSource" ],
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "Arizona",
         "Geologic Map",
         "Geology",
@@ -373,7 +373,7 @@ allOf:
   - schema:image
 $defs:
   CdifMandatory:
-    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifMandatory/schema.yaml
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCore/schema.yaml
   DefinedTerm:
     $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml
   DdeSubject:
