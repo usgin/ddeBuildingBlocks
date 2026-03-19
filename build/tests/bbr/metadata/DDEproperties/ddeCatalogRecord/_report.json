@@ -1,0 +1,93 @@
+{
+  "title": "Validation report for dde.bbr.metadata.DDEproperties.ddeCatalogRecord - DDE Catalog Record",
+  "bblockName": "DDE Catalog Record",
+  "bblockId": "dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+  "generated": "2026-03-19T15:53:51.822349+00:00",
+  "result": false,
+  "items": [
+    {
+      "source": {
+        "type": "EXAMPLE",
+        "requireFail": false,
+        "filename": "build/tests/bbr/metadata/DDEproperties/ddeCatalogRecord/example_1_1.json",
+        "url": "https://usgin.github.io/ddeBuildingBlocks/build/tests/bbr/metadata/DDEproperties/ddeCatalogRecord/example_1_1.json",
+        "exampleIndex": 1,
+        "snippetIndex": 1,
+        "language": "application/json"
+      },
+      "result": false,
+      "sections": [
+        {
+          "name": "FILES",
+          "title": "Files",
+          "entries": [
+            {
+              "isError": false,
+              "message": "Using exampleDdeCatalogRecord.json from examples"
+            },
+            {
+              "op": "jsonld-uplift",
+              "isError": false,
+              "message": "JSON-LD context is present - uplifting"
+            },
+            {
+              "op": "jsonld-create",
+              "filename": "example_1_1.jsonld",
+              "isError": false,
+              "message": "Output JSON-LD example_1_1.jsonld created"
+            },
+            {
+              "op": "ttl-create",
+              "empty": false,
+              "filename": "example_1_1.ttl",
+              "size": 10,
+              "isError": false,
+              "message": "Output Turtle example_1_1.ttl created"
+            }
+          ]
+        },
+        {
+          "name": "JSON_SCHEMA",
+          "title": "JSON Schema",
+          "entries": [
+            {
+              "op": "validation",
+              "result": true,
+              "isError": false,
+              "message": "Validation passed"
+            }
+          ]
+        },
+        {
+          "name": "SHACL",
+          "title": "SHACL",
+          "entries": [
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/DDEproperties/ddeCatalogRecord/rules.shacl",
+              "graph": "@prefix dcterms: <http://purl.org/dc/terms/> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix schema1: <http://schema.org/> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode <https://example.org/metadata/geo-dataset-001> ;\n            sh:resultMessage \"DDE metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory\" ;\n            sh:resultPath ( schema1:subjectOf dcterms:conformsTo ) ;\n            sh:resultSeverity sh:Warning ;\n            sh:sourceConstraintComponent sh:HasValueConstraintComponent ;\n            sh:sourceShape [ sh:hasValue <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory> ;\n                    sh:message \"DDE metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory\" ;\n                    sh:path ( schema1:subjectOf dcterms:conformsTo ) ;\n                    sh:severity sh:Warning ] ] .\n\n",
+              "isError": true,
+              "message": "Validation result for _sources/DDEproperties/ddeCatalogRecord/rules.shacl:\n  Validation Report\n  Conforms: False\n  Results (1):\n  Validation Result in HasValueConstraintComponent (http://www.w3.org/ns/shacl#HasValueConstraintComponent):\n  \tSeverity: sh:Warning\n  \tSource Shape: [ sh:hasValue <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory> ; sh:message Literal(\"DDE metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory\") ; sh:path ( schema1:subjectOf dcterms:conformsTo ) ; sh:severity sh:Warning ]\n  \tFocus Node: <https://example.org/metadata/geo-dataset-001>\n  \tResult Path: ( schema1:subjectOf dcterms:conformsTo )\n  \tMessage: DDE metadata record should declare conformance to https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory\n  "
+            },
+            {
+              "shaclFile": "_sources/DDEproperties/ddeCatalogRecord/rules.shacl",
+              "focusNodes": {
+                "cdifd:DDECatalogRecordShape": {
+                  "nodes": []
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/DDEproperties/ddeCatalogRecord/rules.shacl:\n - Shape cdifd:DDECatalogRecordShape: *none*\n"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "globalErrors": {},
+  "counts": {
+    "total": 1,
+    "passed": 0,
+    "failed": 1
+  }
+}

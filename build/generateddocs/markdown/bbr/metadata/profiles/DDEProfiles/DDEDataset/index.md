@@ -390,6 +390,10 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
 
 <urn:dde:example-hydrogeological-map> a schema1:Dataset ;
     schema1:additionalProperty [ a schema1:PropertyValue ;
+            schema1:name "Spatial Resolution" ;
+            schema1:propertyID "dde:spatialResolution" ;
+            schema1:value "1:500000" ],
+        [ a schema1:PropertyValue ;
             schema1:name "Coordinate Reference System" ;
             schema1:propertyID "dde:referenceSystemIdentifier" ;
             schema1:url "https://epsg.io/4326" ;
@@ -401,11 +405,7 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
         [ a schema1:PropertyValue ;
             schema1:name "Reference System Type" ;
             schema1:propertyID "dde:referenceSystemType" ;
-            schema1:value "geodeticGeographic2D" ],
-        [ a schema1:PropertyValue ;
-            schema1:name "Spatial Resolution" ;
-            schema1:propertyID "dde:spatialResolution" ;
-            schema1:value "1:500000" ] ;
+            schema1:value "geodeticGeographic2D" ] ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
             schema1:name "Geographic Dataset" ;

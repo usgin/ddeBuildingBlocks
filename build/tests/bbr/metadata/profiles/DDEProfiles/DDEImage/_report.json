@@ -2,8 +2,8 @@
   "title": "Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDEImage - DDE Image profile",
   "bblockName": "DDE Image profile",
   "bblockId": "dde.bbr.metadata.profiles.DDEProfiles.DDEImage",
-  "generated": "2026-03-19T15:29:51.434967+00:00",
-  "result": false,
+  "generated": "2026-03-19T15:53:58.330805+00:00",
+  "result": true,
   "items": [
     {
       "source": {
@@ -15,7 +15,7 @@
         "snippetIndex": 1,
         "language": "application/json"
       },
-      "result": false,
+      "result": true,
       "sections": [
         {
           "name": "FILES",
@@ -84,22 +84,31 @@
             },
             {
               "op": "shacl-report",
-              "shaclFile": "_sources/DDEproperties/ddeGeographicDataset/rules.shacl",
+              "shaclFile": "_sources/DDEproperties/ddeImagery/rules.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
-              "message": "Validation result for _sources/DDEproperties/ddeGeographicDataset/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+              "message": "Validation result for _sources/DDEproperties/ddeImagery/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
             },
             {
-              "shaclFile": "_sources/DDEproperties/ddeGeographicDataset/rules.shacl",
+              "shaclFile": "_sources/DDEproperties/ddeImagery/rules.shacl",
               "focusNodes": {
-                "cdifd:DDEGeographicDatasetPlaceShape": {
+                "cdifd:DDEImageryPropertyShape": {
                   "nodes": [
-                    "<urn:dde:example-landsat8-tibet>/schema1:spatialCoverage"
+                    "<urn:dde:example-landsat8-tibet>/schema1:additionalProperty",
+                    "<urn:dde:example-landsat8-tibet>/schema1:additionalProperty"
+                  ]
+                },
+                "cdifd:DDEImageryInstrumentShape": {
+                  "nodes": [
+                    "<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument",
+                    "<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument",
+                    "<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument",
+                    "<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument"
                   ]
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/DDEproperties/ddeGeographicDataset/rules.shacl:\n - Shape cdifd:DDEGeographicDatasetPlaceShape: <urn:dde:example-landsat8-tibet>/schema1:spatialCoverage\n"
+              "message": "Focus nodes for _sources/DDEproperties/ddeImagery/rules.shacl:\n - Shape cdifd:DDEImageryPropertyShape: <urn:dde:example-landsat8-tibet>/schema1:additionalProperty,<urn:dde:example-landsat8-tibet>/schema1:additionalProperty\n - Shape cdifd:DDEImageryInstrumentShape: <urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument,<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument,<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument,<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument\n"
             },
             {
               "op": "shacl-report",
@@ -111,34 +120,34 @@
             {
               "shaclFile": "_sources/DDEproperties/ddeMandatory/rules.shacl",
               "focusNodes": {
-                "cdifd:DDERequiredDatasetShape": {
-                  "nodes": []
-                },
                 "cdifd:DDEImageObjectShape": {
                   "nodes": [
                     "<urn:dde:example-landsat8-tibet>/schema1:image"
                   ]
+                },
+                "cdifd:DDERequiredDatasetShape": {
+                  "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDERequiredDatasetShape: *none*\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-landsat8-tibet>/schema1:image\n"
+              "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDEImageObjectShape: <urn:dde:example-landsat8-tibet>/schema1:image\n - Shape cdifd:DDERequiredDatasetShape: *none*\n"
             },
             {
               "op": "shacl-report",
-              "shaclFile": "_sources/DDEproperties/ddeSubject/rules.shacl",
-              "graph": "@prefix dcterms: <http://purl.org/dc/terms/> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix schema1: <http://schema.org/> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode <urn:uuid:dde-image-catalog-record> ;\n            sh:resultMessage \"DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\" ;\n            sh:resultPath ( schema1:subjectOf dcterms:conformsTo ) ;\n            sh:resultSeverity sh:Violation ;\n            sh:sourceConstraintComponent sh:MinCountConstraintComponent ;\n            sh:sourceShape [ sh:message \"DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\" ;\n                    sh:minCount 2 ;\n                    sh:path ( schema1:subjectOf dcterms:conformsTo ) ] ] .\n\n",
-              "isError": true,
-              "message": "Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:\n  Validation Report\n  Conforms: False\n  Results (1):\n  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):\n  \tSeverity: sh:Violation\n  \tSource Shape: [ sh:message Literal(\"DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\") ; sh:minCount Literal(\"2\", datatype=xsd:integer) ; sh:path ( schema1:subjectOf dcterms:conformsTo ) ]\n  \tFocus Node: <urn:uuid:dde-image-catalog-record>\n  \tResult Path: ( schema1:subjectOf dcterms:conformsTo )\n  \tMessage: DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\n  "
+              "shaclFile": "_sources/DDEproperties/ddeCatalogRecord/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/DDEproperties/ddeCatalogRecord/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
             },
             {
-              "shaclFile": "_sources/DDEproperties/ddeSubject/rules.shacl",
+              "shaclFile": "_sources/DDEproperties/ddeCatalogRecord/rules.shacl",
               "focusNodes": {
                 "cdifd:DDECatalogRecordShape": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:\n - Shape cdifd:DDECatalogRecordShape: *none*\n"
+              "message": "Focus nodes for _sources/DDEproperties/ddeCatalogRecord/rules.shacl:\n - Shape cdifd:DDECatalogRecordShape: *none*\n"
             },
             {
               "op": "shacl-report",
@@ -159,34 +168,6 @@
             },
             {
               "op": "shacl-report",
-              "shaclFile": "_sources/DDEproperties/ddeImagery/rules.shacl",
-              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
-              "isError": false,
-              "message": "Validation result for _sources/DDEproperties/ddeImagery/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
-            },
-            {
-              "shaclFile": "_sources/DDEproperties/ddeImagery/rules.shacl",
-              "focusNodes": {
-                "cdifd:DDEImageryInstrumentShape": {
-                  "nodes": [
-                    "<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument",
-                    "<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument",
-                    "<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument",
-                    "<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument"
-                  ]
-                },
-                "cdifd:DDEImageryPropertyShape": {
-                  "nodes": [
-                    "<urn:dde:example-landsat8-tibet>/schema1:additionalProperty",
-                    "<urn:dde:example-landsat8-tibet>/schema1:additionalProperty"
-                  ]
-                }
-              },
-              "isError": false,
-              "message": "Focus nodes for _sources/DDEproperties/ddeImagery/rules.shacl:\n - Shape cdifd:DDEImageryInstrumentShape: <urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument,<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument,<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument,<urn:dde:example-landsat8-tibet>/prov:wasGeneratedBy/prov:used/schema1:instrument\n - Shape cdifd:DDEImageryPropertyShape: <urn:dde:example-landsat8-tibet>/schema1:additionalProperty,<urn:dde:example-landsat8-tibet>/schema1:additionalProperty\n"
-            },
-            {
-              "op": "shacl-report",
               "shaclFile": "_sources/DDEproperties/ddeOptional/rules.shacl",
               "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
               "isError": false,
@@ -201,6 +182,25 @@
               },
               "isError": false,
               "message": "Focus nodes for _sources/DDEproperties/ddeOptional/rules.shacl:\n - Shape cdifd:DDEOptionalDatasetShape: *none*\n"
+            },
+            {
+              "op": "shacl-report",
+              "shaclFile": "_sources/DDEproperties/ddeGeographicDataset/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/DDEproperties/ddeGeographicDataset/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
+            },
+            {
+              "shaclFile": "_sources/DDEproperties/ddeGeographicDataset/rules.shacl",
+              "focusNodes": {
+                "cdifd:DDEGeographicDatasetPlaceShape": {
+                  "nodes": [
+                    "<urn:dde:example-landsat8-tibet>/schema1:spatialCoverage"
+                  ]
+                }
+              },
+              "isError": false,
+              "message": "Focus nodes for _sources/DDEproperties/ddeGeographicDataset/rules.shacl:\n - Shape cdifd:DDEGeographicDatasetPlaceShape: <urn:dde:example-landsat8-tibet>/schema1:spatialCoverage\n"
             }
           ]
         }
@@ -210,7 +210,7 @@
   "globalErrors": {},
   "counts": {
     "total": 1,
-    "passed": 0,
-    "failed": 1
+    "passed": 1,
+    "failed": 0
   }
 }

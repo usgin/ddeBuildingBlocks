@@ -1,22 +1,22 @@
 
-# Metadata Conforms to for DDE (Schema)
+# DDE Catalog Record (Schema)
 
-`dde.bbr.metadata.DDEproperties.ddeSubject` *v0.1*
+`dde.bbr.metadata.DDEproperties.ddeCatalogRecord` *v0.1*
 
-For DDE profile, need to declare conformance with DDE profile in the metadata catalog record. Defines properties: dcterms:conformsTo. Uses building blocks: cdifCatalogRecord (cdifProperties).
+Extends cdifCatalogRecord to require DDE conformance declaration. Adds dcterms:conformsTo constraint for ddeMandatory BB URI.
 
 [*Status*](http://www.opengis.net/def/status): Under development
 
 ## Description
 
-## Metadata metadata for DDE profile properties
+## DDE Catalog Record
 
-Only addition is declaration of conformance with the DDE CDIF profile. Extends cdifCatalogRecord to require that `dcterms:conformsTo` includes `cdif:profile_ddeCDIF`.
+Extends cdifCatalogRecord to require that `dcterms:conformsTo` includes the ddeMandatory building block URI (`https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory`).
 
 ## Examples
 
-### Example DDE metadata conforms to extension.
-Import base schema.org SubjectOf, add requirement that dcterms:conformsTo has DDE profile URI.
+### Example DDE catalog record conformance extension.
+Import base cdifCatalogRecord, add requirement that dcterms:conformsTo has ddeMandatory BB URI.
 #### json
 ```json
 {
@@ -55,7 +55,7 @@ Import base schema.org SubjectOf, add requirement that dcterms:conformsTo has DD
     {
       "schema": "http://schema.org/"
     },
-    "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/context.jsonld",
+    "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCatalogRecord/context.jsonld",
     {
       "schema": "http://schema.org/",
       "dde": "https://www.ddeworld.org/resource/",
@@ -145,8 +145,8 @@ x-jsonld-prefixes:
 
 Links to the schema:
 
-* YAML version: [schema.yaml](https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema.json)
-* JSON version: [schema.json](https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema.yaml)
+* YAML version: [schema.yaml](https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCatalogRecord/schema.json)
+* JSON version: [schema.json](https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCatalogRecord/schema.yaml)
 
 
 # JSON-LD Context
@@ -161,7 +161,7 @@ Links to the schema:
 ```
 
 You can find the full JSON-LD context here:
-[context.jsonld](https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/context.jsonld)
+[context.jsonld](https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCatalogRecord/context.jsonld)
 
 ## Sources
 
@@ -172,5 +172,5 @@ You can find the full JSON-LD context here:
 The source code for this Building Block can be found in the following repository:
 
 * URL: [https://github.com/usgin/ddeBuildingBlocks](https://github.com/usgin/ddeBuildingBlocks)
-* Path: `_sources/DDEproperties/ddeSubject`
+* Path: `_sources/DDEproperties/ddeCatalogRecord`
 

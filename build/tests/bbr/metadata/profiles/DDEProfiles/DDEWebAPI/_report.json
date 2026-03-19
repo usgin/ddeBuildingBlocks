@@ -2,7 +2,7 @@
   "title": "Validation report for dde.bbr.metadata.profiles.DDEProfiles.DDEWebAPI - DDE WebAPI profile",
   "bblockName": "DDE WebAPI profile",
   "bblockId": "dde.bbr.metadata.profiles.DDEProfiles.DDEWebAPI",
-  "generated": "2026-03-19T15:29:52.321165+00:00",
+  "generated": "2026-03-19T15:54:00.034614+00:00",
   "result": false,
   "items": [
     {
@@ -74,34 +74,34 @@
             {
               "shaclFile": "_sources/DDEproperties/ddeMandatory/rules.shacl",
               "focusNodes": {
-                "cdifd:DDERequiredDatasetShape": {
-                  "nodes": []
-                },
                 "cdifd:DDEImageObjectShape": {
                   "nodes": [
                     "ex:dde-webapi-001/schema1:image"
                   ]
+                },
+                "cdifd:DDERequiredDatasetShape": {
+                  "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDERequiredDatasetShape: *none*\n - Shape cdifd:DDEImageObjectShape: ex:dde-webapi-001/schema1:image\n"
+              "message": "Focus nodes for _sources/DDEproperties/ddeMandatory/rules.shacl:\n - Shape cdifd:DDEImageObjectShape: ex:dde-webapi-001/schema1:image\n - Shape cdifd:DDERequiredDatasetShape: *none*\n"
             },
             {
               "op": "shacl-report",
-              "shaclFile": "_sources/DDEproperties/ddeSubject/rules.shacl",
-              "graph": "@prefix dcterms: <http://purl.org/dc/terms/> .\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix schema1: <http://schema.org/> .\n@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms false ;\n    sh:result [ a sh:ValidationResult ;\n            sh:focusNode [ a schema1:Dataset ;\n                    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>,\n                        <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEWebAPI>,\n                        <https://w3id.org/cdif/core/1.0/>,\n                        <https://w3id.org/cdif/discovery/1.0/> ;\n                    schema1:about <https://example.org/dde-webapi-001> ;\n                    schema1:additionalType \"dcat:CatalogRecord\" ] ;\n            sh:resultMessage \"DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\" ;\n            sh:resultPath ( schema1:subjectOf dcterms:conformsTo ) ;\n            sh:resultSeverity sh:Violation ;\n            sh:sourceConstraintComponent sh:MinCountConstraintComponent ;\n            sh:sourceShape [ sh:message \"DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\" ;\n                    sh:minCount 2 ;\n                    sh:path ( schema1:subjectOf dcterms:conformsTo ) ] ] .\n\n",
-              "isError": true,
-              "message": "Validation result for _sources/DDEproperties/ddeSubject/rules.shacl:\n  Validation Report\n  Conforms: False\n  Results (1):\n  Constraint Violation in MinCountConstraintComponent (http://www.w3.org/ns/shacl#MinCountConstraintComponent):\n  \tSeverity: sh:Violation\n  \tSource Shape: [ sh:message Literal(\"DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\") ; sh:minCount Literal(\"2\", datatype=xsd:integer) ; sh:path ( schema1:subjectOf dcterms:conformsTo ) ]\n  \tFocus Node: [ dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeMandatory>, <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEWebAPI>, <https://w3id.org/cdif/core/1.0/>, <https://w3id.org/cdif/discovery/1.0/> ; rdf:type schema1:Dataset ; schema1:about ex:dde-webapi-001 ; schema1:additionalType Literal(\"dcat:CatalogRecord\") ]\n  \tResult Path: ( schema1:subjectOf dcterms:conformsTo )\n  \tMessage: DDE metadata record must declare conformance to at least two profiles, including cdif:profile_ddeCDIF\n  "
+              "shaclFile": "_sources/DDEproperties/ddeCatalogRecord/rules.shacl",
+              "graph": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n[] a sh:ValidationReport ;\n    sh:conforms true .\n\n",
+              "isError": false,
+              "message": "Validation result for _sources/DDEproperties/ddeCatalogRecord/rules.shacl:\n  Validation Report\n  Conforms: True\n  "
             },
             {
-              "shaclFile": "_sources/DDEproperties/ddeSubject/rules.shacl",
+              "shaclFile": "_sources/DDEproperties/ddeCatalogRecord/rules.shacl",
               "focusNodes": {
                 "cdifd:DDECatalogRecordShape": {
                   "nodes": []
                 }
               },
               "isError": false,
-              "message": "Focus nodes for _sources/DDEproperties/ddeSubject/rules.shacl:\n - Shape cdifd:DDECatalogRecordShape: *none*\n"
+              "message": "Focus nodes for _sources/DDEproperties/ddeCatalogRecord/rules.shacl:\n - Shape cdifd:DDECatalogRecordShape: *none*\n"
             },
             {
               "op": "shacl-report",

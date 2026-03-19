@@ -3,7 +3,7 @@
 
 `dde.bbr.metadata.DDEproperties.ddeMandatory` *v0.1*
 
-DDE profile extensions that add mandatory fields beyond CDIF discovery: DDE resource type (from ResourceTypeCode), topic category keywords (from TopicCategoryCode), acquisition type keywords (from AcquisitionTypeCode), browse graphic images, and DDE profile conformance declaration. Defines properties: schema:subjectOf, schema:additionalType, schema:keywords, schema:image. Uses building blocks: cdifCore (cdifProperties), definedTerm (schemaorgProperties), ddeSubject (DDEproperties), ddeResourceType (DDEproperties).
+DDE profile extensions that add mandatory fields beyond CDIF discovery: DDE resource type (from ResourceTypeCode), topic category keywords (from TopicCategoryCode), acquisition type keywords (from AcquisitionTypeCode), browse graphic images, and DDE profile conformance declaration. Defines properties: schema:subjectOf, schema:additionalType, schema:keywords, schema:image. Uses building blocks: cdifCore (cdifProperties), definedTerm (schemaorgProperties), ddeCatalogRecord (DDEproperties), ddeResourceType (DDEproperties).
 
 [*Status*](http://www.opengis.net/def/status): Under development
 
@@ -17,7 +17,7 @@ Extends CDIF mandatory metadata with DDE-specific required fields:
 - **Topic category keywords** (`schema:keywords`): At least one `schema:DefinedTerm` from the DDE `TopicCategoryCode` codelist.
 - **Acquisition type keywords** (`schema:keywords`): At least one `schema:DefinedTerm` from the DDE `AcquisitionTypeCode` codelist.
 - **Browse graphics** (`schema:image`): At least one `schema:ImageObject` with a `schema:contentUrl`.
-- **Profile conformance** (`schema:subjectOf`): The catalog record must declare conformance with `cdif:profile_ddeCDIF` via the ddeSubject extension.
+- **Profile conformance** (`schema:subjectOf`): The catalog record must declare conformance with ddeMandatory BB URI via the ddeCatalogRecord extension.
 
 This building block uses `allOf` to compose the CDIF mandatory base schema with the DDE-specific constraints.
 
@@ -258,25 +258,25 @@ Shows a DDE geoscience metadata record with all mandatory DDE fields: resource t
             schema1:url "https://doi.org/23609/53w7klh" ;
             schema1:value "doi:23609/53w7klh" ] ;
     schema1:image [ a schema1:ImageObject ;
-            schema1:contentUrl "http://azgs.az.gov/repository/browse/2222.jpg" ;
-            schema1:encodingFormat "image/png" ;
-            schema1:name "Another map of Arizona" ],
-        [ a schema1:ImageObject ;
             schema1:contentUrl "http://azgs.az.gov/repository/browse/3757.jpg" ;
             schema1:encodingFormat "application/xml" ;
-            schema1:name "Quick view lithostratigraphic map of Arizona" ] ;
+            schema1:name "Quick view lithostratigraphic map of Arizona" ],
+        [ a schema1:ImageObject ;
+            schema1:contentUrl "http://azgs.az.gov/repository/browse/2222.jpg" ;
+            schema1:encodingFormat "image/png" ;
+            schema1:name "Another map of Arizona" ] ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Digital Conversion from Published Source" ;
-            schema1:termCode "digitalConversionFromPublishedSource" ],
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Synthesis from Multiple Sources" ;
             schema1:termCode "synthesisFromMultipleSources" ],
         [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Digital Conversion from Published Source" ;
+            schema1:termCode "digitalConversionFromPublishedSource" ],
         "Arizona",
         "Geologic Map",
         "Geology",
@@ -311,7 +311,7 @@ allOf:
 - type: object
   properties:
     schema:subjectOf:
-      $ref: '#/$defs/DdeSubject'
+      $ref: '#/$defs/DdeCatalogRecord'
     schema:keywords:
       type: array
       description: Extends base CDIF keyword schema to require DefinedTerms from both
@@ -376,8 +376,8 @@ $defs:
     $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCore/schema.yaml
   DefinedTerm:
     $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml
-  DdeSubject:
-    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeSubject/schema.yaml
+  DdeCatalogRecord:
+    $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCatalogRecord/schema.yaml
 x-jsonld-prefixes:
   schema: http://schema.org/
   dde: https://www.ddeworld.org/resource/
