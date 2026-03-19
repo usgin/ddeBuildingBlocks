@@ -11,7 +11,7 @@ Property building blocks that define DDE-specific metadata elements:
 - **ddeMandatory** — DDE mandatory fields: resource type (ResourceTypeCode), topic/acquisition keywords, browse graphics, conformance declaration. Composes cdifCore + ddeResourceType.
 - **ddeOptional** — DDE optional fields: alternate names. Composes cdifOptional.
 - **ddeResourceType** — Constrains schema:additionalType to require a DefinedTerm from the DDE ResourceTypeCode codelist.
-- **ddeSubject** — DDE catalog record conformance declaration.
+- **ddeCatalogRecord** — DDE catalog record conformance declaration (extends cdifCatalogRecord to require ddeMandatory BB URI).
 - **ddeGeographicDataset** — Geographic extent, CRS, and resolution for geographic resources.
 - **ddeImagery** — Imagery acquisition metadata: sensor, platform, wavelength, signal generator, processing level.
 
