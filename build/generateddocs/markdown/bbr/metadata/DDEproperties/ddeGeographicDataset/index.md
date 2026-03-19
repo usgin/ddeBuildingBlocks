@@ -32,13 +32,15 @@ Shows spatialCoverage with GeoShape bounding box and additionalProperty entries 
 #### json
 ```json
 {
-    "schema:spatialCoverage": {
-        "@type": "schema:Place",
-        "schema:geo": {
-            "@type": "schema:GeoShape",
-            "schema:box": "18.1609 73.499 53.5585 135.08"
+    "schema:spatialCoverage": [
+        {
+            "@type": "schema:Place",
+            "schema:geo": {
+                "@type": "schema:GeoShape",
+                "schema:box": "18.1609 73.499 53.5585 135.08"
+            }
         }
-    },
+    ],
     "schema:additionalProperty": [
         {
             "@type": "schema:PropertyValue",
@@ -80,13 +82,15 @@ Shows spatialCoverage with GeoShape bounding box and additionalProperty entries 
     },
     "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/context.jsonld"
   ],
-  "schema:spatialCoverage": {
-    "@type": "schema:Place",
-    "schema:geo": {
-      "@type": "schema:GeoShape",
-      "schema:box": "18.1609 73.499 53.5585 135.08"
+  "schema:spatialCoverage": [
+    {
+      "@type": "schema:Place",
+      "schema:geo": {
+        "@type": "schema:GeoShape",
+        "schema:box": "18.1609 73.499 53.5585 135.08"
+      }
     }
-  },
+  ],
   "schema:additionalProperty": [
     {
       "@type": "schema:PropertyValue",
@@ -130,6 +134,10 @@ Shows spatialCoverage with GeoShape bounding box and additionalProperty entries 
 @prefix schema1: <http://schema.org/> .
 
 [] schema1:additionalProperty [ a schema1:PropertyValue ;
+            schema1:name "Spatial Resolution" ;
+            schema1:propertyID "dde:spatialResolution" ;
+            schema1:value "1:1000000" ],
+        [ a schema1:PropertyValue ;
             schema1:name "Spatial Representation Type" ;
             schema1:propertyID "dde:spatialRepresentationType" ;
             schema1:value "vector" ],
@@ -138,10 +146,6 @@ Shows spatialCoverage with GeoShape bounding box and additionalProperty entries 
             schema1:propertyID "dde:referenceSystemIdentifier" ;
             schema1:url "https://epsg.io/4326" ;
             schema1:value "EPSG:4326" ],
-        [ a schema1:PropertyValue ;
-            schema1:name "Spatial Resolution" ;
-            schema1:propertyID "dde:spatialResolution" ;
-            schema1:value "1:1000000" ],
         [ a schema1:PropertyValue ;
             schema1:name "Reference System Type" ;
             schema1:propertyID "dde:referenceSystemType" ;

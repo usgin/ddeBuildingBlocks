@@ -86,7 +86,7 @@ terms of service, and capability document reference.
       "schema:target": {
         "@type": "schema:EntryPoint",
         "schema:urlTemplate": "https://example.org/services/dde-geomap/wms?service=WMS&request=GetMap&layers={layer}&bbox={bbox}&width={width}&height={height}&format={format}",
-        "schema:httpMethod": "GET",
+        "schema:httpMethod": ["GET"],
         "schema:encodingFormat": "image/png"
       }
     },
@@ -97,7 +97,7 @@ terms of service, and capability document reference.
       "schema:target": {
         "@type": "schema:EntryPoint",
         "schema:urlTemplate": "https://example.org/services/dde-geomap/wfs?service=WFS&request=GetFeature&typeName={typeName}&bbox={bbox}&outputFormat={format}",
-        "schema:httpMethod": "GET",
+        "schema:httpMethod": ["GET"],
         "schema:encodingFormat": "application/json"
       }
     }
@@ -211,7 +211,9 @@ terms of service, and capability document reference.
       "schema:target": {
         "@type": "schema:EntryPoint",
         "schema:urlTemplate": "https://example.org/services/dde-geomap/wms?service=WMS&request=GetMap&layers={layer}&bbox={bbox}&width={width}&height={height}&format={format}",
-        "schema:httpMethod": "GET",
+        "schema:httpMethod": [
+          "GET"
+        ],
         "schema:encodingFormat": "image/png"
       }
     },
@@ -222,7 +224,9 @@ terms of service, and capability document reference.
       "schema:target": {
         "@type": "schema:EntryPoint",
         "schema:urlTemplate": "https://example.org/services/dde-geomap/wfs?service=WFS&request=GetFeature&typeName={typeName}&bbox={bbox}&outputFormat={format}",
-        "schema:httpMethod": "GET",
+        "schema:httpMethod": [
+          "GET"
+        ],
         "schema:encodingFormat": "application/json"
       }
     }
