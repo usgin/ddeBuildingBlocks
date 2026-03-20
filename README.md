@@ -4,12 +4,11 @@ Modular metadata schema components for [Deep-time Digital Earth (DDE)](https://w
 
 ## Structure
 
-### DDEproperties (6 schema components)
+### DDEproperties (5 schema components)
 
 Property building blocks that define DDE-specific metadata elements:
 
 - **ddeCore** — DDE mandatory fields: resource type (ResourceTypeCode), topic/acquisition keywords, browse graphics, conformance declaration. Composes cdifCore + ddeResourceType.
-- **ddeOptional** — DDE optional fields: alternate names. Composes cdifOptional.
 - **ddeResourceType** — Constrains schema:additionalType to require a DefinedTerm from the DDE ResourceTypeCode codelist.
 - **ddeCatalogRecord** — DDE catalog record conformance declaration (extends cdifCatalogRecord to require ddeCore BB URI).
 - **ddeGeographicDataset** — Geographic extent, CRS, and resolution for geographic resources.
@@ -19,7 +18,7 @@ Property building blocks that define DDE-specific metadata elements:
 
 Metadata profiles that compose property building blocks for specific resource types:
 
-- **DDEDiscovery** — base DDE discovery profile (ddeCore + ddeOptional)
+- **DDEDiscovery** — base DDE discovery profile (ddeCore)
 - **DDEDataset** — datasets; conditional ddeGeographicDataset for geographicDataset type
 - **DDEImage** — imagery; includes ddeImagery; conditional ddeGeographicDataset for map type
 - **DDEWebAPI** — service resources; composes CDIF webAPI BB with DDE ServiceTypeCode constraints
@@ -35,8 +34,10 @@ Superseded building blocks retained for reference:
 
 ## Tools
 
-- `tools/regenerate_schema_json.py` — Generate *Schema.json from schema.yaml sources
-- `tools/resolve_schema.py` — Resolve all $ref into single resolvedSchema.json files
+- `tools/resolve_schema.py` — Resolve all `$ref` into single resolvedSchema.json files
+- `tools/regenerate_schema_json.py` — Generate *Schema.json from schema.yaml sources (YAML→JSON + ref rewrite)
+
+Both tools are synced from the canonical copies in [metadataBuildingBlocks/tools/](https://github.com/Cross-Domain-Interoperability-Framework/metadataBuildingBlocks/tree/main/tools). Do not edit locally — update the canonical copy and run `python tools/sync_resolve_schema.py --apply` from the metadataBuildingBlocks repo.
 
 ## Cross-repo imports
 

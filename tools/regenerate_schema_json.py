@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# regenerate_schema_json.py — canonical copy lives in metadataBuildingBlocks/tools/
+# Sync to domain repos via: python tools/sync_resolve_schema.py
+# VERSION: 2026-03-20
 """Regenerate *Schema.json files from schema.yaml sources.
 
 For each building block that has a schema.yaml, this script:
