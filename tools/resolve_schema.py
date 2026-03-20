@@ -326,6 +326,30 @@ def _resolve_ref(ref: str, base_dir: Path, defs: dict, seen: set) -> Any:
         file_path = (base_dir / file_part).resolve()
 
     if not file_path.exists():
+        # If the base_dir is inside the URL cache, reconstruct the URL and fetch.
+        # Find a cached URL whose local path shares a common prefix with file_path
+        # to recover the original URL host and base.
+        try:
+            file_path.relative_to(_URL_CACHE_DIR)  # only proceed if in cache
+            # Find a previously cached URL to derive the base URL
+            for cached_url, cached_path in _URL_CACHE.items():
+                try:
+                    cached_rel = cached_path.relative_to(_URL_CACHE_DIR)
+                    file_rel = file_path.relative_to(_URL_CACHE_DIR)
+                    # Parse the cached URL to get scheme + host
+                    from urllib.parse import urlparse as _urlparse
+                    parsed = _urlparse(cached_url if not cached_url.startswith("//") else "https:" + cached_url)
+                    base_url = f"{parsed.scheme}://{parsed.netloc}/"
+                    target_url = base_url + str(file_rel).replace(os.sep, "/")
+                    local_path = _fetch_url_schema(target_url)
+                    if local_path is not None:
+                        file_path = local_path
+                        break
+                except (ValueError, Exception):
+                    continue
+        except (ValueError, Exception):
+            pass
+    if not file_path.exists():
         return {"$comment": f"file not found: {file_path}"}
 
     resolved = resolve_file(file_path, seen)
