@@ -23,7 +23,8 @@ allOf:
           type: object
           properties:
             '@type':
-              const: schema:DefinedTerm
+              contains:
+                const: schema:DefinedTerm
             'schema:inDefinedTermSet':
               const: 'dde:codelist/TopicCategoryCode'
           required:
@@ -34,7 +35,8 @@ allOf:
           type: object
           properties:
             '@type':
-              const: schema:DefinedTerm
+              contains:
+                const: schema:DefinedTerm
             'schema:inDefinedTermSet':
               const: 'dde:codelist/AcquisitionTypeCode'
           required:
@@ -57,7 +59,12 @@ allOf:
         type: object
         properties:
           '@type':
-            const: schema:ImageObject
+            type: array
+            items:
+              type: string
+            contains:
+              const: schema:ImageObject
+            minItems: 1
           'schema:contentUrl':
             type: string
             format: uri
