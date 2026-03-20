@@ -1,24 +1,22 @@
----
 $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 title: DDE Dataset profile
-description: DDE profile for dataset resources (dataset, dataCatalog, geographicDataset,
-  nonGeographicDataset). Extends DDEDiscovery with resource type constraint.
-  If additionalType termCode is geographicDataset, ddeGeographicDataset
+description: DDE profile for dataset resources (dataset, dataCatalog, geographicDataset, nonGeographicDataset).
+  Extends ddeCore with resource type constraint. If additionalType termCode is geographicDataset, ddeGeographicDataset
   constraints are applied.
 allOf:
 - $ref: ../../../DDEproperties/ddeCore/schema.yaml
-- $ref: ../../../DDEproperties/ddeOptional/schema.yaml
-- properties:
-    'schema:additionalType':
+- type: object
+  properties:
+    schema:additionalType:
       contains:
         type: object
         properties:
           '@type':
             const: schema:DefinedTerm
-          'schema:inDefinedTermSet':
-            const: 'dde:codelist/ResourceTypeCode'
-          'schema:termCode':
+          schema:inDefinedTermSet:
+            const: dde:codelist/ResourceTypeCode
+          schema:termCode:
             type: string
             enum:
             - dataset
@@ -27,16 +25,55 @@ allOf:
             - nonGeographicDataset
         required:
         - '@type'
-        - 'schema:inDefinedTermSet'
-        - 'schema:termCode'
+        - schema:inDefinedTermSet
+        - schema:termCode
       minContains: 1
+    schema:measurementTechnique:
+      description: The technique, technology, or methodology used for measurement or determination of
+        the dataset values.
+      anyOf:
+      - type: string
+      - $ref: '#/$defs/DefinedTerm'
+      - type: array
+        items:
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/DefinedTerm'
+    schema:variableMeasured:
+      description: What does the dataset measure? (e.g., temperature, pressure)
+      type: array
+      items:
+        anyOf:
+        - $ref: '#/$defs/VariableMeasured'
+        - $ref: '#/$defs/StatisticalVariable'
+    schema:temporalCoverage:
+      description: Temporal extent of resource content.
+      type: array
+      items:
+        $ref: '#/$defs/TemporalExtent'
+    dqv:hasQualityMeasurement:
+      description: Quality measurements reported to assess the resource.
+      type: array
+      items:
+        $ref: '#/$defs/QualityMeasure'
 - if:
     properties:
-      'schema:additionalType':
+      schema:additionalType:
         contains:
           type: object
           properties:
-            'schema:termCode':
+            schema:termCode:
               const: geographicDataset
   then:
     $ref: ../../../DDEproperties/ddeGeographicDataset/schema.yaml
+$defs:
+  DefinedTerm:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml
+  VariableMeasured:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/schema.yaml
+  StatisticalVariable:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/statisticalVariable/schema.yaml
+  TemporalExtent:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/schema.yaml
+  QualityMeasure:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/schema.yaml

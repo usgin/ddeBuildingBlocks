@@ -1,31 +1,58 @@
----
 $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 title: DDE AudioVisual Product profile
-description: DDE profile for audiovisual resources (movie, sound). Extends
-  DDEDiscovery with resource type constraint and schema:duration.
+description: DDE profile for audiovisual resources (movie, sound). Extends ddeCore with resource type
+  constraint and schema:duration.
 allOf:
 - $ref: ../../../DDEproperties/ddeCore/schema.yaml
-- $ref: ../../../DDEproperties/ddeOptional/schema.yaml
-- properties:
-    'schema:additionalType':
+- type: object
+  properties:
+    schema:additionalType:
       contains:
         type: object
         properties:
           '@type':
             const: schema:DefinedTerm
-          'schema:inDefinedTermSet':
-            const: 'dde:codelist/ResourceTypeCode'
-          'schema:termCode':
+          schema:inDefinedTermSet:
+            const: dde:codelist/ResourceTypeCode
+          schema:termCode:
             type: string
             enum:
             - movie
             - sound
         required:
         - '@type'
-        - 'schema:inDefinedTermSet'
-        - 'schema:termCode'
+        - schema:inDefinedTermSet
+        - schema:termCode
       minContains: 1
-    'schema:duration':
+    schema:duration:
       type: string
       description: Duration in ISO 8601 format (e.g., PT1H30M, PT45S).
+    schema:measurementTechnique:
+      description: The technique, technology, or methodology used for measurement or determination of
+        the dataset values.
+      anyOf:
+      - type: string
+      - $ref: '#/$defs/DefinedTerm'
+      - type: array
+        items:
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/DefinedTerm'
+    schema:temporalCoverage:
+      description: Temporal extent of resource content.
+      type: array
+      items:
+        $ref: '#/$defs/TemporalExtent'
+    dqv:hasQualityMeasurement:
+      description: Quality measurements reported to assess the resource.
+      type: array
+      items:
+        $ref: '#/$defs/QualityMeasure'
+$defs:
+  DefinedTerm:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml
+  TemporalExtent:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/schema.yaml
+  QualityMeasure:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/schema.yaml

@@ -6,7 +6,6 @@ description: DDE profile for document resources (document, article, thesis, book
   poster, webPage). Extends DDEDiscovery with resource type constraint.
 allOf:
 - $ref: ../../../DDEproperties/ddeCore/schema.yaml
-- $ref: ../../../DDEproperties/ddeOptional/schema.yaml
 - properties:
     'schema:additionalType':
       contains:
@@ -30,3 +29,11 @@ allOf:
         - 'schema:inDefinedTermSet'
         - 'schema:termCode'
       minContains: 1
+    'schema:temporalCoverage':
+      description: Temporal extent of resource content.
+      type: array
+      items:
+        $ref: '#/$defs/TemporalExtent'
+$defs:
+  TemporalExtent:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/schema.yaml
