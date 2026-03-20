@@ -42,7 +42,9 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
   ],
   "schema:name": "US-AZ_AZGS_1M_Lithostratigraphy",
   "schema:identifier": {
-    "@type": "schema:PropertyValue",
+    "@type": [
+      "schema:PropertyValue"
+    ],
     "schema:propertyID": "https://registry.identifiers.org/registry/doi",
     "schema:value": "doi:23609/53w7klh",
     "schema:url": "https://doi.org/23609/53w7klh"
@@ -50,7 +52,9 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
   "schema:dateModified": "2016-04-14",
   "schema:license": [
     {
-      "@type": "schema:CreativeWork",
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "Creative Commons CC0 1.0 Universal",
       "schema:url": "https://creativecommons.org/publicdomain/zero/1.0/"
     }
@@ -82,7 +86,9 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
   },
   "schema:additionalType": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Dataset",
       "schema:termCode": "dataset",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
@@ -90,19 +96,25 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
   ],
   "schema:keywords": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geoscientific Information",
       "schema:termCode": "geoscientificInformation",
       "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Digital Conversion from Published Source",
       "schema:termCode": "digitalConversionFromPublishedSource",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Synthesis from Multiple Sources",
       "schema:termCode": "synthesisFromMultipleSources",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
@@ -114,13 +126,17 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
   ],
   "schema:image": [
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "http://azgs.az.gov/repository/browse/3757.jpg",
       "schema:name": "Quick view lithostratigraphic map of Arizona",
       "schema:encodingFormat": "application/xml"
     },
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "http://azgs.az.gov/repository/browse/2222.jpg",
       "schema:name": "Another map of Arizona",
       "schema:encodingFormat": "image/png"
@@ -156,7 +172,9 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
   ],
   "schema:name": "US-AZ_AZGS_1M_Lithostratigraphy",
   "schema:identifier": {
-    "@type": "schema:PropertyValue",
+    "@type": [
+      "schema:PropertyValue"
+    ],
     "schema:propertyID": "https://registry.identifiers.org/registry/doi",
     "schema:value": "doi:23609/53w7klh",
     "schema:url": "https://doi.org/23609/53w7klh"
@@ -164,7 +182,9 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
   "schema:dateModified": "2016-04-14",
   "schema:license": [
     {
-      "@type": "schema:CreativeWork",
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "Creative Commons CC0 1.0 Universal",
       "schema:url": "https://creativecommons.org/publicdomain/zero/1.0/"
     }
@@ -196,7 +216,9 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
   },
   "schema:additionalType": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Dataset",
       "schema:termCode": "dataset",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
@@ -204,19 +226,25 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
   ],
   "schema:keywords": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geoscientific Information",
       "schema:termCode": "geoscientificInformation",
       "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Digital Conversion from Published Source",
       "schema:termCode": "digitalConversionFromPublishedSource",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Synthesis from Multiple Sources",
       "schema:termCode": "synthesisFromMultipleSources",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
@@ -228,13 +256,17 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
   ],
   "schema:image": [
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "http://azgs.az.gov/repository/browse/3757.jpg",
       "schema:name": "Quick view lithostratigraphic map of Arizona",
       "schema:encodingFormat": "application/xml"
     },
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "http://azgs.az.gov/repository/browse/2222.jpg",
       "schema:name": "Another map of Arizona",
       "schema:encodingFormat": "image/png"
@@ -267,6 +299,10 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
             schema1:encodingFormat "application/xml" ;
             schema1:name "Quick view lithostratigraphic map of Arizona" ] ;
     schema1:keywords [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Digital Conversion from Published Source" ;
+            schema1:termCode "digitalConversionFromPublishedSource" ],
+        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
@@ -274,10 +310,6 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Synthesis from Multiple Sources" ;
             schema1:termCode "synthesisFromMultipleSources" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Digital Conversion from Published Source" ;
-            schema1:termCode "digitalConversionFromPublishedSource" ],
         "Arizona",
         "Geologic Map",
         "Geology",
@@ -327,7 +359,8 @@ allOf:
           type: object
           properties:
             '@type':
-              const: schema:DefinedTerm
+              contains:
+                const: schema:DefinedTerm
             schema:inDefinedTermSet:
               const: dde:codelist/TopicCategoryCode
           required:
@@ -338,13 +371,21 @@ allOf:
           type: object
           properties:
             '@type':
-              const: schema:DefinedTerm
+              contains:
+                const: schema:DefinedTerm
             schema:inDefinedTermSet:
               const: dde:codelist/AcquisitionTypeCode
           required:
           - '@type'
           - schema:inDefinedTermSet
         minContains: 1
+    schema:alternateName:
+      description: Alternative names or aliases for the resource.
+      anyOf:
+      - type: string
+      - type: array
+        items:
+          type: string
     schema:image:
       type: array
       description: Browse graphics for the resource. At least one ImageObject is required
@@ -354,7 +395,12 @@ allOf:
         type: object
         properties:
           '@type':
-            const: schema:ImageObject
+            type: array
+            items:
+              type: string
+            contains:
+              const: schema:ImageObject
+            minItems: 1
           schema:contentUrl:
             type: string
             format: uri

@@ -43,7 +43,9 @@ DDE discovery metadata for a published research article on global plate tectonic
   "schema:name": "Global Plate Tectonics and Paleogeography Since the Late Paleozoic",
   "schema:description": "Published research article presenting a comprehensive plate tectonic and paleogeographic model for the Earth from the Late Paleozoic to the present day (410 Ma to 0 Ma). Includes digital reconstructions of continental configurations, ocean basins, and major tectonic boundaries through geological time.",
   "schema:identifier": {
-    "@type": "schema:PropertyValue",
+    "@type": [
+      "schema:PropertyValue"
+    ],
     "schema:propertyID": "schema:identifier",
     "schema:name": "DOI",
     "schema:value": "10.1016/j.earscirev.2021.103477",
@@ -54,7 +56,9 @@ DDE discovery metadata for a published research article on global plate tectonic
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": "schema:CreativeWork",
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "Elsevier User License",
       "schema:url": "https://www.elsevier.com/about/policies/open-access-licenses"
     }
@@ -88,13 +92,17 @@ DDE discovery metadata for a published research article on global plate tectonic
   },
   "schema:additionalType": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Document",
       "schema:termCode": "document",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Article",
       "schema:termCode": "article",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
@@ -102,13 +110,17 @@ DDE discovery metadata for a published research article on global plate tectonic
   ],
   "schema:keywords": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geoscientific Information",
       "schema:termCode": "geoscientificInformation",
       "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Data Integration Synthesis",
       "schema:termCode": "dataIntegrationSynthesis",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
@@ -120,7 +132,9 @@ DDE discovery metadata for a published research article on global plate tectonic
   ],
   "schema:image": [
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "https://doi.org/10.1016/j.earscirev.2021.103477/thumbnail.jpg",
       "schema:name": "article thumbnail",
       "schema:encodingFormat": "image/jpeg"
@@ -129,11 +143,15 @@ DDE discovery metadata for a published research article on global plate tectonic
   "schema:creator": {
     "@list": [
       {
-        "@type": "schema:Person",
+        "@type": [
+          "schema:Person"
+        ],
         "schema:name": "Dietmar Muller",
         "schema:identifier": "https://orcid.org/0000-0002-3334-5764",
         "schema:affiliation": {
-          "@type": "schema:Organization",
+          "@type": [
+            "schema:Organization"
+          ],
           "schema:name": "University of Sydney"
         }
       }
@@ -184,7 +202,9 @@ DDE discovery metadata for a published research article on global plate tectonic
   "schema:name": "Global Plate Tectonics and Paleogeography Since the Late Paleozoic",
   "schema:description": "Published research article presenting a comprehensive plate tectonic and paleogeographic model for the Earth from the Late Paleozoic to the present day (410 Ma to 0 Ma). Includes digital reconstructions of continental configurations, ocean basins, and major tectonic boundaries through geological time.",
   "schema:identifier": {
-    "@type": "schema:PropertyValue",
+    "@type": [
+      "schema:PropertyValue"
+    ],
     "schema:propertyID": "schema:identifier",
     "schema:name": "DOI",
     "schema:value": "10.1016/j.earscirev.2021.103477",
@@ -195,7 +215,9 @@ DDE discovery metadata for a published research article on global plate tectonic
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": "schema:CreativeWork",
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "Elsevier User License",
       "schema:url": "https://www.elsevier.com/about/policies/open-access-licenses"
     }
@@ -229,13 +251,17 @@ DDE discovery metadata for a published research article on global plate tectonic
   },
   "schema:additionalType": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Document",
       "schema:termCode": "document",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Article",
       "schema:termCode": "article",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
@@ -243,13 +269,17 @@ DDE discovery metadata for a published research article on global plate tectonic
   ],
   "schema:keywords": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geoscientific Information",
       "schema:termCode": "geoscientificInformation",
       "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Data Integration Synthesis",
       "schema:termCode": "dataIntegrationSynthesis",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
@@ -261,7 +291,9 @@ DDE discovery metadata for a published research article on global plate tectonic
   ],
   "schema:image": [
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "https://doi.org/10.1016/j.earscirev.2021.103477/thumbnail.jpg",
       "schema:name": "article thumbnail",
       "schema:encodingFormat": "image/jpeg"
@@ -270,11 +302,15 @@ DDE discovery metadata for a published research article on global plate tectonic
   "schema:creator": {
     "@list": [
       {
-        "@type": "schema:Person",
+        "@type": [
+          "schema:Person"
+        ],
         "schema:name": "Dietmar Muller",
         "schema:identifier": "https://orcid.org/0000-0002-3334-5764",
         "schema:affiliation": {
-          "@type": "schema:Organization",
+          "@type": [
+            "schema:Organization"
+          ],
           "schema:name": "University of Sydney"
         }
       }
@@ -304,12 +340,12 @@ DDE discovery metadata for a published research article on global plate tectonic
 <urn:dde:example-plate-tectonics-article> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Document" ;
-            schema1:termCode "document" ],
+            schema1:name "Article" ;
+            schema1:termCode "article" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Article" ;
-            schema1:termCode "article" ] ;
+            schema1:name "Document" ;
+            schema1:termCode "document" ] ;
     schema1:creator ( [ a schema1:Person ;
                 schema1:affiliation [ a schema1:Organization ;
                         schema1:name "University of Sydney" ] ;
@@ -372,14 +408,14 @@ description: DDE profile for document resources (document, article, thesis, book
   poster, webPage). Extends DDEDiscovery with resource type constraint.
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
 - properties:
     schema:additionalType:
       contains:
         type: object
         properties:
           '@type':
-            const: schema:DefinedTerm
+            contains:
+              const: schema:DefinedTerm
           schema:inDefinedTermSet:
             const: dde:codelist/ResourceTypeCode
           schema:termCode:
@@ -396,6 +432,14 @@ allOf:
         - schema:inDefinedTermSet
         - schema:termCode
       minContains: 1
+    schema:temporalCoverage:
+      description: Temporal extent of resource content.
+      type: array
+      items:
+        $ref: '#/$defs/TemporalExtent'
+$defs:
+  TemporalExtent:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/schema.yaml
 x-jsonld-prefixes:
   schema: http://schema.org/
   cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/

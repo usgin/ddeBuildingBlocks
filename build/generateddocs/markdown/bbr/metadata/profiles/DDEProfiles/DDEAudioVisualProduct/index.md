@@ -48,7 +48,9 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": "schema:CreativeWork",
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "Creative Commons Attribution-NonCommercial 4.0",
       "schema:url": "https://creativecommons.org/licenses/by-nc/4.0/"
     }
@@ -83,13 +85,17 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
   },
   "schema:additionalType": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Product",
       "schema:termCode": "product",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Movie",
       "schema:termCode": "movie",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
@@ -97,13 +103,17 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
   ],
   "schema:keywords": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geoscientific Information",
       "schema:termCode": "geoscientificInformation",
       "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Data Integration Synthesis",
       "schema:termCode": "dataIntegrationSynthesis",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
@@ -115,7 +125,9 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
   ],
   "schema:image": [
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "https://example.org/thumbnails/plate-tectonics-video-thumb.jpg",
       "schema:name": "video thumbnail",
       "schema:encodingFormat": "image/jpeg"
@@ -124,7 +136,9 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
   "schema:creator": {
     "@list": [
       {
-        "@type": "schema:Organization",
+        "@type": [
+          "schema:Organization"
+        ],
         "schema:name": "Deep-time Digital Earth (DDE)",
         "schema:url": "https://www.ddeworld.org/"
       }
@@ -181,7 +195,9 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": "schema:CreativeWork",
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "Creative Commons Attribution-NonCommercial 4.0",
       "schema:url": "https://creativecommons.org/licenses/by-nc/4.0/"
     }
@@ -216,13 +232,17 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
   },
   "schema:additionalType": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Product",
       "schema:termCode": "product",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Movie",
       "schema:termCode": "movie",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
@@ -230,13 +250,17 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
   ],
   "schema:keywords": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geoscientific Information",
       "schema:termCode": "geoscientificInformation",
       "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Data Integration Synthesis",
       "schema:termCode": "dataIntegrationSynthesis",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
@@ -248,7 +272,9 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
   ],
   "schema:image": [
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "https://example.org/thumbnails/plate-tectonics-video-thumb.jpg",
       "schema:name": "video thumbnail",
       "schema:encodingFormat": "image/jpeg"
@@ -257,7 +283,9 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
   "schema:creator": {
     "@list": [
       {
-        "@type": "schema:Organization",
+        "@type": [
+          "schema:Organization"
+        ],
         "schema:name": "Deep-time Digital Earth (DDE)",
         "schema:url": "https://www.ddeworld.org/"
       }
@@ -313,13 +341,13 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
             schema1:name "video thumbnail" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Data Integration Synthesis" ;
             schema1:termCode "dataIntegrationSynthesis" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "continental drift",
         "earth science",
         "educational video",
@@ -349,18 +377,19 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
 $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 title: DDE AudioVisual Product profile
-description: DDE profile for audiovisual resources (movie, sound). Extends DDEDiscovery
+description: DDE profile for audiovisual resources (movie, sound). Extends ddeCore
   with resource type constraint and schema:duration.
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
-- properties:
+- type: object
+  properties:
     schema:additionalType:
       contains:
         type: object
         properties:
           '@type':
-            const: schema:DefinedTerm
+            contains:
+              const: schema:DefinedTerm
           schema:inDefinedTermSet:
             const: dde:codelist/ResourceTypeCode
           schema:termCode:
@@ -376,6 +405,34 @@ allOf:
     schema:duration:
       type: string
       description: Duration in ISO 8601 format (e.g., PT1H30M, PT45S).
+    schema:measurementTechnique:
+      description: The technique, technology, or methodology used for measurement
+        or determination of the dataset values.
+      anyOf:
+      - type: string
+      - $ref: '#/$defs/DefinedTerm'
+      - type: array
+        items:
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/DefinedTerm'
+    schema:temporalCoverage:
+      description: Temporal extent of resource content.
+      type: array
+      items:
+        $ref: '#/$defs/TemporalExtent'
+    dqv:hasQualityMeasurement:
+      description: Quality measurements reported to assess the resource.
+      type: array
+      items:
+        $ref: '#/$defs/QualityMeasure'
+$defs:
+  DefinedTerm:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml
+  TemporalExtent:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/schema.yaml
+  QualityMeasure:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/schema.yaml
 x-jsonld-prefixes:
   schema: http://schema.org/
   cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/

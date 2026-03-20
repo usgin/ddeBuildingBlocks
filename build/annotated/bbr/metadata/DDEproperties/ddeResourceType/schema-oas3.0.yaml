@@ -4,16 +4,13 @@ x-defs:
     type: object
     properties:
       '@type':
-        anyOf:
-        - type: string
+        type: array
+        items:
+          type: string
+        contains:
           enum:
           - schema:DefinedTerm
-        - type: array
-          items:
-            type: string
-          contains:
-            enum:
-            - schema:DefinedTerm
+        minItems: 1
       schema:name:
         type: string
         description: text label for the term that is useful to human user
@@ -46,16 +43,13 @@ x-defs:
     type: object
     properties:
       '@type':
-        anyOf:
-        - type: string
+        type: array
+        items:
+          type: string
+        contains:
           enum:
           - schema:PropertyValue
-        - type: array
-          items:
-            type: string
-          contains:
-            enum:
-            - schema:PropertyValue
+        minItems: 1
       schema:propertyID:
         type: string
         description: In this context for the schema:PropertyValue, this field is an
@@ -98,8 +92,9 @@ properties:
       type: object
       properties:
         '@type':
-          enum:
-          - schema:DefinedTerm
+          contains:
+            enum:
+            - schema:DefinedTerm
         schema:inDefinedTermSet:
           enum:
           - dde:codelist/ResourceTypeCode

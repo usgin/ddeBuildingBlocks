@@ -24,14 +24,16 @@ Shows a schema:additionalType with a DefinedTerm from the DDE ResourceTypeCode c
 #### json
 ```json
 {
-    "schema:additionalType": [
-        {
-            "@type": "schema:DefinedTerm",
-            "schema:name": "Geographic Dataset",
-            "schema:termCode": "geographicDataset",
-            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-        }
-    ]
+  "schema:additionalType": [
+    {
+      "@type": [
+        "schema:DefinedTerm"
+      ],
+      "schema:name": "Geographic Dataset",
+      "schema:termCode": "geographicDataset",
+      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+    }
+  ]
 }
 
 ```
@@ -48,7 +50,9 @@ Shows a schema:additionalType with a DefinedTerm from the DDE ResourceTypeCode c
   ],
   "schema:additionalType": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geographic Dataset",
       "schema:termCode": "geographicDataset",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
@@ -91,7 +95,8 @@ properties:
       type: object
       properties:
         '@type':
-          const: schema:DefinedTerm
+          contains:
+            const: schema:DefinedTerm
         schema:inDefinedTermSet:
           const: dde:codelist/ResourceTypeCode
         schema:termCode:

@@ -10,7 +10,7 @@
   "itemClass": "schema",
   "register": "cdif-building-block-register",
   "version": "0.1",
-  "dateOfLastChange": "2026-03-19",
+  "dateOfLastChange": "2026-03-20",
   "link": "https://github.com/opengeospatial/bblock-template",
   "sources": [
     {
@@ -53,12 +53,12 @@
         {
           "language": "json",
           "ref": "exampleDdeResourceType.json",
-          "code": "{\n    \"schema:additionalType\": [\n        {\n            \"@type\": \"schema:DefinedTerm\",\n            \"schema:name\": \"Geographic Dataset\",\n            \"schema:termCode\": \"geographicDataset\",\n            \"schema:inDefinedTermSet\": \"dde:codelist/ResourceTypeCode\"\n        }\n    ]\n}\n",
+          "code": "{\n  \"schema:additionalType\": [\n    {\n      \"@type\": [\n        \"schema:DefinedTerm\"\n      ],\n      \"schema:name\": \"Geographic Dataset\",\n      \"schema:termCode\": \"geographicDataset\",\n      \"schema:inDefinedTermSet\": \"dde:codelist/ResourceTypeCode\"\n    }\n  ]\n}\n",
           "url": "https://usgin.github.io/ddeBuildingBlocks/build/tests/bbr/metadata/DDEproperties/ddeResourceType/example_1_1.json"
         },
         {
           "language": "jsonld",
-          "code": "{\n  \"@context\": [\n    {\n      \"schema\": \"http://schema.org/\",\n      \"dde\": \"https://www.ddeworld.org/resource/\"\n    },\n    \"https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/context.jsonld\"\n  ],\n  \"schema:additionalType\": [\n    {\n      \"@type\": \"schema:DefinedTerm\",\n      \"schema:name\": \"Geographic Dataset\",\n      \"schema:termCode\": \"geographicDataset\",\n      \"schema:inDefinedTermSet\": \"dde:codelist/ResourceTypeCode\"\n    }\n  ]\n}",
+          "code": "{\n  \"@context\": [\n    {\n      \"schema\": \"http://schema.org/\",\n      \"dde\": \"https://www.ddeworld.org/resource/\"\n    },\n    \"https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/context.jsonld\"\n  ],\n  \"schema:additionalType\": [\n    {\n      \"@type\": [\n        \"schema:DefinedTerm\"\n      ],\n      \"schema:name\": \"Geographic Dataset\",\n      \"schema:termCode\": \"geographicDataset\",\n      \"schema:inDefinedTermSet\": \"dde:codelist/ResourceTypeCode\"\n    }\n  ]\n}",
           "url": "https://usgin.github.io/ddeBuildingBlocks/build/tests/bbr/metadata/DDEproperties/ddeResourceType/example_1_1.jsonld"
         },
         {
@@ -69,7 +69,7 @@
       ]
     }
   ],
-  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntitle: DDE Resource Type constraint\ndescription: Constrains schema:additionalType to require at least one DefinedTerm\n  from the DDE ResourceTypeCode codelist (32 resource types from DDE spec Table 18).\ntype: object\nproperties:\n  schema:additionalType:\n    type: array\n    description: Must include at least one DefinedTerm from the DDE ResourceTypeCode\n      codelist.\n    minItems: 1\n    items:\n      anyOf:\n      - type: string\n      - $ref: '#/$defs/DefinedTerm'\n    contains:\n      type: object\n      properties:\n        '@type':\n          const: schema:DefinedTerm\n        schema:inDefinedTermSet:\n          const: dde:codelist/ResourceTypeCode\n        schema:termCode:\n          type: string\n          enum:\n          - aggregate\n          - application\n          - webApplication\n          - collection\n          - dataset\n          - dataCatalog\n          - geographicDataset\n          - nonGeographicDataset\n          - document\n          - article\n          - thesis\n          - book\n          - poster\n          - webPage\n          - image\n          - map\n          - photograph\n          - explanatoryFigure\n          - initiative\n          - fieldSession\n          - learningResource\n          - guide\n          - model\n          - movie\n          - repository\n          - semanticResource\n          - definedTermSet\n          - series\n          - service\n          - webAPI\n          - software\n          - sound\n      required:\n      - '@type'\n      - schema:inDefinedTermSet\n      - schema:termCode\n    minContains: 1\n$defs:\n  DefinedTerm:\n    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml\nx-jsonld-prefixes:\n  schema: http://schema.org/\n  dde: https://www.ddeworld.org/resource/\n",
+  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntitle: DDE Resource Type constraint\ndescription: Constrains schema:additionalType to require at least one DefinedTerm\n  from the DDE ResourceTypeCode codelist (32 resource types from DDE spec Table 18).\ntype: object\nproperties:\n  schema:additionalType:\n    type: array\n    description: Must include at least one DefinedTerm from the DDE ResourceTypeCode\n      codelist.\n    minItems: 1\n    items:\n      anyOf:\n      - type: string\n      - $ref: '#/$defs/DefinedTerm'\n    contains:\n      type: object\n      properties:\n        '@type':\n          contains:\n            const: schema:DefinedTerm\n        schema:inDefinedTermSet:\n          const: dde:codelist/ResourceTypeCode\n        schema:termCode:\n          type: string\n          enum:\n          - aggregate\n          - application\n          - webApplication\n          - collection\n          - dataset\n          - dataCatalog\n          - geographicDataset\n          - nonGeographicDataset\n          - document\n          - article\n          - thesis\n          - book\n          - poster\n          - webPage\n          - image\n          - map\n          - photograph\n          - explanatoryFigure\n          - initiative\n          - fieldSession\n          - learningResource\n          - guide\n          - model\n          - movie\n          - repository\n          - semanticResource\n          - definedTermSet\n          - series\n          - service\n          - webAPI\n          - software\n          - sound\n      required:\n      - '@type'\n      - schema:inDefinedTermSet\n      - schema:termCode\n    minContains: 1\n$defs:\n  DefinedTerm:\n    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml\nx-jsonld-prefixes:\n  schema: http://schema.org/\n  dde: https://www.ddeworld.org/resource/\n",
   "gitRepository": "https://github.com/usgin/ddeBuildingBlocks",
   "gitPath": "_sources/DDEproperties/ddeResourceType"
 }

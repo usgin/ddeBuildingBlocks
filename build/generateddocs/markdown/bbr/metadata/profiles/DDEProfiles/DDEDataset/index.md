@@ -80,7 +80,9 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
   },
   "schema:additionalType": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geographic Dataset",
       "schema:termCode": "geographicDataset",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
@@ -88,13 +90,17 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
   ],
   "schema:keywords": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geoscientific Information",
       "schema:termCode": "geoscientificInformation",
       "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geological Mapping",
       "schema:termCode": "geologicalMapping",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
@@ -106,7 +112,9 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
   ],
   "schema:image": [
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "https://example.org/thumbnails/hydrogeological-map-500k.png",
       "schema:name": "thumbnail",
       "schema:encodingFormat": "image/png"
@@ -114,20 +122,30 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
   ],
   "schema:spatialCoverage": [
     {
-      "@type": "schema:Place",
+      "@type": [
+        "schema:Place"
+      ],
       "schema:geo": {
-        "@type": "schema:GeoShape",
+        "@type": [
+          "schema:GeoShape"
+        ],
         "schema:box": "18.1609 73.499 53.5585 135.08"
       }
     }
   ],
   "schema:temporalCoverage": [
     {
-      "@type": "time:ProperInterval",
+      "@type": [
+        "time:ProperInterval"
+      ],
       "time:hasBeginning": {
-        "@type": "time:Instant",
+        "@type": [
+          "time:Instant"
+        ],
         "time:inTimePosition": {
-          "@type": "time:TimePosition",
+          "@type": [
+            "time:TimePosition"
+          ],
           "time:hasTRS": {
             "@id": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"
           },
@@ -135,9 +153,13 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
         }
       },
       "time:hasEnd": {
-        "@type": "time:Instant",
+        "@type": [
+          "time:Instant"
+        ],
         "time:inTimePosition": {
-          "@type": "time:TimePosition",
+          "@type": [
+            "time:TimePosition"
+          ],
           "time:hasTRS": {
             "@id": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"
           },
@@ -161,7 +183,9 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
   ],
   "schema:additionalProperty": [
     {
-      "@type": "schema:PropertyValue",
+      "@type": [
+        "schema:PropertyValue"
+      ],
       "schema:propertyID": [
         "dde:spatialRepresentationType"
       ],
@@ -169,7 +193,9 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
       "schema:value": "vector"
     },
     {
-      "@type": "schema:PropertyValue",
+      "@type": [
+        "schema:PropertyValue"
+      ],
       "schema:propertyID": [
         "dde:spatialResolution"
       ],
@@ -177,7 +203,9 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
       "schema:value": "1:500000"
     },
     {
-      "@type": "schema:PropertyValue",
+      "@type": [
+        "schema:PropertyValue"
+      ],
       "schema:propertyID": [
         "dde:referenceSystemType"
       ],
@@ -185,7 +213,9 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
       "schema:value": "geodeticGeographic2D"
     },
     {
-      "@type": "schema:PropertyValue",
+      "@type": [
+        "schema:PropertyValue"
+      ],
       "schema:propertyID": [
         "dde:referenceSystemIdentifier"
       ],
@@ -264,7 +294,9 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
   },
   "schema:additionalType": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geographic Dataset",
       "schema:termCode": "geographicDataset",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
@@ -272,13 +304,17 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
   ],
   "schema:keywords": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geoscientific Information",
       "schema:termCode": "geoscientificInformation",
       "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geological Mapping",
       "schema:termCode": "geologicalMapping",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
@@ -290,7 +326,9 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
   ],
   "schema:image": [
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "https://example.org/thumbnails/hydrogeological-map-500k.png",
       "schema:name": "thumbnail",
       "schema:encodingFormat": "image/png"
@@ -298,20 +336,30 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
   ],
   "schema:spatialCoverage": [
     {
-      "@type": "schema:Place",
+      "@type": [
+        "schema:Place"
+      ],
       "schema:geo": {
-        "@type": "schema:GeoShape",
+        "@type": [
+          "schema:GeoShape"
+        ],
         "schema:box": "18.1609 73.499 53.5585 135.08"
       }
     }
   ],
   "schema:temporalCoverage": [
     {
-      "@type": "time:ProperInterval",
+      "@type": [
+        "time:ProperInterval"
+      ],
       "time:hasBeginning": {
-        "@type": "time:Instant",
+        "@type": [
+          "time:Instant"
+        ],
         "time:inTimePosition": {
-          "@type": "time:TimePosition",
+          "@type": [
+            "time:TimePosition"
+          ],
           "time:hasTRS": {
             "@id": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"
           },
@@ -319,9 +367,13 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
         }
       },
       "time:hasEnd": {
-        "@type": "time:Instant",
+        "@type": [
+          "time:Instant"
+        ],
         "time:inTimePosition": {
-          "@type": "time:TimePosition",
+          "@type": [
+            "time:TimePosition"
+          ],
           "time:hasTRS": {
             "@id": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"
           },
@@ -345,7 +397,9 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
   ],
   "schema:additionalProperty": [
     {
-      "@type": "schema:PropertyValue",
+      "@type": [
+        "schema:PropertyValue"
+      ],
       "schema:propertyID": [
         "dde:spatialRepresentationType"
       ],
@@ -353,7 +407,9 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
       "schema:value": "vector"
     },
     {
-      "@type": "schema:PropertyValue",
+      "@type": [
+        "schema:PropertyValue"
+      ],
       "schema:propertyID": [
         "dde:spatialResolution"
       ],
@@ -361,7 +417,9 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
       "schema:value": "1:500000"
     },
     {
-      "@type": "schema:PropertyValue",
+      "@type": [
+        "schema:PropertyValue"
+      ],
       "schema:propertyID": [
         "dde:referenceSystemType"
       ],
@@ -369,7 +427,9 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
       "schema:value": "geodeticGeographic2D"
     },
     {
-      "@type": "schema:PropertyValue",
+      "@type": [
+        "schema:PropertyValue"
+      ],
       "schema:propertyID": [
         "dde:referenceSystemIdentifier"
       ],
@@ -390,18 +450,18 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
 
 <urn:dde:example-hydrogeological-map> a schema1:Dataset ;
     schema1:additionalProperty [ a schema1:PropertyValue ;
-            schema1:name "Spatial Representation Type" ;
-            schema1:propertyID "dde:spatialRepresentationType" ;
-            schema1:value "vector" ],
+            schema1:name "Coordinate Reference System" ;
+            schema1:propertyID "dde:referenceSystemIdentifier" ;
+            schema1:url "https://epsg.io/4326" ;
+            schema1:value "EPSG:4326" ],
         [ a schema1:PropertyValue ;
             schema1:name "Spatial Resolution" ;
             schema1:propertyID "dde:spatialResolution" ;
             schema1:value "1:500000" ],
         [ a schema1:PropertyValue ;
-            schema1:name "Coordinate Reference System" ;
-            schema1:propertyID "dde:referenceSystemIdentifier" ;
-            schema1:url "https://epsg.io/4326" ;
-            schema1:value "EPSG:4326" ],
+            schema1:name "Spatial Representation Type" ;
+            schema1:propertyID "dde:spatialRepresentationType" ;
+            schema1:value "vector" ],
         [ a schema1:PropertyValue ;
             schema1:name "Reference System Type" ;
             schema1:propertyID "dde:referenceSystemType" ;
@@ -424,13 +484,13 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
             schema1:name "thumbnail" ] ;
     schema1:inLanguage "zho" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Geological Mapping" ;
             schema1:termCode "geologicalMapping" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "China",
         "aquifer",
         "groundwater",
@@ -471,18 +531,19 @@ $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 title: DDE Dataset profile
 description: DDE profile for dataset resources (dataset, dataCatalog, geographicDataset,
-  nonGeographicDataset). Extends DDEDiscovery with resource type constraint. If additionalType
+  nonGeographicDataset). Extends ddeCore with resource type constraint. If additionalType
   termCode is geographicDataset, ddeGeographicDataset constraints are applied.
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
-- properties:
+- type: object
+  properties:
     schema:additionalType:
       contains:
         type: object
         properties:
           '@type':
-            const: schema:DefinedTerm
+            contains:
+              const: schema:DefinedTerm
           schema:inDefinedTermSet:
             const: dde:codelist/ResourceTypeCode
           schema:termCode:
@@ -497,6 +558,34 @@ allOf:
         - schema:inDefinedTermSet
         - schema:termCode
       minContains: 1
+    schema:measurementTechnique:
+      description: The technique, technology, or methodology used for measurement
+        or determination of the dataset values.
+      anyOf:
+      - type: string
+      - $ref: '#/$defs/DefinedTerm'
+      - type: array
+        items:
+          anyOf:
+          - type: string
+          - $ref: '#/$defs/DefinedTerm'
+    schema:variableMeasured:
+      description: What does the dataset measure? (e.g., temperature, pressure)
+      type: array
+      items:
+        anyOf:
+        - $ref: '#/$defs/VariableMeasured'
+        - $ref: '#/$defs/StatisticalVariable'
+    schema:temporalCoverage:
+      description: Temporal extent of resource content.
+      type: array
+      items:
+        $ref: '#/$defs/TemporalExtent'
+    dqv:hasQualityMeasurement:
+      description: Quality measurements reported to assess the resource.
+      type: array
+      items:
+        $ref: '#/$defs/QualityMeasure'
 - if:
     properties:
       schema:additionalType:
@@ -507,6 +596,17 @@ allOf:
               const: geographicDataset
   then:
     $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema.yaml
+$defs:
+  DefinedTerm:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml
+  VariableMeasured:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/schema.yaml
+  StatisticalVariable:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/statisticalVariable/schema.yaml
+  TemporalExtent:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/schema.yaml
+  QualityMeasure:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/schema.yaml
 x-jsonld-prefixes:
   schema: http://schema.org/
   cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/

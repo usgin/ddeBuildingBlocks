@@ -6,14 +6,14 @@ description: DDE profile for collection resources (aggregate, collection, series
   requires schema:hasPart to describe collection members.
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
 - properties:
     schema:additionalType:
       contains:
         type: object
         properties:
           '@type':
-            const: schema:DefinedTerm
+            contains:
+              const: schema:DefinedTerm
           schema:inDefinedTermSet:
             const: dde:codelist/ResourceTypeCode
           schema:termCode:
@@ -52,8 +52,16 @@ allOf:
           required:
           - '@type'
           - schema:name
+    schema:temporalCoverage:
+      description: Temporal extent of resource content.
+      type: array
+      items:
+        $ref: '#/$defs/TemporalExtent'
   required:
   - schema:hasPart
+$defs:
+  TemporalExtent:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/schema.yaml
 x-jsonld-prefixes:
   schema: http://schema.org/
   cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/

@@ -49,7 +49,9 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": "schema:CreativeWork",
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "IODP Data Policy",
       "schema:url": "https://www.iodp.org/policies-and-guidelines/data-policy"
     }
@@ -84,7 +86,9 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
   },
   "schema:additionalType": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Field Session",
       "schema:termCode": "fieldSession",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
@@ -92,13 +96,17 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
   ],
   "schema:keywords": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geoscientific Information",
       "schema:termCode": "geoscientificInformation",
       "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Field Campaign Expedition",
       "schema:termCode": "fieldCampaignExpedition",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
@@ -111,7 +119,9 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
   ],
   "schema:image": [
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "https://www.iodp.org/images/exp396-sites.png",
       "schema:name": "Expedition 396 drill site locations",
       "schema:encodingFormat": "image/png"
@@ -119,22 +129,32 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
   ],
   "schema:spatialCoverage": [
     {
-      "@type": "schema:Place",
+      "@type": [
+        "schema:Place"
+      ],
       "schema:geo": {
-        "@type": "schema:GeoShape",
+        "@type": [
+          "schema:GeoShape"
+        ],
         "schema:box": "63.0 1.0 67.5 6.5"
       }
     }
   ],
   "schema:temporalCoverage": [
     {
-      "@type": "time:ProperInterval",
+      "@type": [
+        "time:ProperInterval"
+      ],
       "time:hasBeginning": {
-        "@type": "time:Instant",
+        "@type": [
+          "time:Instant"
+        ],
         "time:inXSDDateTime": "2021-08-05"
       },
       "time:hasEnd": {
-        "@type": "time:Instant",
+        "@type": [
+          "time:Instant"
+        ],
         "time:inXSDDateTime": "2021-10-05"
       }
     }
@@ -142,7 +162,9 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
   "schema:creator": {
     "@list": [
       {
-        "@type": "schema:Organization",
+        "@type": [
+          "schema:Organization"
+        ],
         "schema:name": "International Ocean Discovery Program",
         "schema:url": "https://www.iodp.org/"
       }
@@ -187,7 +209,9 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": "schema:CreativeWork",
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "IODP Data Policy",
       "schema:url": "https://www.iodp.org/policies-and-guidelines/data-policy"
     }
@@ -222,7 +246,9 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
   },
   "schema:additionalType": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Field Session",
       "schema:termCode": "fieldSession",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
@@ -230,13 +256,17 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
   ],
   "schema:keywords": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geoscientific Information",
       "schema:termCode": "geoscientificInformation",
       "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Field Campaign Expedition",
       "schema:termCode": "fieldCampaignExpedition",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
@@ -249,7 +279,9 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
   ],
   "schema:image": [
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "https://www.iodp.org/images/exp396-sites.png",
       "schema:name": "Expedition 396 drill site locations",
       "schema:encodingFormat": "image/png"
@@ -257,22 +289,32 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
   ],
   "schema:spatialCoverage": [
     {
-      "@type": "schema:Place",
+      "@type": [
+        "schema:Place"
+      ],
       "schema:geo": {
-        "@type": "schema:GeoShape",
+        "@type": [
+          "schema:GeoShape"
+        ],
         "schema:box": "63.0 1.0 67.5 6.5"
       }
     }
   ],
   "schema:temporalCoverage": [
     {
-      "@type": "time:ProperInterval",
+      "@type": [
+        "time:ProperInterval"
+      ],
       "time:hasBeginning": {
-        "@type": "time:Instant",
+        "@type": [
+          "time:Instant"
+        ],
         "time:inXSDDateTime": "2021-08-05"
       },
       "time:hasEnd": {
-        "@type": "time:Instant",
+        "@type": [
+          "time:Instant"
+        ],
         "time:inXSDDateTime": "2021-10-05"
       }
     }
@@ -280,7 +322,9 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
   "schema:creator": {
     "@list": [
       {
-        "@type": "schema:Organization",
+        "@type": [
+          "schema:Organization"
+        ],
         "schema:name": "International Ocean Discovery Program",
         "schema:url": "https://www.iodp.org/"
       }
@@ -313,13 +357,13 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
             schema1:name "Expedition 396 drill site locations" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Field Campaign Expedition" ;
             schema1:termCode "fieldCampaignExpedition" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "IODP",
         "mid-Norwegian margin",
         "ocean drilling",
@@ -363,14 +407,14 @@ description: DDE profile for event resources (initiative, fieldSession). Extends
   extent for events).
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
 - properties:
     schema:additionalType:
       contains:
         type: object
         properties:
           '@type':
-            const: schema:DefinedTerm
+            contains:
+              const: schema:DefinedTerm
           schema:inDefinedTermSet:
             const: dde:codelist/ResourceTypeCode
           schema:termCode:
@@ -383,8 +427,16 @@ allOf:
         - schema:inDefinedTermSet
         - schema:termCode
       minContains: 1
+    schema:temporalCoverage:
+      description: Temporal extent of resource content.
+      type: array
+      items:
+        $ref: '#/$defs/TemporalExtent'
   required:
   - schema:temporalCoverage
+$defs:
+  TemporalExtent:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/schema.yaml
 x-jsonld-prefixes:
   schema: http://schema.org/
   cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/

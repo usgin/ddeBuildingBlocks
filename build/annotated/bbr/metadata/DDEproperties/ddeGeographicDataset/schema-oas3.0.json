@@ -6,25 +6,16 @@
       "properties": {
         "@type": {
           "default": "schema:Place",
-          "anyOf": [
-            {
-              "type": "string",
-              "enum": [
-                "schema:Place"
-              ]
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "contains": {
-                "enum": [
-                  "schema:Place"
-                ]
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": [
+              "schema:Place"
+            ]
+          },
+          "minItems": 1
         },
         "schema:name": {
           "description": "multiple place names or DefinedTerms that have a place name and URI for the location",
@@ -49,25 +40,16 @@
               "properties": {
                 "@type": {
                   "default": "schema:GeoCoordinates",
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "enum": [
-                        "schema:GeoCoordinates"
-                      ]
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "contains": {
-                        "enum": [
-                          "schema:GeoCoordinates"
-                        ]
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "contains": {
+                    "enum": [
+                      "schema:GeoCoordinates"
+                    ]
+                  },
+                  "minItems": 1
                 },
                 "schema:latitude": {
                   "type": "number",
@@ -92,25 +74,16 @@
               "properties": {
                 "@type": {
                   "default": "schema:GeoShape",
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "enum": [
-                        "schema:GeoShape"
-                      ]
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "contains": {
-                        "enum": [
-                          "schema:GeoShape"
-                        ]
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "contains": {
+                    "enum": [
+                      "schema:GeoShape"
+                    ]
+                  },
+                  "minItems": 1
                 },
                 "schema:box": {
                   "type": "string",
@@ -128,25 +101,16 @@
               "properties": {
                 "@type": {
                   "default": "schema:GeoShape",
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "enum": [
-                        "schema:GeoShape"
-                      ]
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "contains": {
-                        "enum": [
-                          "schema:GeoShape"
-                        ]
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "contains": {
+                    "enum": [
+                      "schema:GeoShape"
+                    ]
+                  },
+                  "minItems": 1
                 },
                 "schema:line": {
                   "type": "string",
@@ -165,42 +129,27 @@
           "description": "Optional geographic extent using wkt geometry, see Ocean InfoHub (https://book.oceaninfohub.org/thematics/spatial/README.html#simple-geosparql-wkt). Other geometry schemes might be specified in a specific domain profile, e.g. for atmospheric, subsurface data, or local coordinate systems. NOTE that the location specified here should be the same as the schema.org point or contained within the specified bounding box.",
           "properties": {
             "@type": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              ],
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1,
               "description": "MUST be sf: (<http://www.opengis.net/ont/sf#>) SimpleFeature geometry type. See https://opengeospatial.github.io/ogc-geosparql/geosparql11/sf_geometries.ttl"
             },
             "geosparql:asWKT": {
               "type": "object",
               "properties": {
                 "@type": {
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "enum": [
-                        "geosparql:wktLiteral"
-                      ]
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      },
-                      "contains": {
-                        "enum": [
-                          "geosparql:wktLiteral"
-                        ]
-                      }
-                    }
-                  ]
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "contains": {
+                    "enum": [
+                      "geosparql:wktLiteral"
+                    ]
+                  },
+                  "minItems": 1
                 },
                 "@value": {
                   "type": "string",
@@ -234,25 +183,16 @@
       "description": "PropertyValue values required to define a soft-typed property with a value. ",
       "properties": {
         "@type": {
-          "anyOf": [
-            {
-              "type": "string",
-              "enum": [
-                "schema:PropertyValue"
-              ]
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "contains": {
-                "enum": [
-                  "schema:PropertyValue"
-                ]
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": [
+              "schema:PropertyValue"
+            ]
+          },
+          "minItems": 1
         },
         "schema:propertyID": {
           "type": "array",
@@ -330,25 +270,16 @@
       "type": "object",
       "properties": {
         "@type": {
-          "anyOf": [
-            {
-              "type": "string",
-              "enum": [
-                "schema:PropertyValue"
-              ]
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "contains": {
-                "enum": [
-                  "schema:PropertyValue"
-                ]
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": [
+              "schema:PropertyValue"
+            ]
+          },
+          "minItems": 1
         },
         "schema:propertyID": {
           "type": "string",
@@ -393,25 +324,16 @@
       "type": "object",
       "properties": {
         "@type": {
-          "anyOf": [
-            {
-              "type": "string",
-              "enum": [
-                "schema:DefinedTerm"
-              ]
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "contains": {
-                "enum": [
-                  "schema:DefinedTerm"
-                ]
-              }
-            }
-          ]
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": [
+              "schema:DefinedTerm"
+            ]
+          },
+          "minItems": 1
         },
         "schema:name": {
           "type": "string",

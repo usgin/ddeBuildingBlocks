@@ -43,7 +43,9 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
   "schema:name": "International Chronostratigraphic Chart v2024/12",
   "schema:description": "The International Chronostratigraphic Chart maintained by the International Commission on Stratigraphy (ICS). Defines the global standard nomenclature and boundary ages for geological time divisions (Eonothems/Eons, Erathems/Eras, Systems/Periods, Series/Epochs, Stages/Ages). Published as a controlled vocabulary with SKOS concept scheme encoding.",
   "schema:identifier": {
-    "@type": "schema:PropertyValue",
+    "@type": [
+      "schema:PropertyValue"
+    ],
     "schema:propertyID": "schema:identifier",
     "schema:name": "DOI",
     "schema:value": "10.25504/FAIRsharing.c82b6h",
@@ -54,7 +56,9 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": "schema:CreativeWork",
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "Creative Commons Attribution 4.0",
       "schema:url": "https://creativecommons.org/licenses/by/4.0/"
     }
@@ -89,13 +93,17 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
   },
   "schema:additionalType": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Vocabulary",
       "schema:termCode": "vocabulary",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Defined Term Set",
       "schema:termCode": "definedTermSet",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
@@ -103,13 +111,17 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
   ],
   "schema:keywords": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geoscientific Information",
       "schema:termCode": "geoscientificInformation",
       "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Data Integration Synthesis",
       "schema:termCode": "dataIntegrationSynthesis",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
@@ -122,7 +134,9 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
   ],
   "schema:image": [
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "https://stratigraphy.org/ICSchart/ChronostratChart2024-12-thumb.png",
       "schema:name": "chart thumbnail",
       "schema:encodingFormat": "image/png"
@@ -131,7 +145,9 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
   "schema:creator": {
     "@list": [
       {
-        "@type": "schema:Organization",
+        "@type": [
+          "schema:Organization"
+        ],
         "schema:name": "International Commission on Stratigraphy",
         "schema:url": "https://stratigraphy.org/"
       }
@@ -203,7 +219,9 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
   "schema:name": "International Chronostratigraphic Chart v2024/12",
   "schema:description": "The International Chronostratigraphic Chart maintained by the International Commission on Stratigraphy (ICS). Defines the global standard nomenclature and boundary ages for geological time divisions (Eonothems/Eons, Erathems/Eras, Systems/Periods, Series/Epochs, Stages/Ages). Published as a controlled vocabulary with SKOS concept scheme encoding.",
   "schema:identifier": {
-    "@type": "schema:PropertyValue",
+    "@type": [
+      "schema:PropertyValue"
+    ],
     "schema:propertyID": "schema:identifier",
     "schema:name": "DOI",
     "schema:value": "10.25504/FAIRsharing.c82b6h",
@@ -214,7 +232,9 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": "schema:CreativeWork",
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "Creative Commons Attribution 4.0",
       "schema:url": "https://creativecommons.org/licenses/by/4.0/"
     }
@@ -249,13 +269,17 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
   },
   "schema:additionalType": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Vocabulary",
       "schema:termCode": "vocabulary",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Defined Term Set",
       "schema:termCode": "definedTermSet",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
@@ -263,13 +287,17 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
   ],
   "schema:keywords": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geoscientific Information",
       "schema:termCode": "geoscientificInformation",
       "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Data Integration Synthesis",
       "schema:termCode": "dataIntegrationSynthesis",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
@@ -282,7 +310,9 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
   ],
   "schema:image": [
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "https://stratigraphy.org/ICSchart/ChronostratChart2024-12-thumb.png",
       "schema:name": "chart thumbnail",
       "schema:encodingFormat": "image/png"
@@ -291,7 +321,9 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
   "schema:creator": {
     "@list": [
       {
-        "@type": "schema:Organization",
+        "@type": [
+          "schema:Organization"
+        ],
         "schema:name": "International Commission on Stratigraphy",
         "schema:url": "https://stratigraphy.org/"
       }
@@ -342,12 +374,12 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
 <urn:dde:example-chronostrat-chart> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Defined Term Set" ;
-            schema1:termCode "definedTermSet" ],
+            schema1:name "Vocabulary" ;
+            schema1:termCode "vocabulary" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Vocabulary" ;
-            schema1:termCode "vocabulary" ] ;
+            schema1:name "Defined Term Set" ;
+            schema1:termCode "definedTermSet" ] ;
     schema1:creator ( [ a schema1:Organization ;
                 schema1:name "International Commission on Stratigraphy" ;
                 schema1:url "https://stratigraphy.org/" ] ) ;
@@ -355,15 +387,15 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
     schema1:description "The International Chronostratigraphic Chart maintained by the International Commission on Stratigraphy (ICS). Defines the global standard nomenclature and boundary ages for geological time divisions (Eonothems/Eons, Erathems/Eras, Systems/Periods, Series/Epochs, Stages/Ages). Published as a controlled vocabulary with SKOS concept scheme encoding." ;
     schema1:distribution [ a schema1:DataDownload ;
             dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
-            schema1:contentUrl "https://stratigraphy.org/ICSchart/ChronostratChart2024-12.pdf" ;
-            schema1:encodingFormat "application/pdf" ;
-            schema1:name "Chronostratigraphic Chart PDF" ],
-        [ a schema1:DataDownload ;
-            dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
             schema1:contentUrl "https://resource.geosciml.org/classifierscheme/ics/ischart" ;
             schema1:description "Machine-readable SKOS concept scheme for geological time divisions" ;
             schema1:encodingFormat "application/rdf+xml" ;
-            schema1:name "Geological Time Scale RDF/SKOS" ] ;
+            schema1:name "Geological Time Scale RDF/SKOS" ],
+        [ a schema1:DataDownload ;
+            dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
+            schema1:contentUrl "https://stratigraphy.org/ICSchart/ChronostratChart2024-12.pdf" ;
+            schema1:encodingFormat "application/pdf" ;
+            schema1:name "Chronostratigraphic Chart PDF" ] ;
     schema1:identifier [ a schema1:PropertyValue ;
             schema1:name "DOI" ;
             schema1:propertyID "schema:identifier" ;
@@ -417,14 +449,14 @@ description: DDE profile for semantic resources (semanticResource, definedTermSe
   Extends DDEDiscovery with resource type constraint.
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
 - properties:
     schema:additionalType:
       contains:
         type: object
         properties:
           '@type':
-            const: schema:DefinedTerm
+            contains:
+              const: schema:DefinedTerm
           schema:inDefinedTermSet:
             const: dde:codelist/ResourceTypeCode
           schema:termCode:

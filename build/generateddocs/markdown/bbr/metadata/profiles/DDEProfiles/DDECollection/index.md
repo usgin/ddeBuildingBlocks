@@ -55,7 +55,9 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": ["schema:CreativeWork"],
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "Creative Commons Attribution 4.0",
       "schema:url": "https://creativecommons.org/licenses/by/4.0/"
     }
@@ -90,13 +92,17 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
   },
   "schema:additionalType": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Series",
       "schema:termCode": "series",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Collection",
       "schema:termCode": "collection",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
@@ -104,13 +110,17 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
   ],
   "schema:keywords": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geoscientific Information",
       "schema:termCode": "geoscientificInformation",
       "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geological Mapping",
       "schema:termCode": "geologicalMapping",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
@@ -122,7 +132,9 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
   ],
   "schema:image": [
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "https://onegeology.org/images/global-map-preview.png",
       "schema:name": "thumbnail",
       "schema:encodingFormat": "image/png"
@@ -130,28 +142,38 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
   ],
   "schema:spatialCoverage": [
     {
-      "@type": "schema:Place",
+      "@type": [
+        "schema:Place"
+      ],
       "schema:geo": {
-        "@type": "schema:GeoShape",
+        "@type": [
+          "schema:GeoShape"
+        ],
         "schema:box": "-90 -180 90 180"
       }
     }
   ],
   "schema:hasPart": [
     {
-      "@type": ["schema:CreativeWork"],
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "China 1:1M Bedrock Lithostratigraphy",
       "schema:description": "Geological map of China compiled from 63 separate survey sheets",
       "schema:url": "http://en.cgs.gov.cn/"
     },
     {
-      "@type": ["schema:CreativeWork"],
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "Australia 1:1M Surface Geology",
       "schema:description": "National-scale surface geology map of Australia by Geoscience Australia",
       "schema:url": "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets"
     },
     {
-      "@type": ["schema:CreativeWork"],
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "United Kingdom 1:625K Bedrock Geology",
       "schema:description": "Bedrock geological map of the United Kingdom by the British Geological Survey",
       "schema:url": "https://www.bgs.ac.uk/geological-data/"
@@ -233,13 +255,17 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
   },
   "schema:additionalType": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Series",
       "schema:termCode": "series",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Collection",
       "schema:termCode": "collection",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
@@ -247,13 +273,17 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
   ],
   "schema:keywords": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geoscientific Information",
       "schema:termCode": "geoscientificInformation",
       "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geological Mapping",
       "schema:termCode": "geologicalMapping",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
@@ -265,7 +295,9 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
   ],
   "schema:image": [
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "https://onegeology.org/images/global-map-preview.png",
       "schema:name": "thumbnail",
       "schema:encodingFormat": "image/png"
@@ -273,9 +305,13 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
   ],
   "schema:spatialCoverage": [
     {
-      "@type": "schema:Place",
+      "@type": [
+        "schema:Place"
+      ],
       "schema:geo": {
-        "@type": "schema:GeoShape",
+        "@type": [
+          "schema:GeoShape"
+        ],
         "schema:box": "-90 -180 90 180"
       }
     }
@@ -330,13 +366,13 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
             schema1:name "Australia 1:1M Surface Geology" ;
             schema1:url "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets" ],
         [ a schema1:CreativeWork ;
-            schema1:description "Geological map of China compiled from 63 separate survey sheets" ;
-            schema1:name "China 1:1M Bedrock Lithostratigraphy" ;
-            schema1:url "http://en.cgs.gov.cn/" ],
-        [ a schema1:CreativeWork ;
             schema1:description "Bedrock geological map of the United Kingdom by the British Geological Survey" ;
             schema1:name "United Kingdom 1:625K Bedrock Geology" ;
-            schema1:url "https://www.bgs.ac.uk/geological-data/" ] ;
+            schema1:url "https://www.bgs.ac.uk/geological-data/" ],
+        [ a schema1:CreativeWork ;
+            schema1:description "Geological map of China compiled from 63 separate survey sheets" ;
+            schema1:name "China 1:1M Bedrock Lithostratigraphy" ;
+            schema1:url "http://en.cgs.gov.cn/" ] ;
     schema1:identifier "urn:onegeology:global-collection-2024" ;
     schema1:image [ a schema1:ImageObject ;
             schema1:contentUrl "https://onegeology.org/images/global-map-preview.png" ;
@@ -344,13 +380,13 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
             schema1:name "thumbnail" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Geological Mapping" ;
             schema1:termCode "geologicalMapping" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "OneGeology",
         "geological map",
         "geology",
@@ -388,14 +424,14 @@ description: DDE profile for collection resources (aggregate, collection, series
   requires schema:hasPart to describe collection members.
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
 - properties:
     schema:additionalType:
       contains:
         type: object
         properties:
           '@type':
-            const: schema:DefinedTerm
+            contains:
+              const: schema:DefinedTerm
           schema:inDefinedTermSet:
             const: dde:codelist/ResourceTypeCode
           schema:termCode:
@@ -434,8 +470,16 @@ allOf:
           required:
           - '@type'
           - schema:name
+    schema:temporalCoverage:
+      description: Temporal extent of resource content.
+      type: array
+      items:
+        $ref: '#/$defs/TemporalExtent'
   required:
   - schema:hasPart
+$defs:
+  TemporalExtent:
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/schema.yaml
 x-jsonld-prefixes:
   schema: http://schema.org/
   cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/

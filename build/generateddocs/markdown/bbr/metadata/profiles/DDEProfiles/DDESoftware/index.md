@@ -48,7 +48,9 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": "schema:CreativeWork",
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "GNU General Public License v2.0",
       "schema:url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
     }
@@ -83,7 +85,9 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
   },
   "schema:additionalType": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Software",
       "schema:termCode": "software",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
@@ -91,13 +95,17 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
   ],
   "schema:keywords": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geoscientific Information",
       "schema:termCode": "geoscientificInformation",
       "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Data Integration Synthesis",
       "schema:termCode": "dataIntegrationSynthesis",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
@@ -109,7 +117,9 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
   ],
   "schema:image": [
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "https://www.gplates.org/images/gplates-screenshot.png",
       "schema:name": "GPlates application screenshot",
       "schema:encodingFormat": "image/png"
@@ -118,7 +128,9 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
   "schema:creator": {
     "@list": [
       {
-        "@type": "schema:Organization",
+        "@type": [
+          "schema:Organization"
+        ],
         "schema:name": "EarthByte Group, University of Sydney",
         "schema:url": "https://www.earthbyte.org/"
       }
@@ -175,7 +187,9 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": "schema:CreativeWork",
+      "@type": [
+        "schema:CreativeWork"
+      ],
       "schema:name": "GNU General Public License v2.0",
       "schema:url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
     }
@@ -210,7 +224,9 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
   },
   "schema:additionalType": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Software",
       "schema:termCode": "software",
       "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
@@ -218,13 +234,17 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
   ],
   "schema:keywords": [
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Geoscientific Information",
       "schema:termCode": "geoscientificInformation",
       "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
     },
     {
-      "@type": "schema:DefinedTerm",
+      "@type": [
+        "schema:DefinedTerm"
+      ],
       "schema:name": "Data Integration Synthesis",
       "schema:termCode": "dataIntegrationSynthesis",
       "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
@@ -236,7 +256,9 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
   ],
   "schema:image": [
     {
-      "@type": "schema:ImageObject",
+      "@type": [
+        "schema:ImageObject"
+      ],
       "schema:contentUrl": "https://www.gplates.org/images/gplates-screenshot.png",
       "schema:name": "GPlates application screenshot",
       "schema:encodingFormat": "image/png"
@@ -245,7 +267,9 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
   "schema:creator": {
     "@list": [
       {
-        "@type": "schema:Organization",
+        "@type": [
+          "schema:Organization"
+        ],
         "schema:name": "EarthByte Group, University of Sydney",
         "schema:url": "https://www.earthbyte.org/"
       }
@@ -295,13 +319,13 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
             schema1:name "GPlates application screenshot" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Data Integration Synthesis" ;
-            schema1:termCode "dataIntegrationSynthesis" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Data Integration Synthesis" ;
+            schema1:termCode "dataIntegrationSynthesis" ],
         "GPlates",
         "paleogeography",
         "plate reconstruction",
@@ -336,14 +360,14 @@ description: DDE profile for software resources. Extends DDEDiscovery with resou
   type constraint.
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
-- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeOptional/schema.yaml
 - properties:
     schema:additionalType:
       contains:
         type: object
         properties:
           '@type':
-            const: schema:DefinedTerm
+            contains:
+              const: schema:DefinedTerm
           schema:inDefinedTermSet:
             const: dde:codelist/ResourceTypeCode
           schema:termCode:

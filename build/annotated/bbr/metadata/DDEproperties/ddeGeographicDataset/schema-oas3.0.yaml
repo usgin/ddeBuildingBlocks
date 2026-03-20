@@ -7,16 +7,13 @@ x-defs:
     properties:
       '@type':
         default: schema:Place
-        anyOf:
-        - type: string
+        type: array
+        items:
+          type: string
+        contains:
           enum:
           - schema:Place
-        - type: array
-          items:
-            type: string
-          contains:
-            enum:
-            - schema:Place
+        minItems: 1
       schema:name:
         description: multiple place names or DefinedTerms that have a place name and
           URI for the location
@@ -37,16 +34,13 @@ x-defs:
           properties:
             '@type':
               default: schema:GeoCoordinates
-              anyOf:
-              - type: string
+              type: array
+              items:
+                type: string
+              contains:
                 enum:
                 - schema:GeoCoordinates
-              - type: array
-                items:
-                  type: string
-                contains:
-                  enum:
-                  - schema:GeoCoordinates
+              minItems: 1
             schema:latitude:
               type: number
               minimum: -90
@@ -68,16 +62,13 @@ x-defs:
           properties:
             '@type':
               default: schema:GeoShape
-              anyOf:
-              - type: string
+              type: array
+              items:
+                type: string
+              contains:
                 enum:
                 - schema:GeoShape
-              - type: array
-                items:
-                  type: string
-                contains:
-                  enum:
-                  - schema:GeoShape
+              minItems: 1
             schema:box:
               type: string
               description: A GeoShape box defines an area on the surface of the earth
@@ -95,16 +86,13 @@ x-defs:
           properties:
             '@type':
               default: schema:GeoShape
-              anyOf:
-              - type: string
+              type: array
+              items:
+                type: string
+              contains:
                 enum:
                 - schema:GeoShape
-              - type: array
-                items:
-                  type: string
-                contains:
-                  enum:
-                  - schema:GeoShape
+              minItems: 1
             schema:line:
               type: string
               description: 'A GeoShape box defines a curvilinear geometry as a string
@@ -126,27 +114,23 @@ x-defs:
           or contained within the specified bounding box.
         properties:
           '@type':
-            anyOf:
-            - type: string
-            - type: array
-              items:
-                type: string
+            type: array
+            items:
+              type: string
+            minItems: 1
             description: 'MUST be sf: (<http://www.opengis.net/ont/sf#>) SimpleFeature
               geometry type. See https://opengeospatial.github.io/ogc-geosparql/geosparql11/sf_geometries.ttl'
           geosparql:asWKT:
             type: object
             properties:
               '@type':
-                anyOf:
-                - type: string
+                type: array
+                items:
+                  type: string
+                contains:
                   enum:
                   - geosparql:wktLiteral
-                - type: array
-                  items:
-                    type: string
-                  contains:
-                    enum:
-                    - geosparql:wktLiteral
+                minItems: 1
               '@value':
                 type: string
                 description: a WKT geometry description string, e.g. 'POINT(-76 -18)'
@@ -169,16 +153,13 @@ x-defs:
       a value. '
     properties:
       '@type':
-        anyOf:
-        - type: string
+        type: array
+        items:
+          type: string
+        contains:
           enum:
           - schema:PropertyValue
-        - type: array
-          items:
-            type: string
-          contains:
-            enum:
-            - schema:PropertyValue
+        minItems: 1
       schema:propertyID:
         type: array
         items:
@@ -222,16 +203,13 @@ x-defs:
     type: object
     properties:
       '@type':
-        anyOf:
-        - type: string
+        type: array
+        items:
+          type: string
+        contains:
           enum:
           - schema:PropertyValue
-        - type: array
-          items:
-            type: string
-          contains:
-            enum:
-            - schema:PropertyValue
+        minItems: 1
       schema:propertyID:
         type: string
         description: In this context for the schema:PropertyValue, this field is an
@@ -261,16 +239,13 @@ x-defs:
     type: object
     properties:
       '@type':
-        anyOf:
-        - type: string
+        type: array
+        items:
+          type: string
+        contains:
           enum:
           - schema:DefinedTerm
-        - type: array
-          items:
-            type: string
-          contains:
-            enum:
-            - schema:DefinedTerm
+        minItems: 1
       schema:name:
         type: string
         description: text label for the term that is useful to human user

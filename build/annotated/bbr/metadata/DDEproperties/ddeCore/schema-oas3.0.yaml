@@ -19,8 +19,9 @@ x-defs:
           type: object
           properties:
             '@type':
-              enum:
-              - schema:DefinedTerm
+              contains:
+                enum:
+                - schema:DefinedTerm
             schema:inDefinedTermSet:
               enum:
               - dde:codelist/ResourceTypeCode
@@ -262,16 +263,13 @@ x-defs:
     type: object
     properties:
       '@type':
-        anyOf:
-        - type: string
+        type: array
+        items:
+          type: string
+        contains:
           enum:
           - schema:DefinedTerm
-        - type: array
-          items:
-            type: string
-          contains:
-            enum:
-            - schema:DefinedTerm
+        minItems: 1
       schema:name:
         type: string
         description: text label for the term that is useful to human user
@@ -331,16 +329,13 @@ x-defs:
     properties:
       '@type':
         default: schema:CreativeWork
-        anyOf:
-        - type: string
+        type: array
+        items:
+          type: string
+        contains:
           enum:
           - schema:CreativeWork
-        - type: array
-          items:
-            type: string
-          contains:
-            enum:
-            - schema:CreativeWork
+        minItems: 1
       schema:name:
         type: string
       schema:description:
@@ -358,16 +353,13 @@ x-defs:
     type: object
     properties:
       '@type':
-        anyOf:
-        - type: string
+        type: array
+        items:
+          type: string
+        contains:
           enum:
           - schema:PropertyValue
-        - type: array
-          items:
-            type: string
-          contains:
-            enum:
-            - schema:PropertyValue
+        minItems: 1
       schema:propertyID:
         type: string
         description: In this context for the schema:PropertyValue, this field is an
@@ -431,16 +423,13 @@ x-defs:
           a particular distribution/DataDownload.
         properties:
           '@type':
-            anyOf:
-            - type: string
+            type: array
+            items:
+              type: string
+            contains:
               enum:
               - spdx:Checksum
-            - type: array
-              items:
-                type: string
-              contains:
-                enum:
-                - spdx:Checksum
+            minItems: 1
           spdx:algorithm:
             type: string
           spdx:checksumValue:
@@ -618,16 +607,13 @@ x-defs:
               puts identifier here
           '@type':
             default: schema:DataCatalog
-            anyOf:
-            - type: string
+            type: array
+            items:
+              type: string
+            contains:
               enum:
               - schema:DataCatalog
-            - type: array
-              items:
-                type: string
-              contains:
-                enum:
-                - schema:DataCatalog
+            minItems: 1
           schema:name:
             type: string
           schema:url:
@@ -661,16 +647,13 @@ x-defs:
       '@id':
         type: string
       '@type':
-        anyOf:
-        - type: string
+        type: array
+        items:
+          type: string
+        contains:
           enum:
           - schema:Person
-        - type: array
-          items:
-            type: string
-          contains:
-            enum:
-            - schema:Person
+        minItems: 1
       schema:name:
         type: string
         description: string label for person that is meaningful for human users
@@ -693,16 +676,13 @@ x-defs:
         properties:
           '@type':
             default: schema:ContactPoint
-            anyOf:
-            - type: string
+            type: array
+            items:
+              type: string
+            contains:
               enum:
               - schema:ContactPoint
-            - type: array
-              items:
-                type: string
-              contains:
-                enum:
-                - schema:ContactPoint
+            minItems: 1
           schema:email:
             type: string
         description: restrict to email only. Schema.org allows telephone and postal
@@ -735,16 +715,13 @@ x-defs:
         type: string
       '@type':
         default: schema:Organization
-        anyOf:
-        - type: string
+        type: array
+        items:
+          type: string
+        contains:
           enum:
           - schema:Organization
-        - type: array
-          items:
-            type: string
-          contains:
-            enum:
-            - schema:Organization
+        minItems: 1
       schema:additionalType:
         type: array
         items:
@@ -811,8 +788,10 @@ x-defs:
       '@type':
         description: The type of action. Must be schema:Action or one of its subtypes.
         default: schema:Action
-        anyOf:
-        - type: string
+        type: array
+        items:
+          type: string
+        contains:
           enum:
           - schema:Action
           - schema:AssessAction
@@ -827,24 +806,7 @@ x-defs:
           - schema:SearchAction
           - schema:TransferAction
           - schema:UpdateAction
-        - type: array
-          items:
-            type: string
-          contains:
-            enum:
-            - schema:Action
-            - schema:AssessAction
-            - schema:ConsumeAction
-            - schema:ControlAction
-            - schema:CreateAction
-            - schema:DeleteAction
-            - schema:FindAction
-            - schema:InteractAction
-            - schema:MoveAction
-            - schema:PlayAction
-            - schema:SearchAction
-            - schema:TransferAction
-            - schema:UpdateAction
+        minItems: 1
       schema:name:
         type: string
         description: text label for the action
@@ -879,16 +841,13 @@ x-defs:
         properties:
           '@type':
             default: schema:EntryPoint
-            anyOf:
-            - type: string
+            type: array
+            items:
+              type: string
+            contains:
               enum:
               - schema:EntryPoint
-            - type: array
-              items:
-                type: string
-              contains:
-                enum:
-                - schema:EntryPoint
+            minItems: 1
           schema:description:
             type: string
           schema:urlTemplate:
@@ -965,16 +924,13 @@ x-defs:
               type: string
             '@type':
               default: schema:PropertyValueSpecification
-              anyOf:
-              - type: string
+              type: array
+              items:
+                type: string
+              contains:
                 enum:
                 - schema:PropertyValueSpecification
-              - type: array
-                items:
-                  type: string
-                contains:
-                  enum:
-                  - schema:PropertyValueSpecification
+              minItems: 1
             schema:valueName:
               type: string
             schema:description:
@@ -993,16 +949,13 @@ x-defs:
         properties:
           '@type':
             default: schema:DataFeed
-            anyOf:
-            - type: string
+            type: array
+            items:
+              type: string
+            contains:
               enum:
               - schema:DataFeed
-            - type: array
-              items:
-                type: string
-              contains:
-                enum:
-                - schema:DataFeed
+            minItems: 1
           schema:description:
             type: string
           schema:encodingFormat-input:
@@ -1118,8 +1071,9 @@ allOf:
           type: object
           properties:
             '@type':
-              enum:
-              - schema:DefinedTerm
+              contains:
+                enum:
+                - schema:DefinedTerm
             schema:inDefinedTermSet:
               enum:
               - dde:codelist/TopicCategoryCode
@@ -1131,8 +1085,9 @@ allOf:
           type: object
           properties:
             '@type':
-              enum:
-              - schema:DefinedTerm
+              contains:
+                enum:
+                - schema:DefinedTerm
             schema:inDefinedTermSet:
               enum:
               - dde:codelist/AcquisitionTypeCode
@@ -1140,6 +1095,13 @@ allOf:
           - '@type'
           - schema:inDefinedTermSet
         minContains: 1
+    schema:alternateName:
+      description: Alternative names or aliases for the resource.
+      anyOf:
+      - type: string
+      - type: array
+        items:
+          type: string
     schema:image:
       type: array
       description: Browse graphics for the resource. At least one ImageObject is required
@@ -1149,8 +1111,13 @@ allOf:
         type: object
         properties:
           '@type':
-            enum:
-            - schema:ImageObject
+            type: array
+            items:
+              type: string
+            contains:
+              enum:
+              - schema:ImageObject
+            minItems: 1
           schema:contentUrl:
             type: string
             format: uri
