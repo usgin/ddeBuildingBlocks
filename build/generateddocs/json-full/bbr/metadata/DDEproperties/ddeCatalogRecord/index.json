@@ -10,7 +10,7 @@
   "itemClass": "schema",
   "register": "cdif-building-block-register",
   "version": "0.1",
-  "dateOfLastChange": "2026-03-20",
+  "dateOfLastChange": "2026-04-25",
   "link": "https://github.com/opengeospatial/bblock-template",
   "sources": [
     {
@@ -26,8 +26,26 @@
   "shaclShapes": {
     "dde.bbr.metadata.DDEproperties.ddeCatalogRecord": [
       "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
+    ],
+    "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.identifier": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.person": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.organization": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
     ]
   },
+  "dependsOn": [
+    "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord"
+  ],
   "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCatalogRecord/context.jsonld",
   "schema": {
     "application/yaml": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCatalogRecord/schema.yaml",
@@ -37,8 +55,7 @@
   "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/context.jsonld",
   "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCatalogRecord/resolvedProperties.json",
   "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/",
-  "rdfData": [],
-  "validationPassed": true,
+  "validationPassed": false,
   "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/DDEproperties/ddeCatalogRecord/",
   "description": "## DDE Catalog Record\n\nExtends cdifCatalogRecord to require that `dcterms:conformsTo` includes the ddeCore building block URI (`https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore`).\n",
   "examples": [
@@ -51,7 +68,7 @@
       "snippets": [
         {
           "language": "json",
-          "ref": "exampleDdeCatalogRecord.json",
+          "ref": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/exampleDdeCatalogRecord.json",
           "code": "{\n    \"@context\": {\n        \"schema\": \"http://schema.org/\",\n        \"dde\": \"https://www.ddeworld.org/resource/\",\n        \"dcterms\": \"http://purl.org/dc/terms/\",\n        \"dcat\": \"http://www.w3.org/ns/dcat#\"\n    },\n    \"@id\": \"urn:uuid:example-dde-catalog-record\",\n    \"@type\": [\"schema:Dataset\"],\n    \"schema:additionalType\": [\"dcat:CatalogRecord\"],\n    \"schema:about\": {\"@id\": \"https://example.org/dataset/geo-dataset-001\"},\n    \"schema:dateModified\": \"2026-02-28\",\n    \"dcterms:conformsTo\": [\n        {\"@id\": \"https://w3id.org/cdif/core/1.0/\"},\n        {\"@id\": \"https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore\"}\n    ],\n    \"schema:sdDatePublished\": \"2026-02-28\"\n}\n",
           "url": "https://usgin.github.io/ddeBuildingBlocks/build/tests/bbr/metadata/DDEproperties/ddeCatalogRecord/example_1_1.json"
         },
@@ -68,7 +85,7 @@
       ]
     }
   ],
-  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntype: object\nallOf:\n- $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/schema.yaml\n- properties:\n    dcterms:conformsTo:\n      type: array\n      items:\n        type: object\n        properties:\n          '@id':\n            type: string\n      minItems: 1\n      contains:\n        type: object\n        properties:\n          '@id':\n            const: https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore\n        required:\n        - '@id'\n      minContains: 1\nx-jsonld-prefixes:\n  schema: http://schema.org/\n",
+  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntype: object\nallOf:\n- $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifCatalogRecord/schema.yaml\n- properties:\n    dcterms:conformsTo:\n      type: array\n      items:\n        type: object\n        properties:\n          '@id':\n            type: string\n      minItems: 1\n      contains:\n        type: object\n        properties:\n          '@id':\n            const: https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore\n        required:\n        - '@id'\n      minContains: 1\nx-jsonld-prefixes:\n  schema: http://schema.org/\n",
   "gitRepository": "https://github.com/usgin/ddeBuildingBlocks",
   "gitPath": "_sources/DDEproperties/ddeCatalogRecord"
 }

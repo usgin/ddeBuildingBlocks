@@ -10,7 +10,7 @@
   "itemClass": "schema",
   "register": "cdif-building-block-register",
   "version": "0.1",
-  "dateOfLastChange": "2026-03-20",
+  "dateOfLastChange": "2026-04-25",
   "link": "https://github.com/opengeospatial/bblock-template",
   "sources": [
     {
@@ -27,17 +27,63 @@
     "dde.bbr.metadata.profiles.DDEProfiles.DDEEvent": [
       "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEEvent/rules.shacl"
     ],
+    "cdif.bbr.metadata.schemaorgProperties.temporalExtent": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
+    ],
     "dde.bbr.metadata.DDEproperties.ddeCore": [
       "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
     ],
     "dde.bbr.metadata.DDEproperties.ddeCatalogRecord": [
       "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
     ],
+    "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCatalogRecord/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.identifier": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.person": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.organization": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
+    ],
+    "cdif.bbr.metadata.cdifProperties.cdifCore": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifProperties/cdifCore/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.monetaryGrant": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.webAPI": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.labeledLink": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.action": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+    ],
+    "cdif.bbr.metadata.provProperties.derivedFrom": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.agentInRole": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
+    ],
+    "cdif.bbr.metadata.provProperties.generatedBy": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.dataDownload": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
+    ],
     "dde.bbr.metadata.DDEproperties.ddeResourceType": [
       "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
     ]
   },
   "dependsOn": [
+    "cdif.bbr.metadata.schemaorgProperties.temporalExtent",
     "dde.bbr.metadata.DDEproperties.ddeCore"
   ],
   "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/context.jsonld",
@@ -49,8 +95,7 @@
   "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEEvent/context.jsonld",
   "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/resolvedProperties.json",
   "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEEvent/",
-  "rdfData": [],
-  "validationPassed": true,
+  "validationPassed": false,
   "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/profiles/DDEProfiles/DDEEvent/",
   "description": "## DDE Event Profile\n\nDDE profile for event resources. Extends DDEDiscovery with a resource type constraint and requires `schema:temporalCoverage` (mandatory temporal extent for events).\n\n### Resource type codes\ninitiative, fieldSession\n\n### Composed building blocks\n\n1. **DDEDiscovery** \u2014 Base DDE discovery profile\n2. **Resource type constraint** \u2014 `schema:termCode` must be one of the event group codes\n3. **`schema:temporalCoverage`** (required) \u2014 Temporal extent of the event\n",
   "examples": [
@@ -69,7 +114,7 @@
       "snippets": [
         {
           "language": "json",
-          "ref": "exampleDDEEvent.json",
+          "ref": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEEvent/exampleDDEEvent.json",
           "code": "{\n  \"@context\": {\n    \"schema\": \"http://schema.org/\",\n    \"dde\": \"https://www.ddeworld.org/resource/\",\n    \"cdif\": \"https://cdif.org/profile/\",\n    \"dcterms\": \"http://purl.org/dc/terms/\",\n    \"dcat\": \"http://www.w3.org/ns/dcat#\",\n    \"time\": \"http://www.w3.org/2006/time#\",\n    \"prov\": \"http://www.w3.org/ns/prov#\"\n  },\n  \"@id\": \"urn:dde:example-iodp-expedition-396\",\n  \"@type\": [\n    \"schema:Dataset\"\n  ],\n  \"schema:name\": \"IODP Expedition 396: Mid-Norwegian Margin Magmatism and Paleoclimate Implications\",\n  \"schema:description\": \"International Ocean Discovery Program Expedition 396 drilled volcanic and sedimentary sequences on the mid-Norwegian margin to investigate the causes and consequences of massive magmatism associated with the opening of the northeast Atlantic. The expedition occupied 8 sites and recovered over 1200 meters of core across the Voring and More margins.\",\n  \"schema:identifier\": \"urn:iodp:expedition-396\",\n  \"schema:dateModified\": \"2022-09-01\",\n  \"schema:inLanguage\": \"eng\",\n  \"schema:license\": [\n    {\n      \"@type\": [\n        \"schema:CreativeWork\"\n      ],\n      \"schema:name\": \"IODP Data Policy\",\n      \"schema:url\": \"https://www.iodp.org/policies-and-guidelines/data-policy\"\n    }\n  ],\n  \"schema:url\": \"https://www.iodp.org/expedition396\",\n  \"schema:subjectOf\": {\n    \"@id\": \"urn:uuid:dde-event-catalog-record\",\n    \"@type\": [\n      \"schema:Dataset\"\n    ],\n    \"schema:additionalType\": [\n      \"dcat:CatalogRecord\"\n    ],\n    \"schema:about\": {\n      \"@id\": \"urn:dde:example-iodp-expedition-396\"\n    },\n    \"dcterms:conformsTo\": [\n      {\n        \"@id\": \"https://w3id.org/cdif/core/1.0/\"\n      },\n      {\n        \"@id\": \"https://w3id.org/cdif/discovery/1.0/\"\n      },\n      {\n        \"@id\": \"https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEEvent\"\n      },\n      {\n        \"@id\": \"https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore\"\n      }\n    ],\n    \"schema:sdDatePublished\": \"2022-09-01\"\n  },\n  \"schema:additionalType\": [\n    {\n      \"@type\": [\n        \"schema:DefinedTerm\"\n      ],\n      \"schema:name\": \"Field Session\",\n      \"schema:termCode\": \"fieldSession\",\n      \"schema:inDefinedTermSet\": \"dde:codelist/ResourceTypeCode\"\n    }\n  ],\n  \"schema:keywords\": [\n    {\n      \"@type\": [\n        \"schema:DefinedTerm\"\n      ],\n      \"schema:name\": \"Geoscientific Information\",\n      \"schema:termCode\": \"geoscientificInformation\",\n      \"schema:inDefinedTermSet\": \"dde:codelist/TopicCategoryCode\"\n    },\n    {\n      \"@type\": [\n        \"schema:DefinedTerm\"\n      ],\n      \"schema:name\": \"Field Campaign Expedition\",\n      \"schema:termCode\": \"fieldCampaignExpedition\",\n      \"schema:inDefinedTermSet\": \"dde:codelist/AcquisitionTypeCode\"\n    },\n    \"IODP\",\n    \"ocean drilling\",\n    \"volcanic margin\",\n    \"paleoclimate\",\n    \"mid-Norwegian margin\"\n  ],\n  \"schema:image\": [\n    {\n      \"@type\": [\n        \"schema:ImageObject\"\n      ],\n      \"schema:contentUrl\": \"https://www.iodp.org/images/exp396-sites.png\",\n      \"schema:name\": \"Expedition 396 drill site locations\",\n      \"schema:encodingFormat\": \"image/png\"\n    }\n  ],\n  \"schema:spatialCoverage\": [\n    {\n      \"@type\": [\n        \"schema:Place\"\n      ],\n      \"schema:geo\": {\n        \"@type\": [\n          \"schema:GeoShape\"\n        ],\n        \"schema:box\": \"63.0 1.0 67.5 6.5\"\n      }\n    }\n  ],\n  \"schema:temporalCoverage\": [\n    {\n      \"@type\": [\n        \"time:ProperInterval\"\n      ],\n      \"time:hasBeginning\": {\n        \"@type\": [\n          \"time:Instant\"\n        ],\n        \"time:inXSDDateTime\": \"2021-08-05\"\n      },\n      \"time:hasEnd\": {\n        \"@type\": [\n          \"time:Instant\"\n        ],\n        \"time:inXSDDateTime\": \"2021-10-05\"\n      }\n    }\n  ],\n  \"schema:creator\": {\n    \"@list\": [\n      {\n        \"@type\": [\n          \"schema:Organization\"\n        ],\n        \"schema:name\": \"International Ocean Discovery Program\",\n        \"schema:url\": \"https://www.iodp.org/\"\n      }\n    ]\n  }\n}\n",
           "url": "https://usgin.github.io/ddeBuildingBlocks/build/tests/bbr/metadata/profiles/DDEProfiles/DDEEvent/example_1_1.json"
         },
@@ -86,7 +131,7 @@
       ]
     }
   ],
-  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntype: object\ntitle: DDE Event profile\ndescription: DDE profile for event resources (initiative, fieldSession). Extends DDEDiscovery\n  with resource type constraint and requires schema:temporalCoverage (mandatory temporal\n  extent for events).\nallOf:\n- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml\n- properties:\n    schema:additionalType:\n      contains:\n        type: object\n        properties:\n          '@type':\n            contains:\n              const: schema:DefinedTerm\n          schema:inDefinedTermSet:\n            const: dde:codelist/ResourceTypeCode\n          schema:termCode:\n            type: string\n            enum:\n            - initiative\n            - fieldSession\n        required:\n        - '@type'\n        - schema:inDefinedTermSet\n        - schema:termCode\n      minContains: 1\n    schema:temporalCoverage:\n      description: Temporal extent of resource content.\n      type: array\n      items:\n        $ref: '#/$defs/TemporalExtent'\n  required:\n  - schema:temporalCoverage\n$defs:\n  TemporalExtent:\n    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/schema.yaml\nx-jsonld-prefixes:\n  schema: http://schema.org/\n  cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/\n  dcterms: http://purl.org/dc/terms/\n  geosparql: http://www.opengis.net/ont/geosparql#\n  spdx: http://spdx.org/rdf/terms#\n  time: http://www.w3.org/2006/time#\n  dde: https://www.ddeworld.org/resource/\n  dcat: http://www.w3.org/ns/dcat#\n  prov: http://www.w3.org/ns/prov#\n  dqv: http://www.w3.org/ns/dqv#\n",
+  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntype: object\ntitle: DDE Event profile\ndescription: DDE profile for event resources (initiative, fieldSession). Extends DDEDiscovery\n  with resource type constraint and requires schema:temporalCoverage (mandatory temporal\n  extent for events).\nallOf:\n- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml\n- properties:\n    schema:additionalType:\n      contains:\n        type: object\n        properties:\n          '@type':\n            contains:\n              const: schema:DefinedTerm\n          schema:inDefinedTermSet:\n            const: dde:codelist/ResourceTypeCode\n          schema:termCode:\n            type: string\n            enum:\n            - initiative\n            - fieldSession\n        required:\n        - '@type'\n        - schema:inDefinedTermSet\n        - schema:termCode\n      minContains: 1\n    schema:temporalCoverage:\n      description: Temporal extent of resource content.\n      type: array\n      items:\n        $ref: '#/$defs/TemporalExtent'\n  required:\n  - schema:temporalCoverage\n$defs:\n  TemporalExtent:\n    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/temporalExtent/schema.yaml\nx-jsonld-prefixes:\n  schema: http://schema.org/\n  cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/\n  dcterms: http://purl.org/dc/terms/\n  geosparql: http://www.opengis.net/ont/geosparql#\n  spdx: http://spdx.org/rdf/terms#\n  time: http://www.w3.org/2006/time#\n  dde: https://www.ddeworld.org/resource/\n  dcat: http://www.w3.org/ns/dcat#\n  prov: http://www.w3.org/ns/prov#\n  dqv: http://www.w3.org/ns/dqv#\n",
   "gitRepository": "https://github.com/usgin/ddeBuildingBlocks",
   "gitPath": "_sources/profiles/DDEProfiles/DDEEvent"
 }

@@ -223,11 +223,11 @@ required:
 - schema:spatialCoverage
 $defs:
   SpatialExtent:
-    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/schema.yaml
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/spatialExtent/schema.yaml
   AdditionalProperty:
-    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/schema.yaml
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.yaml
   Identifier:
-    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/schema.yaml
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.yaml
   SpatialRepresentationTypePV:
     type: object
     description: Method used to represent geographic information in the resource.
@@ -375,6 +375,7 @@ Links to the schema:
   "@context": {
     "schema": "http://schema.org/",
     "dde": "https://www.ddeworld.org/resource/",
+    "nxs": "http://purl.org/nexusformat/definitions/",
     "@version": 1.1
   }
 }
