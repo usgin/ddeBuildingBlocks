@@ -8,16 +8,15 @@
             "$ref": "../../../DDEproperties/ddeCore/ddeCoreSchema.json"
         },
         {
-            "$ref": "../../../DDEproperties/ddeOptional/ddeOptionalSchema.json"
-        },
-        {
             "properties": {
                 "schema:additionalType": {
                     "contains": {
                         "type": "object",
                         "properties": {
                             "@type": {
-                                "const": "schema:DefinedTerm"
+                                "contains": {
+                                    "const": "schema:DefinedTerm"
+                                }
                             },
                             "schema:inDefinedTermSet": {
                                 "const": "dde:codelist/ResourceTypeCode"
@@ -37,11 +36,23 @@
                         ]
                     },
                     "minContains": 1
+                },
+                "schema:temporalCoverage": {
+                    "description": "Temporal extent of resource content.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/TemporalExtent"
+                    }
                 }
             },
             "required": [
                 "schema:temporalCoverage"
             ]
         }
-    ]
+    ],
+    "$defs": {
+        "TemporalExtent": {
+            "$ref": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/temporalExtentSchema.json"
+        }
+    }
 }

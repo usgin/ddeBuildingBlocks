@@ -2,22 +2,22 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "title": "DDE Dataset profile",
-    "description": "DDE profile for dataset resources (dataset, dataCatalog, geographicDataset, nonGeographicDataset). Extends DDEDiscovery with resource type constraint. If additionalType termCode is geographicDataset, ddeGeographicDataset constraints are applied.",
+    "description": "DDE profile for dataset resources (dataset, dataCatalog, geographicDataset, nonGeographicDataset). Extends ddeCore with resource type constraint. If additionalType termCode is geographicDataset, ddeGeographicDataset constraints are applied.",
     "allOf": [
         {
             "$ref": "../../../DDEproperties/ddeCore/ddeCoreSchema.json"
         },
         {
-            "$ref": "../../../DDEproperties/ddeOptional/ddeOptionalSchema.json"
-        },
-        {
+            "type": "object",
             "properties": {
                 "schema:additionalType": {
                     "contains": {
                         "type": "object",
                         "properties": {
                             "@type": {
-                                "const": "schema:DefinedTerm"
+                                "contains": {
+                                    "const": "schema:DefinedTerm"
+                                }
                             },
                             "schema:inDefinedTermSet": {
                                 "const": "dde:codelist/ResourceTypeCode"
@@ -39,6 +39,58 @@
                         ]
                     },
                     "minContains": 1
+                },
+                "schema:measurementTechnique": {
+                    "description": "The technique, technology, or methodology used for measurement or determination of the dataset values.",
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "$ref": "#/$defs/DefinedTerm"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "anyOf": [
+                                    {
+                                        "type": "string"
+                                    },
+                                    {
+                                        "$ref": "#/$defs/DefinedTerm"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "schema:variableMeasured": {
+                    "description": "What does the dataset measure? (e.g., temperature, pressure)",
+                    "type": "array",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/VariableMeasured"
+                            },
+                            {
+                                "$ref": "#/$defs/StatisticalVariable"
+                            }
+                        ]
+                    }
+                },
+                "schema:temporalCoverage": {
+                    "description": "Temporal extent of resource content.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/TemporalExtent"
+                    }
+                },
+                "dqv:hasQualityMeasurement": {
+                    "description": "Quality measurements reported to assess the resource.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/QualityMeasure"
+                    }
                 }
             }
         },
@@ -61,5 +113,22 @@
                 "$ref": "../../../DDEproperties/ddeGeographicDataset/ddeGeographicDatasetSchema.json"
             }
         }
-    ]
+    ],
+    "$defs": {
+        "DefinedTerm": {
+            "$ref": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/definedTermSchema.json"
+        },
+        "VariableMeasured": {
+            "$ref": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/variableMeasuredSchema.json"
+        },
+        "StatisticalVariable": {
+            "$ref": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/statisticalVariable/statisticalVariableSchema.json"
+        },
+        "TemporalExtent": {
+            "$ref": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/temporalExtentSchema.json"
+        },
+        "QualityMeasure": {
+            "$ref": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/qualityMeasureSchema.json"
+        }
+    }
 }

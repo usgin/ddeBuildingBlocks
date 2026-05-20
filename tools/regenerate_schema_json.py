@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-# regenerate_schema_json.py — canonical copy lives in metadataBuildingBlocks/tools/
-# Sync to domain repos via: python tools/sync_resolve_schema.py
-# VERSION: 2026-03-20
 """Regenerate *Schema.json files from schema.yaml sources.
 
 For each building block that has a schema.yaml, this script:
@@ -24,10 +21,10 @@ SOURCES_DIR = os.path.normpath(os.path.join(
     os.path.dirname(__file__), '..', '_sources'
 ))
 
-# Special naming overrides (dir_name -> Schema.json filename)
-NAME_OVERRIDES = {
-    'cdifVariableMeasured': 'cdiVariableMeasuredSchema.json',
-}
+# Special naming overrides (dir_name -> Schema.json filename).
+# Empty after the cdifVariableMeasured -> cdifInstanceVariable rename
+# (cdifInstanceVariable follows the default <dir_name>Schema.json convention).
+NAME_OVERRIDES = {}
 
 
 def get_schema_json_name(dir_name):

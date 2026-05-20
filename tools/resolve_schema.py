@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
-# resolve_schema.py — canonical copy lives in metadataBuildingBlocks/tools/
-# Sync to domain repos via: python tools/sync_resolve_schema.py
-# VERSION: 2026-03-20
 """
 Resolve OGC Building Block schemas into a single complete JSON Schema.
 
@@ -20,12 +17,12 @@ $ref patterns handled:
 Usage:
     python tools/resolve_schema.py adaEMPA
     python tools/resolve_schema.py adaProduct
-    python tools/resolve_schema.py CDIFDiscovery
+    python tools/resolve_schema.py CDIFDiscoveryProfile
     python tools/resolve_schema.py --file path/to/any/schema.yaml
     python tools/resolve_schema.py adaEMPA -o resolved.json
     python tools/resolve_schema.py adaEMPA --flatten-allof
     python tools/resolve_schema.py --all
-    python tools/resolve_schema.py CDIFDiscovery --structured
+    python tools/resolve_schema.py CDIFDiscoveryProfile --structured
     python tools/resolve_schema.py --all --structured
 """
 
@@ -51,6 +48,10 @@ STRIP_KEYS = {"$id", "x-jsonld-prefixes", "x-jsonld-context", "x-jsonld-extra-te
 # Cache for fetched URL schemas (URL string -> local Path)
 _URL_CACHE: dict[str, Path] = {}
 _URL_CACHE_DIR = Path(tempfile.mkdtemp(prefix="resolve_schema_"))
+# Reverse mapping: maps each URL-fetched base URL (scheme + host) to the
+# corresponding cache dir prefix, so relative refs within fetched files can
+# be converted back to URLs and fetched on demand.
+_URL_BASE_REGISTRY: dict[str, str] = {}  # cache_prefix -> url_prefix
 
 
 def _is_url(ref: str) -> bool:
@@ -80,36 +81,57 @@ def _fetch_url_schema(url: str) -> Path:
     url_path = parsed.path
     ext = ".yaml" if url_path.endswith((".yaml", ".yml")) else ".json"
 
-    # Write to a temp file preserving directory structure for relative refs
-    # Use the URL path to create a unique cache path
-    safe_name = url_path.strip("/").replace("/", os.sep)
+    # Write to a temp file preserving directory structure for relative refs.
+    # Include the hostname so sibling refs within fetched files resolve correctly
+    # and different hosts don't collide.
+    host = parsed.netloc
+    safe_name = os.path.join(host, url_path.strip("/").replace("/", os.sep))
     cache_path = _URL_CACHE_DIR / safe_name
     cache_path.parent.mkdir(parents=True, exist_ok=True)
     cache_path.write_bytes(data)
 
     _URL_CACHE[url] = cache_path
+
+    # Register the URL base so relative refs within fetched files can be
+    # converted back to URLs.  E.g. for
+    #   https://example.github.io/repo/_sources/foo/schema.yaml
+    # we record cache_prefix = "example.github.io/repo" -> url_prefix = "https://example.github.io/repo"
+    # so that a relative "../bar/schema.yaml" resolving inside the cache tree
+    # can be mapped back to "https://example.github.io/repo/_sources/bar/schema.yaml".
+    parts = url_path.strip("/").split("/")
+    if len(parts) >= 2:
+        # Use host + first path segment as the base (covers github.io/repo patterns)
+        host = parsed.netloc
+        cache_prefix = str(_URL_CACHE_DIR / host)
+        url_prefix = f"{parsed.scheme}://{host}"
+        if cache_prefix not in _URL_BASE_REGISTRY:
+            _URL_BASE_REGISTRY[cache_prefix] = url_prefix
+
     return cache_path
 
 
-def _try_fetch_relative_from_cache(file_path: Path) -> Path:
-    """If file_path is inside the URL cache but doesn't exist, reconstruct
-    the full URL from a previously cached URL's scheme+host and fetch it.
-    Returns the (possibly updated) file_path."""
-    try:
-        file_path.relative_to(_URL_CACHE_DIR)  # only proceed if in cache
-    except ValueError:
-        return file_path
-    for cached_url, cached_path in _URL_CACHE.items():
-        try:
-            file_rel = file_path.relative_to(_URL_CACHE_DIR)
-            parsed = urlparse(cached_url if not cached_url.startswith("//") else "https:" + cached_url)
-            target_url = f"{parsed.scheme}://{parsed.netloc}/{str(file_rel).replace(os.sep, '/')}"
-            local_path = _fetch_url_schema(target_url)
-            if local_path is not None:
-                return local_path
-        except (ValueError, Exception):
-            continue
-    return file_path
+def _fetch_relative_in_cache(file_path: Path) -> Path | None:
+    """If file_path is inside the URL cache dir but doesn't exist, reconstruct
+    the URL it would correspond to and fetch it.
+
+    This handles the case where a URL-fetched schema contains a relative $ref
+    (e.g. ``../organization/schema.yaml``).  The resolver resolves it relative
+    to the fetched file's cache location, producing a valid cache path — but
+    the target hasn't been fetched yet.  We convert the cache path back to a
+    URL and fetch on demand.
+
+    Returns the local cache path if successful, or None if the path isn't in
+    the cache tree or the fetch fails.
+    """
+    path_str = str(file_path)
+    for cache_prefix, url_prefix in _URL_BASE_REGISTRY.items():
+        if path_str.startswith(cache_prefix):
+            # Convert cache path back to URL path
+            relative = path_str[len(cache_prefix):]
+            url_path = relative.replace(os.sep, "/")
+            url = url_prefix + url_path
+            return _fetch_url_schema(url)
+    return None
 
 
 # ---------------------------------------------------------------------------
@@ -148,7 +170,7 @@ def resolve_fragment(schema: dict, pointer: str) -> Any:
 # ---------------------------------------------------------------------------
 
 def strip_metadata_keys(schema: Any, is_root: bool = True) -> Any:
-    """Recursively remove $id, x-jsonld-*, and nested $schema keys."""
+    """Recursively remove $id, x-jsonld-*, nested $schema keys, and null values."""
     if isinstance(schema, dict):
         result = {}
         for k, v in schema.items():
@@ -158,6 +180,8 @@ def strip_metadata_keys(schema: Any, is_root: bool = True) -> Any:
                 continue
             if k == "$schema" and not is_root:
                 continue
+            if v is None:
+                continue  # drop null values (e.g. empty YAML description)
             result[k] = strip_metadata_keys(v, is_root=False)
         return result
     elif isinstance(schema, list):
@@ -226,6 +250,26 @@ def _deep_merge_inner(base: dict, overlay: dict, in_properties: bool) -> dict:
                     # Merge non-contains parts (overlay wins)
                     result[k] = overlay_schema
                     result[k]["allOf"] = accumulated
+                elif "items" in result[k] and "items" in v:
+                    # Both define items — wrap into items.allOf so constraints
+                    # from each source are preserved (mirrors inline-mode resolver
+                    # which keeps the multi-level allOf structure intact). Without
+                    # this, the structured merge silently drops nested constraints
+                    # from CDIF $refs (e.g. cdifProvActivity's @type contains
+                    # schema:Action) when an ada profile extends the same property
+                    # with additional sibling fields.
+                    base_items = result[k]["items"]
+                    overlay_items = copy.deepcopy(v["items"])
+                    existing_allof = (base_items.get("allOf", [])
+                                       if isinstance(base_items, dict) else [])
+                    if existing_allof and not (set(base_items.keys()) - {"allOf"}):
+                        # base_items is a pure {allOf: [...]} wrapper — extend
+                        new_items_allof = existing_allof + [overlay_items]
+                    else:
+                        new_items_allof = [base_items, overlay_items]
+                    overlay_schema = copy.deepcopy(v)
+                    overlay_schema["items"] = {"allOf": new_items_allof}
+                    result[k] = overlay_schema
                 else:
                     result[k] = copy.deepcopy(v)
             elif k == "properties":
@@ -328,36 +372,81 @@ def resolve_node(node: Any, base_dir: Path, defs: dict, seen: set) -> Any:
     return node
 
 
-def _inline_unresolved_defs(node: Any, defs: dict, base_dir: Path, seen: set) -> Any:
+def _inline_unresolved_defs(node: Any, defs: dict, base_dir: Path, seen: set,
+                            resolving: frozenset = frozenset()) -> Any:
     """
     Walk *node* and replace ``{"$comment": "unresolved fragment ref: #/$defs/X"}``
     placeholders with the actual resolved content from *defs*.
-    Also re-resolve any remaining $ref nodes with the full defs dict.
+
+    Handles placeholders with sibling keys (e.g. ``description`` next to the
+    original ``$ref``) by deep-merging the siblings onto the replacement, and
+    recurses into the replacement so nested placeholders inside it are also
+    resolved. ``resolving`` tracks the chain of in-progress def replacements
+    to break circular references.
+
+    Also re-resolves any remaining ``$ref`` nodes with the full defs dict.
     """
     if isinstance(node, dict):
-        # Check for placeholder left by pass 1
-        if "$comment" in node and len(node) == 1:
-            comment = node["$comment"]
-            if comment.startswith("unresolved fragment ref: #/$defs/"):
-                def_name = comment.split("/")[-1]
-                if def_name in defs:
-                    return copy.deepcopy(defs[def_name])
+        # Check for placeholder left by pass 1 (with or without sibling keys)
+        if "$comment" in node and isinstance(node["$comment"], str) \
+                and node["$comment"].startswith("unresolved fragment ref: #/$defs/"):
+            def_name = node["$comment"].split("/")[-1]
+            if def_name in defs and def_name not in resolving:
+                replacement = copy.deepcopy(defs[def_name])
+                replacement = _inline_unresolved_defs(
+                    replacement, defs, base_dir, seen, resolving | {def_name})
+                siblings = {k: v for k, v in node.items() if k != "$comment"}
+                if siblings and isinstance(replacement, dict):
+                    siblings = {
+                        k: _inline_unresolved_defs(v, defs, base_dir, seen, resolving)
+                        for k, v in siblings.items()
+                    }
+                    replacement = deep_merge(replacement, siblings)
+                return replacement
+            if def_name in resolving:
+                # Cycle break — emit a typed stub so resolved schema is self-validating.
+                # Preserves any sibling keys (e.g. description) and replaces the
+                # opaque placeholder with `type: object` and a clear cycle marker.
+                stub = {k: v for k, v in node.items() if k != "$comment"}
+                stub["type"] = "object"
+                stub["$comment"] = f"cycle: {def_name}"
+                return stub
+            # Unknown def — leave placeholder as-is so missing def stays visible
         # Also resolve any leftover $ref
         if "$ref" in node:
             ref = node["$ref"]
+            # Handle same-document #/$defs/X refs with cycle protection — these
+            # can be self-recursive (e.g. StatisticalClassification.cdi:isVariantOf
+            # → StatisticalClassification) and naive expansion blows up.
+            if isinstance(ref, str) and ref.startswith("#/$defs/"):
+                def_name = ref[len("#/$defs/"):]
+                if def_name in defs and def_name not in resolving:
+                    replacement = copy.deepcopy(defs[def_name])
+                    replacement = _inline_unresolved_defs(
+                        replacement, defs, base_dir, seen, resolving | {def_name})
+                    siblings = {k: v for k, v in node.items() if k != "$ref"}
+                    if siblings and isinstance(replacement, dict):
+                        siblings = _inline_unresolved_defs(siblings, defs, base_dir, seen, resolving)
+                        replacement = deep_merge(replacement, siblings)
+                    return replacement
+                if def_name in resolving:
+                    stub = {k: v for k, v in node.items() if k != "$ref"}
+                    stub["type"] = "object"
+                    stub["$comment"] = f"cycle: {def_name}"
+                    return stub
             resolved = _resolve_ref(ref, base_dir, defs, seen)
             siblings = {k: v for k, v in node.items() if k != "$ref"}
             if siblings:
-                siblings = _inline_unresolved_defs(siblings, defs, base_dir, seen)
+                siblings = _inline_unresolved_defs(siblings, defs, base_dir, seen, resolving)
                 if isinstance(resolved, dict):
                     resolved = deep_merge(resolved, siblings)
             return resolved
         result = {}
         for k, v in node.items():
-            result[k] = _inline_unresolved_defs(v, defs, base_dir, seen)
+            result[k] = _inline_unresolved_defs(v, defs, base_dir, seen, resolving)
         return result
     elif isinstance(node, list):
-        return [_inline_unresolved_defs(item, defs, base_dir, seen) for item in node]
+        return [_inline_unresolved_defs(item, defs, base_dir, seen, resolving) for item in node]
     return node
 
 
@@ -393,9 +482,13 @@ def _resolve_ref(ref: str, base_dir: Path, defs: dict, seen: set) -> Any:
         file_path = (base_dir / file_part).resolve()
 
     if not file_path.exists():
-        file_path = _try_fetch_relative_from_cache(file_path)
-    if not file_path.exists():
-        return {"$comment": f"file not found: {file_path}"}
+        # If the path is inside the URL cache, the file just hasn't been
+        # fetched yet — reconstruct the URL and fetch it.
+        fetched = _fetch_relative_in_cache(file_path)
+        if fetched is not None:
+            file_path = fetched
+        else:
+            return {"$comment": f"file not found: {file_path}"}
 
     # For cross-file $defs fragment refs, resolve the defs from the raw schema
     # before resolve_file strips them.
@@ -618,14 +711,57 @@ def collect_global_defs(schema_path: Path) -> tuple[dict, dict]:
     return global_defs, file_to_def
 
 
+def _unique_promoted_name(target_name: str, file_path: Path,
+                          inline_def_map: dict, file_to_def: dict) -> str:
+    """Pick a unique global $defs name for a promoted inline def.
+
+    Tries the bare def name first. If it collides with a BB-level $def
+    (file_to_def) or another promoted entry pointing at a different source,
+    disambiguates with the source file's parent-directory PascalCase name.
+    """
+    used = set(file_to_def.values()) | set(inline_def_map.values())
+    if target_name not in used:
+        return target_name
+    parent = _derive_def_name(file_path)
+    candidate = f"{parent}_{target_name}"
+    if candidate not in used:
+        return candidate
+    i = 2
+    while f"{parent}_{target_name}_{i}" in used:
+        i += 1
+    return f"{parent}_{target_name}_{i}"
+
+
+def _promote_inline_def(file_path: Path, target_name: str,
+                        inline_def_map: dict, file_to_def: dict) -> str:
+    """Get or assign a promoted name for an inline def at (file_path, target_name)."""
+    canonical = file_path.resolve()
+    key = (canonical, target_name)
+    if key in inline_def_map:
+        return inline_def_map[key]
+    name = _unique_promoted_name(target_name, canonical, inline_def_map, file_to_def)
+    inline_def_map[key] = name
+    return name
+
+
 def _resolve_node_structured(node: Any, base_dir: Path, local_defs: dict,
-                             file_to_def: dict, seen: set) -> Any:
+                             file_to_def: dict, inline_def_map: dict,
+                             current_file: Path | None, seen: set,
+                             resolving_defs: frozenset = frozenset()) -> Any:
     """Phase 2 node walker: resolve $refs but emit #/$defs/X for known types.
 
     - External file $refs whose target is in file_to_def -> {"$ref": "#/$defs/Name"}
     - Fragment-only $refs (#/$defs/X) where X maps to a known file -> {"$ref": "#/$defs/GlobalName"}
-    - Internal $defs (not in file_to_def) -> resolved inline normally
+    - Cyclic refs (local self-recursion or mutual cross-file cycles) -> promoted to
+      `inline_def_map` and emitted as `{"$ref": "#/$defs/<promoted_name>"}`. Promoted
+      defs are resolved into the output's $defs by `_resolve_promoted_defs`.
+    - Internal $defs (not in file_to_def, not cyclic) -> resolved inline normally
     - Everything else -> recursed into
+
+    resolving_defs tracks local def names currently being resolved so that the
+    second visit to a given def name promotes it (instead of expanding forever).
+    current_file is the schema file these local refs resolve against; needed so a
+    promotion key can be (file_path, def_name).
     """
     if isinstance(node, dict):
         if "$ref" in node:
@@ -633,16 +769,24 @@ def _resolve_node_structured(node: Any, base_dir: Path, local_defs: dict,
             siblings = {k: v for k, v in node.items() if k != "$ref"}
 
             resolved_ref = _resolve_ref_structured(ref, base_dir, local_defs,
-                                                    file_to_def, seen)
+                                                    file_to_def, inline_def_map,
+                                                    current_file, seen,
+                                                    resolving_defs)
 
             if siblings:
                 siblings = _resolve_node_structured(siblings, base_dir, local_defs,
-                                                     file_to_def, seen)
+                                                     file_to_def, inline_def_map,
+                                                     current_file, seen,
+                                                     resolving_defs)
                 if isinstance(resolved_ref, dict) and "$ref" not in resolved_ref:
                     resolved_ref = deep_merge(resolved_ref, siblings)
                 elif isinstance(resolved_ref, dict) and "$ref" in resolved_ref:
-                    # $ref with siblings: wrap in allOf
-                    return {"allOf": [resolved_ref, siblings]}
+                    # Draft 2020-12: sibling keywords next to $ref are evaluated
+                    # alongside the referenced schema, so merge them directly
+                    # rather than wrapping in allOf.
+                    merged = dict(resolved_ref)
+                    merged.update(siblings)
+                    return merged
             return resolved_ref
 
         result = {}
@@ -650,17 +794,23 @@ def _resolve_node_structured(node: Any, base_dir: Path, local_defs: dict,
             if k == "$defs":
                 continue  # Strip $defs; they're promoted to global
             result[k] = _resolve_node_structured(v, base_dir, local_defs,
-                                                  file_to_def, seen)
+                                                  file_to_def, inline_def_map,
+                                                  current_file, seen,
+                                                  resolving_defs)
         return result
 
     elif isinstance(node, list):
         return [_resolve_node_structured(item, base_dir, local_defs,
-                                          file_to_def, seen) for item in node]
+                                          file_to_def, inline_def_map,
+                                          current_file, seen,
+                                          resolving_defs) for item in node]
     return node
 
 
 def _resolve_ref_structured(ref: str, base_dir: Path, local_defs: dict,
-                             file_to_def: dict, seen: set) -> Any:
+                             file_to_def: dict, inline_def_map: dict,
+                             current_file: Path | None, seen: set,
+                             resolving_defs: frozenset = frozenset()) -> Any:
     """Resolve a $ref, returning #/$defs/X for known types or inline content."""
     if ref == "#":
         return {"$comment": "circular-ref"}
@@ -670,27 +820,31 @@ def _resolve_ref_structured(ref: str, base_dir: Path, local_defs: dict,
         pointer = ref[1:]
         parts = pointer.lstrip("/").split("/")
         if len(parts) == 2 and parts[0] == "$defs" and parts[1] in local_defs:
-            local_def = local_defs[parts[1]]
-            # Check if this local def points to an external file in file_to_def
+            def_name = parts[1]
+            local_def = local_defs[def_name]
+            # Pure $ref to external file? Use that file's BB-level promotion.
             if isinstance(local_def, dict) and "$ref" in local_def:
                 inner_ref = local_def["$ref"]
-                if isinstance(inner_ref, str) and not inner_ref.startswith("#"):
+                if isinstance(inner_ref, str) and not inner_ref.startswith("#") \
+                        and not _is_url(inner_ref):
                     ref_path = (base_dir / inner_ref.split("#")[0]).resolve()
                     if ref_path in file_to_def:
                         return {"$ref": f"#/$defs/{file_to_def[ref_path]}"}
-            # Check if the def name itself matches a known global def name
-            # (defs may already be resolved)
-            if parts[1] in local_defs:
-                raw = local_defs[parts[1]]
-                if isinstance(raw, dict) and "$ref" in raw:
-                    inner_ref = raw["$ref"]
-                    if isinstance(inner_ref, str) and not inner_ref.startswith("#"):
-                        ref_path = (base_dir / inner_ref.split("#")[0]).resolve()
-                        if ref_path in file_to_def:
-                            return {"$ref": f"#/$defs/{file_to_def[ref_path]}"}
-                # Inline def (not external) — resolve normally
-                return _resolve_node_structured(copy.deepcopy(raw), base_dir,
-                                                local_defs, file_to_def, seen)
+            # Inline def: promote to global $defs and emit $ref. This is uniform
+            # whether or not the def participates in a cycle — `inline_low_use_defs`
+            # will later collapse non-cyclic, low-use defs back inline.
+            if current_file is not None:
+                promoted = _promote_inline_def(current_file, def_name,
+                                               inline_def_map, file_to_def)
+                return {"$ref": f"#/$defs/{promoted}"}
+            # No file context (shouldn't happen in structured mode) — fall back
+            # to inline expansion with cycle detection.
+            if def_name in resolving_defs:
+                return {"$comment": f"self-referential: {def_name}"}
+            return _resolve_node_structured(copy.deepcopy(local_def), base_dir,
+                                            local_defs, file_to_def,
+                                            inline_def_map, current_file, seen,
+                                            resolving_defs | {def_name})
         return {"$comment": f"unresolved fragment ref: {ref}"}
 
     # File ref, possibly with fragment
@@ -709,9 +863,11 @@ def _resolve_ref_structured(ref: str, base_dir: Path, local_defs: dict,
         file_path = (base_dir / file_part).resolve()
 
     if not file_path.exists():
-        file_path = _try_fetch_relative_from_cache(file_path)
-    if not file_path.exists():
-        return {"$comment": f"file not found: {file_path}"}
+        fetched = _fetch_relative_in_cache(file_path)
+        if fetched is not None:
+            file_path = fetched
+        else:
+            return {"$comment": f"file not found: {file_path}"}
 
     # If the target file (without fragment) is a known $def, emit a $ref
     if not fragment and file_path in file_to_def:
@@ -725,20 +881,26 @@ def _resolve_ref_structured(ref: str, base_dir: Path, local_defs: dict,
             if isinstance(raw_schema, dict) and "$defs" in raw_schema:
                 target_name = parts[1]
                 target_def = raw_schema["$defs"].get(target_name)
-                if isinstance(target_def, dict) and "$ref" in target_def:
-                    inner_ref = target_def["$ref"]
-                    if isinstance(inner_ref, str) and not inner_ref.startswith("#"):
-                        ref_path = (file_path.parent / inner_ref).resolve()
+                if isinstance(target_def, dict):
+                    # Pure $ref to another file? Use that file's promoted name.
+                    tref = target_def.get("$ref")
+                    if isinstance(tref, str) and not tref.startswith("#") \
+                            and not _is_url(tref):
+                        ref_path = (file_path.parent / tref.split("#")[0]).resolve()
                         if ref_path in file_to_def:
                             return {"$ref": f"#/$defs/{file_to_def[ref_path]}"}
-            # Fall through to full resolution
-            return resolve_file(file_path, seen)
+                    # Inline def: promote to global $defs and emit $ref.
+                    promoted = _promote_inline_def(file_path, target_name,
+                                                   inline_def_map, file_to_def)
+                    return {"$ref": f"#/$defs/{promoted}"}
+            return {"$comment": f"could not resolve fragment {fragment} in {file_path}"}
 
     # Not a known def — resolve fully with def-awareness
-    return resolve_def_aware(file_path, file_to_def, seen)
+    return resolve_def_aware(file_path, file_to_def, inline_def_map, seen)
 
 
-def resolve_def_aware(path: Path, file_to_def: dict, seen: set) -> dict:
+def resolve_def_aware(path: Path, file_to_def: dict, inline_def_map: dict,
+                      seen: set) -> dict:
     """Phase 2: Resolve a schema file with def-awareness.
 
     Like resolve_file but emits #/$defs/X refs for known types instead of inlining.
@@ -756,7 +918,8 @@ def resolve_def_aware(path: Path, file_to_def: dict, seen: set) -> dict:
     local_defs = schema.get("$defs", {})
 
     resolved = _resolve_node_structured(schema, canonical.parent, local_defs,
-                                         file_to_def, seen)
+                                         file_to_def, inline_def_map,
+                                         current_file=canonical, seen=seen)
 
     # Remove $defs (already stripped by _resolve_node_structured, but just in case)
     if isinstance(resolved, dict):
@@ -765,8 +928,43 @@ def resolve_def_aware(path: Path, file_to_def: dict, seen: set) -> dict:
     return resolved
 
 
+def _resolve_promoted_defs(inline_def_map: dict, file_to_def: dict) -> dict:
+    """Resolve every promoted (file, def_name) entry into a structured $def body.
+
+    Iterates because resolving one def can introduce more promotions (e.g. a
+    promoted Reference references ControlledVocabularyEntry, which then needs
+    its own promotion).
+    """
+    resolved: dict[str, Any] = {}
+    while True:
+        pending = [k for k, name in inline_def_map.items() if name not in resolved]
+        if not pending:
+            break
+        for key in pending:
+            file_path, def_name = key
+            promoted_name = inline_def_map[key]
+            raw = load_schema_file(file_path)
+            if not isinstance(raw, dict):
+                resolved[promoted_name] = {}
+                continue
+            target_def = raw.get("$defs", {}).get(def_name)
+            if not isinstance(target_def, dict):
+                resolved[promoted_name] = {}
+                continue
+            local_defs = raw.get("$defs", {})
+            body = _resolve_node_structured(
+                copy.deepcopy(target_def), file_path.parent, local_defs,
+                file_to_def, inline_def_map, current_file=file_path,
+                seen=set(), resolving_defs=frozenset({def_name})
+            )
+            if isinstance(body, dict):
+                body.pop("$defs", None)
+            resolved[promoted_name] = body
+    return resolved
+
+
 def merge_profile_structured(profile_path: Path, global_defs: dict,
-                              file_to_def: dict) -> dict:
+                              file_to_def: dict, inline_def_map: dict) -> dict:
     """Phase 3: Merge composing BBs for a profile, preserving $defs references.
 
     Returns the merged schema with properties, allOf constraints, and $defs.
@@ -785,7 +983,8 @@ def merge_profile_structured(profile_path: Path, global_defs: dict,
                 bb_path = (base_dir / ref).resolve()
                 if bb_path.exists():
                     # Resolve the BB with def-awareness
-                    resolved_bb = resolve_def_aware(bb_path, file_to_def, seen=set())
+                    resolved_bb = resolve_def_aware(bb_path, file_to_def,
+                                                    inline_def_map, seen=set())
 
                     # Extract properties and merge
                     bb_props = resolved_bb.get("properties", {})
@@ -809,26 +1008,32 @@ def merge_profile_structured(profile_path: Path, global_defs: dict,
                         else:
                             constraint_entries.append(constraint)
 
-                    # Collect top-level type, required, etc. that aren't properties/allOf
+                    # Top-level keys other than the ones already handled
+                    # (`properties`, `allOf`, identity/metadata) — for example
+                    # `required`, `contains`, `minProperties` — must remain at
+                    # schema level, not be stuffed into `properties`. Push each
+                    # as its own allOf constraint so multiple composing BBs'
+                    # required-lists (etc.) compose by intersection.
                     for k, v in resolved_bb.items():
-                        if k not in ("properties", "allOf", "$schema", "type",
-                                     "title", "description"):
-                            # Merge other top-level keys (like contains constraints)
-                            if k not in merged_properties:
-                                merged_properties[k] = v
+                        if k in ("properties", "allOf", "$schema", "$defs",
+                                 "type", "title", "description"):
+                            continue
+                        constraint_entries.append({k: v})
                     continue
 
         # Non-$ref allOf entries are constraint entries
         if isinstance(entry, dict):
-            resolved_entry = _resolve_node_structured(entry, base_dir,
-                                                       schema.get("$defs", {}),
-                                                       file_to_def, set())
+            resolved_entry = _resolve_node_structured(
+                entry, base_dir, schema.get("$defs", {}),
+                file_to_def, inline_def_map,
+                current_file=profile_path.resolve(), seen=set())
             constraint_entries.append(resolved_entry)
 
     # Resolve global $defs
     resolved_defs = {}
     for def_name, def_path in global_defs.items():
-        resolved_defs[def_name] = resolve_def_aware(def_path, file_to_def, seen=set())
+        resolved_defs[def_name] = resolve_def_aware(def_path, file_to_def,
+                                                    inline_def_map, seen=set())
 
     # Build output schema
     result = {}
@@ -853,14 +1058,16 @@ def merge_profile_structured(profile_path: Path, global_defs: dict,
 
 
 def _merge_non_profile_structured(schema_path: Path, global_defs: dict,
-                                   file_to_def: dict) -> dict:
+                                   file_to_def: dict, inline_def_map: dict) -> dict:
     """Resolve a non-profile BB with def-awareness and attach global $defs."""
-    resolved = resolve_def_aware(schema_path.resolve(), file_to_def, seen=set())
+    resolved = resolve_def_aware(schema_path.resolve(), file_to_def,
+                                  inline_def_map, seen=set())
 
     # Resolve global $defs
     resolved_defs = {}
     for def_name, def_path in global_defs.items():
-        resolved_defs[def_name] = resolve_def_aware(def_path, file_to_def, seen=set())
+        resolved_defs[def_name] = resolve_def_aware(def_path, file_to_def,
+                                                    inline_def_map, seen=set())
 
     if resolved_defs:
         resolved["$defs"] = resolved_defs
@@ -889,11 +1096,49 @@ def _count_refs_walk(node: Any, counts: dict):
             _count_refs_walk(item, counts)
 
 
+def _has_ref_to(node: Any, target_name: str) -> bool:
+    """Return True if `node` contains any `$ref: #/$defs/<target_name>`."""
+    target = f"#/$defs/{target_name}"
+    if isinstance(node, dict):
+        if node.get("$ref") == target:
+            return True
+        return any(_has_ref_to(v, target_name) for v in node.values())
+    if isinstance(node, list):
+        return any(_has_ref_to(item, target_name) for item in node)
+    return False
+
+
+def _is_in_cycle(name: str, defs: dict) -> bool:
+    """Return True if `name` participates in a $defs cycle (direct or transitive).
+
+    Walks the $ref graph starting at `name`. If `name` is reachable from itself,
+    it is in a cycle.
+    """
+    if name not in defs:
+        return False
+    reachable: set[str] = set()
+    stack = [name]
+    while stack:
+        current = stack.pop()
+        body = defs.get(current)
+        if body is None:
+            continue
+        for other in defs:
+            if other in reachable:
+                continue
+            if _has_ref_to(body, other):
+                reachable.add(other)
+                stack.append(other)
+    return name in reachable
+
+
 def inline_low_use_defs(schema: dict, threshold: int = 2) -> dict:
     """Phase 5: Inline $defs used <= threshold times. Iterate until stable.
 
     Inlines one def per pass to avoid dangling refs when an inlined def's
     content references another def that was removed in the same pass.
+    Cyclic defs (direct or mutual) are kept as $refs even at low use counts,
+    because inlining them would leave dangling self-references.
     """
     schema = copy.deepcopy(schema)
     while True:
@@ -903,6 +1148,8 @@ def inline_low_use_defs(schema: dict, threshold: int = 2) -> dict:
         to_inline = None
         for name in list(defs):
             if counts.get(name, 0) <= threshold:
+                if _is_in_cycle(name, defs):
+                    continue
                 to_inline = name
                 break
         if to_inline is None:
@@ -966,13 +1213,27 @@ def resolve_structured(schema_path: Path) -> dict:
         rel = path.relative_to(REPO_ROOT) if path.is_relative_to(REPO_ROOT) else path
         print(f"    {name}: {rel}", file=sys.stderr)
 
-    # Phase 2-3: resolve/merge
+    # Phase 2-3: resolve/merge. inline_def_map collects (file, def_name) pairs
+    # encountered as cross-file or cyclic inline refs; each gets a unique
+    # promoted name and is later resolved into a top-level $def.
+    inline_def_map: dict = {}
     if _is_profile_schema(schema):
-        result = merge_profile_structured(schema_path, global_defs, file_to_def)
+        result = merge_profile_structured(schema_path, global_defs, file_to_def,
+                                          inline_def_map)
     else:
-        result = _merge_non_profile_structured(schema_path, global_defs, file_to_def)
+        result = _merge_non_profile_structured(schema_path, global_defs, file_to_def,
+                                               inline_def_map)
 
-    # Phase 4-5: inline low-use defs
+    # Phase 3.5: resolve every promoted inline def and merge into $defs.
+    if inline_def_map:
+        promoted_resolved = _resolve_promoted_defs(inline_def_map, file_to_def)
+        existing = result.get("$defs", {}) or {}
+        existing.update(promoted_resolved)
+        result["$defs"] = existing
+        print(f"  Promoted {len(promoted_resolved)} inline $defs ({', '.join(sorted(promoted_resolved.keys()))})",
+              file=sys.stderr)
+
+    # Phase 4-5: inline low-use defs (skips cyclic ones automatically)
     result = inline_low_use_defs(result, threshold=2)
 
     # Phase 6: strip metadata
@@ -981,21 +1242,10 @@ def resolve_structured(schema_path: Path) -> dict:
     return result
 
 
-def _structured_output_name(schema_path: Path) -> str:
-    """Derive the structured output filename from the schema's parent directory.
-
-    E.g., .../CDIFDiscovery/schema.yaml -> CDIFDiscoveryStructuredSchema.json
-          .../cdifCore/schema.yaml       -> cdifCoreStructuredSchema.json
-    """
-    bb_name = schema_path.resolve().parent.name
-    return f"{bb_name}StructuredSchema.json"
-
-
 def resolve_and_write_structured(schema_path: Path) -> Path:
-    """Resolve structured and write <bbName>StructuredSchema.json next to schema. Returns output path."""
+    """Resolve structured and write resolvedSchema.json next to schema. Returns output path."""
     structured = resolve_structured(schema_path)
-    out_name = _structured_output_name(schema_path)
-    out_path = schema_path.parent / out_name
+    out_path = schema_path.parent / "resolvedSchema.json"
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(json.dumps(structured, indent=2, ensure_ascii=False) + "\n")
     return out_path
@@ -1035,7 +1285,7 @@ def find_profile_schema(name: str) -> Path:
     if yaml_path.exists():
         return yaml_path
 
-    # Fall back to any .json file in the profile directory (e.g., CDIFDiscoverySchema.json)
+    # Fall back to any .json file in the profile directory (e.g., CDIFDiscoveryProfileSchema.json)
     json_files = sorted(profile_dir.glob("*Schema.json"))
     if json_files:
         return json_files[0]
@@ -1074,16 +1324,6 @@ def find_all_schemas_with_external_refs() -> list[Path]:
     return results
 
 
-def resolve_and_write(schema_path: Path, flatten: bool) -> Path:
-    """Resolve a schema and write resolvedSchema.json next to it. Returns output path."""
-    resolved = resolve_file(schema_path, seen=set())
-    resolved = strip_metadata_keys(resolved, is_root=True)
-    if flatten:
-        resolved = flatten_allof(resolved)
-    out_path = schema_path.parent / "resolvedSchema.json"
-    with open(out_path, "w", encoding="utf-8") as f:
-        f.write(json.dumps(resolved, indent=2, ensure_ascii=False) + "\n")
-    return out_path
 
 
 # ---------------------------------------------------------------------------
@@ -1097,7 +1337,7 @@ def main():
     parser.add_argument(
         "profile",
         nargs="?",
-        help="Profile name (e.g., adaEMPA, adaProduct, CDIFDiscovery)",
+        help="Profile name (e.g., adaEMPA, adaProduct, CDIFDiscoveryProfile)",
     )
     parser.add_argument(
         "--file",
@@ -1115,14 +1355,9 @@ def main():
         help="Write output to file (default: stdout). Ignored with --all.",
     )
     parser.add_argument(
-        "--flatten-allof",
-        action="store_true",
-        help="Merge allOf entries into single objects",
-    )
-    parser.add_argument(
         "--structured",
         action="store_true",
-        help="Produce structured output with $defs and merged allOf (writes structuredSchema.json)",
+        help="(deprecated, ignored — structured form is now the only output mode)",
     )
     args = parser.parse_args()
 
@@ -1131,12 +1366,8 @@ def main():
         print(f"Found {len(schemas)} building blocks with external $refs", file=sys.stderr)
         for schema_path in schemas:
             rel = schema_path.relative_to(REPO_ROOT)
-            if args.structured:
-                out_path = resolve_and_write_structured(schema_path)
-                print(f"  {rel} -> {out_path.name}", file=sys.stderr)
-            else:
-                out_path = resolve_and_write(schema_path, args.flatten_allof)
-                print(f"  {rel} -> {out_path.name}", file=sys.stderr)
+            out_path = resolve_and_write_structured(schema_path)
+            print(f"  {rel} -> {out_path.name}", file=sys.stderr)
         print(f"Resolved {len(schemas)} schemas", file=sys.stderr)
         return
 
@@ -1153,46 +1384,22 @@ def main():
 
     print(f"Resolving: {schema_path}", file=sys.stderr)
 
-    if args.structured:
-        structured = resolve_structured(schema_path)
-        output_json = json.dumps(structured, indent=2, ensure_ascii=False) + "\n"
+    structured = resolve_structured(schema_path)
+    output_json = json.dumps(structured, indent=2, ensure_ascii=False) + "\n"
 
-        if args.output:
-            out_path = args.output
-        else:
-            out_path = schema_path.parent / _structured_output_name(schema_path)
+    if args.output:
+        out_path = args.output
         out_path.parent.mkdir(parents=True, exist_ok=True)
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(output_json)
-        print(f"Wrote structured schema: {out_path}", file=sys.stderr)
-
-        # Report stats
-        defs = structured.get("$defs", {})
-        print(f"  $defs: {len(defs)} ({', '.join(sorted(defs.keys()))})",
-              file=sys.stderr)
-        print(f"  Size: {len(output_json):,} bytes", file=sys.stderr)
-        return
-
-    # Resolve all $ref recursively
-    resolved = resolve_file(schema_path, seen=set())
-
-    # Strip metadata keys
-    resolved = strip_metadata_keys(resolved, is_root=True)
-
-    # Optionally flatten allOf
-    if args.flatten_allof:
-        resolved = flatten_allof(resolved)
-
-    # Output
-    output_json = json.dumps(resolved, indent=2, ensure_ascii=False) + "\n"
-
-    if args.output:
-        args.output.parent.mkdir(parents=True, exist_ok=True)
-        with open(args.output, "w", encoding="utf-8") as f:
-            f.write(output_json)
-        print(f"Wrote: {args.output}", file=sys.stderr)
+        print(f"Wrote: {out_path}", file=sys.stderr)
     else:
         sys.stdout.write(output_json)
+
+    defs = structured.get("$defs", {})
+    print(f"  $defs: {len(defs)} ({', '.join(sorted(defs.keys()))})",
+          file=sys.stderr)
+    print(f"  Size: {len(output_json):,} bytes", file=sys.stderr)
 
 
 if __name__ == "__main__":
