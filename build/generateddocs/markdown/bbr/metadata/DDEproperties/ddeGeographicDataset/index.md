@@ -166,22 +166,22 @@ Shows spatialCoverage with GeoShape bounding box and additionalProperty entries 
 @prefix schema1: <http://schema.org/> .
 
 [] schema1:additionalProperty [ a schema1:PropertyValue ;
+            schema1:name "Reference System Type" ;
+            schema1:propertyID "dde:referenceSystemType" ;
+            schema1:value "geodeticGeographic2D" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Spatial Resolution" ;
+            schema1:propertyID "dde:spatialResolution" ;
+            schema1:value "1:1000000" ],
+        [ a schema1:PropertyValue ;
             schema1:name "Coordinate Reference System" ;
             schema1:propertyID "dde:referenceSystemIdentifier" ;
             schema1:url "https://epsg.io/4326" ;
             schema1:value "EPSG:4326" ],
         [ a schema1:PropertyValue ;
-            schema1:name "Reference System Type" ;
-            schema1:propertyID "dde:referenceSystemType" ;
-            schema1:value "geodeticGeographic2D" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Spatial Representation Type" ;
             schema1:propertyID "dde:spatialRepresentationType" ;
-            schema1:value "vector" ],
-        [ a schema1:PropertyValue ;
-            schema1:name "Spatial Resolution" ;
-            schema1:propertyID "dde:spatialResolution" ;
-            schema1:value "1:1000000" ] ;
+            schema1:value "vector" ] ;
     schema1:spatialCoverage [ a schema1:Place ;
             schema1:geo [ a schema1:GeoShape ;
                     schema1:box "18.1609 73.499 53.5585 135.08" ] ] .
@@ -207,6 +207,7 @@ properties:
     items:
       $ref: '#/$defs/SpatialExtent'
     minItems: 1
+    x-jsonld-id: http://schema.org/spatialCoverage
   schema:additionalProperty:
     type: array
     description: Spatial representation properties using DDE propertyIDs. Each item
@@ -219,6 +220,7 @@ properties:
       - $ref: '#/$defs/ReferenceSystemTypePV'
       - $ref: '#/$defs/ReferenceSystemIdentifierPV'
       - $ref: '#/$defs/AdditionalProperty'
+    x-jsonld-id: http://schema.org/additionalProperty
 required:
 - schema:spatialCoverage
 $defs:
@@ -240,8 +242,10 @@ $defs:
         contains:
           const: dde:spatialRepresentationType
         minItems: 1
+        x-jsonld-id: http://schema.org/propertyID
       schema:name:
         type: string
+        x-jsonld-id: http://schema.org/name
       schema:value:
         type: string
         enum:
@@ -251,6 +255,7 @@ $defs:
         - tin
         - stereoModel
         - video
+        x-jsonld-id: http://schema.org/value
     required:
     - schema:propertyID
     - schema:name
@@ -267,10 +272,13 @@ $defs:
         contains:
           const: dde:spatialResolution
         minItems: 1
+        x-jsonld-id: http://schema.org/propertyID
       schema:name:
         type: string
+        x-jsonld-id: http://schema.org/name
       schema:value:
         type: string
+        x-jsonld-id: http://schema.org/value
     required:
     - schema:propertyID
     - schema:name
@@ -287,8 +295,10 @@ $defs:
         contains:
           const: dde:referenceSystemType
         minItems: 1
+        x-jsonld-id: http://schema.org/propertyID
       schema:name:
         type: string
+        x-jsonld-id: http://schema.org/name
       schema:value:
         type: string
         enum:
@@ -320,6 +330,7 @@ $defs:
         - projected
         - temporal
         - vertical
+        x-jsonld-id: http://schema.org/value
     required:
     - schema:propertyID
     - schema:name
@@ -338,15 +349,19 @@ $defs:
         contains:
           const: dde:referenceSystemIdentifier
         minItems: 1
+        x-jsonld-id: http://schema.org/propertyID
       schema:name:
         type: string
+        x-jsonld-id: http://schema.org/name
       schema:value:
         type: string
         description: The reference system identifier code (e.g. "EPSG:4326", "urn:ogc:def:crs:EPSG::4326").
+        x-jsonld-id: http://schema.org/value
       schema:url:
         type: string
         format: uri
         description: Resolvable URL for the reference system identifier (e.g. "https://epsg.io/4326").
+        x-jsonld-id: http://schema.org/url
     allOf:
     - required:
       - schema:propertyID

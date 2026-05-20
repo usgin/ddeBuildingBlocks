@@ -542,6 +542,10 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
             schema1:name "large thumbnail" ] ;
     schema1:inLanguage "zho" ;
     schema1:keywords [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Data Integration Synthesis" ;
             schema1:termCode "dataIntegrationSynthesis" ],
@@ -549,10 +553,6 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Geological Mapping" ;
             schema1:termCode "geologicalMapping" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
         "Asia",
         "China",
         "OneGeology",
@@ -1464,21 +1464,17 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
             schema1:name "Hydrogeology" ;
             schema1:termCode "GI_HG_hydrogeology" ],
         [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Synthesis from Multiple Sources" ;
-            schema1:termCode "synthesisFromMultipleSources" ],
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Digital Conversion from Published Source" ;
             schema1:termCode "digitalConversionFromPublishedSource" ],
         [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Paleontology" ;
-            schema1:termCode "GI_PO_paleontology" ],
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Synthesis from Multiple Sources" ;
+            schema1:termCode "synthesisFromMultipleSources" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Environment" ;
@@ -1486,6 +1482,10 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
         [ a schema1:DefinedTerm ;
             schema1:identifier "https://edits.nationalmap.gov/apps/gaz-domestic/public/gaz-record/1779777" ;
             schema1:name "Arizona" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Paleontology" ;
+            schema1:termCode "GI_PO_paleontology" ],
         "Geologic Map",
         "Geology",
         "United States" ;
@@ -1499,9 +1499,9 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
             schema1:identifier "https://ror.org/00vcszp55" ;
             schema1:name "Arizona Geological Survey" ] ;
     schema1:relatedLink [ a schema1:LinkRole ;
-            schema1:linkRelationship "information" ],
+            schema1:linkRelationship "completeMetadata" ],
         [ a schema1:LinkRole ;
-            schema1:linkRelationship "completeMetadata" ] ;
+            schema1:linkRelationship "information" ] ;
     schema1:spatialCoverage [ a schema1:Place ;
             schema1:geo [ a schema1:GeoShape ;
                     schema1:box "31.332177 -114.81651 37.00426 -109.045223" ] ;
@@ -1575,11 +1575,13 @@ allOf:
       type: array
       items:
         $ref: '#/$defs/TemporalExtent'
+      x-jsonld-id: http://schema.org/temporalCoverage
     dqv:hasQualityMeasurement:
       description: Quality measurements reported to assess the resource.
       type: array
       items:
         $ref: '#/$defs/QualityMeasure'
+      x-jsonld-id: http://www.w3.org/ns/dqv#hasQualityMeasurement
 $defs:
   TemporalExtent:
     $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/temporalExtent/schema.yaml
@@ -1612,17 +1614,18 @@ Links to the schema:
 {
   "@context": {
     "schema": "http://schema.org/",
-    "prov": "http://www.w3.org/ns/prov#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
+    "cdif": "https://cdif.org/0.1/",
     "ex": "https://example.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
     "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#",
     "dde": "https://www.ddeworld.org/resource/",
-    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
     "geosparql": "http://www.opengis.net/ont/geosparql#",
     "spdx": "http://spdx.org/rdf/terms#",
     "time": "http://www.w3.org/2006/time#",
-    "skos": "http://www.w3.org/2004/02/skos/core#",
     "dqv": "http://www.w3.org/ns/dqv#",
     "@version": 1.1
   }

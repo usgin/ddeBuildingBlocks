@@ -26,9 +26,11 @@ allOf:
         - schema:inDefinedTermSet
         - schema:termCode
       minContains: 1
+      x-jsonld-id: http://schema.org/additionalType
     schema:duration:
       type: string
       description: Duration in ISO 8601 format (e.g., PT1H30M, PT45S).
+      x-jsonld-id: http://schema.org/duration
     schema:measurementTechnique:
       description: The technique, technology, or methodology used for measurement
         or determination of the dataset values.
@@ -40,16 +42,19 @@ allOf:
           anyOf:
           - type: string
           - $ref: '#/$defs/DefinedTerm'
+      x-jsonld-id: http://schema.org/measurementTechnique
     schema:temporalCoverage:
       description: Temporal extent of resource content.
       type: array
       items:
         $ref: '#/$defs/TemporalExtent'
+      x-jsonld-id: http://schema.org/temporalCoverage
     dqv:hasQualityMeasurement:
       description: Quality measurements reported to assess the resource.
       type: array
       items:
         $ref: '#/$defs/QualityMeasure'
+      x-jsonld-id: http://www.w3.org/ns/dqv#hasQualityMeasurement
 $defs:
   DefinedTerm:
     $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml

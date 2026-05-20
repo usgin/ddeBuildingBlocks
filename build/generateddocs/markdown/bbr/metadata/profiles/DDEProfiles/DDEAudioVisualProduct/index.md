@@ -402,9 +402,11 @@ allOf:
         - schema:inDefinedTermSet
         - schema:termCode
       minContains: 1
+      x-jsonld-id: http://schema.org/additionalType
     schema:duration:
       type: string
       description: Duration in ISO 8601 format (e.g., PT1H30M, PT45S).
+      x-jsonld-id: http://schema.org/duration
     schema:measurementTechnique:
       description: The technique, technology, or methodology used for measurement
         or determination of the dataset values.
@@ -416,16 +418,19 @@ allOf:
           anyOf:
           - type: string
           - $ref: '#/$defs/DefinedTerm'
+      x-jsonld-id: http://schema.org/measurementTechnique
     schema:temporalCoverage:
       description: Temporal extent of resource content.
       type: array
       items:
         $ref: '#/$defs/TemporalExtent'
+      x-jsonld-id: http://schema.org/temporalCoverage
     dqv:hasQualityMeasurement:
       description: Quality measurements reported to assess the resource.
       type: array
       items:
         $ref: '#/$defs/QualityMeasure'
+      x-jsonld-id: http://www.w3.org/ns/dqv#hasQualityMeasurement
 $defs:
   DefinedTerm:
     $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml
@@ -459,13 +464,15 @@ Links to the schema:
 {
   "@context": {
     "schema": "http://schema.org/",
-    "prov": "http://www.w3.org/ns/prov#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
+    "cdif": "https://cdif.org/0.1/",
     "ex": "https://example.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
     "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#",
     "dde": "https://www.ddeworld.org/resource/",
-    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
     "geosparql": "http://www.opengis.net/ont/geosparql#",
     "spdx": "http://spdx.org/rdf/terms#",
     "time": "http://www.w3.org/2006/time#",

@@ -29,6 +29,7 @@ allOf:
         - schema:inDefinedTermSet
         - schema:termCode
       minContains: 1
+      x-jsonld-id: http://schema.org/additionalType
     schema:hasPart:
       type: array
       description: Members of the collection. Each must have a DDE resource type classification
@@ -47,16 +48,20 @@ allOf:
               - schema:CreativeWork
             schema:name:
               type: string
+              x-jsonld-id: http://schema.org/name
             schema:description:
               type: string
+              x-jsonld-id: http://schema.org/description
           required:
           - '@type'
           - schema:name
+      x-jsonld-id: http://schema.org/hasPart
     schema:temporalCoverage:
       description: Temporal extent of resource content.
       type: array
       items:
         $ref: '#/$defs/TemporalExtent'
+      x-jsonld-id: http://schema.org/temporalCoverage
   required:
   - schema:hasPart
 $defs:

@@ -387,15 +387,15 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
     schema1:description "The International Chronostratigraphic Chart maintained by the International Commission on Stratigraphy (ICS). Defines the global standard nomenclature and boundary ages for geological time divisions (Eonothems/Eons, Erathems/Eras, Systems/Periods, Series/Epochs, Stages/Ages). Published as a controlled vocabulary with SKOS concept scheme encoding." ;
     schema1:distribution [ a schema1:DataDownload ;
             dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
+            schema1:contentUrl "https://stratigraphy.org/ICSchart/ChronostratChart2024-12.pdf" ;
+            schema1:encodingFormat "application/pdf" ;
+            schema1:name "Chronostratigraphic Chart PDF" ],
+        [ a schema1:DataDownload ;
+            dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
             schema1:contentUrl "https://resource.geosciml.org/classifierscheme/ics/ischart" ;
             schema1:description "Machine-readable SKOS concept scheme for geological time divisions" ;
             schema1:encodingFormat "application/rdf+xml" ;
-            schema1:name "Geological Time Scale RDF/SKOS" ],
-        [ a schema1:DataDownload ;
-            dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
-            schema1:contentUrl "https://stratigraphy.org/ICSchart/ChronostratChart2024-12.pdf" ;
-            schema1:encodingFormat "application/pdf" ;
-            schema1:name "Chronostratigraphic Chart PDF" ] ;
+            schema1:name "Geological Time Scale RDF/SKOS" ] ;
     schema1:identifier [ a schema1:PropertyValue ;
             schema1:name "DOI" ;
             schema1:propertyID "schema:identifier" ;
@@ -469,6 +469,7 @@ allOf:
         - schema:inDefinedTermSet
         - schema:termCode
       minContains: 1
+      x-jsonld-id: http://schema.org/additionalType
 x-jsonld-prefixes:
   schema: http://schema.org/
   cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/
@@ -495,13 +496,15 @@ Links to the schema:
 {
   "@context": {
     "schema": "http://schema.org/",
-    "prov": "http://www.w3.org/ns/prov#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
+    "cdif": "https://cdif.org/0.1/",
     "ex": "https://example.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
     "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#",
     "dde": "https://www.ddeworld.org/resource/",
-    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
     "geosparql": "http://www.opengis.net/ont/geosparql#",
     "spdx": "http://spdx.org/rdf/terms#",
     "time": "http://www.w3.org/2006/time#",

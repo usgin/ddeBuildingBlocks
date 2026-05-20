@@ -463,13 +463,13 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
 
 <urn:dde:example-landsat8-tibet> a schema1:Dataset ;
     schema1:additionalProperty [ a schema1:PropertyValue ;
-            schema1:name "Wavelength Range" ;
-            schema1:propertyID "dde:wavelength" ;
-            schema1:value "0.43-2.29 micrometers" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Processing Level" ;
             schema1:propertyID "dde:processedLevel" ;
-            schema1:value "Level2" ] ;
+            schema1:value "Level2" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Wavelength Range" ;
+            schema1:propertyID "dde:wavelength" ;
+            schema1:value "0.43-2.29 micrometers" ] ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
             schema1:name "Image" ;
@@ -488,13 +488,13 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
             schema1:name "browse image" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Remote Sensing" ;
             schema1:termCode "remoteSensing" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "Landsat-8",
         "Tibetan Plateau",
         "multispectral",
@@ -516,17 +516,17 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
                     schema1:roleName "DataCollector" ] ;
             schema1:startTime "2023-06-15T03:45:00Z" ;
             prov:used [ schema1:instrument [ a schema1:Thing ;
-                            schema1:additionalType "dde:signalGenerator" ;
-                            schema1:name "Passive solar" ] ],
-                [ schema1:instrument [ a schema1:Thing ;
-                            schema1:additionalType "dde:equipment" ;
-                            schema1:name "Operational Land Imager (OLI)" ] ],
-                [ schema1:instrument [ a schema1:Thing ;
                             schema1:additionalType "dde:sensorType" ;
                             schema1:name "Multispectral" ] ],
                 [ schema1:instrument [ a schema1:Thing ;
+                            schema1:additionalType "dde:signalGenerator" ;
+                            schema1:name "Passive solar" ] ],
+                [ schema1:instrument [ a schema1:Thing ;
                             schema1:additionalType "dde:platform" ;
-                            schema1:name "Landsat-8" ] ] ] .
+                            schema1:name "Landsat-8" ] ],
+                [ schema1:instrument [ a schema1:Thing ;
+                            schema1:additionalType "dde:equipment" ;
+                            schema1:name "Operational Land Imager (OLI)" ] ] ] .
 
 <urn:uuid:dde-image-catalog-record> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
@@ -575,6 +575,7 @@ allOf:
         - schema:inDefinedTermSet
         - schema:termCode
       minContains: 1
+      x-jsonld-id: http://schema.org/additionalType
     schema:measurementTechnique:
       description: The technique, technology, or methodology used for measurement
         or determination of the dataset values.
@@ -586,6 +587,7 @@ allOf:
           anyOf:
           - type: string
           - $ref: '#/$defs/DefinedTerm'
+      x-jsonld-id: http://schema.org/measurementTechnique
     schema:variableMeasured:
       description: What does the dataset measure? (e.g., temperature, pressure)
       type: array
@@ -593,16 +595,19 @@ allOf:
         anyOf:
         - $ref: '#/$defs/VariableMeasured'
         - $ref: '#/$defs/StatisticalVariable'
+      x-jsonld-id: http://schema.org/variableMeasured
     schema:temporalCoverage:
       description: Temporal extent of resource content.
       type: array
       items:
         $ref: '#/$defs/TemporalExtent'
+      x-jsonld-id: http://schema.org/temporalCoverage
     dqv:hasQualityMeasurement:
       description: Quality measurements reported to assess the resource.
       type: array
       items:
         $ref: '#/$defs/QualityMeasure'
+      x-jsonld-id: http://www.w3.org/ns/dqv#hasQualityMeasurement
 - if:
     properties:
       schema:additionalType:
@@ -650,13 +655,15 @@ Links to the schema:
 {
   "@context": {
     "schema": "http://schema.org/",
-    "prov": "http://www.w3.org/ns/prov#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
+    "cdif": "https://cdif.org/0.1/",
     "ex": "https://example.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
     "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#",
     "dde": "https://www.ddeworld.org/resource/",
-    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
     "geosparql": "http://www.opengis.net/ont/geosparql#",
     "spdx": "http://spdx.org/rdf/terms#",
     "time": "http://www.w3.org/2006/time#",

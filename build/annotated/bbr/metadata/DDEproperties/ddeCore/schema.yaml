@@ -8,6 +8,7 @@ allOf:
   properties:
     schema:subjectOf:
       $ref: '#/$defs/DdeCatalogRecord'
+      x-jsonld-id: http://schema.org/subjectOf
     schema:keywords:
       type: array
       description: Extends base CDIF keyword schema to require DefinedTerms from both
@@ -42,6 +43,7 @@ allOf:
           - '@type'
           - schema:inDefinedTermSet
         minContains: 1
+      x-jsonld-id: http://schema.org/keywords
     schema:alternateName:
       description: Alternative names or aliases for the resource.
       anyOf:
@@ -49,6 +51,7 @@ allOf:
       - type: array
         items:
           type: string
+      x-jsonld-id: http://schema.org/alternateName
     schema:image:
       type: array
       description: Browse graphics for the resource. At least one ImageObject is required
@@ -68,15 +71,19 @@ allOf:
             type: string
             format: uri
             description: URL to the image file
+            x-jsonld-id: http://schema.org/contentUrl
           schema:name:
             type: string
             description: Caption or title for the browse graphic
+            x-jsonld-id: http://schema.org/name
           schema:encodingFormat:
             type: string
             description: MIME type of the image
+            x-jsonld-id: http://schema.org/encodingFormat
         required:
         - '@type'
         - schema:contentUrl
+      x-jsonld-id: http://schema.org/image
   required:
   - schema:additionalType
   - schema:keywords

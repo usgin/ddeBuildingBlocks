@@ -291,25 +291,25 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
             schema1:url "https://doi.org/23609/53w7klh" ;
             schema1:value "doi:23609/53w7klh" ] ;
     schema1:image [ a schema1:ImageObject ;
-            schema1:contentUrl "http://azgs.az.gov/repository/browse/3757.jpg" ;
-            schema1:encodingFormat "application/xml" ;
-            schema1:name "Quick view lithostratigraphic map of Arizona" ],
-        [ a schema1:ImageObject ;
             schema1:contentUrl "http://azgs.az.gov/repository/browse/2222.jpg" ;
             schema1:encodingFormat "image/png" ;
-            schema1:name "Another map of Arizona" ] ;
+            schema1:name "Another map of Arizona" ],
+        [ a schema1:ImageObject ;
+            schema1:contentUrl "http://azgs.az.gov/repository/browse/3757.jpg" ;
+            schema1:encodingFormat "application/xml" ;
+            schema1:name "Quick view lithostratigraphic map of Arizona" ] ;
     schema1:keywords [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Digital Conversion from Published Source" ;
             schema1:termCode "digitalConversionFromPublishedSource" ],
         [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Synthesis from Multiple Sources" ;
-            schema1:termCode "synthesisFromMultipleSources" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Synthesis from Multiple Sources" ;
+            schema1:termCode "synthesisFromMultipleSources" ],
         "Arizona",
         "Geologic Map",
         "Geology",
@@ -345,6 +345,7 @@ allOf:
   properties:
     schema:subjectOf:
       $ref: '#/$defs/DdeCatalogRecord'
+      x-jsonld-id: http://schema.org/subjectOf
     schema:keywords:
       type: array
       description: Extends base CDIF keyword schema to require DefinedTerms from both
@@ -379,6 +380,7 @@ allOf:
           - '@type'
           - schema:inDefinedTermSet
         minContains: 1
+      x-jsonld-id: http://schema.org/keywords
     schema:alternateName:
       description: Alternative names or aliases for the resource.
       anyOf:
@@ -386,6 +388,7 @@ allOf:
       - type: array
         items:
           type: string
+      x-jsonld-id: http://schema.org/alternateName
     schema:image:
       type: array
       description: Browse graphics for the resource. At least one ImageObject is required
@@ -405,15 +408,19 @@ allOf:
             type: string
             format: uri
             description: URL to the image file
+            x-jsonld-id: http://schema.org/contentUrl
           schema:name:
             type: string
             description: Caption or title for the browse graphic
+            x-jsonld-id: http://schema.org/name
           schema:encodingFormat:
             type: string
             description: MIME type of the image
+            x-jsonld-id: http://schema.org/encodingFormat
         required:
         - '@type'
         - schema:contentUrl
+      x-jsonld-id: http://schema.org/image
   required:
   - schema:additionalType
   - schema:keywords
@@ -444,11 +451,14 @@ Links to the schema:
 {
   "@context": {
     "schema": "http://schema.org/",
-    "prov": "http://www.w3.org/ns/prov#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
+    "cdif": "https://cdif.org/0.1/",
     "ex": "https://example.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
     "dcat": "http://www.w3.org/ns/dcat#",
+    "prov": "http://www.w3.org/ns/prov#",
     "dde": "https://www.ddeworld.org/resource/",
     "@version": 1.1
   }

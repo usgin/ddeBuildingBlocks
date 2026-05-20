@@ -1,6 +1,16 @@
 x-defs:
   cdif.bbr.metadata.schemaorgProperties.definedTerm:
-    description: schema.org Defined Term schema
+    description: "schema.org Defined Term schema.\n\n**Union-type policy:** In CDIF
+      profile UML models an attribute typed as\nschema:DefinedTerm is represented
+      by a single attribute of that class type.\nThe JSON Schema implementation permits
+      the property value to be EITHER a\nplain string (interpreted as schema:name
+      or schema:termCode in the default\nvocabulary) OR a full schema:DefinedTerm
+      object (with explicit @type, name,\nidentifier, termCode, inDefinedTermSet).
+      Consumers should accept either form.\n\nNote that this differs from the cdif
+      Concept policy: a Concept (skos:Concept)\nin CDIF profiles MUST be a controlled-vocabulary
+      entry (object form or\n@id-reference) \u2014 plain strings are not permitted
+      for Concept-typed values\nbecause vocabulary identity cannot be recovered from
+      an unscoped label.\n"
     type: object
     properties:
       '@type':
@@ -40,7 +50,22 @@ x-defs:
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.identifier:
-    description: Properties for a schema.org identifier
+    description: 'Properties for a schema.org identifier (schema:PropertyValue pattern).
+
+
+      **Union-type policy:** In CDIF profile UML models an attribute typed as
+
+      schema:Identifier / schema:PropertyValue is represented by a single attribute
+
+      of that class type. The JSON Schema implementation permits the property value
+
+      to be EITHER a plain string (interpreted as the bare identifier value) OR a
+
+      full schema:PropertyValue object (with explicit @type, propertyID, value).
+
+      Consumers should accept either form.
+
+      '
     type: object
     properties:
       '@type':
@@ -99,6 +124,7 @@ properties:
             enum:
             - schema:DefinedTerm
         schema:inDefinedTermSet:
+          x-jsonld-id: http://schema.org/inDefinedTermSet
           enum:
           - dde:codelist/ResourceTypeCode
         schema:termCode:
@@ -136,11 +162,13 @@ properties:
           - webAPI
           - software
           - sound
+          x-jsonld-id: http://schema.org/termCode
       required:
       - '@type'
       - schema:inDefinedTermSet
       - schema:termCode
     minContains: 1
+    x-jsonld-id: http://schema.org/additionalType
 $defs:
   DefinedTerm:
     $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm

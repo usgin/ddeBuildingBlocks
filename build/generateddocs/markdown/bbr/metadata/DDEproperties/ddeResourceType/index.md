@@ -99,6 +99,7 @@ properties:
             const: schema:DefinedTerm
         schema:inDefinedTermSet:
           const: dde:codelist/ResourceTypeCode
+          x-jsonld-id: http://schema.org/inDefinedTermSet
         schema:termCode:
           type: string
           enum:
@@ -134,11 +135,13 @@ properties:
           - webAPI
           - software
           - sound
+          x-jsonld-id: http://schema.org/termCode
       required:
       - '@type'
       - schema:inDefinedTermSet
       - schema:termCode
     minContains: 1
+    x-jsonld-id: http://schema.org/additionalType
 $defs:
   DefinedTerm:
     $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml

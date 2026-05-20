@@ -8,7 +8,9 @@ x-defs:
     - type: object
       properties:
         schema:subjectOf:
-          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeCore/$defs/DdeCatalogRecord
+          x-jsonld-id: http://schema.org/subjectOf
+          allOf:
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeCore/$defs/DdeCatalogRecord
         schema:keywords:
           type: array
           description: Extends base CDIF keyword schema to require DefinedTerms from
@@ -47,6 +49,7 @@ x-defs:
               - '@type'
               - schema:inDefinedTermSet
             minContains: 1
+          x-jsonld-id: http://schema.org/keywords
         schema:alternateName:
           description: Alternative names or aliases for the resource.
           anyOf:
@@ -54,6 +57,7 @@ x-defs:
           - type: array
             items:
               type: string
+          x-jsonld-id: http://schema.org/alternateName
         schema:image:
           type: array
           description: Browse graphics for the resource. At least one ImageObject
@@ -74,15 +78,19 @@ x-defs:
                 type: string
                 format: uri
                 description: URL to the image file
+                x-jsonld-id: http://schema.org/contentUrl
               schema:name:
                 type: string
                 description: Caption or title for the browse graphic
+                x-jsonld-id: http://schema.org/name
               schema:encodingFormat:
                 type: string
                 description: MIME type of the image
+                x-jsonld-id: http://schema.org/encodingFormat
             required:
             - '@type'
             - schema:contentUrl
+          x-jsonld-id: http://schema.org/image
       required:
       - schema:additionalType
       - schema:keywords
@@ -101,7 +109,17 @@ x-defs:
     x-schema-source: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.definedTerm:
-    description: schema.org Defined Term schema
+    description: "schema.org Defined Term schema.\n\n**Union-type policy:** In CDIF
+      profile UML models an attribute typed as\nschema:DefinedTerm is represented
+      by a single attribute of that class type.\nThe JSON Schema implementation permits
+      the property value to be EITHER a\nplain string (interpreted as schema:name
+      or schema:termCode in the default\nvocabulary) OR a full schema:DefinedTerm
+      object (with explicit @type, name,\nidentifier, termCode, inDefinedTermSet).
+      Consumers should accept either form.\n\nNote that this differs from the cdif
+      Concept policy: a Concept (skos:Concept)\nin CDIF profiles MUST be a controlled-vocabulary
+      entry (object form or\n@id-reference) \u2014 plain strings are not permitted
+      for Concept-typed values\nbecause vocabulary identity cannot be recovered from
+      an unscoped label.\n"
     type: object
     properties:
       '@type':
@@ -337,6 +355,7 @@ x-defs:
                 enum:
                 - schema:DefinedTerm
             schema:inDefinedTermSet:
+              x-jsonld-id: http://schema.org/inDefinedTermSet
               enum:
               - dde:codelist/ResourceTypeCode
             schema:termCode:
@@ -374,11 +393,13 @@ x-defs:
               - webAPI
               - software
               - sound
+              x-jsonld-id: http://schema.org/termCode
           required:
           - '@type'
           - schema:inDefinedTermSet
           - schema:termCode
         minContains: 1
+        x-jsonld-id: http://schema.org/additionalType
     $defs:
       DefinedTerm:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
@@ -528,7 +549,7 @@ x-defs:
               '@id':
                 type: string
                 description: a reference to a resource defining conditions of Access
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/LabeledLink
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/Reference
       schema:license:
         description: 'legal statement of conditions for use and access; recommend
           using schema:CreativeWork to provide a label (name) for the license, and
@@ -546,7 +567,7 @@ x-defs:
               '@id':
                 type: string
                 description: a reference to a license defintion
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/LabeledLink
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/Reference
       schema:url:
         type: string
         format: uri
@@ -619,7 +640,7 @@ x-defs:
               '@id':
                 type: string
                 description: a reference to a publishing principles statement
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/LabeledLink
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/Reference
       schema:keywords:
         description: Keywords are an array of strings, an array of schema:DefinedTerms,
           or some combination of these. If you have information about a controlled
@@ -746,8 +767,8 @@ x-defs:
       - required:
         - schema:distribution
     $defs:
-      LabeledLink:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.labeledLink
+      Reference:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifReference
       Identifier:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
       DefinedTerm:
@@ -801,7 +822,22 @@ x-defs:
     x-schema-source: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCatalogRecord/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.identifier:
-    description: Properties for a schema.org identifier
+    description: 'Properties for a schema.org identifier (schema:PropertyValue pattern).
+
+
+      **Union-type policy:** In CDIF profile UML models an attribute typed as
+
+      schema:Identifier / schema:PropertyValue is represented by a single attribute
+
+      of that class type. The JSON Schema implementation permits the property value
+
+      to be EITHER a plain string (interpreted as the bare identifier value) OR a
+
+      full schema:PropertyValue object (with explicit @type, propertyID, value).
+
+      Consumers should accept either form.
+
+      '
     type: object
     properties:
       '@type':
@@ -838,32 +874,48 @@ x-defs:
       schema: http://schema.org/
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.schemaorgProperties.labeledLink:
-    description: schema for a labeled link, a profile of schema.org/CreativeWork
+  cdif.bbr.metadata.cdifProperties.cdifReference:
     type: object
-    properties:
-      '@type':
-        default: schema:CreativeWork
-        type: array
-        items:
-          type: string
-        contains:
-          enum:
-          - schema:CreativeWork
-        minItems: 1
-      schema:name:
-        type: string
-      schema:description:
-        type: string
-      schema:url:
-        type: string
-        format: uri
-    required:
-    - '@type'
-    - schema:url
+    description: Building block to implement relations to other resources using a
+      URL and some semantics.
+    allOf:
+    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.labeledLink
+    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifReference/$defs/Relation
+    $defs:
+      Relation:
+        type: object
+        description: DCAT Relationship surface added on top of the schema.org labeled
+          link construct.
+        properties:
+          '@type':
+            type: array
+            items:
+              type: string
+            contains:
+              enum:
+              - dcat:Relationship
+            minItems: 1
+          dcat:hadRole:
+            description: Role of the related resource as a SKOS Concept (DCAT canonical
+              role slot).
+            allOf:
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept
+          dcterms:relation:
+            type: string
+            format: uri
+            description: URI of the related resource (DCAT canonical pointer to what
+              is being related to; distinct from schema:url which is the presentation
+              URL inherited from labeledLink).
     x-jsonld-prefixes:
       schema: http://schema.org/
-    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/labeledLink/schema.yaml
+      skos: http://www.w3.org/2004/02/skos/core#
+      cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/
+      cdif: https://cdif.org/0.1/
+      ex: https://example.org/
+      xsd: http://www.w3.org/2001/XMLSchema#
+      dcterms: http://purl.org/dc/terms/
+      dcat: http://www.w3.org/ns/dcat#
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifReference/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.dataDownload:
     description: schema to document file-based access to a resoruce via URL, based
@@ -989,7 +1041,7 @@ x-defs:
         oneOf:
         - type: string
           default: not specified
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI/$defs/LabeledLink
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI/$defs/Reference
       schema:documentation:
         description: a document that provides a machine-actionable description of
           a service instance. Examples include OpenAPI documents, OGC Capabilities
@@ -1000,7 +1052,7 @@ x-defs:
           metadata.
         oneOf:
         - type: string
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI/$defs/LabeledLink
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI/$defs/Reference
       schema:potentialAction:
         type: array
         description: actions that can be invoked via the API
@@ -1011,8 +1063,8 @@ x-defs:
     - schema:potentialAction
     - schema:termsOfService
     $defs:
-      LabeledLink:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.labeledLink
+      Reference:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifReference
       DefinedTerm:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
       Action:
@@ -1296,7 +1348,7 @@ x-defs:
           type: string
           description: a resolvable reference to a representation of the software
             or instrument used
-    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.labeledLink
+    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifProperties.cdifReference
     x-jsonld-prefixes:
       schema: http://schema.org/
       prov: http://www.w3.org/ns/prov#
@@ -1407,6 +1459,295 @@ x-defs:
       dcterms: http://purl.org/dc/terms/
       dcat: http://www.w3.org/ns/dcat#
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifCatalogRecord/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  cdif.bbr.metadata.schemaorgProperties.labeledLink:
+    description: schema for a labeled link, a profile of schema.org/CreativeWork
+    type: object
+    properties:
+      '@type':
+        default: schema:CreativeWork
+        type: array
+        items:
+          type: string
+        contains:
+          enum:
+          - schema:CreativeWork
+        minItems: 1
+      schema:name:
+        type: string
+      schema:description:
+        type: string
+      schema:url:
+        type: string
+        format: uri
+    required:
+    - '@type'
+    - schema:url
+    x-jsonld-prefixes:
+      schema: http://schema.org/
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/labeledLink/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  cdif.bbr.metadata.skosProperties.skosConcept:
+    title: SKOS Concept
+    description: JSON Schema for a SKOS Concept in JSON-LD form. A unit of thought
+      within a concept scheme. Supports labels (prefLabel, altLabel, hiddenLabel),
+      notations, hierarchical relations (broader/narrower), associative relations
+      (related), cross-scheme mapping properties, scheme membership, and documentary
+      notes. Based on the W3C SKOS Reference (https://www.w3.org/TR/skos-reference/).
+    type: object
+    properties:
+      '@context':
+        description: JSON-LD context declaring the skos namespace prefix. May be a
+          single object or an array of strings and objects.
+        anyOf:
+        - type: object
+          properties:
+            skos:
+              enum:
+              - http://www.w3.org/2004/02/skos/core#
+          required:
+          - skos
+        - type: array
+          items:
+            anyOf:
+            - type: string
+            - type: object
+          contains:
+            type: object
+            properties:
+              skos:
+                enum:
+                - http://www.w3.org/2004/02/skos/core#
+            required:
+            - skos
+      '@id':
+        type: string
+        description: URI identifier for this concept.
+      '@type':
+        type: array
+        items:
+          type: string
+        contains:
+          enum:
+          - skos:Concept
+        minItems: 1
+      skos:prefLabel:
+        description: Preferred lexical label for this concept. A single string, a
+          single language-tagged value, or an array of language-tagged values. Each
+          language should appear at most once.
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+        - type: array
+          items:
+            $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+      skos:altLabel:
+        description: Alternative lexical labels (acronyms, abbreviations, variants).
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+        - type: array
+          items:
+            anyOf:
+            - type: string
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+      skos:hiddenLabel:
+        description: Labels accessible to free-text search but not displayed.
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+        - type: array
+          items:
+            anyOf:
+            - type: string
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+      skos:notation:
+        description: Classification code for this concept within a scheme.
+        type: array
+        items:
+          type: string
+      skos:definition:
+        description: Formal explanation of the meaning of this concept.
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+        - type: array
+          items:
+            anyOf:
+            - type: string
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+      skos:scopeNote:
+        description: Note clarifying meaning and/or intended use.
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+        - type: array
+          items:
+            anyOf:
+            - type: string
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+      skos:note:
+        description: General note about this concept.
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+        - type: array
+          items:
+            anyOf:
+            - type: string
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+      skos:historyNote:
+        description: Note about past state or use.
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+        - type: array
+          items:
+            anyOf:
+            - type: string
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+      skos:changeNote:
+        description: Note documenting a change.
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+        - type: array
+          items:
+            anyOf:
+            - type: string
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+      skos:editorialNote:
+        description: Note for editors and maintainers.
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+        - type: array
+          items:
+            anyOf:
+            - type: string
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+      skos:example:
+        description: Example of use of this concept.
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+        - type: array
+          items:
+            anyOf:
+            - type: string
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+      skos:inScheme:
+        description: Concept scheme(s) this concept belongs to.
+        anyOf:
+        - type: object
+          properties:
+            '@id':
+              type: string
+          required:
+          - '@id'
+        - type: array
+          items:
+            type: object
+            properties:
+              '@id':
+                type: string
+            required:
+            - '@id'
+      skos:topConceptOf:
+        description: Concept scheme(s) for which this is a top concept.
+        anyOf:
+        - type: object
+          properties:
+            '@id':
+              type: string
+          required:
+          - '@id'
+        - type: array
+          items:
+            type: object
+            properties:
+              '@id':
+                type: string
+            required:
+            - '@id'
+      skos:broader:
+        description: Broader (parent) concepts in the hierarchy. Items are inline
+          concept objects or @id references.
+        type: array
+        items:
+          anyOf:
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept
+      skos:narrower:
+        description: Narrower (child) concepts in the hierarchy. Items are inline
+          concept objects or @id references.
+        type: array
+        items:
+          anyOf:
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept
+      skos:related:
+        description: Associatively related concepts.
+        type: array
+        items:
+          anyOf:
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept
+      skos:exactMatch:
+        description: Concepts in other schemes with equivalent meaning.
+        type: array
+        items:
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+      skos:closeMatch:
+        description: Concepts in other schemes with similar meaning.
+        type: array
+        items:
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+      skos:broadMatch:
+        description: Broader concepts in other schemes.
+        type: array
+        items:
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+      skos:narrowMatch:
+        description: Narrower concepts in other schemes.
+        type: array
+        items:
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+      skos:relatedMatch:
+        description: Related concepts in other schemes.
+        type: array
+        items:
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+    required:
+    - '@type'
+    - skos:prefLabel
+    $defs:
+      ConceptRef:
+        type: object
+        description: A reference to a SKOS Concept by URI.
+        properties:
+          '@id':
+            type: string
+            description: URI of the referenced concept.
+        required:
+        - '@id'
+      LanguageTaggedValue:
+        type: object
+        description: An RDF literal value with a language tag, serialized as a JSON-LD
+          value object.
+        properties:
+          '@value':
+            type: string
+            description: The text content.
+          '@language':
+            type: string
+            description: BCP 47 language tag (e.g. en, fr, de).
+        required:
+        - '@value'
+        - '@language'
+    x-jsonld-prefixes:
+      skos: http://www.w3.org/2004/02/skos/core#
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/skosProperties/skosConcept/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.action:
     title: 'Action '
@@ -1608,9 +1949,11 @@ allOf:
         - schema:inDefinedTermSet
         - schema:termCode
       minContains: 1
+      x-jsonld-id: http://schema.org/additionalType
     schema:duration:
       type: string
       description: Duration in ISO 8601 format (e.g., PT1H30M, PT45S).
+      x-jsonld-id: http://schema.org/duration
     schema:measurementTechnique:
       description: The technique, technology, or methodology used for measurement
         or determination of the dataset values.
@@ -1622,16 +1965,19 @@ allOf:
           anyOf:
           - type: string
           - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/$defs/DefinedTerm
+      x-jsonld-id: http://schema.org/measurementTechnique
     schema:temporalCoverage:
       description: Temporal extent of resource content.
       type: array
       items:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/$defs/TemporalExtent
+      x-jsonld-id: http://schema.org/temporalCoverage
     dqv:hasQualityMeasurement:
       description: Quality measurements reported to assess the resource.
       type: array
       items:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/$defs/QualityMeasure
+      x-jsonld-id: http://www.w3.org/ns/dqv#hasQualityMeasurement
 $defs:
   DefinedTerm:
     $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm

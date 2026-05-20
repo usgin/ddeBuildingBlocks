@@ -233,7 +233,22 @@ x-defs:
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.identifier:
-    description: Properties for a schema.org identifier
+    description: 'Properties for a schema.org identifier (schema:PropertyValue pattern).
+
+
+      **Union-type policy:** In CDIF profile UML models an attribute typed as
+
+      schema:Identifier / schema:PropertyValue is represented by a single attribute
+
+      of that class type. The JSON Schema implementation permits the property value
+
+      to be EITHER a plain string (interpreted as the bare identifier value) OR a
+
+      full schema:PropertyValue object (with explicit @type, propertyID, value).
+
+      Consumers should accept either form.
+
+      '
     type: object
     properties:
       '@type':
@@ -271,7 +286,17 @@ x-defs:
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.definedTerm:
-    description: schema.org Defined Term schema
+    description: "schema.org Defined Term schema.\n\n**Union-type policy:** In CDIF
+      profile UML models an attribute typed as\nschema:DefinedTerm is represented
+      by a single attribute of that class type.\nThe JSON Schema implementation permits
+      the property value to be EITHER a\nplain string (interpreted as schema:name
+      or schema:termCode in the default\nvocabulary) OR a full schema:DefinedTerm
+      object (with explicit @type, name,\nidentifier, termCode, inDefinedTermSet).
+      Consumers should accept either form.\n\nNote that this differs from the cdif
+      Concept policy: a Concept (skos:Concept)\nin CDIF profiles MUST be a controlled-vocabulary
+      entry (object form or\n@id-reference) \u2014 plain strings are not permitted
+      for Concept-typed values\nbecause vocabulary identity cannot be recovered from
+      an unscoped label.\n"
     type: object
     properties:
       '@type':
@@ -324,6 +349,7 @@ properties:
     items:
       $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/$defs/SpatialExtent
     minItems: 1
+    x-jsonld-id: http://schema.org/spatialCoverage
   schema:additionalProperty:
     type: array
     description: Spatial representation properties using DDE propertyIDs. Each item
@@ -336,6 +362,7 @@ properties:
       - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/$defs/ReferenceSystemTypePV
       - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/$defs/ReferenceSystemIdentifierPV
       - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/$defs/AdditionalProperty
+    x-jsonld-id: http://schema.org/additionalProperty
 required:
 - schema:spatialCoverage
 $defs:
@@ -359,8 +386,10 @@ $defs:
           enum:
           - dde:spatialRepresentationType
         minItems: 1
+        x-jsonld-id: http://schema.org/propertyID
       schema:name:
         type: string
+        x-jsonld-id: http://schema.org/name
       schema:value:
         type: string
         enum:
@@ -370,6 +399,7 @@ $defs:
         - tin
         - stereoModel
         - video
+        x-jsonld-id: http://schema.org/value
     required:
     - schema:propertyID
     - schema:name
@@ -388,10 +418,13 @@ $defs:
           enum:
           - dde:spatialResolution
         minItems: 1
+        x-jsonld-id: http://schema.org/propertyID
       schema:name:
         type: string
+        x-jsonld-id: http://schema.org/name
       schema:value:
         type: string
+        x-jsonld-id: http://schema.org/value
     required:
     - schema:propertyID
     - schema:name
@@ -410,8 +443,10 @@ $defs:
           enum:
           - dde:referenceSystemType
         minItems: 1
+        x-jsonld-id: http://schema.org/propertyID
       schema:name:
         type: string
+        x-jsonld-id: http://schema.org/name
       schema:value:
         type: string
         enum:
@@ -443,6 +478,7 @@ $defs:
         - projected
         - temporal
         - vertical
+        x-jsonld-id: http://schema.org/value
     required:
     - schema:propertyID
     - schema:name
@@ -463,15 +499,19 @@ $defs:
           enum:
           - dde:referenceSystemIdentifier
         minItems: 1
+        x-jsonld-id: http://schema.org/propertyID
       schema:name:
         type: string
+        x-jsonld-id: http://schema.org/name
       schema:value:
         type: string
         description: The reference system identifier code (e.g. "EPSG:4326", "urn:ogc:def:crs:EPSG::4326").
+        x-jsonld-id: http://schema.org/value
       schema:url:
         type: string
         format: uri
         description: Resolvable URL for the reference system identifier (e.g. "https://epsg.io/4326").
+        x-jsonld-id: http://schema.org/url
     allOf:
     - required:
       - schema:propertyID

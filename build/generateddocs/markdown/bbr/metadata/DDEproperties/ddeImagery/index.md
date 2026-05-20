@@ -251,17 +251,17 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
                     schema1:roleName "DataCollector" ] ;
             schema1:startTime "2023-06-15T03:45:00Z" ;
             prov:used [ schema1:instrument [ a schema1:Thing ;
-                            schema1:additionalType "dde:signalGenerator" ;
-                            schema1:name "Passive solar" ] ],
-                [ schema1:instrument [ a schema1:Thing ;
                             schema1:additionalType "dde:equipment" ;
                             schema1:name "Operational Land Imager (OLI)" ] ],
                 [ schema1:instrument [ a schema1:Thing ;
-                            schema1:additionalType "dde:sensorType" ;
-                            schema1:name "Multispectral" ] ],
+                            schema1:additionalType "dde:signalGenerator" ;
+                            schema1:name "Passive solar" ] ],
                 [ schema1:instrument [ a schema1:Thing ;
                             schema1:additionalType "dde:platform" ;
-                            schema1:name "Landsat-8" ] ] ] .
+                            schema1:name "Landsat-8" ] ],
+                [ schema1:instrument [ a schema1:Thing ;
+                            schema1:additionalType "dde:sensorType" ;
+                            schema1:name "Multispectral" ] ] ] .
 
 
 ```
@@ -288,6 +288,7 @@ properties:
       via schema:startTime/schema:endTime.
     items:
       $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifProvActivity/schema.yaml
+    x-jsonld-id: http://www.w3.org/ns/prov#wasGeneratedBy
   schema:additionalProperty:
     type: array
     description: Dataset-level additional properties for imagery resources. Wavelength
@@ -298,6 +299,7 @@ properties:
       - $ref: '#/$defs/WavelengthPV'
       - $ref: '#/$defs/ProcessedLevelPV'
       - $ref: '#/$defs/AdditionalProperty'
+    x-jsonld-id: http://schema.org/additionalProperty
 $defs:
   AdditionalProperty:
     $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.yaml
@@ -313,10 +315,13 @@ $defs:
         contains:
           const: dde:wavelength
         minItems: 1
+        x-jsonld-id: http://schema.org/propertyID
       schema:name:
         type: string
+        x-jsonld-id: http://schema.org/name
       schema:value:
         type: string
+        x-jsonld-id: http://schema.org/value
     required:
     - schema:propertyID
     - schema:name
@@ -332,8 +337,10 @@ $defs:
         contains:
           const: dde:processedLevel
         minItems: 1
+        x-jsonld-id: http://schema.org/propertyID
       schema:name:
         type: string
+        x-jsonld-id: http://schema.org/name
       schema:value:
         type: string
         enum:
@@ -342,6 +349,7 @@ $defs:
         - Level2
         - Level3
         - Level4
+        x-jsonld-id: http://schema.org/value
     required:
     - schema:propertyID
     - schema:name
@@ -367,6 +375,13 @@ Links to the schema:
     "schema": "http://schema.org/",
     "prov": "http://www.w3.org/ns/prov#",
     "nxs": "http://purl.org/nexusformat/definitions/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
+    "cdif": "https://cdif.org/0.1/",
+    "ex": "https://example.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dcat": "http://www.w3.org/ns/dcat#",
     "dde": "https://www.ddeworld.org/resource/",
     "@version": 1.1
   }

@@ -17,6 +17,7 @@ properties:
       via schema:startTime/schema:endTime.
     items:
       $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifProvActivity/schema.yaml
+    x-jsonld-id: http://www.w3.org/ns/prov#wasGeneratedBy
   schema:additionalProperty:
     type: array
     description: Dataset-level additional properties for imagery resources. Wavelength
@@ -27,6 +28,7 @@ properties:
       - $ref: '#/$defs/WavelengthPV'
       - $ref: '#/$defs/ProcessedLevelPV'
       - $ref: '#/$defs/AdditionalProperty'
+    x-jsonld-id: http://schema.org/additionalProperty
 $defs:
   AdditionalProperty:
     $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.yaml
@@ -42,10 +44,13 @@ $defs:
         contains:
           const: dde:wavelength
         minItems: 1
+        x-jsonld-id: http://schema.org/propertyID
       schema:name:
         type: string
+        x-jsonld-id: http://schema.org/name
       schema:value:
         type: string
+        x-jsonld-id: http://schema.org/value
     required:
     - schema:propertyID
     - schema:name
@@ -61,8 +66,10 @@ $defs:
         contains:
           const: dde:processedLevel
         minItems: 1
+        x-jsonld-id: http://schema.org/propertyID
       schema:name:
         type: string
+        x-jsonld-id: http://schema.org/name
       schema:value:
         type: string
         enum:
@@ -71,6 +78,7 @@ $defs:
         - Level2
         - Level3
         - Level4
+        x-jsonld-id: http://schema.org/value
     required:
     - schema:propertyID
     - schema:name
