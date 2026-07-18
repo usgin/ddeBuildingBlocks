@@ -661,10 +661,19 @@ def _scan_inline_refs(node: Any, base_dir: Path, file_to_def: dict,
                 ref_path = (base_dir / ref_file).resolve()
                 if ref_path not in file_to_def and ref_path.exists():
                     def_name = _derive_def_name(ref_path)
-                    # Avoid name collisions
+                    # Avoid name collisions with a different source file. The old
+                    # parent-dir scheme could recompute an identical name (since
+                    # _derive_def_name keys off the parent dir), silently
+                    # overwriting the earlier mapping — e.g. a $def named
+                    # CdifProvActivity pointing at xasGeneratedBy being clobbered
+                    # by the real cdifProvActivity reached transitively. Append a
+                    # numeric suffix until the name is unused.
                     if def_name in global_defs and global_defs[def_name] != ref_path:
-                        # Append parent dir for disambiguation
-                        def_name = _derive_def_name(ref_path.parent.parent / ref_path.parent.name / ref_path.name)
+                        base = def_name
+                        i = 2
+                        while f"{base}_{i}" in global_defs:
+                            i += 1
+                        def_name = f"{base}_{i}"
                     global_defs[def_name] = ref_path
                     file_to_def[ref_path] = def_name
                     _collect_defs_from_bb(ref_path, global_defs, file_to_def, visited)
