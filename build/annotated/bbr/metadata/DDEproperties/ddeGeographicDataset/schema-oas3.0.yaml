@@ -22,17 +22,28 @@ x-defs:
           anyOf:
           - type: string
           - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.spatialExtent/$defs/DefinedTerm
+          - type: object
+            additionalProperties: false
+            required:
+            - '@id'
+            properties:
+              '@id':
+                type: string
+                description: reference to a term defined elsewhere
+        x-jsonld-id: http://schema.org/additionalType
       schema:name:
         description: A place name for the location, either as a string or a DefinedTerm
           from a gazetteer.
         anyOf:
         - type: string
         - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.spatialExtent/$defs/DefinedTerm
+        x-jsonld-id: http://schema.org/name
       schema:identifier:
         description: Formal identifier for this place (e.g. ROR identifier for a facility).
         anyOf:
         - type: string
         - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.spatialExtent/$defs/Identifier
+        x-jsonld-id: http://schema.org/identifier
       schema:alternateName:
         description: Alternate or abbreviated name(s) for this place.
         type: array
@@ -40,6 +51,7 @@ x-defs:
           anyOf:
           - type: string
           - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.spatialExtent/$defs/DefinedTerm
+        x-jsonld-id: http://schema.org/alternateName
       schema:geo:
         description: Either a bounding box or a point location.
         anyOf:
@@ -63,10 +75,12 @@ x-defs:
               type: number
               minimum: -90
               maximum: 90
+              x-jsonld-id: http://schema.org/latitude
             schema:longitude:
               type: number
               minimum: -180
               maximum: 180
+              x-jsonld-id: http://schema.org/longitude
           required:
           - '@type'
           - schema:latitude
@@ -95,6 +109,7 @@ x-defs:
                 be used to separate the latitude and longitude values. The two corner
                 coordinate points are separated by a space. 'East longitude' means
                 positive longitude values are east of the prime (Greenwich) meridian.
+              x-jsonld-id: http://schema.org/box
           required:
           - '@type'
           - schema:box
@@ -119,9 +134,11 @@ x-defs:
                 also separated by a space. ''East longitude'' means positive longitude
                 values are east of the prime (Greenwich) meridian. e.g. ''39.33 120.77
                 40.44 123.96 41.00 121.34'' '
+              x-jsonld-id: http://schema.org/line
           required:
           - '@type'
           - schema:line
+        x-jsonld-id: http://schema.org/geo
       geosparql:hasGeometry:
         type: object
         description: Optional geographic extent using wkt geometry, see Ocean InfoHub
@@ -154,6 +171,9 @@ x-defs:
                 description: a WKT geometry description string, e.g. 'POINT(-76 -18)'
           geosparql:crs:
             type: object
+            required:
+            - '@id'
+            additionalProperties: false
             properties:
               '@id':
                 type: string
@@ -199,20 +219,25 @@ x-defs:
         description: identifier or name for the property concept quantified by the
           values in this variable slot. Multiple values can specify the property at
           different levels of granularity.
+        x-jsonld-id: http://schema.org/propertyID
       schema:name:
         type: string
+        x-jsonld-id: http://schema.org/name
       schema:value:
         anyOf:
         - type: string
         - type: number
         - type: boolean
         - type: object
+        x-jsonld-id: http://schema.org/value
       schema:unitCode:
         anyOf:
         - type: string
         - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/DefinedTerm
+        x-jsonld-id: http://schema.org/unitCode
       schema:unitText:
         type: string
+        x-jsonld-id: http://schema.org/unitText
     required:
     - schema:name
     - schema:value
@@ -223,18 +248,20 @@ x-defs:
         anyOf:
         - type: string
         - type: object
+          required:
+          - '@id'
+          additionalProperties: false
           properties:
             '@id':
               type: string
         - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/DefinedTerm
     x-jsonld-prefixes:
       schema: http://schema.org/
-      nxs: http://purl.org/nexusformat/definitions/
+      nxs: https://manual.nexusformat.org/classes/
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.identifier:
     description: 'Properties for a schema.org identifier (schema:PropertyValue pattern).
-
 
       **Union-type policy:** In CDIF profile UML models an attribute typed as
 
@@ -260,19 +287,32 @@ x-defs:
           - schema:PropertyValue
         minItems: 1
       schema:propertyID:
-        type: string
+        anyOf:
+        - type: string
+        - type: object
+          additionalProperties: false
+          required:
+          - '@id'
+          properties:
+            '@id':
+              type: string
         description: In this context for the schema:PropertyValue, this field is an
           identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/
-          for interoperability
+          for interoperability. URI-shape values MUST be serialized as JSON-LD IRI
+          references ({"@id":"..."}) so they participate in RDF entailment; free-label
+          strings remain valid as strings.
+        x-jsonld-id: http://schema.org/propertyID
       schema:value:
         type: string
         description: the identifier string. E.g. 10.5066/F7VX0DMQ
+        x-jsonld-id: http://schema.org/value
       schema:url:
         type: string
         format: uri
         description: 'web-resolveable string for the identifier; host name part is
           location of a resolver that will return some representation for the given
           identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ '
+        x-jsonld-id: http://schema.org/url
     allOf:
     - required:
       - '@type'
@@ -310,17 +350,35 @@ x-defs:
       schema:name:
         type: string
         description: text label for the term that is useful to human user
+        x-jsonld-id: http://schema.org/name
       schema:identifier:
         anyOf:
         - type: string
         - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier
+        x-jsonld-id: http://schema.org/identifier
       schema:inDefinedTermSet:
-        type: string
-        description: Name for the controlled vocabulary responsible for this keyword.
+        description: 'The controlled vocabulary responsible for this keyword, as EITHER
+          a plain URI string identifying the vocabulary, OR an object reference ({"@id":
+          "<uri>"}) to a vocabulary defined elsewhere in the document. Both forms
+          are already in use across CDIF profiles and downstream ADA building blocks;
+          permitting only the string form made the object form - the natural JSON-LD
+          spelling of a reference - invalid, while this class''s own union-type policy
+          above explicitly anticipates both.'
+        anyOf:
+        - type: string
+        - type: object
+          required:
+          - '@id'
+          additionalProperties: false
+          properties:
+            '@id':
+              type: string
+        x-jsonld-id: http://schema.org/inDefinedTermSet
       schema:termCode:
         type: string
         description: A representative code for this keyword in the controlled vocabulary.
           Analogous to skos:Notation
+        x-jsonld-id: http://schema.org/termCode
     allOf:
     - required:
       - '@type'

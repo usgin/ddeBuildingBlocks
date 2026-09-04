@@ -1,3 +1,4 @@
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix schema1: <http://schema.org/> .
@@ -56,25 +57,29 @@
                             schema1:name "USGS / NASA" ] ;
                     schema1:roleName "DataCollector" ] ;
             schema1:startTime "2023-06-15T03:45:00Z" ;
-            prov:used [ schema1:instrument [ a schema1:Thing ;
+            prov:used [ schema1:instrument [ a schema1:Product,
+                                schema1:Thing ;
                             schema1:additionalType "dde:sensorType" ;
                             schema1:name "Multispectral" ] ],
-                [ schema1:instrument [ a schema1:Thing ;
+                [ schema1:instrument [ a schema1:Product,
+                                schema1:Thing ;
+                            schema1:additionalType "dde:equipment" ;
+                            schema1:name "Operational Land Imager (OLI)" ] ],
+                [ schema1:instrument [ a schema1:Product,
+                                schema1:Thing ;
                             schema1:additionalType "dde:signalGenerator" ;
                             schema1:name "Passive solar" ] ],
-                [ schema1:instrument [ a schema1:Thing ;
+                [ schema1:instrument [ a schema1:Product,
+                                schema1:Thing ;
                             schema1:additionalType "dde:platform" ;
-                            schema1:name "Landsat-8" ] ],
-                [ schema1:instrument [ a schema1:Thing ;
-                            schema1:additionalType "dde:equipment" ;
-                            schema1:name "Operational Land Imager (OLI)" ] ] ] .
+                            schema1:name "Landsat-8" ] ] ] .
 
 <urn:uuid:dde-image-catalog-record> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEImage>,
-        <https://w3id.org/cdif/core/1.0/>,
-        <https://w3id.org/cdif/discovery/1.0/> ;
+        <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about <urn:dde:example-landsat8-tibet> ;
-    schema1:additionalType "dcat:CatalogRecord" ;
+    schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2023-07-01" .
 

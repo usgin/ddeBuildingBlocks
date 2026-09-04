@@ -56,11 +56,7 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "Creative Commons Attribution 4.0",
-      "schema:url": "https://creativecommons.org/licenses/by/4.0/"
+      "@id": "https://creativecommons.org/licenses/by/4.0/"
     }
   ],
   "schema:url": "https://stratigraphy.org/chart",
@@ -70,17 +66,19 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:dde:example-chronostrat-chart"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESemanticResource"
@@ -232,11 +230,7 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "Creative Commons Attribution 4.0",
-      "schema:url": "https://creativecommons.org/licenses/by/4.0/"
+      "@id": "https://creativecommons.org/licenses/by/4.0/"
     }
   ],
   "schema:url": "https://stratigraphy.org/chart",
@@ -246,17 +240,19 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:dde:example-chronostrat-chart"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESemanticResource"
@@ -367,6 +363,7 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
 
 #### ttl
 ```ttl
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix schema1: <http://schema.org/> .
@@ -387,15 +384,15 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
     schema1:description "The International Chronostratigraphic Chart maintained by the International Commission on Stratigraphy (ICS). Defines the global standard nomenclature and boundary ages for geological time divisions (Eonothems/Eons, Erathems/Eras, Systems/Periods, Series/Epochs, Stages/Ages). Published as a controlled vocabulary with SKOS concept scheme encoding." ;
     schema1:distribution [ a schema1:DataDownload ;
             dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
-            schema1:contentUrl "https://stratigraphy.org/ICSchart/ChronostratChart2024-12.pdf" ;
-            schema1:encodingFormat "application/pdf" ;
-            schema1:name "Chronostratigraphic Chart PDF" ],
-        [ a schema1:DataDownload ;
-            dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
             schema1:contentUrl "https://resource.geosciml.org/classifierscheme/ics/ischart" ;
             schema1:description "Machine-readable SKOS concept scheme for geological time divisions" ;
             schema1:encodingFormat "application/rdf+xml" ;
-            schema1:name "Geological Time Scale RDF/SKOS" ] ;
+            schema1:name "Geological Time Scale RDF/SKOS" ],
+        [ a schema1:DataDownload ;
+            dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
+            schema1:contentUrl "https://stratigraphy.org/ICSchart/ChronostratChart2024-12.pdf" ;
+            schema1:encodingFormat "application/pdf" ;
+            schema1:name "Chronostratigraphic Chart PDF" ] ;
     schema1:identifier [ a schema1:PropertyValue ;
             schema1:name "DOI" ;
             schema1:propertyID "schema:identifier" ;
@@ -407,21 +404,19 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
             schema1:name "chart thumbnail" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Data Integration Synthesis" ;
             schema1:termCode "dataIntegrationSynthesis" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "ICS",
         "chronostratigraphy",
         "geological time",
         "stratigraphy",
         "vocabulary" ;
-    schema1:license [ a schema1:CreativeWork ;
-            schema1:name "Creative Commons Attribution 4.0" ;
-            schema1:url "https://creativecommons.org/licenses/by/4.0/" ] ;
+    schema1:license <https://creativecommons.org/licenses/by/4.0/> ;
     schema1:name "International Chronostratigraphic Chart v2024/12" ;
     schema1:subjectOf <urn:uuid:dde-semres-catalog-record> ;
     schema1:url "https://stratigraphy.org/chart" ;
@@ -430,10 +425,10 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
 <urn:uuid:dde-semres-catalog-record> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESemanticResource>,
-        <https://w3id.org/cdif/core/1.0/>,
-        <https://w3id.org/cdif/discovery/1.0/> ;
+        <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about <urn:dde:example-chronostrat-chart> ;
-    schema1:additionalType "dcat:CatalogRecord" ;
+    schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2024-12-01" .
 
 
@@ -498,7 +493,7 @@ Links to the schema:
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
-    "cdif": "https://cdif.org/0.1/",
+    "cdif": "https://w3id.org/cdif/",
     "ex": "https://example.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",

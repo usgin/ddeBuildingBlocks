@@ -27,13 +27,25 @@ Import base cdifCatalogRecord, add requirement that dcterms:conformsTo has ddeCo
         "dcat": "http://www.w3.org/ns/dcat#"
     },
     "@id": "urn:uuid:example-dde-catalog-record",
-    "@type": ["schema:Dataset"],
-    "schema:additionalType": ["dcat:CatalogRecord"],
-    "schema:about": {"@id": "https://example.org/dataset/geo-dataset-001"},
+    "@type": [
+        "schema:Dataset"
+    ],
+    "schema:additionalType": [
+        {
+            "@id": "dcat:CatalogRecord"
+        }
+    ],
+    "schema:about": {
+        "@id": "https://example.org/dataset/geo-dataset-001"
+    },
     "schema:dateModified": "2026-02-28",
     "dcterms:conformsTo": [
-        {"@id": "https://w3id.org/cdif/core/1.0/"},
-        {"@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"}
+        {
+            "@id": "https://w3id.org/cdif/core/1.1"
+        },
+        {
+            "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
+        }
     ],
     "schema:sdDatePublished": "2026-02-28"
 }
@@ -60,7 +72,9 @@ Import base cdifCatalogRecord, add requirement that dcterms:conformsTo has ddeCo
     "schema:Dataset"
   ],
   "schema:additionalType": [
-    "dcat:CatalogRecord"
+    {
+      "@id": "dcat:CatalogRecord"
+    }
   ],
   "schema:about": {
     "@id": "https://example.org/dataset/geo-dataset-001"
@@ -68,7 +82,7 @@ Import base cdifCatalogRecord, add requirement that dcterms:conformsTo has ddeCo
   "schema:dateModified": "2026-02-28",
   "dcterms:conformsTo": [
     {
-      "@id": "https://w3id.org/cdif/core/1.0/"
+      "@id": "https://w3id.org/cdif/core/1.1"
     },
     {
       "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
@@ -80,14 +94,15 @@ Import base cdifCatalogRecord, add requirement that dcterms:conformsTo has ddeCo
 
 #### ttl
 ```ttl
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix schema1: <http://schema.org/> .
 
 <urn:uuid:example-dde-catalog-record> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
-        <https://w3id.org/cdif/core/1.0/> ;
+        <https://w3id.org/cdif/core/1.1> ;
     schema1:about <https://example.org/dataset/geo-dataset-001> ;
-    schema1:additionalType "dcat:CatalogRecord" ;
+    schema1:additionalType dcat:CatalogRecord ;
     schema1:dateModified "2026-02-28" ;
     schema1:sdDatePublished "2026-02-28" .
 
@@ -100,7 +115,7 @@ Import base cdifCatalogRecord, add requirement that dcterms:conformsTo has ddeCo
 $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 allOf:
-- $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifCatalogRecord/schema.yaml
+- $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifCatalogRecord/schema.yaml
 - properties:
     dcterms:conformsTo:
       type: array

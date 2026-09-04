@@ -48,11 +48,7 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "Creative Commons Attribution 4.0",
-      "schema:url": "https://creativecommons.org/licenses/by/4.0/"
+      "@id": "https://creativecommons.org/licenses/by/4.0/"
     }
   ],
   "schema:url": "https://deep-time.org/geological-time/",
@@ -62,17 +58,19 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:dde:example-geological-time-viewer"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource"
@@ -196,11 +194,7 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "Creative Commons Attribution 4.0",
-      "schema:url": "https://creativecommons.org/licenses/by/4.0/"
+      "@id": "https://creativecommons.org/licenses/by/4.0/"
     }
   ],
   "schema:url": "https://deep-time.org/geological-time/",
@@ -210,17 +204,19 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:dde:example-geological-time-viewer"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource"
@@ -312,6 +308,7 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
 
 #### ttl
 ```ttl
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix schema1: <http://schema.org/> .
@@ -319,12 +316,12 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
 <urn:dde:example-geological-time-viewer> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Software" ;
-            schema1:termCode "software" ],
+            schema1:name "Web Application" ;
+            schema1:termCode "webApplication" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Web Application" ;
-            schema1:termCode "webApplication" ] ;
+            schema1:name "Software" ;
+            schema1:termCode "software" ] ;
     schema1:creator ( [ a schema1:Organization ;
                 schema1:name "Deep-time Digital Earth (DDE)" ;
                 schema1:url "https://www.ddeworld.org/" ] ) ;
@@ -337,20 +334,18 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
             schema1:name "Geological Time Viewer screenshot" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Data Integration Synthesis" ;
-            schema1:termCode "dataIntegrationSynthesis" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Data Integration Synthesis" ;
+            schema1:termCode "dataIntegrationSynthesis" ],
         "ICS",
         "chronostratigraphy",
         "geological time",
         "stratigraphy" ;
-    schema1:license [ a schema1:CreativeWork ;
-            schema1:name "Creative Commons Attribution 4.0" ;
-            schema1:url "https://creativecommons.org/licenses/by/4.0/" ] ;
+    schema1:license <https://creativecommons.org/licenses/by/4.0/> ;
     schema1:name "DDE Geological Time Visualization Application" ;
     schema1:relatedLink [ a schema1:LinkRole ;
             schema1:linkRelationship "implementationSoftware" ] ;
@@ -360,10 +355,10 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
 <urn:uuid:dde-funcres-catalog-record> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource>,
-        <https://w3id.org/cdif/core/1.0/>,
-        <https://w3id.org/cdif/discovery/1.0/> ;
+        <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about <urn:dde:example-geological-time-viewer> ;
-    schema1:additionalType "dcat:CatalogRecord" ;
+    schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2024-09-01" .
 
 
@@ -442,7 +437,7 @@ Links to the schema:
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
-    "cdif": "https://cdif.org/0.1/",
+    "cdif": "https://w3id.org/cdif/",
     "ex": "https://example.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",

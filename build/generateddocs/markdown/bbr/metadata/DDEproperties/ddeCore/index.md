@@ -34,7 +34,8 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
     "cdif": "https://cdif.org/profile/",
     "dcterms": "http://purl.org/dc/terms/",
     "dcat": "http://www.w3.org/ns/dcat#",
-    "spdx": "http://spdx.org/rdf/terms#"
+    "spdx": "http://spdx.org/rdf/terms#",
+    "prov": "http://www.w3.org/ns/prov#"
   },
   "@id": "https://doi.org/23609/53w7klh",
   "@type": [
@@ -52,11 +53,7 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
   "schema:dateModified": "2016-04-14",
   "schema:license": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "Creative Commons CC0 1.0 Universal",
-      "schema:url": "https://creativecommons.org/publicdomain/zero/1.0/"
+      "@id": "https://creativecommons.org/publicdomain/zero/1.0/"
     }
   ],
   "schema:url": "https://hdl.handle.net/10150/630741",
@@ -66,17 +63,19 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "https://doi.org/23609/53w7klh"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
@@ -163,7 +162,8 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
       "cdif": "https://cdif.org/profile/",
       "dcterms": "http://purl.org/dc/terms/",
       "dcat": "http://www.w3.org/ns/dcat#",
-      "spdx": "http://spdx.org/rdf/terms#"
+      "spdx": "http://spdx.org/rdf/terms#",
+      "prov": "http://www.w3.org/ns/prov#"
     }
   ],
   "@id": "https://doi.org/23609/53w7klh",
@@ -182,11 +182,7 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
   "schema:dateModified": "2016-04-14",
   "schema:license": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "Creative Commons CC0 1.0 Universal",
-      "schema:url": "https://creativecommons.org/publicdomain/zero/1.0/"
+      "@id": "https://creativecommons.org/publicdomain/zero/1.0/"
     }
   ],
   "schema:url": "https://hdl.handle.net/10150/630741",
@@ -196,17 +192,19 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "https://doi.org/23609/53w7klh"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
@@ -277,6 +275,7 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
 
 #### ttl
 ```ttl
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix schema1: <http://schema.org/> .
 
@@ -291,18 +290,14 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
             schema1:url "https://doi.org/23609/53w7klh" ;
             schema1:value "doi:23609/53w7klh" ] ;
     schema1:image [ a schema1:ImageObject ;
-            schema1:contentUrl "http://azgs.az.gov/repository/browse/2222.jpg" ;
-            schema1:encodingFormat "image/png" ;
-            schema1:name "Another map of Arizona" ],
-        [ a schema1:ImageObject ;
             schema1:contentUrl "http://azgs.az.gov/repository/browse/3757.jpg" ;
             schema1:encodingFormat "application/xml" ;
-            schema1:name "Quick view lithostratigraphic map of Arizona" ] ;
+            schema1:name "Quick view lithostratigraphic map of Arizona" ],
+        [ a schema1:ImageObject ;
+            schema1:contentUrl "http://azgs.az.gov/repository/browse/2222.jpg" ;
+            schema1:encodingFormat "image/png" ;
+            schema1:name "Another map of Arizona" ] ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Digital Conversion from Published Source" ;
-            schema1:termCode "digitalConversionFromPublishedSource" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
@@ -310,23 +305,25 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Synthesis from Multiple Sources" ;
             schema1:termCode "synthesisFromMultipleSources" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Digital Conversion from Published Source" ;
+            schema1:termCode "digitalConversionFromPublishedSource" ],
         "Arizona",
         "Geologic Map",
         "Geology",
         "United States" ;
-    schema1:license [ a schema1:CreativeWork ;
-            schema1:name "Creative Commons CC0 1.0 Universal" ;
-            schema1:url "https://creativecommons.org/publicdomain/zero/1.0/" ] ;
+    schema1:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
     schema1:name "US-AZ_AZGS_1M_Lithostratigraphy" ;
     schema1:subjectOf <urn:uuid:c98705ae-058a-43fb-85a2-7b5209d9a4b3> ;
     schema1:url "https://hdl.handle.net/10150/630741" .
 
 <urn:uuid:c98705ae-058a-43fb-85a2-7b5209d9a4b3> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
-        <https://w3id.org/cdif/core/1.0/>,
-        <https://w3id.org/cdif/discovery/1.0/> ;
+        <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about <https://doi.org/23609/53w7klh> ;
-    schema1:additionalType "dcat:CatalogRecord" ;
+    schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2017-04-24" .
 
 
@@ -427,7 +424,7 @@ allOf:
   - schema:image
 $defs:
   CdifMandatory:
-    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifCore/schema.yaml
+    $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/profiles/cdifProfile/cdifCore/schema.yaml
   DefinedTerm:
     $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml
   DdeCatalogRecord:
@@ -453,7 +450,7 @@ Links to the schema:
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
-    "cdif": "https://cdif.org/0.1/",
+    "cdif": "https://w3id.org/cdif/",
     "ex": "https://example.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",

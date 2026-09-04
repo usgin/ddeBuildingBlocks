@@ -48,11 +48,7 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "GNU General Public License v2.0",
-      "schema:url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+      "@id": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
     }
   ],
   "schema:url": "https://www.gplates.org/",
@@ -62,17 +58,19 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:dde:example-gplates"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware"
@@ -187,11 +185,7 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "GNU General Public License v2.0",
-      "schema:url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+      "@id": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
     }
   ],
   "schema:url": "https://www.gplates.org/",
@@ -201,17 +195,19 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:dde:example-gplates"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware"
@@ -293,6 +289,7 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
 
 #### ttl
 ```ttl
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix schema1: <http://schema.org/> .
@@ -330,9 +327,7 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
         "paleogeography",
         "plate reconstruction",
         "plate tectonics" ;
-    schema1:license [ a schema1:CreativeWork ;
-            schema1:name "GNU General Public License v2.0" ;
-            schema1:url "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" ] ;
+    schema1:license <https://www.gnu.org/licenses/old-licenses/gpl-2.0.html> ;
     schema1:name "GPlates Plate Reconstruction Software" ;
     schema1:subjectOf <urn:uuid:dde-software-catalog-record> ;
     schema1:url "https://www.gplates.org/" ;
@@ -341,10 +336,10 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
 <urn:uuid:dde-software-catalog-record> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware>,
-        <https://w3id.org/cdif/core/1.0/>,
-        <https://w3id.org/cdif/discovery/1.0/> ;
+        <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about <urn:dde:example-gplates> ;
-    schema1:additionalType "dcat:CatalogRecord" ;
+    schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2024-01-20" .
 
 
@@ -408,7 +403,7 @@ Links to the schema:
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
-    "cdif": "https://cdif.org/0.1/",
+    "cdif": "https://w3id.org/cdif/",
     "ex": "https://example.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",

@@ -57,17 +57,19 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:dde:example-landsat8-tibet"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEImage"
@@ -157,40 +159,60 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
       "schema:endTime": "2023-06-15T03:45:12Z",
       "prov:used": [
         {
-          "schema:instrument": {
-            "@type": [
-              "schema:Thing"
-            ],
-            "schema:name": "Multispectral",
-            "schema:additionalType": "dde:sensorType"
-          }
+          "schema:instrument": [
+            {
+              "@type": [
+                "schema:Product",
+                "schema:Thing"
+              ],
+              "schema:name": "Multispectral",
+              "schema:additionalType": [
+                "dde:sensorType"
+              ]
+            }
+          ]
         },
         {
-          "schema:instrument": {
-            "@type": [
-              "schema:Thing"
-            ],
-            "schema:name": "Landsat-8",
-            "schema:additionalType": "dde:platform"
-          }
+          "schema:instrument": [
+            {
+              "@type": [
+                "schema:Product",
+                "schema:Thing"
+              ],
+              "schema:name": "Landsat-8",
+              "schema:additionalType": [
+                "dde:platform"
+              ]
+            }
+          ]
         },
         {
-          "schema:instrument": {
-            "@type": [
-              "schema:Thing"
-            ],
-            "schema:name": "Operational Land Imager (OLI)",
-            "schema:additionalType": "dde:equipment"
-          }
+          "schema:instrument": [
+            {
+              "@type": [
+                "schema:Product",
+                "schema:Thing"
+              ],
+              "schema:name": "Operational Land Imager (OLI)",
+              "schema:additionalType": [
+                "dde:equipment"
+              ]
+            }
+          ]
         },
         {
-          "schema:instrument": {
-            "@type": [
-              "schema:Thing"
-            ],
-            "schema:name": "Passive solar",
-            "schema:additionalType": "dde:signalGenerator"
-          }
+          "schema:instrument": [
+            {
+              "@type": [
+                "schema:Product",
+                "schema:Thing"
+              ],
+              "schema:name": "Passive solar",
+              "schema:additionalType": [
+                "dde:signalGenerator"
+              ]
+            }
+          ]
         }
       ],
       "schema:participant": [
@@ -278,17 +300,19 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:dde:example-landsat8-tibet"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEImage"
@@ -378,40 +402,60 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
       "schema:endTime": "2023-06-15T03:45:12Z",
       "prov:used": [
         {
-          "schema:instrument": {
-            "@type": [
-              "schema:Thing"
-            ],
-            "schema:name": "Multispectral",
-            "schema:additionalType": "dde:sensorType"
-          }
+          "schema:instrument": [
+            {
+              "@type": [
+                "schema:Product",
+                "schema:Thing"
+              ],
+              "schema:name": "Multispectral",
+              "schema:additionalType": [
+                "dde:sensorType"
+              ]
+            }
+          ]
         },
         {
-          "schema:instrument": {
-            "@type": [
-              "schema:Thing"
-            ],
-            "schema:name": "Landsat-8",
-            "schema:additionalType": "dde:platform"
-          }
+          "schema:instrument": [
+            {
+              "@type": [
+                "schema:Product",
+                "schema:Thing"
+              ],
+              "schema:name": "Landsat-8",
+              "schema:additionalType": [
+                "dde:platform"
+              ]
+            }
+          ]
         },
         {
-          "schema:instrument": {
-            "@type": [
-              "schema:Thing"
-            ],
-            "schema:name": "Operational Land Imager (OLI)",
-            "schema:additionalType": "dde:equipment"
-          }
+          "schema:instrument": [
+            {
+              "@type": [
+                "schema:Product",
+                "schema:Thing"
+              ],
+              "schema:name": "Operational Land Imager (OLI)",
+              "schema:additionalType": [
+                "dde:equipment"
+              ]
+            }
+          ]
         },
         {
-          "schema:instrument": {
-            "@type": [
-              "schema:Thing"
-            ],
-            "schema:name": "Passive solar",
-            "schema:additionalType": "dde:signalGenerator"
-          }
+          "schema:instrument": [
+            {
+              "@type": [
+                "schema:Product",
+                "schema:Thing"
+              ],
+              "schema:name": "Passive solar",
+              "schema:additionalType": [
+                "dde:signalGenerator"
+              ]
+            }
+          ]
         }
       ],
       "schema:participant": [
@@ -457,6 +501,7 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
 
 #### ttl
 ```ttl
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix schema1: <http://schema.org/> .
@@ -515,26 +560,30 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
                             schema1:name "USGS / NASA" ] ;
                     schema1:roleName "DataCollector" ] ;
             schema1:startTime "2023-06-15T03:45:00Z" ;
-            prov:used [ schema1:instrument [ a schema1:Thing ;
+            prov:used [ schema1:instrument [ a schema1:Product,
+                                schema1:Thing ;
                             schema1:additionalType "dde:sensorType" ;
                             schema1:name "Multispectral" ] ],
-                [ schema1:instrument [ a schema1:Thing ;
+                [ schema1:instrument [ a schema1:Product,
+                                schema1:Thing ;
+                            schema1:additionalType "dde:equipment" ;
+                            schema1:name "Operational Land Imager (OLI)" ] ],
+                [ schema1:instrument [ a schema1:Product,
+                                schema1:Thing ;
                             schema1:additionalType "dde:signalGenerator" ;
                             schema1:name "Passive solar" ] ],
-                [ schema1:instrument [ a schema1:Thing ;
+                [ schema1:instrument [ a schema1:Product,
+                                schema1:Thing ;
                             schema1:additionalType "dde:platform" ;
-                            schema1:name "Landsat-8" ] ],
-                [ schema1:instrument [ a schema1:Thing ;
-                            schema1:additionalType "dde:equipment" ;
-                            schema1:name "Operational Land Imager (OLI)" ] ] ] .
+                            schema1:name "Landsat-8" ] ] ] .
 
 <urn:uuid:dde-image-catalog-record> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEImage>,
-        <https://w3id.org/cdif/core/1.0/>,
-        <https://w3id.org/cdif/discovery/1.0/> ;
+        <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about <urn:dde:example-landsat8-tibet> ;
-    schema1:additionalType "dcat:CatalogRecord" ;
+    schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2023-07-01" .
 
 
@@ -657,7 +706,7 @@ Links to the schema:
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
-    "cdif": "https://cdif.org/0.1/",
+    "cdif": "https://w3id.org/cdif/",
     "ex": "https://example.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
@@ -668,7 +717,8 @@ Links to the schema:
     "spdx": "http://spdx.org/rdf/terms#",
     "time": "http://www.w3.org/2006/time#",
     "dqv": "http://www.w3.org/ns/dqv#",
-    "nxs": "http://purl.org/nexusformat/definitions/",
+    "wd": "https://www.wikidata.org/entity/",
+    "nxs": "https://manual.nexusformat.org/classes/",
     "@version": 1.1
   }
 }

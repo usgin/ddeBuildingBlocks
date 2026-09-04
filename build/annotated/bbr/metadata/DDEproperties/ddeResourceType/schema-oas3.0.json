@@ -18,7 +18,8 @@
         },
         "schema:name": {
           "type": "string",
-          "description": "text label for the term that is useful to human user"
+          "description": "text label for the term that is useful to human user",
+          "x-jsonld-id": "http://schema.org/name"
         },
         "schema:identifier": {
           "anyOf": [
@@ -28,15 +29,34 @@
             {
               "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier"
             }
-          ]
+          ],
+          "x-jsonld-id": "http://schema.org/identifier"
         },
         "schema:inDefinedTermSet": {
-          "type": "string",
-          "description": "Name for the controlled vocabulary responsible for this keyword."
+          "description": "The controlled vocabulary responsible for this keyword, as EITHER a plain URI string identifying the vocabulary, OR an object reference ({\"@id\": \"<uri>\"}) to a vocabulary defined elsewhere in the document. Both forms are already in use across CDIF profiles and downstream ADA building blocks; permitting only the string form made the object form - the natural JSON-LD spelling of a reference - invalid, while this class's own union-type policy above explicitly anticipates both.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "required": [
+                "@id"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "@id": {
+                  "type": "string"
+                }
+              }
+            }
+          ],
+          "x-jsonld-id": "http://schema.org/inDefinedTermSet"
         },
         "schema:termCode": {
           "type": "string",
-          "description": "A representative code for this keyword in the controlled vocabulary. Analogous to skos:Notation"
+          "description": "A representative code for this keyword in the controlled vocabulary. Analogous to skos:Notation",
+          "x-jsonld-id": "http://schema.org/termCode"
         }
       },
       "allOf": [
@@ -72,7 +92,7 @@
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.schemaorgProperties.identifier": {
-      "description": "Properties for a schema.org identifier (schema:PropertyValue pattern).\n\n**Union-type policy:** In CDIF profile UML models an attribute typed as\nschema:Identifier / schema:PropertyValue is represented by a single attribute\nof that class type. The JSON Schema implementation permits the property value\nto be EITHER a plain string (interpreted as the bare identifier value) OR a\nfull schema:PropertyValue object (with explicit @type, propertyID, value).\nConsumers should accept either form.\n",
+      "description": "Properties for a schema.org identifier (schema:PropertyValue pattern).\n**Union-type policy:** In CDIF profile UML models an attribute typed as\nschema:Identifier / schema:PropertyValue is represented by a single attribute\nof that class type. The JSON Schema implementation permits the property value\nto be EITHER a plain string (interpreted as the bare identifier value) OR a\nfull schema:PropertyValue object (with explicit @type, propertyID, value).\nConsumers should accept either form.\n",
       "type": "object",
       "properties": {
         "@type": {
@@ -88,17 +108,36 @@
           "minItems": 1
         },
         "schema:propertyID": {
-          "type": "string",
-          "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "@id"
+              ],
+              "properties": {
+                "@id": {
+                  "type": "string"
+                }
+              }
+            }
+          ],
+          "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings.",
+          "x-jsonld-id": "http://schema.org/propertyID"
         },
         "schema:value": {
           "type": "string",
-          "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
+          "description": "the identifier string. E.g. 10.5066/F7VX0DMQ",
+          "x-jsonld-id": "http://schema.org/value"
         },
         "schema:url": {
           "type": "string",
           "format": "uri",
-          "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
+          "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ ",
+          "x-jsonld-id": "http://schema.org/url"
         }
       },
       "allOf": [

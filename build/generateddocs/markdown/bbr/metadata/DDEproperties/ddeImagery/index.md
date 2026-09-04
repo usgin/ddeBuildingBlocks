@@ -52,40 +52,60 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
       "schema:endTime": "2023-06-15T03:45:12Z",
       "prov:used": [
         {
-          "schema:instrument": {
-            "@type": [
-              "schema:Thing"
-            ],
-            "schema:name": "Multispectral",
-            "schema:additionalType": "dde:sensorType"
-          }
+          "schema:instrument": [
+            {
+              "@type": [
+                "schema:Product",
+                "schema:Thing"
+              ],
+              "schema:name": "Multispectral",
+              "schema:additionalType": [
+                "dde:sensorType"
+              ]
+            }
+          ]
         },
         {
-          "schema:instrument": {
-            "@type": [
-              "schema:Thing"
-            ],
-            "schema:name": "Landsat-8",
-            "schema:additionalType": "dde:platform"
-          }
+          "schema:instrument": [
+            {
+              "@type": [
+                "schema:Product",
+                "schema:Thing"
+              ],
+              "schema:name": "Landsat-8",
+              "schema:additionalType": [
+                "dde:platform"
+              ]
+            }
+          ]
         },
         {
-          "schema:instrument": {
-            "@type": [
-              "schema:Thing"
-            ],
-            "schema:name": "Operational Land Imager (OLI)",
-            "schema:additionalType": "dde:equipment"
-          }
+          "schema:instrument": [
+            {
+              "@type": [
+                "schema:Product",
+                "schema:Thing"
+              ],
+              "schema:name": "Operational Land Imager (OLI)",
+              "schema:additionalType": [
+                "dde:equipment"
+              ]
+            }
+          ]
         },
         {
-          "schema:instrument": {
-            "@type": [
-              "schema:Thing"
-            ],
-            "schema:name": "Passive solar",
-            "schema:additionalType": "dde:signalGenerator"
-          }
+          "schema:instrument": [
+            {
+              "@type": [
+                "schema:Product",
+                "schema:Thing"
+              ],
+              "schema:name": "Passive solar",
+              "schema:additionalType": [
+                "dde:signalGenerator"
+              ]
+            }
+          ]
         }
       ],
       "schema:participant": [
@@ -151,40 +171,60 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
       "schema:endTime": "2023-06-15T03:45:12Z",
       "prov:used": [
         {
-          "schema:instrument": {
-            "@type": [
-              "schema:Thing"
-            ],
-            "schema:name": "Multispectral",
-            "schema:additionalType": "dde:sensorType"
-          }
+          "schema:instrument": [
+            {
+              "@type": [
+                "schema:Product",
+                "schema:Thing"
+              ],
+              "schema:name": "Multispectral",
+              "schema:additionalType": [
+                "dde:sensorType"
+              ]
+            }
+          ]
         },
         {
-          "schema:instrument": {
-            "@type": [
-              "schema:Thing"
-            ],
-            "schema:name": "Landsat-8",
-            "schema:additionalType": "dde:platform"
-          }
+          "schema:instrument": [
+            {
+              "@type": [
+                "schema:Product",
+                "schema:Thing"
+              ],
+              "schema:name": "Landsat-8",
+              "schema:additionalType": [
+                "dde:platform"
+              ]
+            }
+          ]
         },
         {
-          "schema:instrument": {
-            "@type": [
-              "schema:Thing"
-            ],
-            "schema:name": "Operational Land Imager (OLI)",
-            "schema:additionalType": "dde:equipment"
-          }
+          "schema:instrument": [
+            {
+              "@type": [
+                "schema:Product",
+                "schema:Thing"
+              ],
+              "schema:name": "Operational Land Imager (OLI)",
+              "schema:additionalType": [
+                "dde:equipment"
+              ]
+            }
+          ]
         },
         {
-          "schema:instrument": {
-            "@type": [
-              "schema:Thing"
-            ],
-            "schema:name": "Passive solar",
-            "schema:additionalType": "dde:signalGenerator"
-          }
+          "schema:instrument": [
+            {
+              "@type": [
+                "schema:Product",
+                "schema:Thing"
+              ],
+              "schema:name": "Passive solar",
+              "schema:additionalType": [
+                "dde:signalGenerator"
+              ]
+            }
+          ]
         }
       ],
       "schema:participant": [
@@ -250,18 +290,22 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
                             schema1:name "USGS / NASA" ] ;
                     schema1:roleName "DataCollector" ] ;
             schema1:startTime "2023-06-15T03:45:00Z" ;
-            prov:used [ schema1:instrument [ a schema1:Thing ;
-                            schema1:additionalType "dde:equipment" ;
-                            schema1:name "Operational Land Imager (OLI)" ] ],
-                [ schema1:instrument [ a schema1:Thing ;
+            prov:used [ schema1:instrument [ a schema1:Product,
+                                schema1:Thing ;
                             schema1:additionalType "dde:signalGenerator" ;
                             schema1:name "Passive solar" ] ],
-                [ schema1:instrument [ a schema1:Thing ;
-                            schema1:additionalType "dde:platform" ;
-                            schema1:name "Landsat-8" ] ],
-                [ schema1:instrument [ a schema1:Thing ;
+                [ schema1:instrument [ a schema1:Product,
+                                schema1:Thing ;
+                            schema1:additionalType "dde:equipment" ;
+                            schema1:name "Operational Land Imager (OLI)" ] ],
+                [ schema1:instrument [ a schema1:Product,
+                                schema1:Thing ;
                             schema1:additionalType "dde:sensorType" ;
-                            schema1:name "Multispectral" ] ] ] .
+                            schema1:name "Multispectral" ] ],
+                [ schema1:instrument [ a schema1:Product,
+                                schema1:Thing ;
+                            schema1:additionalType "dde:platform" ;
+                            schema1:name "Landsat-8" ] ] ] .
 
 
 ```
@@ -287,7 +331,7 @@ properties:
       a data collector via schema:participant as an agentInRole, and temporal bounds
       via schema:startTime/schema:endTime.
     items:
-      $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifProvActivity/schema.yaml
+      $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifProvActivity/schema.yaml
     x-jsonld-id: http://www.w3.org/ns/prov#wasGeneratedBy
   schema:additionalProperty:
     type: array
@@ -374,10 +418,11 @@ Links to the schema:
   "@context": {
     "schema": "http://schema.org/",
     "prov": "http://www.w3.org/ns/prov#",
-    "nxs": "http://purl.org/nexusformat/definitions/",
+    "wd": "https://www.wikidata.org/entity/",
+    "nxs": "https://manual.nexusformat.org/classes/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
-    "cdif": "https://cdif.org/0.1/",
+    "cdif": "https://w3id.org/cdif/",
     "ex": "https://example.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",

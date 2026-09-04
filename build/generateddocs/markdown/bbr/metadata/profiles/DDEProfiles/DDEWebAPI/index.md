@@ -21,7 +21,8 @@ terms of service, and capability document reference.
     "dcterms": "http://purl.org/dc/terms/",
     "dcat": "http://www.w3.org/ns/dcat#",
     "dde": "https://www.ddeworld.org/resource/",
-    "ex": "https://example.org/"
+    "ex": "https://example.org/",
+    "prov": "http://www.w3.org/ns/prov#"
   },
   "@id": "ex:dde-webapi-001",
   "@type": [
@@ -83,13 +84,7 @@ terms of service, and capability document reference.
     "schema:name": "Map View Data Service"
   },
   "schema:termsOfService": "Open access, no authentication required. Rate limit: 1000 requests/hour.",
-  "schema:documentation": {
-    "@type": [
-      "schema:CreativeWork"
-    ],
-    "schema:name": "OGC WMS GetCapabilities",
-    "schema:url": "https://example.org/services/dde-geomap/wms?service=WMS&request=GetCapabilities"
-  },
+  "schema:documentation": "https://example.org/services/dde-geomap/wms?service=WMS&request=GetCapabilities",
   "schema:potentialAction": [
     {
       "@type": [
@@ -135,17 +130,19 @@ terms of service, and capability document reference.
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "ex:dde-webapi-001"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEWebAPI"
@@ -169,7 +166,8 @@ terms of service, and capability document reference.
       "dcterms": "http://purl.org/dc/terms/",
       "dcat": "http://www.w3.org/ns/dcat#",
       "dde": "https://www.ddeworld.org/resource/",
-      "ex": "https://example.org/"
+      "ex": "https://example.org/",
+      "prov": "http://www.w3.org/ns/prov#"
     }
   ],
   "@id": "ex:dde-webapi-001",
@@ -232,13 +230,7 @@ terms of service, and capability document reference.
     "schema:name": "Map View Data Service"
   },
   "schema:termsOfService": "Open access, no authentication required. Rate limit: 1000 requests/hour.",
-  "schema:documentation": {
-    "@type": [
-      "schema:CreativeWork"
-    ],
-    "schema:name": "OGC WMS GetCapabilities",
-    "schema:url": "https://example.org/services/dde-geomap/wms?service=WMS&request=GetCapabilities"
-  },
+  "schema:documentation": "https://example.org/services/dde-geomap/wms?service=WMS&request=GetCapabilities",
   "schema:potentialAction": [
     {
       "@type": [
@@ -284,17 +276,19 @@ terms of service, and capability document reference.
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "ex:dde-webapi-001"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEWebAPI"
@@ -309,6 +303,7 @@ terms of service, and capability document reference.
 
 #### ttl
 ```ttl
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix ex: <https://example.org/> .
 @prefix schema1: <http://schema.org/> .
@@ -323,9 +318,7 @@ ex:dde-webapi-001 a schema1:Dataset,
     schema1:dataset "https://doi.org/10.1234/dde-global-geomap-v1" ;
     schema1:dateModified "2026-02-15" ;
     schema1:description "A WMS/WFS service providing access to the DDE Global Geological Map, offering tiled map views and vector feature queries for geological units, faults, and contacts at 1:5M scale." ;
-    schema1:documentation [ a schema1:CreativeWork ;
-            schema1:name "OGC WMS GetCapabilities" ;
-            schema1:url "https://example.org/services/dde-geomap/wms?service=WMS&request=GetCapabilities" ] ;
+    schema1:documentation "https://example.org/services/dde-geomap/wms?service=WMS&request=GetCapabilities" ;
     schema1:identifier "https://doi.org/10.1234/dde-geomap-api" ;
     schema1:image [ a schema1:ImageObject ;
             schema1:contentUrl "https://example.org/services/dde-geomap/preview.png" ;
@@ -341,19 +334,19 @@ ex:dde-webapi-001 a schema1:Dataset,
     schema1:license "https://creativecommons.org/licenses/by/4.0/" ;
     schema1:name "DDE Global Geological Map Service" ;
     schema1:potentialAction [ a schema1:Action ;
-            schema1:description "Request a rendered map image for a geographic extent" ;
-            schema1:name "GetMap" ;
-            schema1:target [ a schema1:EntryPoint ;
-                    schema1:encodingFormat "image/png" ;
-                    schema1:httpMethod "GET" ;
-                    schema1:urlTemplate "https://example.org/services/dde-geomap/wms?service=WMS&request=GetMap&layers={layer}&bbox={bbox}&width={width}&height={height}&format={format}" ] ],
-        [ a schema1:Action ;
             schema1:description "Query vector features for geological units within a bounding box" ;
             schema1:name "GetFeature" ;
             schema1:target [ a schema1:EntryPoint ;
                     schema1:encodingFormat "application/json" ;
                     schema1:httpMethod "GET" ;
-                    schema1:urlTemplate "https://example.org/services/dde-geomap/wfs?service=WFS&request=GetFeature&typeName={typeName}&bbox={bbox}&outputFormat={format}" ] ] ;
+                    schema1:urlTemplate "https://example.org/services/dde-geomap/wfs?service=WFS&request=GetFeature&typeName={typeName}&bbox={bbox}&outputFormat={format}" ] ],
+        [ a schema1:Action ;
+            schema1:description "Request a rendered map image for a geographic extent" ;
+            schema1:name "GetMap" ;
+            schema1:target [ a schema1:EntryPoint ;
+                    schema1:encodingFormat "image/png" ;
+                    schema1:httpMethod "GET" ;
+                    schema1:urlTemplate "https://example.org/services/dde-geomap/wms?service=WMS&request=GetMap&layers={layer}&bbox={bbox}&width={width}&height={height}&format={format}" ] ] ;
     schema1:serviceType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ServiceTypeCode" ;
             schema1:name "Map View Data Service" ;
@@ -365,10 +358,10 @@ ex:dde-webapi-001 a schema1:Dataset,
 <urn:uuid:dde-webapi-catalog-record> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEWebAPI>,
-        <https://w3id.org/cdif/core/1.0/>,
-        <https://w3id.org/cdif/discovery/1.0/> ;
+        <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about ex:dde-webapi-001 ;
-    schema1:additionalType "dcat:CatalogRecord" .
+    schema1:additionalType dcat:CatalogRecord .
 
 
 ```
@@ -500,7 +493,7 @@ Links to the schema:
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
-    "cdif": "https://cdif.org/0.1/",
+    "cdif": "https://w3id.org/cdif/",
     "ex": "https://example.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",

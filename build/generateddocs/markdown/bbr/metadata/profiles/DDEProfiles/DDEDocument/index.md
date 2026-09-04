@@ -56,11 +56,7 @@ DDE discovery metadata for a published research article on global plate tectonic
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "Elsevier User License",
-      "schema:url": "https://www.elsevier.com/about/policies/open-access-licenses"
+      "@id": "https://www.elsevier.com/about/policies/open-access-licenses"
     }
   ],
   "schema:subjectOf": {
@@ -69,17 +65,19 @@ DDE discovery metadata for a published research article on global plate tectonic
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:dde:example-plate-tectonics-article"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument"
@@ -215,11 +213,7 @@ DDE discovery metadata for a published research article on global plate tectonic
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "Elsevier User License",
-      "schema:url": "https://www.elsevier.com/about/policies/open-access-licenses"
+      "@id": "https://www.elsevier.com/about/policies/open-access-licenses"
     }
   ],
   "schema:subjectOf": {
@@ -228,17 +222,19 @@ DDE discovery metadata for a published research article on global plate tectonic
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:dde:example-plate-tectonics-article"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument"
@@ -333,6 +329,7 @@ DDE discovery metadata for a published research article on global plate tectonic
 
 #### ttl
 ```ttl
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix schema1: <http://schema.org/> .
@@ -380,19 +377,17 @@ DDE discovery metadata for a published research article on global plate tectonic
         "continental drift",
         "paleogeography",
         "plate tectonics" ;
-    schema1:license [ a schema1:CreativeWork ;
-            schema1:name "Elsevier User License" ;
-            schema1:url "https://www.elsevier.com/about/policies/open-access-licenses" ] ;
+    schema1:license <https://www.elsevier.com/about/policies/open-access-licenses> ;
     schema1:name "Global Plate Tectonics and Paleogeography Since the Late Paleozoic" ;
     schema1:subjectOf <urn:uuid:dde-document-catalog-record> .
 
 <urn:uuid:dde-document-catalog-record> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument>,
-        <https://w3id.org/cdif/core/1.0/>,
-        <https://w3id.org/cdif/discovery/1.0/> ;
+        <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about <urn:dde:example-plate-tectonics-article> ;
-    schema1:additionalType "dcat:CatalogRecord" ;
+    schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2021-02-15" .
 
 
@@ -470,7 +465,7 @@ Links to the schema:
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
-    "cdif": "https://cdif.org/0.1/",
+    "cdif": "https://w3id.org/cdif/",
     "ex": "https://example.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",

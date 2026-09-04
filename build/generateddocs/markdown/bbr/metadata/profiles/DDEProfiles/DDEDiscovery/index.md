@@ -75,17 +75,19 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery"
@@ -201,9 +203,7 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
           "@type": [
             "time:TimePosition"
           ],
-          "time:hasTRS": {
-            "@id": "https://example.org/trs/ma-before-present"
-          },
+          "time:hasTRS": "https://example.org/trs/ma-before-present",
           "time:numericPosition": 3804
         }
       },
@@ -215,9 +215,7 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
           "@type": [
             "time:TimePosition"
           ],
-          "time:hasTRS": {
-            "@id": "https://example.org/trs/ma-before-present"
-          },
+          "time:hasTRS": "https://example.org/trs/ma-before-present",
           "time:numericPosition": 0
         }
       }
@@ -254,12 +252,7 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
     }
   ],
   "prov:wasDerivedFrom": [
-    {
-      "@type": [
-        "prov:Entity"
-      ],
-      "schema:description": "Paleoarchean through Holocene geological mapping data from 63 separate geological survey sheets"
-    }
+    "Paleoarchean through Holocene geological mapping data from 63 separate geological survey sheets"
   ]
 }
 
@@ -314,17 +307,19 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery"
@@ -440,9 +435,7 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
           "@type": [
             "time:TimePosition"
           ],
-          "time:hasTRS": {
-            "@id": "https://example.org/trs/ma-before-present"
-          },
+          "time:hasTRS": "https://example.org/trs/ma-before-present",
           "time:numericPosition": 3804
         }
       },
@@ -454,9 +447,7 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
           "@type": [
             "time:TimePosition"
           ],
-          "time:hasTRS": {
-            "@id": "https://example.org/trs/ma-before-present"
-          },
+          "time:hasTRS": "https://example.org/trs/ma-before-present",
           "time:numericPosition": 0
         }
       }
@@ -493,18 +484,14 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
     }
   ],
   "prov:wasDerivedFrom": [
-    {
-      "@type": [
-        "prov:Entity"
-      ],
-      "schema:description": "Paleoarchean through Holocene geological mapping data from 63 separate geological survey sheets"
-    }
+    "Paleoarchean through Holocene geological mapping data from 63 separate geological survey sheets"
   ]
 }
 ```
 
 #### ttl
 ```ttl
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix schema1: <http://schema.org/> .
@@ -568,23 +555,22 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
     schema1:temporalCoverage [ a time:ProperInterval ;
             time:hasBeginning [ a time:Instant ;
                     time:inTimePosition [ a time:TimePosition ;
-                            time:hasTRS <https://example.org/trs/ma-before-present> ;
+                            time:hasTRS "https://example.org/trs/ma-before-present" ;
                             time:numericPosition 3804 ] ] ;
             time:hasEnd [ a time:Instant ;
                     time:inTimePosition [ a time:TimePosition ;
-                            time:hasTRS <https://example.org/trs/ma-before-present> ;
+                            time:hasTRS "https://example.org/trs/ma-before-present" ;
                             time:numericPosition 0 ] ] ] ;
     schema1:url "http://en.cgs.gov.cn/" ;
-    prov:wasDerivedFrom [ a prov:Entity ;
-            schema1:description "Paleoarchean through Holocene geological mapping data from 63 separate geological survey sheets" ] .
+    prov:wasDerivedFrom "Paleoarchean through Holocene geological mapping data from 63 separate geological survey sheets" .
 
 <urn:uuid:22e1d1ca752a7bc3ff4e90014e760e8a08947654> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery>,
-        <https://w3id.org/cdif/core/1.0/>,
-        <https://w3id.org/cdif/discovery/1.0/> ;
+        <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about <urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654> ;
-    schema1:additionalType "dcat:CatalogRecord" ;
+    schema1:additionalType dcat:CatalogRecord ;
     schema1:maintainer [ a schema1:Person ;
             schema1:contactPoint [ a schema1:ContactPoint ;
                     schema1:email "ytiantian@mail.cgs.gov.cn" ] ;
@@ -634,20 +620,12 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "Creative Commons CC0 1.0 Universal",
-      "schema:url": "https://creativecommons.org/publicdomain/zero/1.0/"
+      "@id": "https://creativecommons.org/publicdomain/zero/1.0/"
     }
   ],
   "schema:conditionsOfAccess": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "other license test",
-      "schema:url": "https://test.org/otherlicense/zero/1.0/"
+      "@id": "https://test.org/otherlicense/zero/1.0/"
     }
   ],
   "schema:url": "https://hdl.handle.net/10150/630741",
@@ -657,17 +635,19 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "https://doi.org/23609/53w7klh"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery"
@@ -869,9 +849,7 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
           "@type": [
             "time:TimePosition"
           ],
-          "time:hasTRS": {
-            "@id": "https://example.org/trs/ma-before-present"
-          },
+          "time:hasTRS": "https://example.org/trs/ma-before-present",
           "time:numericPosition": 1870
         },
         "schema:name": "Early Proterozoic",
@@ -943,18 +921,10 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
   ],
   "prov:wasDerivedFrom": [
     {
-      "@type": [
-        "prov:Entity"
-      ],
-      "@id": "https://doi.org/24596/tehou246",
-      "schema:name": "source0"
+      "@id": "https://doi.org/24596/tehou246"
     },
     {
-      "@type": [
-        "prov:Entity"
-      ],
-      "@id": "https://doi.org/24596/h35wp59y",
-      "schema:name": "source1"
+      "@id": "https://doi.org/24596/h35wp59y"
     }
   ],
   "schema:relatedLink": [
@@ -1039,20 +1009,12 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "Creative Commons CC0 1.0 Universal",
-      "schema:url": "https://creativecommons.org/publicdomain/zero/1.0/"
+      "@id": "https://creativecommons.org/publicdomain/zero/1.0/"
     }
   ],
   "schema:conditionsOfAccess": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "other license test",
-      "schema:url": "https://test.org/otherlicense/zero/1.0/"
+      "@id": "https://test.org/otherlicense/zero/1.0/"
     }
   ],
   "schema:url": "https://hdl.handle.net/10150/630741",
@@ -1062,17 +1024,19 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "https://doi.org/23609/53w7klh"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery"
@@ -1274,9 +1238,7 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
           "@type": [
             "time:TimePosition"
           ],
-          "time:hasTRS": {
-            "@id": "https://example.org/trs/ma-before-present"
-          },
+          "time:hasTRS": "https://example.org/trs/ma-before-present",
           "time:numericPosition": 1870
         },
         "schema:name": "Early Proterozoic",
@@ -1348,18 +1310,10 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
   ],
   "prov:wasDerivedFrom": [
     {
-      "@type": [
-        "prov:Entity"
-      ],
-      "@id": "https://doi.org/24596/tehou246",
-      "schema:name": "source0"
+      "@id": "https://doi.org/24596/tehou246"
     },
     {
-      "@type": [
-        "prov:Entity"
-      ],
-      "@id": "https://doi.org/24596/h35wp59y",
-      "schema:name": "source1"
+      "@id": "https://doi.org/24596/h35wp59y"
     }
   ],
   "schema:relatedLink": [
@@ -1396,6 +1350,7 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
 
 #### ttl
 ```ttl
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix dqv: <http://www.w3.org/ns/dqv#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
@@ -1410,9 +1365,7 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
             schema1:name "Dataset" ;
             schema1:termCode "dataset" ] ;
     schema1:alternateName "Arizona 1:1000000 Lithostratigraphic map" ;
-    schema1:conditionsOfAccess [ a schema1:CreativeWork ;
-            schema1:name "other license test" ;
-            schema1:url "https://test.org/otherlicense/zero/1.0/" ] ;
+    schema1:conditionsOfAccess <https://test.org/otherlicense/zero/1.0/> ;
     schema1:contributor [ a schema1:Role ;
             schema1:contributor [ a schema1:Person ;
                     schema1:contactPoint [ a schema1:ContactPoint ;
@@ -1460,21 +1413,13 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
             schema1:name "Quick view lithostratigraphic map of Arizona" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Hydrogeology" ;
-            schema1:termCode "GI_HG_hydrogeology" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Synthesis from Multiple Sources" ;
+            schema1:termCode "synthesisFromMultipleSources" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Digital Conversion from Published Source" ;
             schema1:termCode "digitalConversionFromPublishedSource" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Synthesis from Multiple Sources" ;
-            schema1:termCode "synthesisFromMultipleSources" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Environment" ;
@@ -1484,14 +1429,20 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
             schema1:name "Arizona" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Hydrogeology" ;
+            schema1:termCode "GI_HG_hydrogeology" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Paleontology" ;
             schema1:termCode "GI_PO_paleontology" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "Geologic Map",
         "Geology",
         "United States" ;
-    schema1:license [ a schema1:CreativeWork ;
-            schema1:name "Creative Commons CC0 1.0 Universal" ;
-            schema1:url "https://creativecommons.org/publicdomain/zero/1.0/" ] ;
+    schema1:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
     schema1:name "US-AZ_AZGS_1M_Lithostratigraphy" ;
     schema1:provider [ a schema1:Organization ;
             schema1:contactPoint [ a schema1:ContactPoint ;
@@ -1499,9 +1450,9 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
             schema1:identifier "https://ror.org/00vcszp55" ;
             schema1:name "Arizona Geological Survey" ] ;
     schema1:relatedLink [ a schema1:LinkRole ;
-            schema1:linkRelationship "completeMetadata" ],
+            schema1:linkRelationship "information" ],
         [ a schema1:LinkRole ;
-            schema1:linkRelationship "information" ] ;
+            schema1:linkRelationship "completeMetadata" ] ;
     schema1:spatialCoverage [ a schema1:Place ;
             schema1:geo [ a schema1:GeoShape ;
                     schema1:box "31.332177 -114.81651 37.00426 -109.045223" ] ;
@@ -1515,7 +1466,7 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
                     schema1:identifier "http://resource.geosciml.org/classifier/ics/ischart/Paleoproterozoic" ;
                     schema1:name "Early Proterozoic" ;
                     time:inTimePosition [ a time:TimePosition ;
-                            time:hasTRS <https://example.org/trs/ma-before-present> ;
+                            time:hasTRS "https://example.org/trs/ma-before-present" ;
                             time:numericPosition 1870 ] ] ;
             time:hasEnd [ a time:Instant ;
                     schema1:identifier "http://resource.geosciml.org/classifier/ics/ischart/Holocene" ;
@@ -1529,19 +1480,13 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
     prov:wasDerivedFrom <https://doi.org/24596/h35wp59y>,
         <https://doi.org/24596/tehou246> .
 
-<https://doi.org/24596/h35wp59y> a prov:Entity ;
-    schema1:name "source1" .
-
-<https://doi.org/24596/tehou246> a prov:Entity ;
-    schema1:name "source0" .
-
 <urn:uuid:c98705ae-058a-43fb-85a2-7b5209d9a4b3> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery>,
-        <https://w3id.org/cdif/core/1.0/>,
-        <https://w3id.org/cdif/discovery/1.0/> ;
+        <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about <https://doi.org/23609/53w7klh> ;
-    schema1:additionalType "dcat:CatalogRecord" ;
+    schema1:additionalType dcat:CatalogRecord ;
     schema1:maintainer [ a schema1:Person ;
             schema1:contactPoint [ a schema1:ContactPoint ;
                     schema1:email "metadata@azgs.az.gov" ] ;
@@ -1616,7 +1561,7 @@ Links to the schema:
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
-    "cdif": "https://cdif.org/0.1/",
+    "cdif": "https://w3id.org/cdif/",
     "ex": "https://example.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",

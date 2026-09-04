@@ -49,11 +49,7 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "IODP Data Policy",
-      "schema:url": "https://www.iodp.org/policies-and-guidelines/data-policy"
+      "@id": "https://www.iodp.org/policies-and-guidelines/data-policy"
     }
   ],
   "schema:url": "https://www.iodp.org/expedition396",
@@ -63,17 +59,19 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:dde:example-iodp-expedition-396"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEEvent"
@@ -209,11 +207,7 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "IODP Data Policy",
-      "schema:url": "https://www.iodp.org/policies-and-guidelines/data-policy"
+      "@id": "https://www.iodp.org/policies-and-guidelines/data-policy"
     }
   ],
   "schema:url": "https://www.iodp.org/expedition396",
@@ -223,17 +217,19 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:dde:example-iodp-expedition-396"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEEvent"
@@ -335,6 +331,7 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
 
 #### ttl
 ```ttl
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix schema1: <http://schema.org/> .
@@ -369,9 +366,7 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
         "ocean drilling",
         "paleoclimate",
         "volcanic margin" ;
-    schema1:license [ a schema1:CreativeWork ;
-            schema1:name "IODP Data Policy" ;
-            schema1:url "https://www.iodp.org/policies-and-guidelines/data-policy" ] ;
+    schema1:license <https://www.iodp.org/policies-and-guidelines/data-policy> ;
     schema1:name "IODP Expedition 396: Mid-Norwegian Margin Magmatism and Paleoclimate Implications" ;
     schema1:spatialCoverage [ a schema1:Place ;
             schema1:geo [ a schema1:GeoShape ;
@@ -387,10 +382,10 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
 <urn:uuid:dde-event-catalog-record> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEEvent>,
-        <https://w3id.org/cdif/core/1.0/>,
-        <https://w3id.org/cdif/discovery/1.0/> ;
+        <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about <urn:dde:example-iodp-expedition-396> ;
-    schema1:additionalType "dcat:CatalogRecord" ;
+    schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2022-09-01" .
 
 
@@ -467,7 +462,7 @@ Links to the schema:
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
-    "cdif": "https://cdif.org/0.1/",
+    "cdif": "https://w3id.org/cdif/",
     "ex": "https://example.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",

@@ -55,11 +55,7 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "Creative Commons Attribution 4.0",
-      "schema:url": "https://creativecommons.org/licenses/by/4.0/"
+      "@id": "https://creativecommons.org/licenses/by/4.0/"
     }
   ],
   "schema:url": "https://onegeology.org/",
@@ -69,17 +65,19 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:dde:example-onegeology-collection"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDECollection"
@@ -218,11 +216,7 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "Creative Commons Attribution 4.0",
-      "schema:url": "https://creativecommons.org/licenses/by/4.0/"
+      "@id": "https://creativecommons.org/licenses/by/4.0/"
     }
   ],
   "schema:url": "https://onegeology.org/",
@@ -232,17 +226,19 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:dde:example-onegeology-collection"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDECollection"
@@ -347,6 +343,7 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
 
 #### ttl
 ```ttl
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix schema1: <http://schema.org/> .
 
@@ -391,9 +388,7 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
         "geological map",
         "geology",
         "global" ;
-    schema1:license [ a schema1:CreativeWork ;
-            schema1:name "Creative Commons Attribution 4.0" ;
-            schema1:url "https://creativecommons.org/licenses/by/4.0/" ] ;
+    schema1:license <https://creativecommons.org/licenses/by/4.0/> ;
     schema1:name "OneGeology Global Geological Map Collection" ;
     schema1:spatialCoverage [ a schema1:Place ;
             schema1:geo [ a schema1:GeoShape ;
@@ -404,10 +399,10 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
 <urn:uuid:dde-collection-catalog-record> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDECollection>,
-        <https://w3id.org/cdif/core/1.0/>,
-        <https://w3id.org/cdif/discovery/1.0/> ;
+        <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about <urn:dde:example-onegeology-collection> ;
-    schema1:additionalType "dcat:CatalogRecord" ;
+    schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2024-06-01" .
 
 
@@ -513,7 +508,7 @@ Links to the schema:
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
-    "cdif": "https://cdif.org/0.1/",
+    "cdif": "https://w3id.org/cdif/",
     "ex": "https://example.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",

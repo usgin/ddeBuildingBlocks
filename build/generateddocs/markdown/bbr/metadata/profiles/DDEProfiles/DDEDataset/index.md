@@ -57,17 +57,19 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:dde:example-hydrogeological-map"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDataset"
@@ -146,9 +148,7 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
           "@type": [
             "time:TimePosition"
           ],
-          "time:hasTRS": {
-            "@id": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"
-          },
+          "time:hasTRS": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian",
           "time:numericPosition": 2015
         }
       },
@@ -160,9 +160,7 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
           "@type": [
             "time:TimePosition"
           ],
-          "time:hasTRS": {
-            "@id": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"
-          },
+          "time:hasTRS": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian",
           "time:numericPosition": 2020
         }
       }
@@ -271,17 +269,19 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
       "schema:Dataset"
     ],
     "schema:additionalType": [
-      "dcat:CatalogRecord"
+      {
+        "@id": "dcat:CatalogRecord"
+      }
     ],
     "schema:about": {
       "@id": "urn:dde:example-hydrogeological-map"
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.0/"
+        "@id": "https://w3id.org/cdif/core/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.0/"
+        "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
         "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDataset"
@@ -360,9 +360,7 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
           "@type": [
             "time:TimePosition"
           ],
-          "time:hasTRS": {
-            "@id": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"
-          },
+          "time:hasTRS": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian",
           "time:numericPosition": 2015
         }
       },
@@ -374,9 +372,7 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
           "@type": [
             "time:TimePosition"
           ],
-          "time:hasTRS": {
-            "@id": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"
-          },
+          "time:hasTRS": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian",
           "time:numericPosition": 2020
         }
       }
@@ -443,6 +439,7 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
 
 #### ttl
 ```ttl
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix schema1: <http://schema.org/> .
 @prefix time: <http://www.w3.org/2006/time#> .
@@ -454,18 +451,18 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
             schema1:propertyID "dde:spatialResolution" ;
             schema1:value "1:500000" ],
         [ a schema1:PropertyValue ;
-            schema1:name "Coordinate Reference System" ;
-            schema1:propertyID "dde:referenceSystemIdentifier" ;
-            schema1:url "https://epsg.io/4326" ;
-            schema1:value "EPSG:4326" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Reference System Type" ;
             schema1:propertyID "dde:referenceSystemType" ;
             schema1:value "geodeticGeographic2D" ],
         [ a schema1:PropertyValue ;
             schema1:name "Spatial Representation Type" ;
             schema1:propertyID "dde:spatialRepresentationType" ;
-            schema1:value "vector" ] ;
+            schema1:value "vector" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Coordinate Reference System" ;
+            schema1:propertyID "dde:referenceSystemIdentifier" ;
+            schema1:url "https://epsg.io/4326" ;
+            schema1:value "EPSG:4326" ] ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
             schema1:name "Geographic Dataset" ;
@@ -484,13 +481,13 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
             schema1:name "thumbnail" ] ;
     schema1:inLanguage "zho" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Geological Mapping" ;
-            schema1:termCode "geologicalMapping" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Geological Mapping" ;
+            schema1:termCode "geologicalMapping" ],
         "China",
         "aquifer",
         "groundwater",
@@ -504,21 +501,21 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
     schema1:temporalCoverage [ a time:ProperInterval ;
             time:hasBeginning [ a time:Instant ;
                     time:inTimePosition [ a time:TimePosition ;
-                            time:hasTRS <http://www.opengis.net/def/uom/ISO-8601/0/Gregorian> ;
+                            time:hasTRS "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" ;
                             time:numericPosition 2015 ] ] ;
             time:hasEnd [ a time:Instant ;
                     time:inTimePosition [ a time:TimePosition ;
-                            time:hasTRS <http://www.opengis.net/def/uom/ISO-8601/0/Gregorian> ;
+                            time:hasTRS "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian" ;
                             time:numericPosition 2020 ] ] ] ;
     schema1:url "http://en.cgs.gov.cn/" .
 
 <urn:uuid:dde-dataset-catalog-record> a schema1:Dataset ;
     dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
         <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDataset>,
-        <https://w3id.org/cdif/core/1.0/>,
-        <https://w3id.org/cdif/discovery/1.0/> ;
+        <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about <urn:dde:example-hydrogeological-map> ;
-    schema1:additionalType "dcat:CatalogRecord" ;
+    schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2020-11-15" .
 
 
@@ -640,7 +637,7 @@ Links to the schema:
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
     "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
-    "cdif": "https://cdif.org/0.1/",
+    "cdif": "https://w3id.org/cdif/",
     "ex": "https://example.org/",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
@@ -651,7 +648,7 @@ Links to the schema:
     "spdx": "http://spdx.org/rdf/terms#",
     "time": "http://www.w3.org/2006/time#",
     "dqv": "http://www.w3.org/ns/dqv#",
-    "nxs": "http://purl.org/nexusformat/definitions/",
+    "nxs": "https://manual.nexusformat.org/classes/",
     "@version": 1.1
   }
 }

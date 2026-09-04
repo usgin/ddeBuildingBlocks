@@ -155,7 +155,7 @@
       ],
       "$defs": {
         "CdifMandatory": {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore"
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore"
         },
         "DefinedTerm": {
           "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm_1"
@@ -190,7 +190,8 @@
         },
         "schema:name": {
           "type": "string",
-          "description": "text label for the term that is useful to human user"
+          "description": "text label for the term that is useful to human user",
+          "x-jsonld-id": "http://schema.org/name"
         },
         "schema:identifier": {
           "anyOf": [
@@ -200,15 +201,34 @@
             {
               "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier"
             }
-          ]
+          ],
+          "x-jsonld-id": "http://schema.org/identifier"
         },
         "schema:inDefinedTermSet": {
-          "type": "string",
-          "description": "Name for the controlled vocabulary responsible for this keyword."
+          "description": "The controlled vocabulary responsible for this keyword, as EITHER a plain URI string identifying the vocabulary, OR an object reference ({\"@id\": \"<uri>\"}) to a vocabulary defined elsewhere in the document. Both forms are already in use across CDIF profiles and downstream ADA building blocks; permitting only the string form made the object form - the natural JSON-LD spelling of a reference - invalid, while this class's own union-type policy above explicitly anticipates both.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "required": [
+                "@id"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "@id": {
+                  "type": "string"
+                }
+              }
+            }
+          ],
+          "x-jsonld-id": "http://schema.org/inDefinedTermSet"
         },
         "schema:termCode": {
           "type": "string",
-          "description": "A representative code for this keyword in the controlled vocabulary. Analogous to skos:Notation"
+          "description": "A representative code for this keyword in the controlled vocabulary. Analogous to skos:Notation",
+          "x-jsonld-id": "http://schema.org/termCode"
         }
       },
       "allOf": [
@@ -265,17 +285,20 @@
             },
             "schema:description": {
               "type": "string",
-              "description": "free text description of the temporal interval"
+              "description": "free text description of the temporal interval",
+              "x-jsonld-id": "http://schema.org/description"
             },
             "time:intervalStartedBy": {
               "type": "string",
               "format": "uri",
-              "description": "identifier for a named time ordinal era that is older bound of time interval, e.g. 'isc:LowerDevonian' "
+              "description": "identifier for a named time ordinal era that is older bound of time interval, e.g. 'isc:LowerDevonian' ",
+              "x-jsonld-id": "http://www.w3.org/2006/time#intervalStartedBy"
             },
             "time:intervalFinishedBy": {
               "type": "string",
               "format": "uri",
-              "description": "identifier for a named time ordinal era that is younger bound of time interval, e.g. 'isc:LowerDevonian' "
+              "description": "identifier for a named time ordinal era that is younger bound of time interval, e.g. 'isc:LowerDevonian' ",
+              "x-jsonld-id": "http://www.w3.org/2006/time#intervalFinishedBy"
             }
           },
           "anyOf": [
@@ -333,7 +356,8 @@
             },
             "schema:description": {
               "type": "string",
-              "description": "free text description of the temporal interval"
+              "description": "free text description of the temporal interval",
+              "x-jsonld-id": "http://schema.org/description"
             },
             "time:hasBeginning": {
               "type": "object",
@@ -351,9 +375,15 @@
                   "minItems": 1
                 },
                 "time:inTimePosition": {
-                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.temporalExtent/$defs/timePosition_type"
+                  "x-jsonld-id": "http://www.w3.org/2006/time#inTimePosition",
+                  "allOf": [
+                    {
+                      "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.temporalExtent/$defs/timePosition_type"
+                    }
+                  ]
                 }
-              }
+              },
+              "x-jsonld-id": "http://www.w3.org/2006/time#hasBeginning"
             },
             "time:hasEnd": {
               "type": "object",
@@ -371,9 +401,15 @@
                   "minItems": 1
                 },
                 "time:inTimePosition": {
-                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.temporalExtent/$defs/timePosition_type"
+                  "x-jsonld-id": "http://www.w3.org/2006/time#inTimePosition",
+                  "allOf": [
+                    {
+                      "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.temporalExtent/$defs/timePosition_type"
+                    }
+                  ]
                 }
-              }
+              },
+              "x-jsonld-id": "http://www.w3.org/2006/time#hasEnd"
             }
           },
           "anyOf": [
@@ -414,10 +450,12 @@
             "time:hasTRS": {
               "type": "string",
               "description": "identifier for a temporal reference system; default is million years before prsent as a decimal number",
-              "default": "http://www.opengis.net/def/crs/OGC/0/ChronometricGeologicTime"
+              "default": "http://www.opengis.net/def/crs/OGC/0/ChronometricGeologicTime",
+              "x-jsonld-id": "http://www.w3.org/2006/time#hasTRS"
             },
             "time:numericPosition": {
-              "type": "number"
+              "type": "number",
+              "x-jsonld-id": "http://www.w3.org/2006/time#numericPosition"
             }
           },
           "required": [
@@ -458,6 +496,10 @@
             },
             {
               "type": "object",
+              "required": [
+                "@id"
+              ],
+              "additionalProperties": false,
               "properties": {
                 "@id": {
                   "type": "string",
@@ -471,10 +513,13 @@
           ]
         },
         "dqv:value": {
-          "description": "the reported result of the quality measure, either as a string or a defined term from a vocabulary",
+          "description": "the reported result of the quality measure, as a string, a number, or a defined term from a vocabulary",
           "anyOf": [
             {
               "type": "string"
+            },
+            {
+              "type": "number"
             },
             {
               "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.qualityProperties.qualityMeasure/$defs/DefinedTerm"
@@ -593,7 +638,7 @@
       "x-schema-source": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
-    "cdif.bbr.metadata.cdifProperties.cdifCore": {
+    "cdif.bbr.metadata.profiles.cdifProfile.cdifCore": {
       "type": "object",
       "title": "Core properties for CDIF metadata schema, with schema: prefixes",
       "description": "Building block specifies core properties for CDIF schema.org metadata record, applicable to any resource type.",
@@ -669,37 +714,34 @@
         },
         "schema:name": {
           "type": "string",
-          "description": "A descriptive name of a dataset (e.g., 'Snow depth in Northern Hemisphere'). The name should uniquely identify the described resource for human use, in the scope of the metadata catalog containing this metadata record."
+          "description": "A descriptive name of a dataset (e.g., 'Snow depth in Northern Hemisphere'). The name should uniquely identify the described resource for human use, in the scope of the metadata catalog containing this metadata record.",
+          "x-jsonld-id": "http://schema.org/name"
         },
         "schema:description": {
           "type": "string",
-          "description": "A short summary describing a dataset. This text will be indexed by search applications, so the more information here, the better."
+          "description": "A short summary describing a dataset. This text will be indexed by search applications, so the more information here, the better.",
+          "x-jsonld-id": "http://schema.org/description"
         },
         "schema:identifier": {
           "description": "The primary identifier for the dataset; other identifiers should be listed in the sameAs field. Schema.org has three ways of encoding identifiers-- a text description, a URL, or by using the schema:PropertyValue field. The Science on Schema.org guidance strongly recommends using the PropertyValue approach. see https://github.com/ESIPFed/science-on-schema.org   .... Dataset.md#identifier.  Ideally, for any given data provided they would provide identifiers either all as strings or all as identifier_type.",
           "anyOf": [
             {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/Identifier"
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/Identifier"
             },
             {
               "type": "string"
             }
-          ]
+          ],
+          "x-jsonld-id": "http://schema.org/identifier"
         },
         "schema:additionalType": {
           "description": "identifiers for datatypes from other vocabularies (not schema.org) that apply to this metadata.",
           "type": "array",
           "minItems": 0,
           "items": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/DefinedTerm"
-              }
-            ]
-          }
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/cdifConceptOrTermOrString"
+          },
+          "x-jsonld-id": "http://schema.org/additionalType"
         },
         "schema:sameAs": {
           "description": "Other identifiers for the dataset, as IRI references, literal strings, or structured identifiers using schema:PropertyValue.",
@@ -712,6 +754,10 @@
               },
               {
                 "type": "object",
+                "required": [
+                  "@id"
+                ],
+                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string",
@@ -720,13 +766,15 @@
                 }
               },
               {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/Identifier"
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/Identifier"
               }
             ]
-          }
+          },
+          "x-jsonld-id": "http://schema.org/sameAs"
         },
         "schema:version": {
           "description": "The version number or identifier for this dataset (text or numeric). The values should sort from oldest to newest using an alphanumeric sort on version strings",
+          "x-jsonld-id": "http://schema.org/version",
           "anyOf": [
             {
               "type": "string"
@@ -738,15 +786,18 @@
         },
         "schema:inLanguage": {
           "type": "string",
-          "description": "the language of the dataset content"
+          "description": "the language of the dataset content",
+          "x-jsonld-id": "http://schema.org/inLanguage"
         },
         "schema:dateModified": {
           "type": "string",
-          "description": "ISO8601 formatted date (and optional time if relevant) when Dataset was last updated"
+          "description": "ISO8601 formatted date (and optional time if relevant) when Dataset was last updated",
+          "x-jsonld-id": "http://schema.org/dateModified"
         },
         "schema:datePublished": {
           "type": "string",
-          "description": "ISO8601 formatted date (and optional time if relevant) when Dataset was made public."
+          "description": "ISO8601 formatted date (and optional time if relevant) when Dataset was made public.",
+          "x-jsonld-id": "http://schema.org/datePublished"
         },
         "schema:conditionsOfAccess": {
           "description": "text statement of conditions for use and access; if an online resource documents the restrictions or a URI is used to identify the conditions, recommend using schema:CreativeWork to provide a label (name) and an identifier (URI or URL). ",
@@ -759,6 +810,10 @@
               },
               {
                 "type": "object",
+                "required": [
+                  "@id"
+                ],
+                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string",
@@ -767,10 +822,11 @@
                 }
               },
               {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/Reference"
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/Reference"
               }
             ]
-          }
+          },
+          "x-jsonld-id": "http://schema.org/conditionsOfAccess"
         },
         "schema:license": {
           "description": "legal statement of conditions for use and access; recommend using schema:CreativeWork to provide a label (name) for the license, and an identifier. Sources of license identifiers: https://opensource.org/licenses/, https://creativecommons.org/about/cclicenses/, https://spdx.org/licenses/, http://cor.esipfed.org/ont/earthcube/swl. If only a string is provided, it should be an identifier for the license, ideally a resolvable URI",
@@ -783,6 +839,10 @@
               },
               {
                 "type": "object",
+                "required": [
+                  "@id"
+                ],
+                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string",
@@ -791,15 +851,17 @@
                 }
               },
               {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/Reference"
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/Reference"
               }
             ]
-          }
+          },
+          "x-jsonld-id": "http://schema.org/license"
         },
         "schema:url": {
           "type": "string",
           "format": "uri",
-          "description": "Web Location of a page describing the dataset (landing page), typically providing links or instructions to get the actual resource content; analogous to dcat:accessURL. If a direct link is available to get the data, put in distribution/contentUrl"
+          "description": "Web Location of a page describing the dataset (landing page), typically providing links or instructions to get the actual resource content; analogous to dcat:accessURL. If a direct link is available to get the data, put in distribution/contentUrl",
+          "x-jsonld-id": "http://schema.org/url"
         },
         "schema:distribution": {
           "description": "specifies how to download the data in a specific format or access via a web API. This property describes where to get the data and in what format by using the schema:DataDownload type. If user must access data through a landing page, provide link to landing page in the 'url' property for the dataset",
@@ -807,13 +869,14 @@
           "items": {
             "anyOf": [
               {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/DataDownload"
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/DataDownload"
               },
               {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/WebAPI"
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/WebAPI"
               }
             ]
-          }
+          },
+          "x-jsonld-id": "http://schema.org/distribution"
         },
         "schema:relatedLink": {
           "type": "array",
@@ -834,12 +897,10 @@
                 "minItems": 1
               },
               "schema:linkRelationship": {
-                "anyOf": [
+                "x-jsonld-id": "http://schema.org/linkRelationship",
+                "allOf": [
                   {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/DefinedTerm"
-                  },
-                  {
-                    "type": "string"
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/cdifConceptOrTermOrString"
                   }
                 ]
               },
@@ -860,19 +921,24 @@
                   },
                   "schema:encodingFormat": {
                     "type": "string",
-                    "description": "registered MIME types are expected"
+                    "description": "registered MIME types are expected",
+                    "x-jsonld-id": "http://schema.org/encodingFormat"
                   },
                   "schema:name": {
-                    "type": "string"
+                    "type": "string",
+                    "x-jsonld-id": "http://schema.org/name"
                   },
                   "schema:url": {
                     "type": "string",
-                    "format": "uri"
+                    "format": "uri",
+                    "x-jsonld-id": "http://schema.org/url"
                   }
-                }
+                },
+                "x-jsonld-id": "http://schema.org/target"
               }
             }
-          }
+          },
+          "x-jsonld-id": "http://schema.org/relatedLink"
         },
         "schema:publishingPrinciples": {
           "description": "FDOF digitalObjectMutability, RDA digitalObjectPolicy, FDOF PersistencyPolicy. Policies related to maintenance, update, expected time to live. If an online resource documents the policies or a URI is used to identify the conditions, recommend using schema:CreativeWork to provide a label (name) and an identifier (URI or URL).",
@@ -885,6 +951,10 @@
               },
               {
                 "type": "object",
+                "required": [
+                  "@id"
+                ],
+                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string",
@@ -893,24 +963,19 @@
                 }
               },
               {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/Reference"
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/Reference"
               }
             ]
-          }
+          },
+          "x-jsonld-id": "http://schema.org/publishingPrinciples"
         },
         "schema:keywords": {
           "description": "Keywords are an array of strings, an array of schema:DefinedTerms, or some combination of these. If you have information about a controlled vocabulary from which keywords come from, use schema:DefinedTerm to descibe that keyword. This allowed variability makes parsing metadata hard; recommend using DefinedTerm for all keywords if any of them are from a known vocabulary, otherwise an array of strings.",
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/DefinedTerm"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          }
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/cdifConceptOrTermOrString"
+          },
+          "x-jsonld-id": "http://schema.org/keywords"
         },
         "schema:creator": {
           "description": "author or orginator of intellectual content of dataset. Uset the JSON-LD @list construct to preserve author order. Use contributor with the Role property to specify other roles related to creation or stewardship of the resource.",
@@ -922,6 +987,7 @@
                 "anyOf": [
                   {
                     "type": "object",
+                    "additionalProperties": false,
                     "properties": {
                       "@id": {
                         "type": "string",
@@ -933,15 +999,16 @@
                     ]
                   },
                   {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/Person"
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/Person"
                   },
                   {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/Organization"
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/Organization"
                   }
                 ]
               }
             }
-          }
+          },
+          "x-jsonld-id": "http://schema.org/creator"
         },
         "schema:contributor": {
           "description": "other parties who played a role in production of dataset",
@@ -950,6 +1017,7 @@
             "anyOf": [
               {
                 "type": "object",
+                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string",
@@ -961,22 +1029,24 @@
                 ]
               },
               {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/Person"
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/Person"
               },
               {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/Organization"
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/Organization"
               },
               {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/Contributor"
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/Contributor"
               }
             ]
-          }
+          },
+          "x-jsonld-id": "http://schema.org/contributor"
         },
         "schema:publisher": {
           "description": "Party who made the dataset publicly available",
           "anyOf": [
             {
               "type": "object",
+              "additionalProperties": false,
               "properties": {
                 "@id": {
                   "type": "string",
@@ -988,12 +1058,13 @@
               ]
             },
             {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/Person"
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/Person"
             },
             {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/Organization"
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/Organization"
             }
-          ]
+          ],
+          "x-jsonld-id": "http://schema.org/publisher"
         },
         "schema:provider": {
           "description": "Party who maintains the distribution options for the dataset. If there are multiple distributions from different providers, use the provider property on distribution/DataDownload",
@@ -1002,6 +1073,7 @@
             "anyOf": [
               {
                 "type": "object",
+                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string",
@@ -1013,36 +1085,43 @@
                 ]
               },
               {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/Person"
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/Person"
               },
               {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/Organization"
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/Organization"
               }
             ]
-          }
+          },
+          "x-jsonld-id": "http://schema.org/provider"
         },
         "schema:funding": {
           "type": "array",
           "items": {
-            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/MonetaryGrant"
-          }
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/MonetaryGrant"
+          },
+          "x-jsonld-id": "http://schema.org/funding"
         },
         "prov:wasGeneratedBy": {
           "description": "Brief information about instruments, software or experimental protocols used",
           "type": "array",
           "items": {
-            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/GeneratedBy"
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/GeneratedBy"
           }
         },
         "prov:wasDerivedFrom": {
           "description": "Brief information about sources of data used in aggregate datasets",
           "type": "array",
           "items": {
-            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/DerivedFrom"
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/DerivedFrom"
           }
         },
         "schema:subjectOf": {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCore/$defs/CdifCatalogRecord"
+          "x-jsonld-id": "http://schema.org/subjectOf",
+          "allOf": [
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore/$defs/CdifCatalogRecord"
+            }
+          ]
         }
       },
       "allOf": [
@@ -1053,16 +1132,21 @@
                 "dcterms:conformsTo": {
                   "contains": {
                     "type": "object",
+                    "required": [
+                      "@id"
+                    ],
+                    "additionalProperties": false,
                     "properties": {
                       "@id": {
                         "enum": [
-                          "https://w3id.org/cdif/core/1.0"
+                          "https://w3id.org/cdif/core/1.1"
                         ]
                       }
                     }
                   }
                 }
-              }
+              },
+              "x-jsonld-id": "http://schema.org/subjectOf"
             }
           }
         },
@@ -1107,14 +1191,17 @@
         }
       ],
       "$defs": {
+        "cdifConceptOrTermOrString": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString"
+        },
         "Reference": {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifReference"
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifReference"
         },
         "Identifier": {
           "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier_1"
         },
-        "DefinedTerm": {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm_1"
+        "cdifConceptOrTerm": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm"
         },
         "DataDownload": {
           "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.dataDownload"
@@ -1141,13 +1228,13 @@
           "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.provProperties.derivedFrom"
         },
         "CdifCatalogRecord": {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord"
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifCatalogRecord"
         }
       },
       "x-jsonld-prefixes": {
         "schema": "http://schema.org/"
       },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifCore/schema.yaml",
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/profiles/cdifProfile/cdifCore/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.schemaorgProperties.definedTerm_1": {
@@ -1168,7 +1255,8 @@
         },
         "schema:name": {
           "type": "string",
-          "description": "text label for the term that is useful to human user"
+          "description": "text label for the term that is useful to human user",
+          "x-jsonld-id": "http://schema.org/name"
         },
         "schema:identifier": {
           "anyOf": [
@@ -1178,15 +1266,34 @@
             {
               "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier_1"
             }
-          ]
+          ],
+          "x-jsonld-id": "http://schema.org/identifier"
         },
         "schema:inDefinedTermSet": {
-          "type": "string",
-          "description": "Name for the controlled vocabulary responsible for this keyword."
+          "description": "The controlled vocabulary responsible for this keyword, as EITHER a plain URI string identifying the vocabulary, OR an object reference ({\"@id\": \"<uri>\"}) to a vocabulary defined elsewhere in the document. Both forms are already in use across CDIF profiles and downstream ADA building blocks; permitting only the string form made the object form - the natural JSON-LD spelling of a reference - invalid, while this class's own union-type policy above explicitly anticipates both.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "required": [
+                "@id"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "@id": {
+                  "type": "string"
+                }
+              }
+            }
+          ],
+          "x-jsonld-id": "http://schema.org/inDefinedTermSet"
         },
         "schema:termCode": {
           "type": "string",
-          "description": "A representative code for this keyword in the controlled vocabulary. Analogous to skos:Notation"
+          "description": "A representative code for this keyword in the controlled vocabulary. Analogous to skos:Notation",
+          "x-jsonld-id": "http://schema.org/termCode"
         }
       },
       "allOf": [
@@ -1225,7 +1332,7 @@
       "type": "object",
       "allOf": [
         {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord"
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifCatalogRecord"
         },
         {
           "properties": {
@@ -1265,7 +1372,7 @@
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.schemaorgProperties.identifier": {
-      "description": "Properties for a schema.org identifier (schema:PropertyValue pattern).\n\n**Union-type policy:** In CDIF profile UML models an attribute typed as\nschema:Identifier / schema:PropertyValue is represented by a single attribute\nof that class type. The JSON Schema implementation permits the property value\nto be EITHER a plain string (interpreted as the bare identifier value) OR a\nfull schema:PropertyValue object (with explicit @type, propertyID, value).\nConsumers should accept either form.\n",
+      "description": "Properties for a schema.org identifier (schema:PropertyValue pattern).\n**Union-type policy:** In CDIF profile UML models an attribute typed as\nschema:Identifier / schema:PropertyValue is represented by a single attribute\nof that class type. The JSON Schema implementation permits the property value\nto be EITHER a plain string (interpreted as the bare identifier value) OR a\nfull schema:PropertyValue object (with explicit @type, propertyID, value).\nConsumers should accept either form.\n",
       "type": "object",
       "properties": {
         "@type": {
@@ -1281,17 +1388,36 @@
           "minItems": 1
         },
         "schema:propertyID": {
-          "type": "string",
-          "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "@id"
+              ],
+              "properties": {
+                "@id": {
+                  "type": "string"
+                }
+              }
+            }
+          ],
+          "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings.",
+          "x-jsonld-id": "http://schema.org/propertyID"
         },
         "schema:value": {
           "type": "string",
-          "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
+          "description": "the identifier string. E.g. 10.5066/F7VX0DMQ",
+          "x-jsonld-id": "http://schema.org/value"
         },
         "schema:url": {
           "type": "string",
           "format": "uri",
-          "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
+          "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ ",
+          "x-jsonld-id": "http://schema.org/url"
         }
       },
       "allOf": [
@@ -1321,7 +1447,21 @@
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
-    "cdif.bbr.metadata.cdifProperties.cdifReference": {
+    "cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString": {
+      "title": "CDIF Concept-or-Term-or-String",
+      "description": "Shared shape for a CDIF property that carries either a controlled-vocabulary value or a bare string label. Wraps cdifConceptOrTerm (SKOS-concept @id-ref, schema:DefinedTerm, or inline cdif:Concept) with a plain-string alternative used for legacy or single-word labels not yet bound to a vocabulary.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm"
+        }
+      ],
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifConceptOrTermOrString/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.cdifDataType.cdifReference": {
       "type": "object",
       "description": "Building block to implement relations to other resources using a URL and some semantics.",
       "allOf": [
@@ -1329,10 +1469,16 @@
           "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.labeledLink"
         },
         {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifReference/$defs/Relation"
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifReference/$defs/Relation"
         }
       ],
       "$defs": {
+        "cdifConceptOrTermOrString": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString"
+        },
+        "cdifConceptOrTerm": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm"
+        },
         "Relation": {
           "type": "object",
           "description": "DCAT Relationship surface added on top of the schema.org labeled link construct.",
@@ -1351,16 +1497,18 @@
             },
             "dcat:hadRole": {
               "description": "Role of the related resource as a SKOS Concept (DCAT canonical role slot).",
+              "x-jsonld-id": "http://www.w3.org/ns/dcat#hadRole",
               "allOf": [
                 {
-                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept"
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifReference/$defs/cdifConceptOrTermOrString"
                 }
               ]
             },
             "dcterms:relation": {
               "type": "string",
               "format": "uri",
-              "description": "URI of the related resource (DCAT canonical pointer to what is being related to; distinct from schema:url which is the presentation URL inherited from labeledLink)."
+              "description": "URI of the related resource (DCAT canonical pointer to what is being related to; distinct from schema:url which is the presentation URL inherited from labeledLink).",
+              "x-jsonld-id": "http://purl.org/dc/terms/relation"
             }
           }
         }
@@ -1369,17 +1517,17 @@
         "schema": "http://schema.org/",
         "skos": "http://www.w3.org/2004/02/skos/core#",
         "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
-        "cdif": "https://cdif.org/0.1/",
+        "cdif": "https://w3id.org/cdif/",
         "ex": "https://example.org/",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "dcterms": "http://purl.org/dc/terms/",
         "dcat": "http://www.w3.org/ns/dcat#"
       },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifReference/schema.yaml",
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifReference/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.schemaorgProperties.identifier_1": {
-      "description": "Properties for a schema.org identifier (schema:PropertyValue pattern).\n\n**Union-type policy:** In CDIF profile UML models an attribute typed as\nschema:Identifier / schema:PropertyValue is represented by a single attribute\nof that class type. The JSON Schema implementation permits the property value\nto be EITHER a plain string (interpreted as the bare identifier value) OR a\nfull schema:PropertyValue object (with explicit @type, propertyID, value).\nConsumers should accept either form.\n",
+      "description": "Properties for a schema.org identifier (schema:PropertyValue pattern).\n**Union-type policy:** In CDIF profile UML models an attribute typed as\nschema:Identifier / schema:PropertyValue is represented by a single attribute\nof that class type. The JSON Schema implementation permits the property value\nto be EITHER a plain string (interpreted as the bare identifier value) OR a\nfull schema:PropertyValue object (with explicit @type, propertyID, value).\nConsumers should accept either form.\n",
       "type": "object",
       "properties": {
         "@type": {
@@ -1395,17 +1543,36 @@
           "minItems": 1
         },
         "schema:propertyID": {
-          "type": "string",
-          "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability"
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "@id"
+              ],
+              "properties": {
+                "@id": {
+                  "type": "string"
+                }
+              }
+            }
+          ],
+          "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings.",
+          "x-jsonld-id": "http://schema.org/propertyID"
         },
         "schema:value": {
           "type": "string",
-          "description": "the identifier string. E.g. 10.5066/F7VX0DMQ"
+          "description": "the identifier string. E.g. 10.5066/F7VX0DMQ",
+          "x-jsonld-id": "http://schema.org/value"
         },
         "schema:url": {
           "type": "string",
           "format": "uri",
-          "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ "
+          "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ ",
+          "x-jsonld-id": "http://schema.org/url"
         }
       },
       "allOf": [
@@ -1435,6 +1602,32 @@
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
+    "cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm": {
+      "description": "A SKOS concept identified by URI, a schema:DefinedTerm, or an inline cdif:Concept. Shared shape used wherever a CDIF property carries either a controlled-vocabulary reference or an inline concept definition.",
+      "anyOf": [
+        {
+          "type": "object",
+          "required": [
+            "@id"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "@id": {
+              "type": "string",
+              "description": "reference to a skos concept for the data type"
+            }
+          }
+        },
+        {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm_1"
+        },
+        {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/cdifConcept"
+        }
+      ],
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifConceptOrTerm/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
     "cdif.bbr.metadata.schemaorgProperties.dataDownload": {
       "description": "schema to document file-based access to a resoruce via URL, based on schema.org/DataDownload",
       "type": "object",
@@ -1456,22 +1649,31 @@
           "minItems": 1
         },
         "schema:name": {
-          "type": "string"
+          "type": "string",
+          "x-jsonld-id": "http://schema.org/name"
         },
         "schema:description": {
           "type": "string",
-          "description": "Description of this distribution, e.g. what format, access constraints, etc."
+          "description": "Description of this distribution, e.g. what format, access constraints, etc.",
+          "x-jsonld-id": "http://schema.org/description"
         },
         "schema:contentUrl": {
           "type": "string",
-          "format": "uri"
+          "format": "uri",
+          "x-jsonld-id": "http://schema.org/contentUrl"
         },
         "schema:encodingFormat": {
           "type": "array",
           "description": "MIME type with extension; should indicate the serialization scheme in sufficient detail that machine can know how to parse.",
           "items": {
             "type": "string"
-          }
+          },
+          "x-jsonld-id": "http://schema.org/encodingFormat"
+        },
+        "schema:contentSize": {
+          "type": "string",
+          "description": "File size of this distribution, e.g. '2.5 MB' or a byte count. Per schema.org/contentSize.",
+          "x-jsonld-id": "http://schema.org/contentSize"
         },
         "spdx:checksum": {
           "type": "object",
@@ -1506,6 +1708,10 @@
           "minItems": 1,
           "items": {
             "type": "object",
+            "required": [
+              "@id"
+            ],
+            "additionalProperties": false,
             "properties": {
               "@id": {
                 "type": "string",
@@ -1521,6 +1727,7 @@
             "anyOf": [
               {
                 "type": "object",
+                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string",
@@ -1538,7 +1745,8 @@
                 "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization"
               }
             ]
-          }
+          },
+          "x-jsonld-id": "http://schema.org/provider"
         }
       },
       "required": [
@@ -1577,7 +1785,8 @@
               "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI/$defs/DefinedTerm"
             }
           ],
-          "description": "specify the kind of service. Ideally this should be a resolvable identifier. Currently there is no widely adopted registry for serviceType identifiers, in large part because services might be defined at different levels of granularity, and classifications might focus on function, data formats, thematic content, security, or other aspects of the service definition. For interoperability, there must be an external arrangement between data providers and consumers on the strings that will be used to specify service types."
+          "description": "specify the kind of service. Ideally this should be a resolvable identifier. Currently there is no widely adopted registry for serviceType identifiers, in large part because services might be defined at different levels of granularity, and classifications might focus on function, data formats, thematic content, security, or other aspects of the service definition. For interoperability, there must be an external arrangement between data providers and consumers on the strings that will be used to specify service types.",
+          "x-jsonld-id": "http://schema.org/serviceType"
         },
         "schema:termsOfService": {
           "description": "Description of access privileges required to use the API, e.g. registration, licensing, payments. Note that access constraints applying to all distributions of the resource should be specified in the access constraints for the resource description as a whole.",
@@ -1589,7 +1798,8 @@
             {
               "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI/$defs/Reference"
             }
-          ]
+          ],
+          "x-jsonld-id": "http://schema.org/termsOfService"
         },
         "schema:documentation": {
           "description": "a document that provides a machine-actionable description of a service instance. Examples include OpenAPI documents, OGC Capabilities documents. Software designed to utilise a particular service type will typically include functionality to parse such a description document and engage with the service endpoint. If such a document is available for the service instance providing the resource distribution, it should be included in the distribution metadata.",
@@ -1600,14 +1810,16 @@
             {
               "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI/$defs/Reference"
             }
-          ]
+          ],
+          "x-jsonld-id": "http://schema.org/documentation"
         },
         "schema:potentialAction": {
           "type": "array",
           "description": "actions that can be invoked via the API",
           "items": {
             "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.webAPI/$defs/Action"
-          }
+          },
+          "x-jsonld-id": "http://schema.org/potentialAction"
         }
       },
       "required": [
@@ -1617,7 +1829,7 @@
       ],
       "$defs": {
         "Reference": {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifReference"
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifReference"
         },
         "DefinedTerm": {
           "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm_1"
@@ -1653,10 +1865,12 @@
         },
         "schema:name": {
           "type": "string",
-          "description": "string label for person that is meaningful for human users, should format consistently. Recommend 'Family Name, Given name' format."
+          "description": "string label for person that is meaningful for human users, should format consistently. Recommend 'Family Name, Given name' format.",
+          "x-jsonld-id": "http://schema.org/name"
         },
         "schema:description": {
-          "type": "string"
+          "type": "string",
+          "x-jsonld-id": "http://schema.org/description"
         },
         "schema:identifier": {
           "description": "identifier for person, recommend ORCID",
@@ -1667,14 +1881,17 @@
             {
               "type": "string"
             }
-          ]
+          ],
+          "x-jsonld-id": "http://schema.org/identifier"
         },
         "schema:alternateName": {
           "type": "string",
-          "description": "other labels by which the person might be known"
+          "description": "other labels by which the person might be known",
+          "x-jsonld-id": "http://schema.org/alternateName"
         },
         "schema:affiliation": {
           "description": "if affiliation is present, value must be a schema:Organization.",
+          "x-jsonld-id": "http://schema.org/affiliation",
           "allOf": [
             {
               "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization"
@@ -1699,12 +1916,15 @@
               "minItems": 1
             },
             "schema:email": {
-              "type": "string"
+              "type": "string",
+              "x-jsonld-id": "http://schema.org/email"
             }
           },
           "required": [
+            "@type",
             "schema:email"
-          ]
+          ],
+          "x-jsonld-id": "http://schema.org/contactPoint"
         },
         "schema:sameAs": {
           "type": "array",
@@ -1716,6 +1936,10 @@
               },
               {
                 "type": "object",
+                "required": [
+                  "@id"
+                ],
+                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string"
@@ -1723,7 +1947,8 @@
                 }
               }
             ]
-          }
+          },
+          "x-jsonld-id": "http://schema.org/sameAs"
         }
       },
       "allOf": [
@@ -1791,26 +2016,23 @@
         "schema:additionalType": {
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm_1"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          }
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization/$defs/cdifConceptOrTermOrString"
+          },
+          "x-jsonld-id": "http://schema.org/additionalType"
         },
         "schema:name": {
           "type": "string",
-          "description": "string label for organization that is meaningful for human users"
+          "description": "string label for organization that is meaningful for human users",
+          "x-jsonld-id": "http://schema.org/name"
         },
         "schema:alternateName": {
           "type": "string",
-          "description": "other labels by which the organization might be known"
+          "description": "other labels by which the organization might be known",
+          "x-jsonld-id": "http://schema.org/alternateName"
         },
         "schema:description": {
-          "type": "string"
+          "type": "string",
+          "x-jsonld-id": "http://schema.org/description"
         },
         "schema:identifier": {
           "description": "identifier for organization",
@@ -1821,7 +2043,8 @@
             {
               "type": "string"
             }
-          ]
+          ],
+          "x-jsonld-id": "http://schema.org/identifier"
         },
         "schema:sameAs": {
           "type": "array",
@@ -1833,6 +2056,10 @@
               },
               {
                 "type": "object",
+                "required": [
+                  "@id"
+                ],
+                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string"
@@ -1840,7 +2067,8 @@
                 }
               }
             ]
-          }
+          },
+          "x-jsonld-id": "http://schema.org/sameAs"
         }
       },
       "allOf": [
@@ -1864,6 +2092,11 @@
           ]
         }
       ],
+      "$defs": {
+        "cdifConceptOrTermOrString": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString"
+        }
+      },
       "x-jsonld-prefixes": {
         "schema": "http://schema.org/"
       },
@@ -1888,12 +2121,10 @@
           "minItems": 1
         },
         "schema:roleName": {
-          "anyOf": [
+          "x-jsonld-id": "http://schema.org/roleName",
+          "allOf": [
             {
-              "type": "string"
-            },
-            {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm_1"
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.agentInRole/$defs/cdifConceptOrTermOrString"
             }
           ]
         },
@@ -1901,6 +2132,7 @@
           "anyOf": [
             {
               "type": "object",
+              "additionalProperties": false,
               "properties": {
                 "@id": {
                   "type": "string",
@@ -1917,7 +2149,8 @@
             {
               "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization"
             }
-          ]
+          ],
+          "x-jsonld-id": "http://schema.org/contributor"
         }
       },
       "required": [
@@ -1925,6 +2158,11 @@
         "schema:roleName",
         "schema:contributor"
       ],
+      "$defs": {
+        "cdifConceptOrTermOrString": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString"
+        }
+      },
       "x-jsonld-prefixes": {
         "schema": "http://schema.org/"
       },
@@ -1954,6 +2192,7 @@
         },
         "schema:identifier": {
           "description": "identifier for a particular grant",
+          "x-jsonld-id": "http://schema.org/identifier",
           "allOf": [
             {
               "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.monetaryGrant/$defs/Identifier"
@@ -1962,16 +2201,19 @@
         },
         "schema:description": {
           "type": "string",
-          "description": "description of the funding or grant"
+          "description": "description of the funding or grant",
+          "x-jsonld-id": "http://schema.org/description"
         },
         "schema:name": {
           "type": "string",
-          "description": "title of the grant"
+          "description": "title of the grant",
+          "x-jsonld-id": "http://schema.org/name"
         },
         "schema:funder": {
           "anyOf": [
             {
               "type": "object",
+              "additionalProperties": false,
               "properties": {
                 "@id": {
                   "type": "string",
@@ -1988,7 +2230,8 @@
             {
               "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.monetaryGrant/$defs/Organization"
             }
-          ]
+          ],
+          "x-jsonld-id": "http://schema.org/funder"
         }
       },
       "anyOf": [
@@ -2028,6 +2271,9 @@
     "cdif.bbr.metadata.provProperties.generatedBy": {
       "title": "very simple links or names of software or instruments used to generate a resource.",
       "type": "object",
+      "required": [
+        "@type"
+      ],
       "properties": {
         "@type": {
           "type": "array",
@@ -2043,6 +2289,7 @@
         },
         "prov:used": {
           "type": "array",
+          "description": "Entities the activity used. Per PROV-O each value denotes a prov:Entity. An item may be (1) a string URI or free-text reference, (2) an {@id} reference, (3) an inline entity object carrying an @type that includes prov:Entity plus a schema.org type for the kind of thing used, e.g. [\"prov:Entity\",\"schema:Thing\"] (instrument), [\"prov:Entity\",\"schema:CreativeWork\"] (method/protocol), or [\"prov:Entity\",\"schema:SoftwareApplication\"] (software), or (4) a role-keyed wrapper naming what was used through one of the recognized \"used\" relations (schema:instrument, bios:computationalTool, prov:reagent). Base leaves the wrapped value loose; profiles/extensions (e.g. cdifProvActivity, adaProduct) pin its shape (Instrument, ComputationalTool, Reagent, ...).",
           "items": {
             "anyOf": [
               {
@@ -2050,15 +2297,62 @@
               },
               {
                 "type": "object",
+                "required": [
+                  "@id"
+                ],
+                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string",
                     "description": "a resolvable reference to a representation of the software or instrument used"
                   }
                 }
+              },
+              {
+                "type": "object",
+                "description": "an inline prov:Entity used by the activity (see prov:used description)",
+                "properties": {
+                  "@type": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "minItems": 1,
+                    "contains": {
+                      "enum": [
+                        "prov:Entity"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "@type"
+                ]
+              },
+              {
+                "type": "object",
+                "description": "a role-keyed wrapper naming an instrument used by the activity; the extension layer pins the value to an Instrument description.",
+                "required": [
+                  "schema:instrument"
+                ]
+              },
+              {
+                "type": "object",
+                "description": "a role-keyed wrapper naming a computational tool (software) used; the extension layer pins the value to a ComputationalTool description.",
+                "required": [
+                  "bios:computationalTool"
+                ]
+              },
+              {
+                "type": "object",
+                "description": "a role-keyed wrapper naming a reagent / material used; the extension layer pins the value to a Reagent description.",
+                "required": [
+                  "prov:reagent"
+                ]
               }
             ]
-          }
+          },
+          "x-jsonld-id": "http://www.w3.org/ns/prov#used"
         }
       },
       "x-jsonld-prefixes": {
@@ -2076,6 +2370,10 @@
         },
         {
           "type": "object",
+          "required": [
+            "@id"
+          ],
+          "additionalProperties": false,
           "properties": {
             "@id": {
               "type": "string",
@@ -2084,7 +2382,7 @@
           }
         },
         {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifReference"
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifReference"
         }
       ],
       "x-jsonld-prefixes": {
@@ -2094,7 +2392,7 @@
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/provProperties/derivedFrom/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
-    "cdif.bbr.metadata.cdifProperties.cdifCatalogRecord": {
+    "cdif.bbr.metadata.cdifDataType.cdifCatalogRecord": {
       "type": "object",
       "description": "see https://github.com/Cross-Domain-Interoperability-Framework/Discovery/issues/13 for discussion on how to make assertion about the sample registration and metadata distinct from statements about the physical object",
       "properties": {
@@ -2114,14 +2412,40 @@
           "type": "array",
           "description": "additional type assertions for the catalog record node. dcat:CatalogRecord is required.",
           "items": {
-            "type": "string"
-          },
-          "contains": {
-            "enum": [
-              "dcat:CatalogRecord"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "@id"
+                ],
+                "properties": {
+                  "@id": {
+                    "type": "string"
+                  }
+                }
+              }
             ]
           },
-          "minItems": 1
+          "contains": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "@id"
+            ],
+            "properties": {
+              "@id": {
+                "enum": [
+                  "dcat:CatalogRecord"
+                ]
+              }
+            }
+          },
+          "minItems": 1,
+          "x-jsonld-id": "http://schema.org/additionalType"
         },
         "@id": {
           "type": "string",
@@ -2129,17 +2453,26 @@
         },
         "schema:about": {
           "type": "object",
+          "required": [
+            "@id"
+          ],
+          "additionalProperties": false,
           "properties": {
             "@id": {
               "type": "string",
               "description": "this must be the @id value of the node containing the resource description metadata"
             }
-          }
+          },
+          "x-jsonld-id": "http://schema.org/about"
         },
         "dcterms:conformsTo": {
           "type": "array",
           "items": {
             "type": "object",
+            "required": [
+              "@id"
+            ],
+            "additionalProperties": false,
             "properties": {
               "@id": {
                 "type": "string",
@@ -2148,23 +2481,26 @@
             }
           },
           "minItems": 1,
-          "description": "uri for specifications that this metadata record conforms to. Minimimally should specify uri for CDIF discovery profile."
+          "description": "uri for specifications that this metadata record conforms to. Minimimally should specify uri for CDIF discovery profile.",
+          "x-jsonld-id": "http://purl.org/dc/terms/conformsTo"
         },
         "schema:maintainer": {
           "description": "Identification of the agent that maintains the metadata, with contact information. Should include person name and affiliation, or position name and affiliation, or just organization name. e-mail address is preferred contact information.",
           "anyOf": [
             {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/Person"
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifCatalogRecord/$defs/Person"
             },
             {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/Organization"
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifCatalogRecord/$defs/Organization"
             }
-          ]
+          ],
+          "x-jsonld-id": "http://schema.org/maintainer"
         },
         "schema:sdDatePublished": {
           "description": "date of most recent update to the metadata content",
           "type": "string",
-          "format": "date"
+          "format": "date",
+          "x-jsonld-id": "http://schema.org/sdDatePublished"
         },
         "schema:includedInDataCatalog": {
           "type": "object",
@@ -2188,22 +2524,26 @@
               "minItems": 1
             },
             "schema:name": {
-              "type": "string"
+              "type": "string",
+              "x-jsonld-id": "http://schema.org/name"
             },
             "schema:url": {
               "type": "string",
               "format": "uri",
-              "description": "locator to access a landing page for the collection or catalog"
+              "description": "locator to access a landing page for the collection or catalog",
+              "x-jsonld-id": "http://schema.org/url"
             },
             "schema:identifier": {
               "description": "identifier for the collection or catalog; use identifier_type to provide information on identifier scheme and context for identifier",
+              "x-jsonld-id": "http://schema.org/identifier",
               "allOf": [
                 {
-                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifProperties.cdifCatalogRecord/$defs/Identifier"
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifCatalogRecord/$defs/Identifier"
                 }
               ]
             }
-          }
+          },
+          "x-jsonld-id": "http://schema.org/includedInDataCatalog"
         }
       },
       "required": [
@@ -2231,7 +2571,7 @@
         "dcterms": "http://purl.org/dc/terms/",
         "dcat": "http://www.w3.org/ns/dcat#"
       },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifProperties/cdifCatalogRecord/schema.yaml",
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifCatalogRecord/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.schemaorgProperties.labeledLink": {
@@ -2252,14 +2592,17 @@
           "minItems": 1
         },
         "schema:name": {
-          "type": "string"
+          "type": "string",
+          "x-jsonld-id": "http://schema.org/name"
         },
         "schema:description": {
-          "type": "string"
+          "type": "string",
+          "x-jsonld-id": "http://schema.org/description"
         },
         "schema:url": {
           "type": "string",
-          "format": "uri"
+          "format": "uri",
+          "x-jsonld-id": "http://schema.org/url"
         }
       },
       "required": [
@@ -2272,15 +2615,292 @@
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/labeledLink/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
-    "cdif.bbr.metadata.skosProperties.skosConcept": {
-      "title": "SKOS Concept",
-      "description": "JSON Schema for a SKOS Concept in JSON-LD form. A unit of thought within a concept scheme. Supports labels (prefLabel, altLabel, hiddenLabel), notations, hierarchical relations (broader/narrower), associative relations (related), cross-scheme mapping properties, scheme membership, and documentary notes. Based on the W3C SKOS Reference (https://www.w3.org/TR/skos-reference/).",
+    "cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme": {
+      "title": "CDIF Concept Scheme",
+      "description": "Profile module for SKOS concept schemes used as controlled vocabularies in CDIF metadata. Thin wrapper around skosConceptScheme.",
       "type": "object",
       "properties": {
         "@context": {
-          "description": "JSON-LD context declaring the skos namespace prefix. May be a single object or an array of strings and objects.",
+          "description": "JSON-LD context declaring the skos namespace prefix and any additional prefixes used in concept URIs. May be a single object or an array of strings and objects.",
+          "type": "object",
+          "properties": {
+            "skos": {
+              "enum": [
+                "http://www.w3.org/2004/02/skos/core#"
+              ]
+            }
+          },
+          "required": [
+            "skos"
+          ]
+        },
+        "@id": {
+          "type": "string",
+          "description": "URI identifier for this concept scheme."
+        },
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": [
+              "skos:ConceptScheme"
+            ]
+          },
+          "minItems": 1
+        },
+        "skos:prefLabel": {
+          "description": "Preferred lexical label for the concept scheme. A single string, a single language-tagged value, or an array of language-tagged values. Each language should appear at most once.",
           "anyOf": [
             {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/LanguageTaggedValue"
+            },
+            {
+              "type": "array",
+              "items": {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/LanguageTaggedValue"
+              }
+            }
+          ]
+        },
+        "skos:altLabel": {
+          "description": "Alternative lexical labels (acronyms, abbreviations, spelling variants).",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/LanguageTaggedValue"
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/LanguageTaggedValue"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "skos:definition": {
+          "description": "Formal explanation of the meaning or purpose of this concept scheme.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/LanguageTaggedValue"
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/LanguageTaggedValue"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "skos:notation": {
+          "description": "Classification code or notation for this concept scheme.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "skos:note": {
+          "description": "General note about the concept scheme.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/LanguageTaggedValue"
+            },
+            {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/LanguageTaggedValue"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "skos:hasTopConcept": {
+          "description": "Top-level concepts in this scheme. Each item is a skos:Concept (inline or @id reference).",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "anyOf": [
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/cdifConcept"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "@id": {
+                    "type": "string",
+                    "description": "URI reference to a concept defined elsewhere"
+                  }
+                },
+                "required": [
+                  "@id"
+                ]
+              }
+            ]
+          }
+        },
+        "schema:version": {
+          "description": "Version identifier for the concept scheme.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "schema:subjectOf": {
+          "description": "Catalog record describing this concept scheme as CDIF-conformant metadata. Must declare conformance to the cdifConceptScheme profile via dcterms:conformsTo and be typed as schema:Dataset with schema:additionalType including dcat:CatalogRecord.",
+          "type": "object",
+          "properties": {
+            "@type": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "contains": {
+                "enum": [
+                  "schema:Dataset"
+                ]
+              },
+              "minItems": 1
+            },
+            "schema:additionalType": {
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "@id"
+                    ],
+                    "properties": {
+                      "@id": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                ]
+              },
+              "contains": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "@id"
+                ],
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "dcat:CatalogRecord"
+                    ]
+                  }
+                }
+              },
+              "minItems": 1
+            },
+            "dcterms:conformsTo": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "@id": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "@id"
+                ]
+              },
+              "contains": {
+                "type": "object",
+                "required": [
+                  "@id"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://w3id.org/cdif/conceptscheme/1.1"
+                    ]
+                  }
+                }
+              },
+              "minItems": 1
+            },
+            "@id": {
+              "type": "string",
+              "description": "Identifier for the catalog record."
+            },
+            "schema:about": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "@id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "@id"
+              ]
+            }
+          },
+          "required": [
+            "@type",
+            "schema:additionalType",
+            "dcterms:conformsTo"
+          ]
+        }
+      },
+      "required": [
+        "@type",
+        "skos:prefLabel",
+        "skos:definition",
+        "skos:hasTopConcept"
+      ],
+      "$defs": {
+        "cdifConcept": {
+          "type": "object",
+          "properties": {
+            "@context": {
+              "description": "JSON-LD context declaring the skos namespace prefix. May be a single object or an array of strings and objects.",
               "type": "object",
               "properties": {
                 "skos": {
@@ -2293,436 +2913,161 @@
                 "skos"
               ]
             },
-            {
+            "@id": {
+              "type": "string",
+              "description": "URI identifier for this concept."
+            },
+            "@type": {
               "type": "array",
               "items": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "object"
-                  }
-                ]
+                "type": "string"
               },
               "contains": {
-                "type": "object",
-                "properties": {
-                  "skos": {
-                    "enum": [
-                      "http://www.w3.org/2004/02/skos/core#"
+                "enum": [
+                  "skos:Concept"
+                ]
+              },
+              "minItems": 1
+            },
+            "skos:prefLabel": {
+              "description": "Preferred lexical label for this concept. A single string, a single language-tagged value, or an array of language-tagged values. Each language should appear at most once.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/LanguageTaggedValue"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/LanguageTaggedValue"
+                  }
+                }
+              ]
+            },
+            "skos:notation": {
+              "description": "Classification code for this concept within a scheme (a single notation string, consistent with CdifCodelistConcept).",
+              "type": "string"
+            },
+            "skos:definition": {
+              "description": "Formal explanation of the meaning of this concept.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/LanguageTaggedValue"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/LanguageTaggedValue"
+                      }
                     ]
                   }
-                },
-                "required": [
-                  "skos"
-                ]
-              }
-            }
-          ]
-        },
-        "@id": {
-          "type": "string",
-          "description": "URI identifier for this concept."
-        },
-        "@type": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "contains": {
-            "enum": [
-              "skos:Concept"
-            ]
-          },
-          "minItems": 1
-        },
-        "skos:prefLabel": {
-          "description": "Preferred lexical label for this concept. A single string, a single language-tagged value, or an array of language-tagged values. Each language should appear at most once.",
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-            },
-            {
-              "type": "array",
-              "items": {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-              }
-            }
-          ]
-        },
-        "skos:altLabel": {
-          "description": "Alternative lexical labels (acronyms, abbreviations, variants).",
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-            },
-            {
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "skos:hiddenLabel": {
-          "description": "Labels accessible to free-text search but not displayed.",
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-            },
-            {
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "skos:notation": {
-          "description": "Classification code for this concept within a scheme.",
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "skos:definition": {
-          "description": "Formal explanation of the meaning of this concept.",
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-            },
-            {
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "skos:scopeNote": {
-          "description": "Note clarifying meaning and/or intended use.",
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-            },
-            {
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "skos:note": {
-          "description": "General note about this concept.",
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-            },
-            {
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "skos:historyNote": {
-          "description": "Note about past state or use.",
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-            },
-            {
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "skos:changeNote": {
-          "description": "Note documenting a change.",
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-            },
-            {
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "skos:editorialNote": {
-          "description": "Note for editors and maintainers.",
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-            },
-            {
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "skos:example": {
-          "description": "Example of use of this concept.",
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-            },
-            {
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        "skos:inScheme": {
-          "description": "Concept scheme(s) this concept belongs to.",
-          "anyOf": [
-            {
-              "type": "object",
-              "properties": {
-                "@id": {
-                  "type": "string"
                 }
-              },
-              "required": [
-                "@id"
               ]
             },
-            {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "@id": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "@id"
-                ]
-              }
-            }
-          ]
-        },
-        "skos:topConceptOf": {
-          "description": "Concept scheme(s) for which this is a top concept.",
-          "anyOf": [
-            {
-              "type": "object",
-              "properties": {
-                "@id": {
+            "skos:note": {
+              "description": "General note about this concept.",
+              "anyOf": [
+                {
                   "type": "string"
+                },
+                {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/LanguageTaggedValue"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/LanguageTaggedValue"
+                      }
+                    ]
+                  }
                 }
-              },
-              "required": [
-                "@id"
               ]
             },
-            {
+            "skos:inScheme": {
+              "description": "Concept scheme(s) this concept belongs to.",
+              "anyOf": [
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "@id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "@id"
+                  ]
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "@id": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "@id"
+                    ]
+                  }
+                }
+              ]
+            },
+            "skos:broader": {
+              "description": "Broader (parent) concepts in the hierarchy. Items are inline concept objects or @id references.",
               "type": "array",
               "items": {
-                "type": "object",
-                "properties": {
-                  "@id": {
-                    "type": "string"
+                "anyOf": [
+                  {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/ConceptRef"
+                  },
+                  {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/cdifConcept"
                   }
-                },
-                "required": [
-                  "@id"
+                ]
+              }
+            },
+            "skos:narrower": {
+              "description": "Narrower (child) concepts in the hierarchy. Items are inline concept objects or @id references.",
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/ConceptRef"
+                  },
+                  {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifConceptScheme/$defs/cdifConcept"
+                  }
                 ]
               }
             }
+          },
+          "required": [
+            "@type",
+            "skos:prefLabel"
           ]
         },
-        "skos:broader": {
-          "description": "Broader (parent) concepts in the hierarchy. Items are inline concept objects or @id references.",
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
-              },
-              {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept"
-              }
-            ]
-          }
-        },
-        "skos:narrower": {
-          "description": "Narrower (child) concepts in the hierarchy. Items are inline concept objects or @id references.",
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
-              },
-              {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept"
-              }
-            ]
-          }
-        },
-        "skos:related": {
-          "description": "Associatively related concepts.",
-          "type": "array",
-          "items": {
-            "anyOf": [
-              {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
-              },
-              {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept"
-              }
-            ]
-          }
-        },
-        "skos:exactMatch": {
-          "description": "Concepts in other schemes with equivalent meaning.",
-          "type": "array",
-          "items": {
-            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
-          }
-        },
-        "skos:closeMatch": {
-          "description": "Concepts in other schemes with similar meaning.",
-          "type": "array",
-          "items": {
-            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
-          }
-        },
-        "skos:broadMatch": {
-          "description": "Broader concepts in other schemes.",
-          "type": "array",
-          "items": {
-            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
-          }
-        },
-        "skos:narrowMatch": {
-          "description": "Narrower concepts in other schemes.",
-          "type": "array",
-          "items": {
-            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
-          }
-        },
-        "skos:relatedMatch": {
-          "description": "Related concepts in other schemes.",
-          "type": "array",
-          "items": {
-            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
-          }
-        }
-      },
-      "required": [
-        "@type",
-        "skos:prefLabel"
-      ],
-      "$defs": {
         "ConceptRef": {
           "type": "object",
-          "description": "A reference to a SKOS Concept by URI.",
+          "additionalProperties": false,
+          "description": "Reference (by URI) to a skos:Concept defined elsewhere. Used inside skos:broader / skos:narrower as the @id-reference alternative to an inline Concept.",
           "properties": {
             "@id": {
               "type": "string",
@@ -2735,7 +3080,7 @@
         },
         "LanguageTaggedValue": {
           "type": "object",
-          "description": "An RDF literal value with a language tag, serialized as a JSON-LD value object.",
+          "description": "An RDF literal value with a language tag, serialized as a JSON-LD value object. Inlined from skosConcept (the resolver does not preserve cross-file '#/$defs/...' fragment refs).",
           "properties": {
             "@value": {
               "type": "string",
@@ -2747,15 +3092,11 @@
             }
           },
           "required": [
-            "@value",
-            "@language"
+            "@value"
           ]
         }
       },
-      "x-jsonld-prefixes": {
-        "skos": "http://www.w3.org/2004/02/skos/core#"
-      },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/skosProperties/skosConcept/schema.yaml",
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/profiles/cdifProfile/cdifConceptScheme/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.schemaorgProperties.action": {
@@ -2791,7 +3132,8 @@
         },
         "schema:name": {
           "type": "string",
-          "description": "text label for the action"
+          "description": "text label for the action",
+          "x-jsonld-id": "http://schema.org/name"
         },
         "schema:target": {
           "type": "object",
@@ -2811,11 +3153,13 @@
               "minItems": 1
             },
             "schema:description": {
-              "type": "string"
+              "type": "string",
+              "x-jsonld-id": "http://schema.org/description"
             },
             "schema:urlTemplate": {
               "type": "string",
-              "description": "a templated URL; parameters are enclosed in curly braces ({..}); parameters are not required. If included, parameters MUST be documented in the query-input element. Template should be consitent with URI Template (https://datatracker.ietf.org/doc/html/rfc6570) examples: - http://portal.chordsrt.com/api/v1/data.{encoding}; single parameter - http://portal.chordsrt.com/api/v1/data.{encoding}?instruments={instruments}&start={start}&end={end} ; multiple parameters - {endpoint}{encoding}; endpoint URL path is a parameter,should only appear in potential actions for API specification descriptions, which are generic-not specific to a particular endpoint."
+              "description": "a templated URL; parameters are enclosed in curly braces ({..}); parameters are not required. If included, parameters MUST be documented in the query-input element. Template should be consitent with URI Template (https://datatracker.ietf.org/doc/html/rfc6570) examples: - http://portal.chordsrt.com/api/v1/data.{encoding}; single parameter - http://portal.chordsrt.com/api/v1/data.{encoding}?instruments={instruments}&start={start}&end={end} ; multiple parameters - {endpoint}{encoding}; endpoint URL path is a parameter,should only appear in potential actions for API specification descriptions, which are generic-not specific to a particular endpoint.",
+              "x-jsonld-id": "http://schema.org/urlTemplate"
             },
             "schema:httpMethod": {
               "title": "HTTP Method",
@@ -2835,47 +3179,31 @@
                   "OPTIONS",
                   "PROPFIND"
                 ]
-              }
+              },
+              "x-jsonld-id": "http://schema.org/httpMethod"
             },
             "schema:contentType": {
               "type": "array",
               "description": "The supported content type(s) for an EntryPoint response. a MIME type (https://www.iana.org/assignments/media-types/media-types.xhtml) that specifies the content type for messages in resonses from the service endpoint. This is a schema.org property, and is redundant with encodingFormat in the result property for the Action.",
               "items": {
                 "type": "string"
-              }
+              },
+              "x-jsonld-id": "http://schema.org/contentType"
             }
           },
           "required": [
             "schema:urlTemplate"
-          ]
+          ],
+          "x-jsonld-id": "http://schema.org/target"
         },
         "schema:result": {
-          "type": "object",
-          "description": "specifies the serialization scheme (encoding format, information model) for expected representation of the data. Documentation of the serialization format for the API response.",
-          "properties": {
-            "@type": {
-              "type": "array",
-              "description": "Type of result object. Typically schema:DataDownload, but may include additional types.",
-              "items": {
-                "type": "string"
-              },
-              "contains": {
-                "enum": [
-                  "schema:DataDownload"
-                ]
-              },
-              "minItems": 1
-            },
-            "schema:encodingFormat": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "schema:description": {
-              "type": "string"
+          "description": "specifies the serialization scheme (encoding format, information model) for the expected representation of the data - documentation of the serialization format for the API response. See the actionResult building block.",
+          "x-jsonld-id": "http://schema.org/result",
+          "allOf": [
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.actionResult"
             }
-          }
+          ]
         },
         "schema:object": {
           "type": "object",
@@ -2890,9 +3218,11 @@
               "minItems": 1
             },
             "schema:description": {
-              "type": "string"
+              "type": "string",
+              "x-jsonld-id": "http://schema.org/description"
             }
-          }
+          },
+          "x-jsonld-id": "http://schema.org/object"
         },
         "schema:query-input": {
           "type": "array",
@@ -2917,17 +3247,21 @@
                 "minItems": 1
               },
               "schema:valueName": {
-                "type": "string"
+                "type": "string",
+                "x-jsonld-id": "http://schema.org/valueName"
               },
               "schema:description": {
-                "type": "string"
+                "type": "string",
+                "x-jsonld-id": "http://schema.org/description"
               },
               "schema:valueRequired": {
                 "type": "boolean",
-                "default": true
+                "default": true,
+                "x-jsonld-id": "http://schema.org/valueRequired"
               },
               "schema:valuePattern": {
-                "type": "string"
+                "type": "string",
+                "x-jsonld-id": "http://schema.org/valuePattern"
               }
             },
             "required": [
@@ -2935,7 +3269,8 @@
               "schema:description"
             ]
           },
-          "description": "set of explanations of the parameters in the URL template for the target."
+          "description": "set of explanations of the parameters in the URL template for the target.",
+          "x-jsonld-id": "http://schema.org/query-input"
         }
       },
       "required": [
@@ -2946,6 +3281,68 @@
         "schema": "http://schema.org/"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/action/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.actionResult": {
+      "title": "Action result",
+      "description": "The result of a schema:Action invoked on a schema:WebAPI distribution - documents the serialization/format of the data the service returns. Typed as schema:DataDownload but, unlike a file distribution, an action result has no contentUrl/contentSize because the response is generated per request (its size depends on the request). Profiles may extend this result; e.g. the CDIF Data Description profile adds cdif:hasPhysicalMapping and cdi:characterSet.",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "array",
+          "description": "Type of result object. Typically schema:DataDownload, but may include additional types.",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": [
+              "schema:DataDownload"
+            ]
+          },
+          "minItems": 1
+        },
+        "schema:name": {
+          "type": "string",
+          "description": "text label for the result/response format.",
+          "x-jsonld-id": "http://schema.org/name"
+        },
+        "schema:description": {
+          "type": "string",
+          "description": "description of the result/response representation.",
+          "x-jsonld-id": "http://schema.org/description"
+        },
+        "schema:encodingFormat": {
+          "type": "array",
+          "description": "MIME type(s) of the response serialization.",
+          "items": {
+            "type": "string"
+          },
+          "x-jsonld-id": "http://schema.org/encodingFormat"
+        },
+        "dcterms:conformsTo": {
+          "type": "array",
+          "description": "identifier(s) for a standard or specification the response conforms to.",
+          "items": {
+            "type": "object",
+            "required": [
+              "@id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "@id": {
+                "type": "string"
+              }
+            }
+          },
+          "x-jsonld-id": "http://purl.org/dc/terms/conformsTo"
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "cdif": "https://w3id.org/cdif/"
+      },
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/actionResult/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     }
   },
