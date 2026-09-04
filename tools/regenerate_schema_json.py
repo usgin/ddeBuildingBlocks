@@ -82,7 +82,12 @@ def walk_and_rewrite_refs(obj, dir_name_map):
 
 
 def process_building_block(yaml_path, dir_name_map, dry_run=False):
-    """Process a single building block: read YAML, write JSON."""
+    """Process a single building block: read YAML, write JSON.
+
+    Returns (json_path, changed). `changed` is True only when the bytes on
+    disk actually differ, None for a dry run -- see the write below for why
+    that distinction matters.
+    """
     dir_path = os.path.dirname(yaml_path)
     dir_name = os.path.basename(dir_path)
     json_name = get_schema_json_name(dir_name)
@@ -101,14 +106,28 @@ def process_building_block(yaml_path, dir_name_map, dry_run=False):
 
     if dry_run:
         print(f'  DRY RUN: {dir_name}/schema.yaml -> {json_name}')
-        return json_path
+        return json_path, None
 
-    # Write JSON
-    with open(json_path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, indent=4, ensure_ascii=False)
-        f.write('\n')
+    output = json.dumps(data, indent=4, ensure_ascii=False) + '\n'
+    expected = output.encode('utf-8')
 
-    return json_path
+    # Compare bytes, not text. Reading in text mode normalises line endings,
+    # so a CRLF file on disk would compare equal to LF output and every run
+    # would look like a no-op.
+    previous = None
+    if os.path.exists(json_path):
+        with open(json_path, 'rb') as f:
+            previous = f.read()
+
+    # newline='\n': .gitattributes stores these LF, but Python's text mode
+    # translates \n to \r\n on Windows, so every run rewrote all ~93 files
+    # and git reported them modified with no content change. That churn has
+    # to be filtered by hand after each regeneration, and a real change can
+    # hide among a hundred fake ones.
+    with open(json_path, 'w', encoding='utf-8', newline='\n') as f:
+        f.write(output)
+
+    return json_path, previous != expected
 
 
 def main():
@@ -126,6 +145,7 @@ def main():
     processed = []
     created = []
     updated = []
+    unchanged = []
 
     for root, dirs, files in sorted(os.walk(SOURCES_DIR)):
         if 'schema.yaml' not in files:
@@ -143,13 +163,17 @@ def main():
         result = process_building_block(yaml_path, dir_name_map, dry_run=dry_run)
 
         if result:
+            _, changed = result
             processed.append(rel_path)
             if is_new:
                 created.append(f'{rel_path}/{json_name}')
                 status = 'CREATED'
-            else:
+            elif changed:
                 updated.append(f'{rel_path}/{json_name}')
                 status = 'UPDATED'
+            else:
+                unchanged.append(f'{rel_path}/{json_name}')
+                status = 'unchanged'
 
             if verbose:
                 print(f'  {status}: {rel_path}/{json_name}')
@@ -159,8 +183,16 @@ def main():
         print(f'  Created: {len(created)} new files')
         for f in created:
             print(f'    + {f}')
+    # "Updated" used to mean "this file already existed", so a run that
+    # changed nothing still reported ~93 updates. It now means the bytes
+    # differ -- otherwise the report reads identically whether the run
+    # rewrote everything or nothing.
     if updated:
-        print(f'  Updated: {len(updated)} existing files')
+        print(f'  Updated: {len(updated)} files with content changes')
+        for f in updated:
+            print(f'    ~ {f}')
+    if unchanged:
+        print(f'  Unchanged: {len(unchanged)} already current')
 
 
 if __name__ == '__main__':
