@@ -46,10 +46,14 @@ the `.md`/`.jsonld`/example files are edited by hand:**
 | `resolvedSchema.json` | generated | `tools/resolve_schema.py` |
 | `build/` | generated | CI (`bblocks-postprocess`), committed back to `main` |
 
-After editing any `schema.yaml`, regenerate both derived files or the register and validators go
-stale against the source. `resolvedSchema.json` is the fully-inlined schema — it is what
-`validate_examples.py` validates against, so a change that lands only in `schema.yaml` is a change
-nothing checks.
+After editing any `schema.yaml`, regenerate both derived files or the published register goes stale
+against the source.
+
+Note what `validate_examples.py` actually validates against: it calls `resolve_file()` on
+`schema.yaml` and inlines every `$ref` **live over the network**. It never reads the committed
+`resolvedSchema.json`. So a green validation run says the examples match CDIF *as published right
+now*, not as captured in this repo — and CDIF publishing a breaking change turns the suite red with
+no commit here. `resolvedSchema.json` is a committed snapshot that nothing currently verifies.
 
 Do not hand-edit anything under `build/`. The CI postprocess job rewrites it and commits over your
 changes ("Building blocks postprocessing" commits on `main` are the bot).
