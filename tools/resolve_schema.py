@@ -21,6 +21,7 @@ Usage:
     python tools/resolve_schema.py adaEMPA -o elsewhere.json
     python tools/resolve_schema.py adaEMPA --stdout   # print instead of writing
     python tools/resolve_schema.py --all
+    python tools/resolve_schema.py --all --check     # drift check, writes nothing
 
 Writing is the default. It used to be printing, which meant the obvious
 invocation resolved the schema, reported its size, and left the
@@ -267,6 +268,9 @@ def strip_metadata_keys(schema: Any, is_root: bool = True) -> Any:
 # ---------------------------------------------------------------------------
 
 _SCHEMA_DEF_KEYS = frozenset({"type", "oneOf", "anyOf", "allOf", "$ref"})
+
+# A conditional is one construct: these keys travel together or not at all.
+_CONDITIONAL_KEYS = ("if", "then", "else")
 
 
 def _is_complete_schema(d: dict) -> bool:
@@ -1096,11 +1100,21 @@ def merge_profile_structured(profile_path: Path, global_defs: dict,
                     # schema level, not be stuffed into `properties`. Push each
                     # as its own allOf constraint so multiple composing BBs'
                     # required-lists (etc.) compose by intersection.
+                    # `if`/`then`/`else` are one coupled construct and must stay
+                    # in a SINGLE entry: split across entries, `if` alone is a
+                    # no-op and `then` alone is ignored (JSON Schema 2020-12),
+                    # so the conditional silently stops constraining anything.
+                    conditional = {k: resolved_bb[k] for k in _CONDITIONAL_KEYS
+                                   if k in resolved_bb}
                     for k, v in resolved_bb.items():
                         if k in ("properties", "allOf", "$schema", "$defs",
                                  "type", "title", "description"):
                             continue
+                        if k in _CONDITIONAL_KEYS:
+                            continue
                         constraint_entries.append({k: v})
+                    if conditional:
+                        constraint_entries.append(conditional)
                     continue
 
         # Non-$ref allOf entries are constraint entries
@@ -1494,6 +1508,20 @@ def _report_unresolved(broken: list) -> None:
           "re-run with --allow-unresolved.", file=sys.stderr)
 
 
+def _same_content(previous: bytes | None, expected: bytes) -> bool:
+    """Compare resolved output to what is on disk, ignoring line endings.
+
+    The write path deliberately compares raw bytes -- see the comment there.
+    A check must not: with core.autocrlf=true every checked-out file is CRLF
+    while this tool writes LF, so a raw comparison reports all 93 schemas as
+    drifted the moment someone checks one out on Windows, which is exactly the
+    false alarm a drift detector must never raise.
+    """
+    if previous is None:
+        return False
+    return previous.replace(b"\r\n", b"\n") == expected.replace(b"\r\n", b"\n")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Resolve OGC Building Block schemas into a single complete JSON Schema.",
@@ -1531,6 +1559,14 @@ def main():
         help="(deprecated, ignored — structured form is now the only output mode)",
     )
     parser.add_argument(
+        "--check",
+        action="store_true",
+        help="Report which resolvedSchema.json files a resolve would change "
+             "and exit 1 if any would, writing nothing. With --all this is the "
+             "upstream-drift detector: it answers 'has a repo we $ref by URL "
+             "moved under us?' without touching the working tree.",
+    )
+    parser.add_argument(
         "--allow-unresolved",
         action="store_true",
         help="Write the schema even if refs could not be resolved, leaving "
@@ -1545,6 +1581,7 @@ def main():
               f"(external $refs, or an existing resolvedSchema.json)",
               file=sys.stderr)
         changed = 0
+        drifted: list[Path] = []
         broken: list[tuple[Path, list[tuple[str, str]]]] = []
         for schema_path in schemas:
             rel = schema_path.relative_to(REPO_ROOT)
@@ -1564,15 +1601,34 @@ def main():
             # Bytes, not text: text mode normalises line endings, so a CRLF
             # file compared equal to LF output and every run reported
             # "0 updated" while rewriting all 92 files.
+            expected = (json.dumps(structured, indent=2, ensure_ascii=False)
+                        + "\n").encode("utf-8")
             previous = out_path.read_bytes() if out_path.exists() else None
+
+            if args.check:
+                if not _same_content(previous, expected):
+                    drifted.append(rel)
+                    print(f"  DRIFT    {rel}", file=sys.stderr)
+                continue
+
             with open(out_path, "w", encoding="utf-8", newline="\n") as f:
-                f.write(json.dumps(structured, indent=2, ensure_ascii=False) + "\n")
+                f.write(expected.decode("utf-8"))
             if previous != out_path.read_bytes():
                 changed += 1
                 print(f"  UPDATED  {rel}", file=sys.stderr)
         # Say what moved, not just how many ran. A silent "Resolved 79
         # schemas" reads the same whether it rewrote everything or nothing.
         ok = len(schemas) - len(broken)
+        if args.check:
+            print(f"Checked {ok} schemas: {len(drifted)} would change, "
+                  f"{ok - len(drifted)} already current", file=sys.stderr)
+            if broken:
+                _report_unresolved(broken)
+            if drifted or broken:
+                print("Re-run without --check to update, and review the diff.",
+                      file=sys.stderr)
+                sys.exit(1)
+            return
         print(f"Resolved {ok} schemas: {changed} updated, "
               f"{ok - changed} already current", file=sys.stderr)
         if broken:
@@ -1601,6 +1657,16 @@ def main():
         sys.exit(1)
 
     output_json = json.dumps(structured, indent=2, ensure_ascii=False) + "\n"
+
+    if args.check:
+        out_path = args.output or (schema_path.parent / "resolvedSchema.json")
+        expected = output_json.encode("utf-8")
+        previous = out_path.read_bytes() if out_path.exists() else None
+        current = _same_content(previous, expected)
+        print(f"Check: {out_path} "
+              f"({'already current' if current else 'would change'})",
+              file=sys.stderr)
+        sys.exit(0 if current else 1)
 
     # Write in place unless told otherwise. Printing used to be the default,
     # and it made `resolve_schema.py cdifManifest` look like it had done the
