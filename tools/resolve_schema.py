@@ -15,13 +15,12 @@ $ref patterns handled:
   6. Both YAML and JSON file extensions
 
 Usage:
-    python tools/resolve_schema.py adaEMPA           # writes resolvedSchema.json in place
+    python tools/resolve_schema.py adaEPMA           # writes resolvedSchema.json in place
     python tools/resolve_schema.py CDIFDiscoveryProfile
     python tools/resolve_schema.py --file path/to/any/schema.yaml
-    python tools/resolve_schema.py adaEMPA -o elsewhere.json
-    python tools/resolve_schema.py adaEMPA --stdout   # print instead of writing
+    python tools/resolve_schema.py adaEPMA -o elsewhere.json
+    python tools/resolve_schema.py adaEPMA --stdout   # print instead of writing
     python tools/resolve_schema.py --all
-    python tools/resolve_schema.py --all --check     # drift check, writes nothing
 
 Writing is the default. It used to be printing, which meant the obvious
 invocation resolved the schema, reported its size, and left the
@@ -37,10 +36,10 @@ resolvedSchema.json, and reports how many it actually changed.
 
 import argparse
 import copy
+import hashlib
 import json
 import os
 import sys
-import tempfile
 import yaml
 from pathlib import Path
 from typing import Any
@@ -56,7 +55,123 @@ STRIP_KEYS = {"$id", "x-jsonld-prefixes", "x-jsonld-context", "x-jsonld-extra-te
 
 # Cache for fetched URL schemas (URL string -> local Path)
 _URL_CACHE: dict[str, Path] = {}
-_URL_CACHE_DIR = Path(tempfile.mkdtemp(prefix="resolve_schema_"))
+
+# The remote schemas this build depends on are PINNED: vendored into the repo and committed,
+# not fetched on every run. They used to land in tempfile.mkdtemp(), discarded afterwards, so
+# every resolve hit the network and the build was not reproducible -- the same inputs could
+# produce different outputs on different days with nothing to show for it.
+#
+# That is not hypothetical. On 2026-09-12 a full regeneration silently absorbed a CDIF change
+# to cdifDataStructureComponent (it now takes cdif:isDefinedBy_Variable where it took
+# cdif:isDefinedBy_RepresentedVariable), mid-way through an unrelated TAPP migration. The
+# change was upstream's to make and is correctly documented there; the problem was that it
+# arrived unannounced, inside a 1,264-file diff, and cost hours to tell apart from our own work.
+#
+# So: a cache hit is served from disk and never re-fetched. A MISS is an error unless
+# --refresh-remote is passed, which is the deliberate act of taking an upstream change; the
+# resulting diff to vendor/remote/ is then reviewable like any other.
+_URL_CACHE_DIR = REPO_ROOT / "vendor" / "remote"
+_URL_LOCK_PATH = REPO_ROOT / "vendor" / "remote-lock.json"
+_ALLOW_FETCH = False          # set by main() from --refresh-remote
+_URL_LOCK: dict[str, dict] = {}
+_LOCK_DIRTY = False
+
+
+# $comment values that mean "the content that belongs here is missing". Cycle
+# markers (circular-ref, cycle:, self-referential:) are deliberately absent --
+# those are legitimate outcomes for a recursive schema, not failures.
+#
+# find_unresolved / _report_unresolved below are merged from the canonical
+# metadataBuildingBlocks copy (2026-09-25). This is NOT a wholesale sync: that
+# copy has neither resolve_and_write_structured (build_pathdriven.py calls it)
+# nor the vendor lock above, so copying it over this file would break the
+# pipeline and silently drop the pinning.
+UNRESOLVED_PREFIXES = (
+    "failed to fetch URL:",
+    "file not found:",
+    "could not resolve fragment",
+    "unresolved fragment ref:",
+)
+
+
+class UnresolvedRefs(Exception):
+    """Raised instead of writing a schema whose refs did not resolve."""
+
+    def __init__(self, schema_path, items):
+        self.schema_path = schema_path
+        self.items = items
+        super().__init__("%s: %d unresolved ref(s)" % (schema_path, len(items)))
+
+
+def find_unresolved(node, path=""):
+    """Collect surviving failure placeholders from a *resolved* schema.
+
+    Checking the finished output rather than instrumenting each failure site is
+    deliberate: "unresolved fragment ref:" is also used as an internal sentinel
+    that _inline_unresolved_defs replaces later, so recording at the call site
+    would report failures that get fixed moments later. Whatever is still
+    present at the end is genuinely missing, whichever code path produced it --
+    including sites added after this was written.
+    """
+    found = []
+    if isinstance(node, dict):
+        c = node.get("$comment")
+        if isinstance(c, str) and c.startswith(UNRESOLVED_PREFIXES):
+            found.append((path or "(root)", c))
+        for k, v in node.items():
+            if k != "$comment":
+                found.extend(find_unresolved(v, path + "/" + str(k)))
+    elif isinstance(node, list):
+        for i, item in enumerate(node):
+            found.extend(find_unresolved(item, path + "/" + str(i)))
+    return found
+
+
+def _report_unresolved(broken):
+    """Print what could not be resolved, and where it belonged.
+
+    This used to be a WARNING on stderr followed by a written file, so a ref
+    that had gone dead produced a schema missing whole branches and a run that
+    still looked successful. ecrrBuildingBlocks is what that policy produces
+    given time: all 25 of its cross-repo refs 404, and its committed
+    resolvedSchema.json were generated with every one of them failing.
+
+    The stakes here are higher than "warning" suggests: validate_examples.py
+    reads resolvedSchema.json, so a schema quietly missing a branch makes the
+    examples that should have failed pass instead.
+    """
+    print(chr(10) + "ERROR: refs could not be resolved. Nothing was written for the "
+          "schemas listed below --", file=sys.stderr)
+    print("a schema missing the content behind a ref is not a valid stand-in "
+          "for one that has it." + chr(10), file=sys.stderr)
+    for name, items in broken:
+        print("  %s" % name, file=sys.stderr)
+        for loc, comment in items[:8]:
+            print("      %s%s        %s" % (loc, chr(10), comment), file=sys.stderr)
+        if len(items) > 8:
+            print("      ... and %d more" % (len(items) - 8), file=sys.stderr)
+    print(chr(10) + "Usual causes: the target moved (check for a rename), the host "
+          "is wrong, the fragment no longer exists in the target file, or a "
+          "vendored copy is missing and --refresh-remote was not passed. To "
+          "write anyway, leaving placeholders where the content should be, "
+          "re-run with --allow-unresolved.", file=sys.stderr)
+
+
+def _load_lock() -> dict:
+    global _URL_LOCK
+    if _URL_LOCK_PATH.exists():
+        _URL_LOCK = json.loads(_URL_LOCK_PATH.read_text(encoding="utf-8"))
+    return _URL_LOCK
+
+
+def _save_lock() -> None:
+    if not _LOCK_DIRTY:
+        return
+    _URL_LOCK_PATH.parent.mkdir(parents=True, exist_ok=True)
+    _URL_LOCK_PATH.write_text(
+        json.dumps(_URL_LOCK, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+    print(f"  updated {_URL_LOCK_PATH.relative_to(REPO_ROOT)} "
+          f"({len(_URL_LOCK)} pinned remote schema(s))", file=sys.stderr)
 # Reverse mapping: maps each URL-fetched base URL (scheme + host) to the
 # corresponding cache dir prefix, so relative refs within fetched files can
 # be converted back to URLs and fetched on demand.
@@ -133,6 +248,42 @@ def find_unresolved(node: Any, path: str = "") -> list[tuple[str, str]]:
     return found
 
 
+def find_self_referential_defs(doc: Any) -> list[tuple[str, str]]:
+    """Catch a $defs entry whose body is a $ref to itself.
+
+    A local alias -- `$defs: {cdifConceptOrTermOrString: {$ref: ../../cdifDataType/
+    cdifConceptOrTermOrString/schema.yaml}}` -- collides with the name this
+    resolver registers the external block under, and the alias body can end up
+    rewritten to `#/$defs/<its own name>`. Any validator then recurses forever on
+    every value, so the def is strictly worse than an unresolved ref: it reports
+    as a RecursionError at the consumer rather than as a failure here.
+
+    It went unnoticed because `inline_low_use_defs` inlines a def used <= 2 times
+    and pops the entry, which removes the collided alias as a side effect. 30
+    alias sites repo-wide share the pattern and 29 were masked that way; the one
+    that surfaced, bioschemasProperties/cdifBioschemasProperties, is a type
+    library, and a type library skips low-use inlining. So the masking is
+    incidental, and a block becoming a type library is enough to expose it.
+
+    Reported through the unresolved-ref channel because the consequence is the
+    same -- nothing is written, rather than a degraded artifact replacing a good
+    one.
+    """
+    found: list[tuple[str, str]] = []
+    defs = doc.get("$defs") if isinstance(doc, dict) else None
+    if isinstance(defs, dict):
+        for name, body in defs.items():
+            if isinstance(body, dict) and body.get("$ref") == f"#/$defs/{name}":
+                found.append((
+                    f"/$defs/{name}",
+                    f"self-referential $def: $defs/{name} is {{\"$ref\": \"#/$defs/{name}\"}}, "
+                    f"which resolves to itself. Usually a local $defs alias whose name equals "
+                    f"the external block it points at -- drop the alias and $ref the block "
+                    f"directly at the use site.",
+                ))
+    return found
+
+
 def _fetch_url_schema(url: str) -> Path:
     """Fetch a schema from a URL and cache it locally. Returns the local file path."""
     if url in _URL_CACHE:
@@ -143,6 +294,41 @@ def _fetch_url_schema(url: str) -> Path:
     if fetch_url.startswith("//"):
         fetch_url = "https:" + fetch_url
 
+    # Where this URL lives in the vendored tree. The layout (host/path) is unchanged from the
+    # old temp-dir scheme, so the relative-ref logic below keeps working exactly as before.
+    parsed = urlparse(fetch_url)
+    url_path = parsed.path
+    host = parsed.netloc
+    safe_name = os.path.join(host, url_path.strip("/").replace("/", os.sep))
+    cache_path = _URL_CACHE_DIR / safe_name
+
+    if cache_path.exists() and not _ALLOW_FETCH:
+        # Pinned: serve from the repo, no network. Report drift rather than hiding it.
+        rec = _URL_LOCK.get(url)
+        if rec:
+            # Compare the raw AND the LF-normalised bytes. The lock holds the digest of what
+            # upstream served, but git checks these YAML files out with CRLF on Windows, so
+            # the raw digest cannot match there and every pin reported drift it did not have.
+            raw = cache_path.read_bytes()
+            have = {hashlib.sha256(raw).hexdigest(),
+                    hashlib.sha256(raw.replace(b"\r\n", b"\n")).hexdigest()}
+            if rec.get("sha256") not in have:
+                print(f"  WARNING: {cache_path.relative_to(REPO_ROOT)} does not match "
+                      f"remote-lock.json - the vendored copy was edited by hand?", file=sys.stderr)
+        _URL_CACHE[url] = cache_path
+        _register_url_base(cache_path, parsed, url_path, host)
+        return cache_path
+
+    if not _ALLOW_FETCH:
+        print(f"  ERROR: {fetch_url}\n"
+              f"         is not vendored under {_URL_CACHE_DIR.relative_to(REPO_ROOT)} and remote "
+              f"fetching is off.\n"
+              f"         Re-run with --refresh-remote to fetch and pin it. That is a deliberate "
+              f"act:\n"
+              f"         it takes whatever upstream serves today, and the diff to vendor/ is the "
+              f"record of it.", file=sys.stderr)
+        return None
+
     try:
         with urlopen(fetch_url, timeout=30) as resp:
             data = resp.read()
@@ -150,38 +336,39 @@ def _fetch_url_schema(url: str) -> Path:
         print(f"  WARNING: Failed to fetch {fetch_url}: {e}", file=sys.stderr)
         return None
 
-    # Determine extension from URL path
-    parsed = urlparse(fetch_url)
-    url_path = parsed.path
-    ext = ".yaml" if url_path.endswith((".yaml", ".yml")) else ".json"
-
-    # Write to a temp file preserving directory structure for relative refs.
-    # Include the hostname so sibling refs within fetched files resolve correctly
-    # and different hosts don't collide.
-    host = parsed.netloc
-    safe_name = os.path.join(host, url_path.strip("/").replace("/", os.sep))
-    cache_path = _URL_CACHE_DIR / safe_name
     cache_path.parent.mkdir(parents=True, exist_ok=True)
+    previous = cache_path.read_bytes() if cache_path.exists() else None
     cache_path.write_bytes(data)
+    digest = hashlib.sha256(data).hexdigest()
+    if previous is not None and previous != data:
+        print(f"  CHANGED upstream: {url}", file=sys.stderr)
+    global _LOCK_DIRTY
+    _URL_LOCK[url] = {"sha256": digest, "bytes": len(data)}
+    _LOCK_DIRTY = True
 
     _URL_CACHE[url] = cache_path
 
-    # Register the URL base so relative refs within fetched files can be
-    # converted back to URLs.  E.g. for
-    #   https://example.github.io/repo/_sources/foo/schema.yaml
-    # we record cache_prefix = "example.github.io/repo" -> url_prefix = "https://example.github.io/repo"
-    # so that a relative "../bar/schema.yaml" resolving inside the cache tree
-    # can be mapped back to "https://example.github.io/repo/_sources/bar/schema.yaml".
-    parts = url_path.strip("/").split("/")
-    if len(parts) >= 2:
-        # Use host + first path segment as the base (covers github.io/repo patterns)
-        host = parsed.netloc
+    _register_url_base(cache_path, parsed, url_path, host)
+    return cache_path
+
+
+def _register_url_base(cache_path, parsed, url_path, host) -> None:
+    """Register the URL base so relative refs within fetched files can be converted back to URLs.
+
+    E.g. for https://example.github.io/repo/_sources/foo/schema.yaml we record
+    cache_prefix "example.github.io/repo" -> url_prefix "https://example.github.io/repo", so a
+    relative "../bar/schema.yaml" resolving inside the cache tree maps back to
+    "https://example.github.io/repo/_sources/bar/schema.yaml".
+
+    Factored out of _fetch_url_schema so the PINNED path (cache hit, no network) registers the
+    base too -- without it a vendored file's relative refs would not resolve, which is the whole
+    point of keeping the host/path layout.
+    """
+    if len(url_path.strip("/").split("/")) >= 2:
         cache_prefix = str(_URL_CACHE_DIR / host)
         url_prefix = f"{parsed.scheme}://{host}"
         if cache_prefix not in _URL_BASE_REGISTRY:
             _URL_BASE_REGISTRY[cache_prefix] = url_prefix
-
-    return cache_path
 
 
 def _fetch_relative_in_cache(file_path: Path) -> Path | None:
@@ -237,6 +424,46 @@ def resolve_fragment(schema: dict, pointer: str) -> Any:
         else:
             raise KeyError(f"Cannot resolve pointer /{'/'.join(parts)} at part '{part}'")
     return current
+
+
+# ---------------------------------------------------------------------------
+# No-op allOf pruning
+# ---------------------------------------------------------------------------
+
+def prune_noop_allof(schema: Any) -> Any:
+    """Recursively drop allOf branches that constrain nothing.
+
+    Flattening a nested composition leaves husks behind: when a branch's `properties` are
+    hoisted into the enclosing object what remains is `{"type": "object"}`, and a branch
+    consumed entirely leaves `{}`. Both are inert, but they accumulate — adaProduct alone
+    contributed two to every profile resolved downstream of it.
+
+    Two rules, and the second is the one that matters:
+
+      * `{}` is dropped unconditionally. The empty schema accepts everything, so it can
+        never be load-bearing in an allOf.
+      * `{"type": "object"}` is dropped ONLY where the enclosing schema asserts
+        `type: object` itself. Where it does not, that branch may be the only thing
+        requiring an object and dropping it would widen the schema — so it stays.
+        Checking the sibling is what keeps this a formatting pass, not a semantic one.
+
+    An allOf left empty is removed rather than kept as `"allOf": []`.
+    """
+    if isinstance(schema, dict):
+        result = {k: prune_noop_allof(v) for k, v in schema.items()}
+        branches = result.get("allOf")
+        if isinstance(branches, list):
+            typed_here = result.get("type") == "object"
+            kept = [b for b in branches
+                    if not (b == {} or (typed_here and b == {"type": "object"}))]
+            if kept:
+                result["allOf"] = kept
+            else:
+                result.pop("allOf", None)
+        return result
+    if isinstance(schema, list):
+        return [prune_noop_allof(item) for item in schema]
+    return schema
 
 
 # ---------------------------------------------------------------------------
@@ -1165,6 +1392,18 @@ def _merge_non_profile_structured(schema_path: Path, global_defs: dict,
         resolved_defs[def_name] = resolve_def_aware(def_path, file_to_def,
                                                     inline_def_map, seen=set())
 
+    # The document's OWN $defs. resolve_def_aware drops them deliberately — a normal BB's local defs
+    # are hoisted into global_defs by collect_global_defs, which scans REFERENCED files and so never
+    # picks up the root's own. That is invisible until a schema's $defs are its whole point: every
+    # composition module under BaseSchema/modules/ resolved to nothing but $schema, title and
+    # description, because all nine of ReportingCore's defs went out this way. Added with setdefault
+    # so a global of the same name still wins, leaving existing behaviour alone.
+    own = load_schema_file(schema_path.resolve()).get("$defs") or {}
+    for def_name, def_body in own.items():
+        resolved_defs.setdefault(def_name, _resolve_node_structured(
+            def_body, schema_path.parent, own, file_to_def, inline_def_map,
+            current_file=schema_path.resolve(), seen=set()))
+
     if resolved_defs:
         resolved["$defs"] = resolved_defs
 
@@ -1204,28 +1443,70 @@ def _has_ref_to(node: Any, target_name: str) -> bool:
     return False
 
 
+def _refs_in(node: Any) -> set[str]:
+    """Every `#/$defs/<name>` referenced anywhere in `node`, collected in ONE walk.
+
+    The counterpart of _has_ref_to, inverted. Asking "does this body reference X?" once per
+    candidate X meant re-walking the body for every def in the file; collecting the targets
+    instead answers the same question for all of them at once.
+    """
+    out: set[str] = set()
+    stack = [node]
+    while stack:
+        n = stack.pop()
+        if isinstance(n, dict):
+            r = n.get("$ref")
+            if isinstance(r, str) and r.startswith("#/$defs/"):
+                out.add(r[len("#/$defs/"):])
+            stack.extend(n.values())
+        elif isinstance(n, list):
+            stack.extend(n)
+    return out
+
+
+def _cyclic_defs(defs: dict) -> set[str]:
+    """The names that participate in a $defs cycle, direct or transitive.
+
+    One walk per body builds the edge map; then each def's reachable set is closed over that
+    map and a def is cyclic iff it reaches itself. Identical relation to the pairwise
+    _has_ref_to test it replaces, so identical answers -- see _refs_in for why the pairwise
+    form was expensive.
+    """
+    edges = {name: (_refs_in(body) & set(defs)) for name, body in defs.items()}
+    cyclic: set[str] = set()
+    for start in edges:
+        reachable: set[str] = set()
+        stack = list(edges[start])
+        while stack:
+            cur = stack.pop()
+            if cur in reachable:
+                continue
+            reachable.add(cur)
+            stack.extend(edges.get(cur, ()))
+        if start in reachable:
+            cyclic.add(start)
+    return cyclic
+
+
 def _is_in_cycle(name: str, defs: dict) -> bool:
     """Return True if `name` participates in a $defs cycle (direct or transitive).
 
-    Walks the $ref graph starting at `name`. If `name` is reachable from itself,
-    it is in a cycle.
+    Kept for callers that ask about one name. inline_low_use_defs uses _cyclic_defs instead,
+    which answers for every name at the cost of one pass.
     """
-    if name not in defs:
-        return False
-    reachable: set[str] = set()
-    stack = [name]
-    while stack:
-        current = stack.pop()
-        body = defs.get(current)
-        if body is None:
-            continue
-        for other in defs:
-            if other in reachable:
-                continue
-            if _has_ref_to(body, other):
-                reachable.add(other)
-                stack.append(other)
-    return name in reachable
+    return name in defs and name in _cyclic_defs(defs)
+
+
+_DEFS_ONLY_META = {"$schema", "$id", "title", "description", "$comment", "$defs"}
+
+
+def _has_structure_outside_defs(schema: dict) -> bool:
+    """True unless the document is nothing but metadata and `$defs`.
+
+    A defs-only schema is a library of named shapes for other files to reference, not a schema that
+    constrains anything itself — the composition modules are the case in hand.
+    """
+    return bool(set(schema) - _DEFS_ONLY_META)
 
 
 def inline_low_use_defs(schema: dict, threshold: int = 2) -> dict:
@@ -1240,11 +1521,14 @@ def inline_low_use_defs(schema: dict, threshold: int = 2) -> dict:
     while True:
         counts = count_def_refs(schema)
         defs = schema.get("$defs", {})
+        # Once per pass, not once per candidate: the cyclic set is a property of this pass's
+        # $defs, and asking per name re-derived the whole graph each time.
+        cyclic = _cyclic_defs(defs)
         # Find one def to inline
         to_inline = None
         for name in list(defs):
             if counts.get(name, 0) <= threshold:
-                if _is_in_cycle(name, defs):
+                if name in cyclic:
                     continue
                 to_inline = name
                 break
@@ -1367,19 +1651,59 @@ def resolve_structured(schema_path: Path) -> dict:
               file=sys.stderr)
 
     # Phase 4-5: inline low-use defs (skips cyclic ones automatically).
-    # Not for a type library: its $defs are the deliverable, referenced
-    # from other blocks rather than from within this one, so every use
-    # count is zero and the pass would delete all of them.
+    #
+    # Skipped for a block whose $defs ARE its public surface. Inlining prunes a $def the document
+    # itself barely references, which is right for a local helper and wrong here: those defs are
+    # $ref'd from OTHER files, so every internal use count is zero and the pass would delete all of
+    # them. TWO independent tests, because neither subsumes the other:
+    #
+    #   isTypeLibrary         declared in bblock.json, so authoritative where it is set -- but only
+    #                         6 of 241 blocks in geochemBuildingBlocks set it, and none of the
+    #                         composition modules do.
+    #   no structure outside  a defs-only document has nothing to inline INTO, so the pass has no
+    #   $defs                 work there. This is the test that caught the modules, which were
+    #                         losing every def and publishing a resolvedSchema.json holding
+    #                         nothing but $schema, title and description.
     if _is_type_library(schema_path):
         print("  Type library (isTypeLibrary=true): keeping all $defs, "
               "skipping low-use inlining", file=sys.stderr)
+    elif not _has_structure_outside_defs(result):
+        print("  No structure outside $defs: keeping all $defs, skipping low-use inlining",
+              file=sys.stderr)
     else:
         result = inline_low_use_defs(result, threshold=2)
 
     # Phase 6: strip metadata
     result = strip_metadata_keys(result, is_root=True)
 
+    # Phase 7: drop the allOf husks flattening left behind. Last, so it also clears any
+    # branch the earlier phases emptied.
+    result = prune_noop_allof(result)
+
     return result
+
+
+def resolve_and_write_structured(schema_path: Path, allow_unresolved: bool = False) -> Path:
+    """Resolve structured and write resolvedSchema.json next to schema. Returns output path.
+
+    Resolve, INSPECT, then write. A schema whose refs did not resolve is not written and
+    raises UnresolvedRefs instead: a degraded artifact must not quietly replace a good one
+    on disk. The check lives here rather than in main() because build_pathdriven.py calls
+    this directly, and a pipeline stage writing a schema with a missing branch is the same
+    failure as the CLI doing it.
+
+    Writes LF explicitly. Without it this wrote the platform default, so every resolve on
+    Windows rewrote all 240 files with CRLF and buried the real changes -- one regeneration
+    reported 486 modified files when 24 had actually changed.
+    """
+    structured = resolve_structured(schema_path)
+    unresolved = find_unresolved(structured) + find_self_referential_defs(structured)
+    if unresolved and not allow_unresolved:
+        raise UnresolvedRefs(schema_path, unresolved)
+    out_path = schema_path.parent / "resolvedSchema.json"
+    with open(out_path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(json.dumps(structured, indent=2, ensure_ascii=False) + "\n")
+    return out_path
 
 
 # ---------------------------------------------------------------------------
@@ -1387,19 +1711,19 @@ def resolve_structured(schema_path: Path) -> dict:
 # ---------------------------------------------------------------------------
 
 def _find_profile_dir(name: str) -> Path:
-    """Find the profile directory by searching subdirectories of profiles/."""
-    profiles_root = SOURCES_DIR / "profiles"
-    # Search subdirectories (adaProfiles/, cdifProfiles/)
-    for subdir in profiles_root.iterdir():
-        if subdir.is_dir():
-            candidate = subdir / name
-            if candidate.is_dir():
-                return candidate
-    # Fall back to direct child (legacy flat layout)
-    direct = profiles_root / name
-    if direct.is_dir():
-        return direct
-    raise FileNotFoundError(f"Profile directory not found: {name}")
+    """Find a BB directory by its (pre-reorg) identity name under the group-by-technique layout —
+    including the role-renamed dirs (<x>TAPP, detail<X>, ada<X>, geochem profiles). Falls back to
+    the legacy flat profiles/ layout."""
+    import bb_locate
+    hit = bb_locate.find_bb_dir(name, SOURCES_DIR)
+    if hit is not None:
+        return hit
+    legacy = SOURCES_DIR / "profiles"
+    if legacy.exists():
+        for subdir in legacy.iterdir():
+            if subdir.is_dir() and (subdir / name).is_dir():
+                return subdir / name
+    raise FileNotFoundError(f"Profile/BB directory not found: {name}")
 
 
 def find_profile_schema(name: str) -> Path:
@@ -1508,20 +1832,6 @@ def _report_unresolved(broken: list) -> None:
           "re-run with --allow-unresolved.", file=sys.stderr)
 
 
-def _same_content(previous: bytes | None, expected: bytes) -> bool:
-    """Compare resolved output to what is on disk, ignoring line endings.
-
-    The write path deliberately compares raw bytes -- see the comment there.
-    A check must not: with core.autocrlf=true every checked-out file is CRLF
-    while this tool writes LF, so a raw comparison reports all 93 schemas as
-    drifted the moment someone checks one out on Windows, which is exactly the
-    false alarm a drift detector must never raise.
-    """
-    if previous is None:
-        return False
-    return previous.replace(b"\r\n", b"\n") == expected.replace(b"\r\n", b"\n")
-
-
 def main():
     parser = argparse.ArgumentParser(
         description="Resolve OGC Building Block schemas into a single complete JSON Schema.",
@@ -1529,7 +1839,7 @@ def main():
     parser.add_argument(
         "profile",
         nargs="?",
-        help="Profile name (e.g., adaEMPA, adaProduct, CDIFDiscoveryProfile)",
+        help="Profile name (e.g., adaEPMA, adaProduct, CDIFDiscoveryProfile)",
     )
     parser.add_argument(
         "--file",
@@ -1559,78 +1869,81 @@ def main():
         help="(deprecated, ignored — structured form is now the only output mode)",
     )
     parser.add_argument(
-        "--check",
-        action="store_true",
-        help="Report which resolvedSchema.json files a resolve would change "
-             "and exit 1 if any would, writing nothing. With --all this is the "
-             "upstream-drift detector: it answers 'has a repo we $ref by URL "
-             "moved under us?' without touching the working tree.",
+        "--only",
+        action="append",
+        default=[],
+        help="with --all, restrict the techniqueProfile schemas to those whose path contains one "
+             "of these (repeatable; e.g. --only EPMA --only LA-Q-ICPMS). Shared schemas under "
+             "BaseSchema/ and registry/ are ALWAYS resolved, because the module and registry "
+             "stages rebuild them on every run and a stale resolvedSchema there is what silently "
+             "poisons every technique that composes it.",
     )
     parser.add_argument(
         "--allow-unresolved",
         action="store_true",
-        help="Write the schema even if refs could not be resolved, leaving "
-             "$comment placeholders where the content should be. Needed only "
-             "while repairing a repo whose refs are already broken.",
+        help="write the schema even when refs did not resolve, leaving placeholders where "
+             "the content should be. Off by default: validate_examples.py reads "
+             "resolvedSchema.json, so a schema missing a branch makes the examples that "
+             "should have failed pass instead.",
+    )
+    parser.add_argument(
+        "--refresh-remote",
+        action="store_true",
+        help="fetch remote $refs from the network and re-pin them under vendor/remote. Without "
+             "this the vendored copies are used and a missing one is an error, so a build "
+             "cannot silently pick up an upstream change.",
     )
     args = parser.parse_args()
 
+    global _ALLOW_FETCH
+    _ALLOW_FETCH = args.refresh_remote
+    _load_lock()
+
     if args.all:
+        # mbb's discovery, which also picks up a block that HAS a resolvedSchema.json but no
+        # external refs -- those were skipped entirely before, so a stale one was never refreshed.
         schemas = find_all_resolvable_schemas()
+        if args.only:
+            keep = []
+            for sp in schemas:
+                rel = str(sp).replace("\\", "/")
+                if "/techniqueProfile/" not in rel or any(o in rel for o in args.only):
+                    keep.append(sp)
+            print(f"--only {', '.join(args.only)}: {len(keep)} of {len(schemas)} schemas "
+                  f"({len(schemas) - len(keep)} technique schemas skipped)", file=sys.stderr)
+            schemas = keep
         print(f"Found {len(schemas)} building blocks to resolve "
-              f"(external $refs, or an existing resolvedSchema.json)",
-              file=sys.stderr)
+              f"(external $refs, or an existing resolvedSchema.json)", file=sys.stderr)
         changed = 0
-        drifted: list[Path] = []
         broken: list[tuple[Path, list[tuple[str, str]]]] = []
         for schema_path in schemas:
             rel = schema_path.relative_to(REPO_ROOT)
             out_path = schema_path.parent / "resolvedSchema.json"
 
-            # Resolve first, inspect, then write. A schema whose refs did not
-            # resolve is NOT written: the whole point is that a degraded
-            # artifact must not quietly replace a good one on disk.
+            # Resolve first, inspect, then write. A schema whose refs did not resolve is NOT
+            # written: a degraded artifact must not quietly replace a good one on disk.
             structured = resolve_structured(schema_path)
-            unresolved = find_unresolved(structured)
+            unresolved = find_unresolved(structured) + find_self_referential_defs(structured)
             if unresolved and not args.allow_unresolved:
                 broken.append((rel, unresolved))
-                print(f"  UNRESOLVED  {rel} ({len(unresolved)} ref(s)) — not written",
+                print(f"  UNRESOLVED  {rel} ({len(unresolved)} ref(s)) - not written",
                       file=sys.stderr)
                 continue
 
-            # Bytes, not text: text mode normalises line endings, so a CRLF
-            # file compared equal to LF output and every run reported
-            # "0 updated" while rewriting all 92 files.
-            expected = (json.dumps(structured, indent=2, ensure_ascii=False)
-                        + "\n").encode("utf-8")
+            # Bytes, not text: text mode normalises line endings, so a CRLF file compared equal
+            # to LF output and every run reported "0 updated" while rewriting every file.
             previous = out_path.read_bytes() if out_path.exists() else None
-
-            if args.check:
-                if not _same_content(previous, expected):
-                    drifted.append(rel)
-                    print(f"  DRIFT    {rel}", file=sys.stderr)
-                continue
-
             with open(out_path, "w", encoding="utf-8", newline="\n") as f:
-                f.write(expected.decode("utf-8"))
+                f.write(json.dumps(structured, indent=2, ensure_ascii=False) + "\n")
             if previous != out_path.read_bytes():
                 changed += 1
                 print(f"  UPDATED  {rel}", file=sys.stderr)
-        # Say what moved, not just how many ran. A silent "Resolved 79
-        # schemas" reads the same whether it rewrote everything or nothing.
+        # Say what MOVED, not just how many ran: a bare "Resolved 240 schemas" reads the same
+        # whether it rewrote everything or nothing.
         ok = len(schemas) - len(broken)
-        if args.check:
-            print(f"Checked {ok} schemas: {len(drifted)} would change, "
-                  f"{ok - len(drifted)} already current", file=sys.stderr)
-            if broken:
-                _report_unresolved(broken)
-            if drifted or broken:
-                print("Re-run without --check to update, and review the diff.",
-                      file=sys.stderr)
-                sys.exit(1)
-            return
-        print(f"Resolved {ok} schemas: {changed} updated, "
-              f"{ok - changed} already current", file=sys.stderr)
+        print(f"Resolved {ok} schemas: {changed} updated, {ok - changed} already current",
+              file=sys.stderr)
+        _save_lock()
         if broken:
             _report_unresolved(broken)
             sys.exit(1)
@@ -1651,22 +1964,12 @@ def main():
 
     structured = resolve_structured(schema_path)
 
-    unresolved = find_unresolved(structured)
+    unresolved = find_unresolved(structured) + find_self_referential_defs(structured)
     if unresolved and not args.allow_unresolved:
         _report_unresolved([(schema_path, unresolved)])
         sys.exit(1)
 
     output_json = json.dumps(structured, indent=2, ensure_ascii=False) + "\n"
-
-    if args.check:
-        out_path = args.output or (schema_path.parent / "resolvedSchema.json")
-        expected = output_json.encode("utf-8")
-        previous = out_path.read_bytes() if out_path.exists() else None
-        current = _same_content(previous, expected)
-        print(f"Check: {out_path} "
-              f"({'already current' if current else 'would change'})",
-              file=sys.stderr)
-        sys.exit(0 if current else 1)
 
     # Write in place unless told otherwise. Printing used to be the default,
     # and it made `resolve_schema.py cdifManifest` look like it had done the
@@ -1693,6 +1996,7 @@ def main():
     print(f"  $defs: {len(defs)} ({', '.join(sorted(defs.keys()))})",
           file=sys.stderr)
     print(f"  Size: {len(output_json):,} bytes", file=sys.stderr)
+    _save_lock()
 
 
 if __name__ == "__main__":
