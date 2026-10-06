@@ -274,13 +274,13 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
 @prefix schema1: <http://schema.org/> .
 
 [] schema1:additionalProperty [ a schema1:PropertyValue ;
-            schema1:name "Wavelength Range" ;
-            schema1:propertyID "dde:wavelength" ;
-            schema1:value "0.43-2.29 micrometers" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Processing Level" ;
             schema1:propertyID "dde:processedLevel" ;
-            schema1:value "Level2" ] ;
+            schema1:value "Level2" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Wavelength Range" ;
+            schema1:propertyID "dde:wavelength" ;
+            schema1:value "0.43-2.29 micrometers" ] ;
     prov:wasGeneratedBy [ a schema1:Action,
                 prov:Activity ;
             schema1:endTime "2023-06-15T03:45:12Z" ;
@@ -292,16 +292,16 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
             schema1:startTime "2023-06-15T03:45:00Z" ;
             prov:used [ schema1:instrument [ a schema1:Product,
                                 schema1:Thing ;
+                            schema1:additionalType "dde:equipment" ;
+                            schema1:name "Operational Land Imager (OLI)" ] ],
+                [ schema1:instrument [ a schema1:Product,
+                                schema1:Thing ;
                             schema1:additionalType "dde:signalGenerator" ;
                             schema1:name "Passive solar" ] ],
                 [ schema1:instrument [ a schema1:Product,
                                 schema1:Thing ;
                             schema1:additionalType "dde:platform" ;
                             schema1:name "Landsat-8" ] ],
-                [ schema1:instrument [ a schema1:Product,
-                                schema1:Thing ;
-                            schema1:additionalType "dde:equipment" ;
-                            schema1:name "Operational Land Imager (OLI)" ] ],
                 [ schema1:instrument [ a schema1:Product,
                                 schema1:Thing ;
                             schema1:additionalType "dde:sensorType" ;
@@ -418,15 +418,9 @@ Links to the schema:
   "@context": {
     "schema": "http://schema.org/",
     "prov": "http://www.w3.org/ns/prov#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
     "wd": "https://www.wikidata.org/entity/",
     "nxs": "https://manual.nexusformat.org/classes/",
-    "skos": "http://www.w3.org/2004/02/skos/core#",
-    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
-    "cdif": "https://w3id.org/cdif/",
-    "ex": "https://example.org/",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "dcterms": "http://purl.org/dc/terms/",
-    "dcat": "http://www.w3.org/ns/dcat#",
     "dde": "https://www.ddeworld.org/resource/",
     "@version": 1.1
   }

@@ -447,22 +447,22 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
 
 <urn:dde:example-hydrogeological-map> a schema1:Dataset ;
     schema1:additionalProperty [ a schema1:PropertyValue ;
+            schema1:name "Spatial Resolution" ;
+            schema1:propertyID "dde:spatialResolution" ;
+            schema1:value "1:500000" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Reference System Type" ;
+            schema1:propertyID "dde:referenceSystemType" ;
+            schema1:value "geodeticGeographic2D" ],
+        [ a schema1:PropertyValue ;
             schema1:name "Coordinate Reference System" ;
             schema1:propertyID "dde:referenceSystemIdentifier" ;
             schema1:url "https://epsg.io/4326" ;
             schema1:value "EPSG:4326" ],
         [ a schema1:PropertyValue ;
-            schema1:name "Spatial Resolution" ;
-            schema1:propertyID "dde:spatialResolution" ;
-            schema1:value "1:500000" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Spatial Representation Type" ;
             schema1:propertyID "dde:spatialRepresentationType" ;
-            schema1:value "vector" ],
-        [ a schema1:PropertyValue ;
-            schema1:name "Reference System Type" ;
-            schema1:propertyID "dde:referenceSystemType" ;
-            schema1:value "geodeticGeographic2D" ] ;
+            schema1:value "vector" ] ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
             schema1:name "Geographic Dataset" ;
@@ -636,14 +636,14 @@ Links to the schema:
   "@context": {
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
-    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
-    "cdif": "https://w3id.org/cdif/",
-    "ex": "https://example.org/",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
     "dcat": "http://www.w3.org/ns/dcat#",
+    "cdif": "https://w3id.org/cdif/",
     "prov": "http://www.w3.org/ns/prov#",
+    "ex": "https://example.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dde": "https://www.ddeworld.org/resource/",
+    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
     "geosparql": "http://www.opengis.net/ont/geosparql#",
     "spdx": "http://spdx.org/rdf/terms#",
     "time": "http://www.w3.org/2006/time#",

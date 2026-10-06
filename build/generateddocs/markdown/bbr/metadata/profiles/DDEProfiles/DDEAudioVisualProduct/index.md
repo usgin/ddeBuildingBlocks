@@ -314,12 +314,12 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
 <urn:dde:example-plate-tectonics-video> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Product" ;
-            schema1:termCode "product" ],
+            schema1:name "Movie" ;
+            schema1:termCode "movie" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Movie" ;
-            schema1:termCode "movie" ] ;
+            schema1:name "Product" ;
+            schema1:termCode "product" ] ;
     schema1:creator ( [ a schema1:Organization ;
                 schema1:name "Deep-time Digital Earth (DDE)" ;
                 schema1:url "https://www.ddeworld.org/" ] ) ;
@@ -460,14 +460,14 @@ Links to the schema:
   "@context": {
     "schema": "http://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
-    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
-    "cdif": "https://w3id.org/cdif/",
-    "ex": "https://example.org/",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dcterms": "http://purl.org/dc/terms/",
     "dcat": "http://www.w3.org/ns/dcat#",
+    "cdif": "https://w3id.org/cdif/",
     "prov": "http://www.w3.org/ns/prov#",
+    "ex": "https://example.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
     "dde": "https://www.ddeworld.org/resource/",
+    "cdi": "http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/",
     "geosparql": "http://www.opengis.net/ont/geosparql#",
     "spdx": "http://spdx.org/rdf/terms#",
     "time": "http://www.w3.org/2006/time#",

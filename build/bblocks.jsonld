@@ -61,6 +61,16 @@
           "link": "@id"
         }
       },
+      "license": {
+        "@id": "dct:license",
+        "@context": {
+          "name": "rdfs:label",
+          "url": {
+            "@id": "rdfs:seeAlso",
+            "@type": "@id"
+          }
+        }
+      },
       "schema": {
         "@id": "prof:hasResource",
         "@type": "@id"
@@ -98,6 +108,14 @@
       },
       "isProfileOf": {
         "@id": "prof:isProfileOf",
+        "@type": "@id"
+      },
+      "hasFormat": {
+        "@id": "dct:hasFormat",
+        "@type": "@id"
+      },
+      "seeAlso": {
+        "@id": "rdfs:seeAlso",
         "@type": "@id"
       },
       "tags": "dcat:keyword",
@@ -191,21 +209,25 @@
       }
     }
   ],
+  "metaRegistry": "https://w3id.org/ogc/bblocks/meta-register.json",
   "name": "Building Blocks - DDE Building Blocks repository",
   "abstract": "Building blocks for Deep-time Digital Earth (DDE) metadata profiles,\nusing the OGC Building Blocks pattern.\n",
   "description": "Modular schema components for DDE resource type metadata. Imports shared\nschema.org and CDIF property building blocks from the CDIF Building Blocks repository.\n",
-  "modified": "2026-09-05T19:50:38.010368",
+  "modified": "2026-10-06T05:05:22.002041",
   "tooling": {
     "bblocks-postprocess": {
-      "commitId": "\"865a527f37dc271186cb8dd7d0386365bf1486d3",
-      "shortCommitId": "\"865a52",
-      "date": "2026-09-03T16:12:25+00:00\""
+      "commitId": "\"e64dad0d6a1d0045bec6b1c52f7117632deabfc8",
+      "shortCommitId": "\"e64dad",
+      "date": "2026-10-02T09:28:05+00:00\""
     }
   },
   "gitRepository": "https://github.com/usgin/ddeBuildingBlocks",
   "gitHubRepository": "https://github.com/usgin/ddeBuildingBlocks/blob/main/",
   "baseURL": "https://usgin.github.io/ddeBuildingBlocks/",
   "viewerURL": "https://usgin.github.io/ddeBuildingBlocks/",
+  "license": {
+    "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+  },
   "validationReport": "https://usgin.github.io/ddeBuildingBlocks/build/tests/report.html",
   "validationReportJson": "https://usgin.github.io/ddeBuildingBlocks/build/tests/report.json",
   "imports": [
@@ -250,7 +272,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-09-05",
+      "dateOfLastChange": "2026-10-06",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -295,6 +317,9 @@
       "dependsOn": [
         "bblocks://cdif.bbr.metadata.schemaorgProperties.definedTerm"
       ],
+      "license": {
+        "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+      },
       "ldContext": {
         "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/context.jsonld",
         "prof:hasRole": "role:mapping",
@@ -361,7 +386,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-09-05",
+      "dateOfLastChange": "2026-10-06",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -386,9 +411,9 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.spatialExtent",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.additionalProperty",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -413,19 +438,31 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.additionalProperty",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.spatialExtent",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/skosProperties/skosConcept/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.skosProperties.skosConcept",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         }
       ],
       "dependsOn": [
-        "bblocks://cdif.bbr.metadata.schemaorgProperties.spatialExtent",
         "bblocks://cdif.bbr.metadata.schemaorgProperties.additionalProperty",
+        "bblocks://cdif.bbr.metadata.schemaorgProperties.spatialExtent",
         "bblocks://cdif.bbr.metadata.schemaorgProperties.identifier"
       ],
+      "license": {
+        "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+      },
       "ldContext": {
         "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/context.jsonld",
         "prof:hasRole": "role:mapping",
@@ -492,7 +529,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-09-05",
+      "dateOfLastChange": "2026-10-06",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -526,15 +563,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.organization",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.identifier",
@@ -544,9 +572,27 @@
         },
         {
           "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.organization",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.definedTerm",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/skosProperties/skosConcept/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.skosProperties.skosConcept",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -564,6 +610,9 @@
       "dependsOn": [
         "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord"
       ],
+      "license": {
+        "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+      },
       "ldContext": {
         "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCatalogRecord/context.jsonld",
         "prof:hasRole": "role:mapping",
@@ -630,7 +679,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-09-05",
+      "dateOfLastChange": "2026-10-06",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -655,9 +704,27 @@
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -682,18 +749,36 @@
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/skosProperties/skosConcept/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.skosProperties.skosConcept",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/linkRole/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.linkRole",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -718,33 +803,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifReference/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifReference",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.dataDownload",
@@ -763,15 +821,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.generatedBy",
@@ -781,38 +830,50 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         }
       ],
       "dependsOn": [
-        "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
-        "bblocks://cdif.bbr.metadata.schemaorgProperties.definedTerm",
+        "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
         "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
-        "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore"
+        "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
+        "bblocks://cdif.bbr.metadata.schemaorgProperties.definedTerm"
       ],
+      "license": {
+        "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+      },
       "ldContext": {
         "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/context.jsonld",
         "prof:hasRole": "role:mapping",
@@ -879,7 +940,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-09-05",
+      "dateOfLastChange": "2026-10-06",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -904,9 +965,27 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifProvActivity/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.additionalProperty",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifProvActivity",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/instrument/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.instrument",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/linkRole/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.linkRole",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -931,18 +1010,9 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifProvActivity/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/skosProperties/skosConcept/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifProvActivity",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.person",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.skosProperties.skosConcept",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -958,27 +1028,9 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/instrument/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.instrument",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifReference/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifReference",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.person",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -988,6 +1040,24 @@
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.additionalProperty",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -1012,9 +1082,12 @@
         }
       ],
       "dependsOn": [
-        "bblocks://cdif.bbr.metadata.schemaorgProperties.additionalProperty",
-        "bblocks://cdif.bbr.metadata.cdifDataType.cdifProvActivity"
+        "bblocks://cdif.bbr.metadata.cdifDataType.cdifProvActivity",
+        "bblocks://cdif.bbr.metadata.schemaorgProperties.additionalProperty"
       ],
+      "license": {
+        "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+      },
       "ldContext": {
         "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/context.jsonld",
         "prof:hasRole": "role:mapping",
@@ -1081,7 +1154,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-09-05",
+      "dateOfLastChange": "2026-10-06",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -1106,9 +1179,45 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.qualityProperties.qualityMeasure",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.temporalExtent",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -1133,45 +1242,36 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.temporalExtent",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/skosProperties/skosConcept/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.skosProperties.skosConcept",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/linkRole/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.linkRole",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -1196,33 +1296,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifReference/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifReference",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.dataDownload",
@@ -1241,15 +1314,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.generatedBy",
@@ -1259,38 +1323,59 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.qualityProperties.qualityMeasure",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         }
       ],
       "dependsOn": [
-        "bblocks://cdif.bbr.metadata.qualityProperties.qualityMeasure",
         "bblocks://cdif.bbr.metadata.schemaorgProperties.temporalExtent",
         "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
-        "bblocks://cdif.bbr.metadata.schemaorgProperties.definedTerm"
+        "bblocks://cdif.bbr.metadata.schemaorgProperties.definedTerm",
+        "bblocks://cdif.bbr.metadata.qualityProperties.qualityMeasure"
       ],
+      "license": {
+        "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+      },
       "ldContext": {
         "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEAudioVisualProduct/context.jsonld",
         "prof:hasRole": "role:mapping",
@@ -1357,7 +1442,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-09-05",
+      "dateOfLastChange": "2026-10-06",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -1382,9 +1467,45 @@
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.temporalExtent",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -1409,36 +1530,36 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.temporalExtent",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/skosProperties/skosConcept/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.skosProperties.skosConcept",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/linkRole/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.linkRole",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -1463,33 +1584,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifReference/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifReference",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.dataDownload",
@@ -1508,15 +1602,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.generatedBy",
@@ -1526,37 +1611,49 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         }
       ],
       "dependsOn": [
-        "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
         "bblocks://cdif.bbr.metadata.schemaorgProperties.temporalExtent",
-        "bblocks://dde.bbr.metadata.DDEproperties.ddeCore"
+        "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
+        "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType"
       ],
+      "license": {
+        "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+      },
       "ldContext": {
         "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/context.jsonld",
         "prof:hasRole": "role:mapping",
@@ -1623,7 +1720,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-09-05",
+      "dateOfLastChange": "2026-10-06",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -1642,6 +1739,15 @@
             "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEDataset/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDEDataset",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.temporalExtent",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -1675,81 +1781,45 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.qualityProperties.qualityMeasure",
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.additionalProperty",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.spatialExtent",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/skosProperties/skosConcept/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.skosProperties.skosConcept",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.organization",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.person",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifReference/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifReference",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.variableMeasured",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -1765,45 +1835,18 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.dataDownload",
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.derivedFrom",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.generatedBy",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -1828,59 +1871,125 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/linkRole/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.temporalExtent",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.linkRole",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.variableMeasured",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.organization",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.spatialExtent",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.person",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.additionalProperty",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.dataDownload",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.derivedFrom",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.generatedBy",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.qualityProperties.qualityMeasure",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         }
       ],
       "dependsOn": [
-        "bblocks://cdif.bbr.metadata.schemaorgProperties.statisticalVariable",
-        "bblocks://cdif.bbr.metadata.qualityProperties.qualityMeasure",
-        "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
         "bblocks://cdif.bbr.metadata.schemaorgProperties.temporalExtent",
+        "bblocks://cdif.bbr.metadata.schemaorgProperties.statisticalVariable",
+        "bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
         "bblocks://cdif.bbr.metadata.schemaorgProperties.definedTerm",
         "bblocks://cdif.bbr.metadata.schemaorgProperties.variableMeasured",
-        "bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset"
+        "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
+        "bblocks://cdif.bbr.metadata.qualityProperties.qualityMeasure"
       ],
+      "license": {
+        "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+      },
       "ldContext": {
         "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/context.jsonld",
         "prof:hasRole": "role:mapping",
@@ -1947,7 +2056,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-09-05",
+      "dateOfLastChange": "2026-10-06",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -1976,9 +2085,45 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.qualityProperties.qualityMeasure",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.temporalExtent",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -2003,45 +2148,36 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.temporalExtent",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/skosProperties/skosConcept/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.skosProperties.skosConcept",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/linkRole/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.linkRole",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -2066,33 +2202,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifReference/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifReference",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.dataDownload",
@@ -2111,15 +2220,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.generatedBy",
@@ -2129,37 +2229,58 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.qualityProperties.qualityMeasure",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         }
       ],
       "dependsOn": [
-        "bblocks://cdif.bbr.metadata.qualityProperties.qualityMeasure",
         "bblocks://cdif.bbr.metadata.schemaorgProperties.temporalExtent",
-        "bblocks://dde.bbr.metadata.DDEproperties.ddeCore"
+        "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
+        "bblocks://cdif.bbr.metadata.qualityProperties.qualityMeasure"
       ],
+      "license": {
+        "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+      },
       "ldContext": {
         "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDiscovery/context.jsonld",
         "prof:hasRole": "role:mapping",
@@ -2226,7 +2347,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-09-05",
+      "dateOfLastChange": "2026-10-06",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -2269,9 +2390,27 @@
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -2296,18 +2435,36 @@
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/skosProperties/skosConcept/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.skosProperties.skosConcept",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/linkRole/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.linkRole",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -2332,33 +2489,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifReference/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifReference",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.dataDownload",
@@ -2377,15 +2507,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.generatedBy",
@@ -2395,27 +2516,36 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -2425,6 +2555,9 @@
         "bblocks://cdif.bbr.metadata.schemaorgProperties.temporalExtent",
         "bblocks://dde.bbr.metadata.DDEproperties.ddeCore"
       ],
+      "license": {
+        "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+      },
       "ldContext": {
         "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDocument/context.jsonld",
         "prof:hasRole": "role:mapping",
@@ -2491,7 +2624,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-09-05",
+      "dateOfLastChange": "2026-10-06",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -2534,9 +2667,27 @@
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -2561,18 +2712,36 @@
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/skosProperties/skosConcept/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.skosProperties.skosConcept",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/linkRole/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.linkRole",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -2597,33 +2766,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifReference/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifReference",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.dataDownload",
@@ -2642,15 +2784,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.generatedBy",
@@ -2660,27 +2793,36 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -2690,6 +2832,9 @@
         "bblocks://cdif.bbr.metadata.schemaorgProperties.temporalExtent",
         "bblocks://dde.bbr.metadata.DDEproperties.ddeCore"
       ],
+      "license": {
+        "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+      },
       "ldContext": {
         "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEEvent/context.jsonld",
         "prof:hasRole": "role:mapping",
@@ -2756,7 +2901,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-09-05",
+      "dateOfLastChange": "2026-10-06",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -2790,9 +2935,27 @@
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -2817,18 +2980,36 @@
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/skosProperties/skosConcept/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.skosProperties.skosConcept",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/linkRole/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.linkRole",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -2853,33 +3034,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifReference/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifReference",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.dataDownload",
@@ -2898,15 +3052,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.generatedBy",
@@ -2916,27 +3061,36 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -2945,6 +3099,9 @@
       "dependsOn": [
         "bblocks://dde.bbr.metadata.DDEproperties.ddeCore"
       ],
+      "license": {
+        "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+      },
       "ldContext": {
         "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource/context.jsonld",
         "prof:hasRole": "role:mapping",
@@ -2969,7 +3126,7 @@
       "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEFunctionalResource/context.jsonld",
       "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource/resolvedProperties.json",
       "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEFunctionalResource/",
-      "validationPassed": true,
+      "validationPassed": false,
       "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/profiles/DDEProfiles/DDEFunctionalResource/",
       "documentation": {
         "markdown": {
@@ -3011,7 +3168,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-09-05",
+      "dateOfLastChange": "2026-10-06",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -3045,9 +3202,27 @@
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -3072,18 +3247,36 @@
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/skosProperties/skosConcept/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.skosProperties.skosConcept",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/linkRole/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.linkRole",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -3108,33 +3301,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifReference/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifReference",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.dataDownload",
@@ -3153,15 +3319,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.generatedBy",
@@ -3171,27 +3328,36 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -3200,6 +3366,9 @@
       "dependsOn": [
         "bblocks://dde.bbr.metadata.DDEproperties.ddeCore"
       ],
+      "license": {
+        "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+      },
       "ldContext": {
         "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESemanticResource/context.jsonld",
         "prof:hasRole": "role:mapping",
@@ -3266,7 +3435,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-09-05",
+      "dateOfLastChange": "2026-10-06",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -3300,9 +3469,27 @@
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -3327,18 +3514,36 @@
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/skosProperties/skosConcept/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.skosProperties.skosConcept",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/linkRole/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.linkRole",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -3363,33 +3568,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifReference/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifReference",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.dataDownload",
@@ -3408,15 +3586,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.generatedBy",
@@ -3426,27 +3595,36 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -3455,6 +3633,9 @@
       "dependsOn": [
         "bblocks://dde.bbr.metadata.DDEproperties.ddeCore"
       ],
+      "license": {
+        "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+      },
       "ldContext": {
         "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDESoftware/context.jsonld",
         "prof:hasRole": "role:mapping",
@@ -3521,7 +3702,7 @@
       "itemClass": "schema",
       "register": "dde-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-09-05",
+      "dateOfLastChange": "2026-10-06",
       "sources": [
         {
           "title": "DDE Metadata Standard",
@@ -3541,6 +3722,24 @@
       "shaclShapes": [
         {
           "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/webAPI/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
@@ -3550,18 +3749,9 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifReference/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifReference",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -3586,45 +3776,36 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/action/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.action",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.labeledLink",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/skosProperties/skosConcept/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.skosProperties.skosConcept",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/linkRole/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.linkRole",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -3649,15 +3830,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.dataDownload",
@@ -3676,15 +3848,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.generatedBy",
@@ -3694,19 +3857,49 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         }
       ],
       "dependsOn": [
-        "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI",
         "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
-        "bblocks://cdif.bbr.metadata.schemaorgProperties.identifier"
+        "bblocks://cdif.bbr.metadata.schemaorgProperties.identifier",
+        "bblocks://cdif.bbr.metadata.schemaorgProperties.webAPI"
       ],
+      "license": {
+        "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+      },
       "schema": [
         {
           "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEWebAPI/schema.yaml",
@@ -3772,7 +3965,7 @@
       "itemClass": "schema",
       "register": "cdif-building-block-register",
       "version": "0.1",
-      "dateOfLastChange": "2026-09-05",
+      "dateOfLastChange": "2026-10-06",
       "link": "https://github.com/opengeospatial/bblock-template",
       "sources": [
         {
@@ -3791,6 +3984,15 @@
             "https://usgin.github.io/ddeBuildingBlocks/_sources/profiles/DDEProfiles/DDEImage/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://dde.bbr.metadata.profiles.DDEProfiles.DDEImage",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.temporalExtent",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -3824,9 +4026,9 @@
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/rules.shacl"
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeImagery",
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -3842,45 +4044,27 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifProvActivity/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifProvActivity",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.spatialExtent",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/skosProperties/skosConcept/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.person",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.skosProperties.skosConcept",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.organization",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/instrument/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.instrument",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifReference/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifReference",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.variableMeasured",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -3896,42 +4080,6 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.generatedBy",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.spatialExtent",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.qualityProperties.qualityMeasure",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCore/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
@@ -3941,63 +4089,9 @@
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
             "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/rules.shacl"
           ],
           "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.dataDownload",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.derivedFrom",
-          "prof:hasRole": "role:validation",
-          "dct:format": "text/turtle",
-          "dct:conformsTo": "shacl:"
-        },
-        {
-          "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
-          ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
@@ -4022,42 +4116,153 @@
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/temporalExtent/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/linkRole/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.temporalExtent",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.linkRole",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/variableMeasured/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/monetaryGrant/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.variableMeasured",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         },
         {
           "prof:hasArtifact": [
-            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeGeographicDataset/rules.shacl"
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
           ],
-          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.organization",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.person",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/dataDownload/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.dataDownload",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/derivedFrom/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.derivedFrom",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.provProperties.generatedBy",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifCatalogRecord/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.agentInRole",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeCatalogRecord/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeResourceType/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeResourceType",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/qualityProperties/qualityMeasure/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.qualityProperties.qualityMeasure",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeImagery/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://dde.bbr.metadata.DDEproperties.ddeImagery",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifProvActivity/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.cdifDataType.cdifProvActivity",
+          "prof:hasRole": "role:validation",
+          "dct:format": "text/turtle",
+          "dct:conformsTo": "shacl:"
+        },
+        {
+          "prof:hasArtifact": [
+            "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/instrument/rules.shacl"
+          ],
+          "rdfs:seeAlso": "bblocks://cdif.bbr.metadata.schemaorgProperties.instrument",
           "prof:hasRole": "role:validation",
           "dct:format": "text/turtle",
           "dct:conformsTo": "shacl:"
         }
       ],
       "dependsOn": [
-        "bblocks://cdif.bbr.metadata.schemaorgProperties.statisticalVariable",
-        "bblocks://dde.bbr.metadata.DDEproperties.ddeImagery",
-        "bblocks://cdif.bbr.metadata.qualityProperties.qualityMeasure",
-        "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
         "bblocks://cdif.bbr.metadata.schemaorgProperties.temporalExtent",
+        "bblocks://cdif.bbr.metadata.schemaorgProperties.statisticalVariable",
+        "bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
         "bblocks://cdif.bbr.metadata.schemaorgProperties.definedTerm",
         "bblocks://cdif.bbr.metadata.schemaorgProperties.variableMeasured",
-        "bblocks://dde.bbr.metadata.DDEproperties.ddeGeographicDataset"
+        "bblocks://dde.bbr.metadata.DDEproperties.ddeCore",
+        "bblocks://cdif.bbr.metadata.qualityProperties.qualityMeasure",
+        "bblocks://dde.bbr.metadata.DDEproperties.ddeImagery"
       ],
+      "license": {
+        "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+      },
       "ldContext": {
         "prof:hasArtifact": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/context.jsonld",
         "prof:hasRole": "role:mapping",
