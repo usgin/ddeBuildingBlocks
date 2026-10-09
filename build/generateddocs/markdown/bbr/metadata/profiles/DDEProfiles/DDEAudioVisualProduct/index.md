@@ -48,7 +48,11 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@id": "https://creativecommons.org/licenses/by-nc/4.0/"
+      "@type": [
+        "schema:CreativeWork"
+      ],
+      "schema:name": "Creative Commons Attribution-NonCommercial 4.0",
+      "schema:url": "https://creativecommons.org/licenses/by-nc/4.0/"
     }
   ],
   "schema:url": "https://example.org/videos/plate-tectonics-explained",
@@ -193,7 +197,11 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@id": "https://creativecommons.org/licenses/by-nc/4.0/"
+      "@type": [
+        "schema:CreativeWork"
+      ],
+      "schema:name": "Creative Commons Attribution-NonCommercial 4.0",
+      "schema:url": "https://creativecommons.org/licenses/by-nc/4.0/"
     }
   ],
   "schema:url": "https://example.org/videos/plate-tectonics-explained",
@@ -314,12 +322,12 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
 <urn:dde:example-plate-tectonics-video> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Product" ;
-            schema1:termCode "product" ],
+            schema1:name "Movie" ;
+            schema1:termCode "movie" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Movie" ;
-            schema1:termCode "movie" ] ;
+            schema1:name "Product" ;
+            schema1:termCode "product" ] ;
     schema1:creator ( [ a schema1:Organization ;
                 schema1:name "Deep-time Digital Earth (DDE)" ;
                 schema1:url "https://www.ddeworld.org/" ] ) ;
@@ -349,7 +357,9 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
         "earth science",
         "educational video",
         "plate tectonics" ;
-    schema1:license <https://creativecommons.org/licenses/by-nc/4.0/> ;
+    schema1:license [ a schema1:CreativeWork ;
+            schema1:name "Creative Commons Attribution-NonCommercial 4.0" ;
+            schema1:url "https://creativecommons.org/licenses/by-nc/4.0/" ] ;
     schema1:name "Plate Tectonics Explained: Earth's Dynamic Surface" ;
     schema1:subjectOf <urn:uuid:dde-audiovisual-catalog-record> ;
     schema1:url "https://example.org/videos/plate-tectonics-explained" .

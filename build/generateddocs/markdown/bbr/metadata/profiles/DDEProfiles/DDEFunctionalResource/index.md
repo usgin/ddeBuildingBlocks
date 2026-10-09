@@ -48,7 +48,11 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@id": "https://creativecommons.org/licenses/by/4.0/"
+      "@type": [
+        "schema:CreativeWork"
+      ],
+      "schema:name": "Creative Commons Attribution 4.0",
+      "schema:url": "https://creativecommons.org/licenses/by/4.0/"
     }
   ],
   "schema:url": "https://deep-time.org/geological-time/",
@@ -194,7 +198,11 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@id": "https://creativecommons.org/licenses/by/4.0/"
+      "@type": [
+        "schema:CreativeWork"
+      ],
+      "schema:name": "Creative Commons Attribution 4.0",
+      "schema:url": "https://creativecommons.org/licenses/by/4.0/"
     }
   ],
   "schema:url": "https://deep-time.org/geological-time/",
@@ -334,18 +342,20 @@ DDE discovery metadata for a DDE Geological Time visualization web application w
             schema1:name "Geological Time Viewer screenshot" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Data Integration Synthesis" ;
-            schema1:termCode "dataIntegrationSynthesis" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Data Integration Synthesis" ;
+            schema1:termCode "dataIntegrationSynthesis" ],
         "ICS",
         "chronostratigraphy",
         "geological time",
         "stratigraphy" ;
-    schema1:license <https://creativecommons.org/licenses/by/4.0/> ;
+    schema1:license [ a schema1:CreativeWork ;
+            schema1:name "Creative Commons Attribution 4.0" ;
+            schema1:url "https://creativecommons.org/licenses/by/4.0/" ] ;
     schema1:name "DDE Geological Time Visualization Application" ;
     schema1:relatedLink [ a schema1:LinkRole ;
             schema1:linkRelationship "implementationSoftware" ] ;

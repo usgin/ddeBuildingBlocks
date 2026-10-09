@@ -56,7 +56,11 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@id": "https://creativecommons.org/licenses/by/4.0/"
+      "@type": [
+        "schema:CreativeWork"
+      ],
+      "schema:name": "Creative Commons Attribution 4.0",
+      "schema:url": "https://creativecommons.org/licenses/by/4.0/"
     }
   ],
   "schema:url": "https://stratigraphy.org/chart",
@@ -230,7 +234,11 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@id": "https://creativecommons.org/licenses/by/4.0/"
+      "@type": [
+        "schema:CreativeWork"
+      ],
+      "schema:name": "Creative Commons Attribution 4.0",
+      "schema:url": "https://creativecommons.org/licenses/by/4.0/"
     }
   ],
   "schema:url": "https://stratigraphy.org/chart",
@@ -384,15 +392,15 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
     schema1:description "The International Chronostratigraphic Chart maintained by the International Commission on Stratigraphy (ICS). Defines the global standard nomenclature and boundary ages for geological time divisions (Eonothems/Eons, Erathems/Eras, Systems/Periods, Series/Epochs, Stages/Ages). Published as a controlled vocabulary with SKOS concept scheme encoding." ;
     schema1:distribution [ a schema1:DataDownload ;
             dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
+            schema1:contentUrl "https://stratigraphy.org/ICSchart/ChronostratChart2024-12.pdf" ;
+            schema1:encodingFormat "application/pdf" ;
+            schema1:name "Chronostratigraphic Chart PDF" ],
+        [ a schema1:DataDownload ;
+            dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
             schema1:contentUrl "https://resource.geosciml.org/classifierscheme/ics/ischart" ;
             schema1:description "Machine-readable SKOS concept scheme for geological time divisions" ;
             schema1:encodingFormat "application/rdf+xml" ;
-            schema1:name "Geological Time Scale RDF/SKOS" ],
-        [ a schema1:DataDownload ;
-            dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
-            schema1:contentUrl "https://stratigraphy.org/ICSchart/ChronostratChart2024-12.pdf" ;
-            schema1:encodingFormat "application/pdf" ;
-            schema1:name "Chronostratigraphic Chart PDF" ] ;
+            schema1:name "Geological Time Scale RDF/SKOS" ] ;
     schema1:identifier [ a schema1:PropertyValue ;
             schema1:name "DOI" ;
             schema1:propertyID "schema:identifier" ;
@@ -416,7 +424,9 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
         "geological time",
         "stratigraphy",
         "vocabulary" ;
-    schema1:license <https://creativecommons.org/licenses/by/4.0/> ;
+    schema1:license [ a schema1:CreativeWork ;
+            schema1:name "Creative Commons Attribution 4.0" ;
+            schema1:url "https://creativecommons.org/licenses/by/4.0/" ] ;
     schema1:name "International Chronostratigraphic Chart v2024/12" ;
     schema1:subjectOf <urn:uuid:dde-semres-catalog-record> ;
     schema1:url "https://stratigraphy.org/chart" ;

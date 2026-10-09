@@ -501,12 +501,12 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
 <urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Geographic Dataset" ;
-            schema1:termCode "geographicDataset" ],
+            schema1:name "Map" ;
+            schema1:termCode "map" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Map" ;
-            schema1:termCode "map" ] ;
+            schema1:name "Geographic Dataset" ;
+            schema1:termCode "geographicDataset" ] ;
     schema1:alternateName "Bedrock lithostratigraphic map of China",
         "中国基岩地层图" ;
     schema1:dateModified "2018-09-07" ;
@@ -520,13 +520,13 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
             schema1:name "CHN_CGS_EN_1M_BLS" ] ;
     schema1:identifier "urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654" ;
     schema1:image [ a schema1:ImageObject ;
-            schema1:contentUrl "http://onegeology-geonetwork.brgm.fr/geonetwork3/srv/eng//resources.get?uuid=22e1d1ca752a7bc3ff4e90014e760e8a08947654&fname=22e1d1ca752a7bc3ff4e90014e760e8a08947654.png" ;
-            schema1:encodingFormat "image/png" ;
-            schema1:name "large thumbnail" ],
-        [ a schema1:ImageObject ;
             schema1:contentUrl "http://onegeology-geonetwork.brgm.fr/geonetwork3/srv/eng//resources.get?uuid=22e1d1ca752a7bc3ff4e90014e760e8a08947654&fname=22e1d1ca752a7bc3ff4e90014e760e8a08947654_s.png" ;
             schema1:encodingFormat "image/png" ;
-            schema1:name "thumbnail" ] ;
+            schema1:name "thumbnail" ],
+        [ a schema1:ImageObject ;
+            schema1:contentUrl "http://onegeology-geonetwork.brgm.fr/geonetwork3/srv/eng//resources.get?uuid=22e1d1ca752a7bc3ff4e90014e760e8a08947654&fname=22e1d1ca752a7bc3ff4e90014e760e8a08947654.png" ;
+            schema1:encodingFormat "image/png" ;
+            schema1:name "large thumbnail" ] ;
     schema1:inLanguage "zho" ;
     schema1:keywords [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
@@ -534,12 +534,12 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
             schema1:termCode "geoscientificInformation" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Geological Mapping" ;
-            schema1:termCode "geologicalMapping" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Data Integration Synthesis" ;
             schema1:termCode "dataIntegrationSynthesis" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Geological Mapping" ;
+            schema1:termCode "geologicalMapping" ],
         "Asia",
         "China",
         "OneGeology",
@@ -620,7 +620,11 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@id": "https://creativecommons.org/publicdomain/zero/1.0/"
+      "@type": [
+        "schema:CreativeWork"
+      ],
+      "schema:name": "Creative Commons CC0 1.0 Universal",
+      "schema:url": "https://creativecommons.org/publicdomain/zero/1.0/"
     }
   ],
   "schema:conditionsOfAccess": [
@@ -1009,7 +1013,11 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@id": "https://creativecommons.org/publicdomain/zero/1.0/"
+      "@type": [
+        "schema:CreativeWork"
+      ],
+      "schema:name": "Creative Commons CC0 1.0 Universal",
+      "schema:url": "https://creativecommons.org/publicdomain/zero/1.0/"
     }
   ],
   "schema:conditionsOfAccess": [
@@ -1383,42 +1391,50 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
     schema1:description "Lithostratigraphic unit distribution for the Geologic Map of Arizona at 1:1,000,000-scale. Shows entire state with map units defined broadly by age and lithologic type. The map was compiled by modifying the previous 1:1000000 statemap version with more recent mapping." ;
     schema1:distribution [ a schema1:DataDownload ;
             dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
+            schema1:contentUrl "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology/MapServer/WMSServer?" ;
+            schema1:description "OGC get map URL" ;
+            schema1:encodingFormat "image/jpg",
+                "image/png",
+                "image/tif" ;
+            schema1:name "US-AZ_AZGS_1M_Lithostratigraphy" ],
+        [ a schema1:DataDownload ;
+            dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
             schema1:contentUrl "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology_WFS/MapServer/WFSServer?" ;
             schema1:description "OGC get capabilities URL" ;
             schema1:encodingFormat "application/xml" ;
             schema1:name "gsmlp:GeologicUnitView" ;
             schema1:provider [ a schema1:Organization ;
                     schema1:identifier "https://ror.org/00vcszp55" ;
-                    schema1:name "Arizona Geological Survey" ] ],
-        [ a schema1:DataDownload ;
-            dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
-            schema1:contentUrl "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology/MapServer/WMSServer?" ;
-            schema1:description "OGC get map URL" ;
-            schema1:encodingFormat "image/jpg",
-                "image/png",
-                "image/tif" ;
-            schema1:name "US-AZ_AZGS_1M_Lithostratigraphy" ] ;
+                    schema1:name "Arizona Geological Survey" ] ] ;
     schema1:identifier [ a schema1:PropertyValue ;
             schema1:propertyID "https://registry.identifiers.org/registry/doi" ;
             schema1:url "https://doi.org/23609/53w7klh" ;
             schema1:value "doi:23609/53w7klh" ] ;
     schema1:image [ a schema1:ImageObject ;
+            schema1:contentUrl "http://azgs.az.gov/repository/browse/3757.jpg" ;
+            schema1:description "description of the browse image" ;
+            schema1:name "Quick view lithostratigraphic map of Arizona" ],
+        [ a schema1:ImageObject ;
             schema1:contentUrl "http://azgs.az.gov/repository/browse/2222.jpg" ;
             schema1:description "description of the browse image2" ;
             schema1:encodingFormat "image/png" ;
-            schema1:name "Another map of Arizona" ],
-        [ a schema1:ImageObject ;
-            schema1:contentUrl "http://azgs.az.gov/repository/browse/3757.jpg" ;
-            schema1:description "description of the browse image" ;
-            schema1:name "Quick view lithostratigraphic map of Arizona" ] ;
+            schema1:name "Another map of Arizona" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Digital Conversion from Published Source" ;
             schema1:termCode "digitalConversionFromPublishedSource" ],
         [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Synthesis from Multiple Sources" ;
+            schema1:termCode "synthesisFromMultipleSources" ],
+        [ a schema1:DefinedTerm ;
             schema1:identifier "https://edits.nationalmap.gov/apps/gaz-domestic/public/gaz-record/1779777" ;
             schema1:name "Arizona" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Environment" ;
@@ -1429,20 +1445,14 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
             schema1:termCode "GI_HG_hydrogeology" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Synthesis from Multiple Sources" ;
-            schema1:termCode "synthesisFromMultipleSources" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Paleontology" ;
             schema1:termCode "GI_PO_paleontology" ],
         "Geologic Map",
         "Geology",
         "United States" ;
-    schema1:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
+    schema1:license [ a schema1:CreativeWork ;
+            schema1:name "Creative Commons CC0 1.0 Universal" ;
+            schema1:url "https://creativecommons.org/publicdomain/zero/1.0/" ] ;
     schema1:name "US-AZ_AZGS_1M_Lithostratigraphy" ;
     schema1:provider [ a schema1:Organization ;
             schema1:contactPoint [ a schema1:ContactPoint ;
@@ -1450,9 +1460,9 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
             schema1:identifier "https://ror.org/00vcszp55" ;
             schema1:name "Arizona Geological Survey" ] ;
     schema1:relatedLink [ a schema1:LinkRole ;
-            schema1:linkRelationship "information" ],
+            schema1:linkRelationship "completeMetadata" ],
         [ a schema1:LinkRole ;
-            schema1:linkRelationship "completeMetadata" ] ;
+            schema1:linkRelationship "information" ] ;
     schema1:spatialCoverage [ a schema1:Place ;
             schema1:geo [ a schema1:GeoShape ;
                     schema1:box "31.332177 -114.81651 37.00426 -109.045223" ] ;

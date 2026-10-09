@@ -48,7 +48,11 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@id": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+      "@type": [
+        "schema:CreativeWork"
+      ],
+      "schema:name": "GNU General Public License v2.0",
+      "schema:url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
     }
   ],
   "schema:url": "https://www.gplates.org/",
@@ -185,7 +189,11 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
   "schema:inLanguage": "eng",
   "schema:license": [
     {
-      "@id": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+      "@type": [
+        "schema:CreativeWork"
+      ],
+      "schema:name": "GNU General Public License v2.0",
+      "schema:url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
     }
   ],
   "schema:url": "https://www.gplates.org/",
@@ -327,7 +335,9 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
         "paleogeography",
         "plate reconstruction",
         "plate tectonics" ;
-    schema1:license <https://www.gnu.org/licenses/old-licenses/gpl-2.0.html> ;
+    schema1:license [ a schema1:CreativeWork ;
+            schema1:name "GNU General Public License v2.0" ;
+            schema1:url "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" ] ;
     schema1:name "GPlates Plate Reconstruction Software" ;
     schema1:subjectOf <urn:uuid:dde-software-catalog-record> ;
     schema1:url "https://www.gplates.org/" ;
