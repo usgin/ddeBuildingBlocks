@@ -36,12 +36,21 @@ Superseded building blocks retained for reference:
 
 - `tools/resolve_schema.py` — Resolve all `$ref` into single resolvedSchema.json files
 - `tools/regenerate_schema_json.py` — Generate *Schema.json from schema.yaml sources (YAML→JSON + ref rewrite)
+- `tools/validate_examples.py` — Validate every example against its block's resolved schema
 
-Both tools are synced from the canonical copies in [metadataBuildingBlocks/tools/](https://github.com/Cross-Domain-Interoperability-Framework/metadataBuildingBlocks/tree/main/tools). Do not edit locally — update the canonical copy and run `python tools/sync_resolve_schema.py --apply` from the metadataBuildingBlocks repo.
+These tools are synced from the canonical copies in [metadataBuildingBlocks/tools/](https://github.com/Cross-Domain-Interoperability-Framework/metadataBuildingBlocks/tree/main/tools). Do not edit locally — update the canonical copy and run `python tools/sync_resolve_schema.py --apply` from the metadataBuildingBlocks repo. Run that sync only from an up-to-date clone of that repo: it overwrites all three files, so syncing from a stale clone silently downgrades them.
 
 ## Cross-repo imports
 
 This repository imports shared schema.org and CDIF property building blocks from [metadataBuildingBlocks](https://github.com/Cross-Domain-Interoperability-Framework/metadataBuildingBlocks) via the OGC Building Blocks import mechanism.
+
+Those blocks are `$ref`d by published URL, and a copy of each is vendored under `vendor/remote/` with its SHA-256 digest recorded in `vendor/remote-lock.json`. Resolution reads the vendored copies, so builds are reproducible and offline; nothing is fetched unless you ask for it:
+
+```bash
+python tools/resolve_schema.py --all --refresh-remote   # re-fetch upstream and re-pin
+```
+
+The diff to `vendor/` is then the record of what upstream changed.
 
 ## Viewer
 
