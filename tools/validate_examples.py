@@ -47,6 +47,7 @@ _tools_spec.loader.exec_module(_tools_resolver)
 _structured_resolve = _tools_resolver.resolve_structured
 _fallback_resolve_file = _tools_resolver.resolve_file
 _fallback_strip = _tools_resolver.strip_metadata_keys
+_find_unresolved = _tools_resolver.find_unresolved
 
 from jsonschema import Draft202012Validator
 
@@ -99,6 +100,32 @@ def find_example_schema_pairs():
     return sorted(pairs.keys())
 
 
+class UnresolvedRefs(Exception):
+    """A schema resolved with $refs left as placeholders.
+
+    resolve_schema.py substitutes {"$comment": "failed to fetch URL: ..."} for a
+    $ref it cannot resolve. That is an empty schema, and an empty schema accepts
+    anything, so validating against it reports a pass for every example whose
+    constraints lived in the part that went missing. --all already refuses to
+    WRITE such a schema; this suite must equally refuse to JUDGE against one.
+    """
+
+
+def _require_resolved(schema: dict, schema_path: Path) -> dict:
+    """Return the schema, or raise if any $ref resolved to a placeholder."""
+    unresolved = _find_unresolved(schema)
+    if not unresolved:
+        return schema
+    # Action first: main() truncates the message, and the fix matters more than
+    # the inventory. `resolve_schema.py --all` prints every unresolved ref.
+    where, _why = unresolved[0]
+    raise UnresolvedRefs(
+        f"{len(unresolved)} $ref(s) unresolved, so this schema accepts anything "
+        f"they stand for. Run `resolve_schema.py --refresh-remote` to vendor "
+        f"remote refs, or --all to list them. First: {where}"
+    )
+
+
 def resolve_for_validation(schema_path: Path) -> dict:
     """Resolve a schema file into a JSON Schema dict for validation.
 
@@ -106,22 +133,25 @@ def resolve_for_validation(schema_path: Path) -> dict:
     resolvedSchema.json -- so an example is checked against the schema the
     published building block carries. Falls back to the same module's inline
     resolver when recursion defeats structured resolution.
+
+    Raises UnresolvedRefs if resolution left placeholders behind.
     """
     try:
         # resolve_structured narrates its work on stderr (24 print sites);
         # useful when regenerating, noise that buries the pass/fail report here.
-        # Its fetch warnings are silenced with it -- acceptable because every
-        # $ref this repo resolves is local.
+        # Fetch failures are silenced with it, which is why the result is
+        # checked for placeholders below rather than trusted: a repo that $refs
+        # another register by URL resolves nothing locally.
         with contextlib.redirect_stderr(io.StringIO()), \
                 contextlib.redirect_stdout(io.StringIO()):
             resolved = _structured_resolve(schema_path.resolve())
         resolved.pop("$schema", None)
-        return resolved
+        return _require_resolved(resolved, schema_path)
     except RecursionError:
         resolved = _fallback_resolve_file(schema_path.resolve(), set())
         _fallback_strip(resolved)
         resolved.pop("$schema", None)
-        return resolved
+        return _require_resolved(resolved, schema_path)
 
 
 def load_schema(schema_path: Path, live: bool):
@@ -190,7 +220,8 @@ def main():
                 resolved = _fallback_resolve_file(schema_path.resolve(), set())
                 _fallback_strip(resolved)
                 resolved.pop("$schema", None)
-                errors = validate_example(example_path, resolved)
+                errors = validate_example(
+                    example_path, _require_resolved(resolved, schema_path))
             if errors:
                 failed += 1
                 failures.append((rel, errors))
