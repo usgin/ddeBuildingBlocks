@@ -1,0 +1,15 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+description: >-
+  A SKOS concept identified by URI, a schema:DefinedTerm, or an inline
+  cdif:Concept. Shared shape used wherever a CDIF property carries either a
+  controlled-vocabulary reference or an inline concept definition.
+anyOf:
+  # A reference by @id IS objectReference, so it is referenced rather than restated. The
+  # shape was inlined here identically -- type object, additionalProperties false,
+  # required @id, @id a string -- which made it a second spelling of one idea rather than
+  # a variant of it. The description is kept as a $ref sibling (legal in 2020-12) because
+  # it is the one part that was genuinely local to this use.
+  - description: reference to a skos concept for the data type
+    $ref: ../objectReference/schema.yaml
+  - $ref: ../../schemaorgProperties/definedTerm/schema.yaml
+  - $ref: ../../skosProperties/skosConcept/schema.yaml#/$defs/Concept

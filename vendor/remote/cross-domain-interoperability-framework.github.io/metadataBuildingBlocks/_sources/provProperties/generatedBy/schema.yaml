@@ -1,0 +1,67 @@
+---
+$schema: https://json-schema.org/draft/2020-12/schema
+title: very simple links or names of software or instruments used to generate a resource.
+type: object
+required:
+- '@type'
+properties:
+  '@type':
+    type: array
+    items:
+      type: string
+    minItems: 1
+    contains:
+      const: prov:Activity
+  'prov:used':
+    type: array
+    description: >-
+      Entities the activity used. Per PROV-O each value denotes a prov:Entity. An
+      item may be (1) a string URI or free-text reference, (2) an {@id} reference,
+      (3) an inline entity object carrying an @type that includes prov:Entity plus a
+      schema.org type for the kind of thing used, e.g. ["prov:Entity","schema:Thing"]
+      (instrument), ["prov:Entity","schema:CreativeWork"] (method/protocol), or
+      ["prov:Entity","schema:SoftwareApplication"] (software), or (4) a role-keyed
+      wrapper naming what was used through one of the recognized "used" relations
+      (schema:instrument, bios:computationalTool, prov:reagent). Base leaves the
+      wrapped value loose; profiles/extensions (e.g. cdifProvActivity, adaProduct)
+      pin its shape (Instrument, ComputationalTool, Reagent, ...).
+    items:
+      anyOf:
+      - type: string
+      - type: object
+        required: ['@id']
+        additionalProperties: false
+        properties:
+          '@id':
+            type: string
+            description: a resolvable reference to a representation of the software or instrument used
+      - type: object
+        description: an inline prov:Entity used by the activity (see prov:used description)
+        properties:
+          '@type':
+            type: array
+            items:
+              type: string
+            minItems: 1
+            contains:
+              const: prov:Entity
+        required:
+        - '@type'
+      - type: object
+        description: >-
+          a role-keyed wrapper naming an instrument used by the activity; the
+          extension layer pins the value to an Instrument description.
+        required:
+        - 'schema:instrument'
+      - type: object
+        description: >-
+          a role-keyed wrapper naming a computational tool (software) used; the
+          extension layer pins the value to a ComputationalTool description.
+        required:
+        - 'bios:computationalTool'
+      - type: object
+        description: >-
+          a role-keyed wrapper naming a reagent / material used; the extension
+          layer pins the value to a Reagent description.
+        required:
+        - 'prov:reagent'

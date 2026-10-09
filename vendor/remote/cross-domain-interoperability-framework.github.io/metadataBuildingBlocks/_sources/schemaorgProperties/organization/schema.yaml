@@ -1,0 +1,66 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+properties:
+  '@id':
+    type: string
+  '@type':
+    default: ['schema:Organization']
+    type: array
+    items:
+      anyOf:
+      - type: string
+        enum:
+        - schema:Organization
+        - schema:FundingAgency
+        - schema:Consortium
+        - schema:Corporation
+        - schema:EducationalOrganization
+        - schema:FundingScheme
+        - schema:GovernmentOrganization
+        - schema:NGO
+        - schema:Project
+        - schema:ResearchOrganization
+    contains:
+      const: schema:Organization
+    minItems: 1
+  schema:additionalType:
+    type: array
+    items:
+      $ref: '#/$defs/cdifConceptOrTermOrString'
+  'schema:name':
+    type: string
+    description: string label for organization that is meaningful for human users
+  'schema:alternateName':
+    type: string
+    description: other labels by which the organization might be known
+  'schema:description':
+    type: string
+    description: additional information about the agent or their relation to the described resource
+  'schema:identifier':
+    description: identifier for organization
+    anyOf:
+    - $ref: ../identifier/schema.yaml
+    - type: string
+  'schema:sameAs':
+    type: array
+    description: other identifiers for the organization
+    items:
+      anyOf:
+      - type: string
+      - type: object
+        required: ['@id']
+        additionalProperties: false
+        properties:
+          '@id':
+            type: string
+allOf:
+- required:
+  - '@type'
+- anyOf:
+  - required:
+    - schema:name
+  - required:
+    - schema:identifier
+$defs:
+  cdifConceptOrTermOrString:
+    $ref: ../../cdifDataType/cdifConceptOrTermOrString/schema.yaml

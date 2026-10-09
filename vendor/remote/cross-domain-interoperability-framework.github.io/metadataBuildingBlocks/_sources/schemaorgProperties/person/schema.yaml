@@ -1,0 +1,76 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+description: schema for cdif profile of schema.org/Person
+type: object
+properties:
+  '@id':
+    type: string
+  '@type':
+    type: array
+    items:
+      type: string
+    contains:
+      const: 'schema:Person'
+    minItems: 1
+  'schema:name':
+    type: string
+    description: string label for person that is meaningful for human users, should format consistently. Recommend 'Family Name, Given name' format.
+  'schema:description':
+    type: string
+    description: additional information about the agent or their relation to the described resource
+  'schema:identifier':
+    description: identifier for person, recommend ORCID
+    anyOf:
+    - $ref: ../identifier/schema.yaml
+    - type: string
+  'schema:alternateName':
+    type: string
+    description: other labels by which the person might be known
+  'schema:affiliation':
+    $ref: ../organization/schema.yaml
+    description: if affiliation is present, value must be a schema:Organization.
+  'schema:contactPoint':
+    type: object
+    description: >-
+      An email address or a contact web page (a form, an issue tracker), or both;
+      at least one is required. Schema.org also allows telephone and postal
+      contacts. A URL-only contact is ordinary in DCAT (a vcard:Kind with only
+      vcard:hasURL), so requiring email made such records invalid.
+    properties:
+      '@type':
+        default: ['schema:ContactPoint']
+        type: array
+        items:
+          type: string
+        contains:
+          const: 'schema:ContactPoint'
+        minItems: 1
+      'schema:email':
+        type: string
+      'schema:url':
+        type: string
+        format: uri
+    required:
+    - '@type'
+    anyOf:
+    - required: ['schema:email']
+    - required: ['schema:url']
+  'schema:sameAs':
+    type: array
+    description: other identifiers for the person
+    items:
+      anyOf:
+      - type: string
+      - type: object
+        required: ['@id']
+        additionalProperties: false
+        properties:
+          '@id':
+            type: string
+allOf:
+- required:
+  - '@type'
+- anyOf:
+  - required:
+    - schema:name
+  - required:
+    - schema:identifier

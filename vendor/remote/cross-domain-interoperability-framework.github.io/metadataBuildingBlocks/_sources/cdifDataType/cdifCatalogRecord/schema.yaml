@@ -1,0 +1,101 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+description: see https://github.com/Cross-Domain-Interoperability-Framework/Discovery/issues/13 for discussion
+  on how to make assertion about the sample registration and metadata distinct from statements about the
+  physical object
+properties:
+  '@type':
+    type: array
+    items:
+      type: string
+    contains:
+      const: "schema:Dataset"
+    minItems: 1
+  'schema:additionalType':
+    type: array
+    description: additional type assertions for the catalog record node. dcat:CatalogRecord is required.
+    items:
+      $ref: '#/$defs/cdifConceptOrTermOrString'
+    contains:
+      type: object
+      additionalProperties: false
+      required:
+      - '@id'
+      properties:
+        '@id':
+          const: "dcat:CatalogRecord"
+    minItems: 1
+  '@id':
+    type: string
+    description: identifier for the metadata record
+  'schema:about':
+    type: object
+    required: ['@id']
+    additionalProperties: false
+    properties:
+      '@id':
+        type: string
+        description: this must be the @id value of the node containing the resource description metadata
+  'dcterms:conformsTo':
+    type: array
+    items:
+      type: object
+      required: ['@id']
+      additionalProperties: false
+      properties:
+        '@id':
+          type: string
+          description: uri for specifications that this metadata record conforms to
+    minItems: 1
+    description: uri for specifications that this metadata record conforms to. Minimimally should specify
+      uri for CDIF discovery profile.
+  'schema:maintainer':
+    description: Identification of the agent that maintains the metadata, with contact information. Should include person name and affiliation, or position name and affiliation, or just organization name. e-mail address is preferred contact information.
+    anyOf:
+    - $ref: '#/$defs/Person'
+    - $ref: '#/$defs/Organization'
+  'schema:sdDatePublished':
+    description: date of most recent update to the metadata content
+    type: string
+    format: date
+  'schema:includedInDataCatalog':
+    type: object
+    description: identify the source for the origin the metadata record.
+    properties:
+      '@id':
+        type: string
+        description: identifier for the graph node.
+      '@type':
+        default: ['schema:DataCatalog']
+        type: array
+        items:
+          type: string
+        contains:
+          const: schema:DataCatalog
+        minItems: 1
+      'schema:name':
+        type: string
+      'schema:url':
+        type: string
+        format: uri
+        description: locator to access a landing page for the collection or catalog
+      'schema:identifier':
+        $ref: '#/$defs/Identifier'
+        description: identifier for the collection or catalog; use identifier_type to provide information
+          on identifier scheme and context for identifier
+required:
+- schema:about
+- dcterms:conformsTo
+- schema:additionalType
+- '@type'
+- '@id'
+$defs:
+  cdifConceptOrTermOrString:
+    $ref: ../cdifConceptOrTermOrString/schema.yaml
+  Identifier:
+    $ref: '../../schemaorgProperties/identifier/schema.yaml'
+  Person:
+    $ref: '../../schemaorgProperties/person/schema.yaml'
+  Organization:
+    $ref: '../../schemaorgProperties/organization/schema.yaml'
+

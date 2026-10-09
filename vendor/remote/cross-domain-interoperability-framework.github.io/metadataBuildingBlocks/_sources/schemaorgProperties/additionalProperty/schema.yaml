@@ -1,0 +1,50 @@
+---
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+title: additionalProperty PropertyValue
+description: 'PropertyValue values required to define a soft-typed property with a value. '
+properties:
+  '@type':
+    type: array
+    items:
+      type: string
+    contains:
+      const: schema:PropertyValue
+    minItems: 1
+  'schema:propertyID':
+    type: array
+    items:
+      $ref: '#/$defs/propertyID_item'
+    minItems: 1
+    description: identifier or name for the property concept quantified by the values in this variable
+      slot. Multiple values can specify the property at different levels of granularity.
+  'schema:name':
+    type: string
+  'schema:value':
+    anyOf:
+    - type: string
+    - type: number
+    - type: boolean
+    - type: object
+  'schema:unitCode':
+    anyOf:
+    - type: string
+    - $ref: '#/$defs/DefinedTerm'
+  'schema:unitText':
+    type: string
+required:
+- 'schema:name'
+- 'schema:value'
+$defs:
+  DefinedTerm:
+    $ref: ../definedTerm/schema.yaml
+  propertyID_item:
+    anyOf:
+    - type: string
+    - type: object
+      required: ['@id']
+      additionalProperties: false
+      properties:
+        '@id':
+          type: string
+    - $ref: '#/$defs/DefinedTerm'
