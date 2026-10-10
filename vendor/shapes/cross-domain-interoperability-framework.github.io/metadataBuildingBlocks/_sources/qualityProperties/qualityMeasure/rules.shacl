@@ -1,0 +1,57 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix dqv:         <http://www.w3.org/ns/dqv#> .
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+
+cdifd:qualityMeasurementNode
+	a sh:NodeShape; 
+	sh:targetClass dqv:QualityMeasurement ;
+	
+	sh:target [
+	  a sh:SPARQLTarget ;
+ # query to get PropertyValues that are for additionalProperty, not others
+      sh:select  """
+      PREFIX schema: <http://schema.org/>
+      PREFIX dqv: <http://www.w3.org/ns/dqv#>
+      SELECT DISTINCT ?this
+        WHERE {
+        ?this a dqv:QualityMeasurement .
+        {
+          ?this schema:name "example additional property" .
+          FILTER NOT EXISTS { ?s ?p ?this . }
+        }
+        Union
+        {
+          ?s schema:additionalProperty ?this .
+        }
+      }"""
+	] ;  
+	
+	
+	sh:property 	
+		[sh:path dqv:isMeasurementOf ;
+			sh:or ( [sh:nodeKind sh:IRI] 
+				    [sh:datatype xsd:string;
+				        sh:minLength 3 ;]
+				    [sh:class schema:DefinedTerm]
+				   ) ;
+			sh:minCount 1 ;
+			sh:message "a quality measurement must specify the Measurement test with a name, IRI ref, or Defined Term";
+		];
+	sh:property 
+		[sh:path dqv:value;
+			sh:or ( 
+         	[sh:datatype xsd:string]
+         	[sh:datatype xsd:decimal]
+         	[sh:datatype xsd:integer]
+         	[sh:datatype xsd:double]
+         	[sh:class schema:DefinedTerm] ) ;
+			sh:message "a dataquality measurement must report a result value";
+			sh:minCount 1;
+		]  
+			.

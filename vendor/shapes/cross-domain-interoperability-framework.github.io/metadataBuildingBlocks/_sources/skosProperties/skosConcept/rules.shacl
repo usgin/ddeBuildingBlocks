@@ -1,0 +1,42 @@
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:     <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix skosv:  <https://cdif.org/validation/0.1/skos#> .
+@base <https://www.ogc.org/rules/template/> .
+
+skosv:ConceptShape a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:nodeKind sh:BlankNodeOrIRI ;
+    sh:property skosv:conceptPrefLabelProperty ;
+    sh:message "A SKOS Concept must have at least a prefLabel."
+    .
+
+skosv:conceptPrefLabelProperty
+    a sh:PropertyShape ;
+    sh:path skos:prefLabel ;
+    sh:minCount 1 ;
+    sh:message "Every skos:Concept must have at least one skos:prefLabel."
+    .
+
+skosv:prefLabelUniqueLangShape a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:property [
+        sh:path skos:prefLabel ;
+        sh:uniqueLang true ;
+        sh:message "A Concept should have at most one skos:prefLabel per language tag (SKOS integrity condition S14)."
+    ] .
+
+skosv:conceptBroaderNotSelfShape a sh:NodeShape ;
+    sh:targetClass skos:Concept ;
+    sh:sparql [
+        sh:message "A Concept must not declare itself as skos:broader (reflexive hierarchy)." ;
+        sh:select """
+            PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+            SELECT $this
+            WHERE {
+                $this skos:broader $this .
+            }
+        """ ;
+    ] .

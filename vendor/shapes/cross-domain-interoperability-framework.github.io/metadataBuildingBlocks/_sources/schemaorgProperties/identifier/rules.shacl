@@ -1,0 +1,111 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix cdifd:       <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+cdifd:CDIFIdentifierShape
+    a sh:NodeShape ;
+    sh:target [
+	  a sh:SPARQLTarget ;
+      # query to get PropertyValues that are for identifier, not others
+      sh:select  """
+      PREFIX schema: <http://schema.org/>
+      SELECT DISTINCT ?this
+        WHERE {
+        ?this a schema:PropertyValue .
+        {
+          ?this schema:propertyID "example identifier" .
+          FILTER NOT EXISTS { ?s ?p ?this . }
+        }
+        Union
+        {
+          ?s schema:identifier ?this .
+        }
+      }"""
+	] ;    
+
+#  use when property value is in an identifier
+#            ||
+#            EXISTS { ?s schema:identifier ?this . }
+    
+    sh:or (
+        [sh:property [
+            sh:path schema:value ;
+            sh:minCount 1 ;
+            sh:datatype xsd:string ;
+            sh:message "identifier rules. a value for the identifier should be provided; can provide either full URI or identifier token part of URI if a url is provided."
+        ] ]
+        [sh:property [
+            sh:path schema:url ;
+            sh:minCount 1 ;
+            sh:datatype xsd:string ;
+            # sh:pattern "^[a-zA-Z][a-zA-Z0-9+.-]*:[^\\s]*$";
+            sh:pattern "^https?:\\/\\/[^\\s]+$" ;
+            sh:message "identifier rules. schema:url is expected to be a resolvable HTTP URI, but we aren't testing to see if the URL resolves..."]
+            ] 
+    );
+    sh:property [
+            sh:path schema:propertyID ;
+            sh:minCount 1 ;
+            sh:severity sh:Warning ;
+            sh:or (
+        	[sh:nodeKind sh:IRI]
+        	[sh:datatype xsd:string ;
+               sh:minLength 5 ]
+        	[sh:class schema:DefinedTerm ]
+        )];
+            sh:message "identifier rules. for an identifier, the property ID is expected to specify an identifier scheme.Get values from https://registry.identifiers.org/registry/ for interoperability"
+        ;
+    sh:message "identifier rules. the context of an identifier, the PropertyValue provides the identifier value string-- either as a schema:value or a url. The value can be either a full URI or identifier token part of URI if a url is provided. url value must be a resolvable URI that identifies the resource."
+     .
+     
+cdifd:CDIFIdentifierTypeTermShape
+    a sh:NodeShape ;
+    sh:target [
+	  a sh:SPARQLTarget ;
+	  sh:prefixes (
+         [ sh:prefix "schema" ; sh:namespace "http://schema.org/" ]
+       );
+      sh:select  """
+      PREFIX schema: <http://schema.org/>
+      SELECT DISTINCT ?this
+        WHERE {
+          ?this a schema:DefinedTerm .
+          FILTER (
+            EXISTS { ?s schema:propertyID ?this . }
+          )
+        }""";
+	] ;
+	sh:property [
+		sh:path schema:identifier;
+		sh:minCount 1 ;
+		sh:or ( 
+		 [sh:nodeKind sh:Literal ]
+		 [ 
+		     sh:and (
+		      [sh:class schema:PropertyValue ]
+    		  [sh:or (
+                    [sh:property [
+                        sh:path schema:value ;
+                        sh:minCount 1 ;
+                        sh:datatype xsd:string ;
+                        sh:message "identifier rules. a value for the identifier should be provided; can provide either full URI or identifier token part of URI if a url is provided."
+                    ] ]
+                    [sh:property [
+                        sh:path schema:url ;
+                        sh:minCount 1 ;
+                        sh:datatype xsd:string ;
+                        # sh:pattern "^[a-zA-Z][a-zA-Z0-9+.-]*:[^\\s]*$";
+                        sh:pattern "^https?:\\/\\/[^\\s]+$" ;
+                        sh:message "identifier rules. value must be a resolvable URL, but we aren't testing to see if the URL resolves..... Can't get xsd:anyURI to work with JSON Schema validation..."]
+                        ] 
+                    );
+            ]
+		)]);
+		sh:message "identifier rules. a defined term should have an identifier that is a resolvable URI" ; 
+		];
+	sh:message "identifier rules. A Term must have a name (label) or an identifier. It should have both!." 
+	.

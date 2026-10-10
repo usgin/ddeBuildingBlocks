@@ -1,0 +1,54 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/> .
+@prefix cdifd:       <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+
+# A LinkRole with no target says a relationship exists but not to what, which is
+# advisory rather than invalid: the JSON Schema does not require schema:target
+# either, and every instance in the corpus carries one, so this reports the
+# outlier without failing it.
+cdifd:CDIFLinkRoleShape
+    a sh:NodeShape ;
+    sh:targetClass schema:LinkRole ;
+    sh:property [
+        a sh:PropertyShape ;
+        sh:path schema:target ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "A schema:LinkRole should carry a schema:target naming what is linked to."
+    ] ;
+    sh:property [
+        a sh:PropertyShape ;
+        sh:path schema:linkRelationship ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "A schema:LinkRole should carry a schema:linkRelationship saying how the target relates to the subject."
+    ] .
+
+
+# An EntryPoint says where it points in one of two ways, and the corpus is split
+# almost evenly: 11 carry schema:url (a fixed address), 11 carry only
+# schema:urlTemplate (a parameterised one, the API-action pattern). Requiring
+# schema:url outright -- which the first version of this shape did, written from
+# the LinkRole examples alone -- failed every templated EntryPoint in three
+# composites. One of the two is required; neither alone is.
+cdifd:CDIFEntryPointShape
+    a sh:NodeShape ;
+    sh:targetClass schema:EntryPoint ;
+    sh:message "A schema:EntryPoint must say where it points: schema:url for a fixed address, or schema:urlTemplate for a parameterised one." ;
+    sh:or (
+        [ sh:property [ sh:path schema:url ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path schema:urlTemplate ; sh:minCount 1 ] ]
+    ) ;
+    # Applies only when schema:url is present -- no minCount here.
+    sh:property [
+        a sh:PropertyShape ;
+        sh:path schema:url ;
+        sh:datatype xsd:string ;
+        sh:pattern "^https?://[^\\s]+$" ;
+        sh:message "If a schema:EntryPoint carries schema:url, it must resolve over http(s)."
+    ] .

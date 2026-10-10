@@ -1,0 +1,84 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+# SMR 2025-10-22
+
+cdifd:CDIFRoleShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Role ;
+	sh:property cdifd:roleNameProperty;
+    sh:property [
+	    sh:path schema:contributor  ;
+		sh:or (  [  sh:class  schema:Person ]
+				 [  sh:class  schema:Organization ]
+				 [  sh:nodeKind sh:IRI ] )  ;
+		sh:minCount 1;
+		sh:message "a Role must be filled by a Person, Organization, or IRI reference to one" ;
+		sh:description "https://cross-domain-interoperability-framework.github.io/cdifbook/metadata/schemaorgimplementation.html" ;
+	];
+    sh:message "The schema.org construct for assigining a role to a contributor nests a second schema:contributor node inside a schema:contributor node." 
+	.
+	
+cdifd:roleNameProperty
+    a sh:PropertyShape ;
+    sh:path schema:roleName;
+	sh:minCount 1 ;
+    sh:or ( 
+		[sh:datatype xsd:string]
+		[sh:class schema:DefinedTerm] ) ;
+    sh:message "a Role must provide a roleName, ideally the value is a term from a controlled vocabulary or an IRI for a role concept. For terms from a vocabulary, recommend using schema:DefinedTerm" 
+    .
+    
+cdifd:CDIFDefinedTermShape
+    a sh:NodeShape ;
+    sh:targetClass schema:DefinedTerm ;
+	sh:or (
+		[sh:property [
+			sh:path schema:identifier;
+			sh:minCount 1 ;
+			sh:or ( 
+			 [sh:datatype xsd:string ]
+			 [ 
+			     sh:and (
+			      [sh:class schema:PropertyValue ]
+    			  [sh:or (
+                        [sh:property [
+                            sh:path schema:value ;
+                            sh:minCount 1 ;
+                            sh:datatype xsd:string ;
+                            sh:message "a value for the identifier should be provided; can provide either full URI or identifier token part of URI if a url is provided."
+                        ] ]
+                        [sh:property [
+                            sh:path schema:url ;
+                            sh:minCount 1 ;
+                            sh:datatype xsd:string ;
+                            # sh:pattern "^[a-zA-Z][a-zA-Z0-9+.-]*:[^\\s]*$";
+                            sh:pattern "^https?:\\/\\/[^\\s]+$" ;
+                            sh:message "value must be a resolvable URL, but we aren't testing to see if the URL resolves..... Can't get xsd:anyURI to work with JSON Schema validation..."]
+                            ] 
+                        );
+                ]
+			)]);
+			sh:message "a defined term should have an identifier that is a resolvable URI" ; 
+			];
+		]
+		[sh:property cdifd:termLabelProperty ;]
+	);
+	sh:message "A Term must have a name (label) or an identifier. It should have both!." 
+	.
+
+cdifd:termLabelProperty
+# names must be a literal, .
+    a sh:PropertyShape ;
+    sh:path schema:name;
+	sh:minCount 1 ;
+    sh:datatype xsd:string ;
+	sh:minLength 3 ;
+	# sh:severity sh:Warning ;
+    sh:message "a label (schema:name) for the term must be provided, and must have at least 3 characters" 
+    .

@@ -1,0 +1,134 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix skos:        <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms:     <http://purl.org/dc/terms/> .
+@prefix dcat:        <http://www.w3.org/ns/dcat#> .
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+
+cdifd:CDIFLabeledLinkShape
+    a sh:NodeShape ;
+    sh:targetClass schema:CreativeWork ;
+	sh:property [
+        sh:path schema:url ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        # sh:pattern "^[a-zA-Z][a-zA-Z0-9+.-]*:[^\\s]*$";
+        sh:pattern "^https?:\\/\\/[^\\s]+$" ;
+        sh:message "value must be a resolvable URL, but we aren't testing to see if the URL resolves..... Can't get xsd:anyURI to work with JSON Schema validation..."
+        ] 
+        .
+
+# ============================================================
+# Relation surface (dcat:Relationship targeting)
+# ============================================================
+#
+# Moved here from cdifDataType/cdifReference when that block was folded into
+# this one (2026-09-23). The shape targets dcat:Relationship as a CLASS, so it
+# applies to any node declaring that type and is indifferent to which block the
+# node's schema came from -- but rules.shacl travels with the $ref graph, so
+# leaving it in a retired directory would have removed it from every consumer's
+# bundle silently, with no rule left to fire and nothing to say so.
+#
+# schema:url is NOT restated here, as of 2026-10-01. It used to be, on the
+# reasoning that "a schema-valid relation always carries both co-types" -- true
+# only while the JSON Schema required contains: schema:CreativeWork on every node
+# reaching this block. It no longer does: @type is now an anyOf over
+# schema:CreativeWork and dcat:Relationship, so a bare DCAT relation is
+# schema-valid and the premise is gone.
+#
+# Keeping it made this shape demand a schema.org property of a canonical DCAT
+# class that has no such property. dcat:Relationship carries dcat:hadRole and
+# dcterms:relation; schema:url is the presentation URL of a CreativeWork, which a
+# Relationship is not. Reported from outside by a PSDI validator whose DCAT
+# catalogue mirrors the DCAT-3 spec examples
+# (profile-core#16) -- the shape raised a Violation on nodes that are correct DCAT,
+# and CDIF's own corpus could not have caught it because every example here
+# declares both co-types.
+#
+# The url requirement is unchanged for anything that IS a CreativeWork:
+# CDIFLabeledLinkShape above targets schema:CreativeWork and requires it there, so
+# CDIF's own relation examples -- which declare both types -- still need one. What
+# changed is only that being a dcat:Relationship no longer implies it.
+#
+# This finishes 412782113, which removed the unsatisfiable dcat:Relationship
+# co-type mandate from the schema and claimed "Schema and SHACL now agree". They
+# agreed for the case it tested, a labeled link no longer forced to be a
+# Relationship. They did not agree for the reverse: the schema stopped mentioning
+# dcat:Relationship while this shape went on targeting it as a class.
+
+cdifd:CDIFRelationShape
+    a sh:NodeShape ;
+    sh:targetClass dcat:Relationship ;
+    sh:message "On a dcat:Relationship, dcterms:relation names the related resource and dcat:hadRole (a skos:Concept) classifies the relation. A Relationship that also declares schema:CreativeWork is a labeled link as well, and CDIFLabeledLinkShape requires its schema:url." ;
+
+    sh:property [
+        a sh:PropertyShape ;
+        # sh:class skos:Concept alone until 2026-10-01, which accepted ONE of the
+        # five forms the JSON Schema permits. Measured that day: of bare string,
+        # sealed @id reference, schema:DefinedTerm, skos:Concept and dcat:Role, the
+        # SHACL accepted only skos:Concept and warned on the other four. The PSDI
+        # report that prompted this (profile-core#16) happened to use the one form
+        # that passed, so the gap was wider than the report showed.
+        #
+        # dcat:Role is DCAT's declared range (dcat.ttl: rdfs:range dcat:Role) and it
+        # warned, because dcat:Role rdfs:subClassOf skos:Concept lives in dcat.ttl
+        # rather than in the data and pyshacl does no RDFS inference here. A
+        # subclass axiom nobody loads constrains nothing.
+        #
+        # The nodeKind sh:IRI branch is load-bearing: cdifConceptOrTermOrString
+        # permits a sealed {@id} with no @type at all, and sh:class cannot match an
+        # untyped node. Without it the JSON Schema would again be looser than this
+        # shape, which is the asymmetry being closed.
+        sh:path dcat:hadRole ;
+        sh:or (
+            [ sh:class dcat:Role ]
+            [ sh:class skos:Concept ]
+            [ sh:class schema:DefinedTerm ]
+            [ sh:nodeKind sh:IRI ]
+            [ sh:datatype xsd:string ]
+        ) ;
+        sh:severity sh:Warning ;
+        sh:message "dcat:hadRole should classify the role of the related resource: a dcat:Role (DCAT's declared range), or a skos:Concept, schema:DefinedTerm, @id reference or string." ;
+    ] ;
+
+    sh:property [
+        a sh:PropertyShape ;
+        # An IRI node OR a URI-shaped string literal. DCMI recommends the URI and
+        # permits the string, declares no rdfs:range, and does not list this among
+        # the 13 properties it restricts to non-literal values; dcat.ttl does not
+        # constrain it at all. So accepting both is the specification's position,
+        # and requiring either alone is stricter than it.
+        #
+        # sh:datatype xsd:string until 2026-10-01, which rejected the @id form and
+        # made the message below untrue: it fired "must be a syntactically valid
+        # URI" against <http://metadata.psdi.ac.uk/...>, a perfectly valid URI,
+        # because the datatype check wanted a literal. The rule tested something
+        # other than what it said, which is how it was found from outside
+        # (profile-core#16) rather than here.
+        sh:path dcterms:relation ;
+        sh:maxCount 1 ;
+        sh:or (
+            [ sh:nodeKind sh:IRI ]
+            [ sh:datatype xsd:string ; sh:pattern "^[a-zA-Z][a-zA-Z0-9+.-]*:[^\\s]*$" ]
+        ) ;
+        sh:severity sh:Warning ;
+        sh:message "dcterms:relation must be an @id reference to the related resource (recommended) or a URI-shaped string. DCMI recommends the URI form and permits the string form."
+    ] ;
+
+    sh:property [
+        a sh:PropertyShape ;
+        sh:path schema:name ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string
+    ] ;
+    sh:property [
+        a sh:PropertyShape ;
+        sh:path schema:description ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string
+    ] .

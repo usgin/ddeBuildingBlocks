@@ -1,0 +1,126 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+
+cdifd:spatialExtentProperty
+    a sh:NodeShape ;
+    sh:targetClass schema:Place ;
+    sh:or (
+        [
+            sh:property [
+                sh:path schema:geo ;
+                sh:or (
+                    [ sh:node cdifd:geoCoordinatesNode ]
+                    [ sh:node cdifd:geoShapeNode ]
+                ) ;
+                sh:minCount 1 ;
+                sh:message "Spatial location MUST be specified either with GeoCoordinates lat/long pairs or with GeoShape Line or Box." ;
+            ]
+        ]
+        [
+            sh:property [
+                sh:path schema:name ;
+                sh:or (
+                    [ sh:datatype xsd:string ]
+                    [ sh:node cdifd:CDIFDefinedTermShape ]
+                ) ;
+                sh:minCount 1 ;
+            ]
+        ]
+        [
+            sh:property [
+                sh:path schema:identifier ;
+                sh:or (
+                    [ sh:nodeKind sh:IRIOrLiteral ]
+                    [ sh:class schema:PropertyValue ]
+                ) ;
+                sh:minCount 1 ;
+            ]
+        ]
+    );
+    sh:message "Recommended: provide a spatial coverage description if applicable using schema:Place, identified by a place name, an identifier, point location(s) (GeoCoordinates), or GeoShape (bounding box, line profile location, or polygon)." ;
+    .
+    
+cdifd:geoCoordinatesNode
+	a sh:NodeShape ;
+    sh:targetClass schema:GeoCoordinates ;
+	sh:property [ sh:path schema:latitude ;
+                   	sh:or ( [sh:datatype xsd:double ]
+                   			[sh:datatype xsd:integer ] );
+                   	sh:minValue -90.0;
+                   	sh:maxValue 90.0;
+                   	sh:minCount 1 ] ;
+	sh:property [sh:path schema:longitude ;
+         			sh:or ( [sh:datatype xsd:double ]
+         					[sh:datatype xsd:integer ] );
+         			sh:minValue -180.0;
+         			sh:maxValue 180.0;
+         			sh:minCount 1 ] ;
+	sh:message "GeoCoodinates must include latitude between -90 and 90, and longitude between -180 and 180." ;
+.
+
+cdifd:geoShapeNode
+	a sh:NodeShape ;
+    sh:targetClass schema:GeoShape ;
+	sh:property
+		[sh:path [sh:alternativePath ( schema:line schema:box) ];
+			sh:datatype xsd:string;
+			sh:minCount 1 ;
+            sh:message "geoshape must include a line or box geometry as a string of latitude longitude pairs"
+		]
+.	
+
+cdifd:CDIFDefinedTermShape
+    a sh:NodeShape ;
+    sh:targetClass schema:DefinedTerm ;
+	sh:or (
+		[sh:property [
+			sh:path schema:identifier;
+			sh:minCount 1 ;
+			sh:or ( 
+			 [sh:nodeKind sh:IRIOrLiteral ]
+			 [sh:and (
+			      [sh:class schema:PropertyValue ]
+    			  [sh:or (
+                    [sh:property [
+                        sh:path schema:value ;
+                        sh:minCount 1 ;
+                        sh:datatype xsd:string ;
+                        sh:message "a value for the identifier should be provided; can provide either full URI or identifier token part of URI if a url is provided."
+                    ] ]
+                    [sh:property [
+                        sh:path schema:url ;
+                        sh:minCount 1 ;
+                        sh:datatype xsd:string ;
+                        # sh:pattern "^[a-zA-Z][a-zA-Z0-9+.-]*:[^\\s]*$";
+                        sh:pattern "^https?:\\/\\/[^\\s]+$" ;
+                        sh:message "value must be a resolvable URL, but we aren't testing to see if the URL resolves..... Can't get xsd:anyURI to work with JSON Schema validation..."]
+                        ] 
+                       );
+                    ]
+			     )
+			 ]
+			);
+			sh:message "a defined term should have an identifier that is a resolvable URI" ; 
+			];
+		]
+		[sh:property cdifd:termLabelProperty ;]
+	);
+	sh:message "A Term must have a name (label) or an identifier. It should have both!." 
+	.
+	
+cdifd:termLabelProperty
+# names must be a literal, .
+    a sh:PropertyShape ;
+        sh:path schema:name;
+    	sh:minCount 1 ;
+        sh:datatype xsd:string ;
+    	sh:minLength 3 ;
+    	# sh:severity sh:Warning ;
+        sh:message "a label (schema:name) for the term must be provided, and must have at least 3 characters" 
+    .

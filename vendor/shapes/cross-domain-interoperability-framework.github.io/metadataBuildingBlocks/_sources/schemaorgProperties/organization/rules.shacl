@@ -1,0 +1,42 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+
+cdifd:CDIFOrganizationShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Organization ;
+    sh:or (
+		# An organization identified by a dereferenceable IRI is fully identified;
+		# the message has always offered this as an option, but no branch tested
+		# it, so an IRI-identified agent failed on a technicality.
+		[sh:nodeKind sh:IRI ;]
+		[sh:property cdifd:nameProperty ;]
+		[sh:property [
+			sh:path schema:identifier;
+			sh:minCount 1 ;
+			sh:nodeKind sh:IRIOrLiteral ;
+			# sh:severity sh:Info ;
+			sh:message "an organization should have an identifier that is a URI; use of ORCID is strongly encouraged" ; 
+			]
+		]
+	);
+#	sh:minCount 1;
+#	sh:severity sh:Info;
+    sh:message "Organization must have an @id IRI, a name or an identifier that is a string" 
+	.
+	
+cdifd:nameProperty
+# names must be a literal, .
+    a sh:PropertyShape ;
+    sh:path schema:name;
+	sh:minCount 1 ;
+    sh:datatype xsd:string ;
+	sh:minLength 3 ;
+	# sh:severity sh:Warning ;
+    sh:message "a label (schema:name) for the Organization must be provided, and must have at least 3 characters"
+    .

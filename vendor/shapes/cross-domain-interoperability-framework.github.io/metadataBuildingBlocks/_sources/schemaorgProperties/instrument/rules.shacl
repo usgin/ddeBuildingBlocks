@@ -1,0 +1,90 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+
+cdifd:instrumentNode
+	a sh:NodeShape;
+	    sh:target [
+	  a sh:SPARQLTarget ;
+      sh:select  """
+      PREFIX schema: <http://schema.org/>
+      SELECT DISTINCT ?this
+        WHERE {
+          ?s schema:instrument ?this .
+          FILTER (isIRI(?this) || isBlank(?this))
+          }""";
+	] ;
+
+	# -- REQUIRED (Violation) --
+
+    sh:property [
+      sh:path schema:name ;
+      sh:minCount 1 ;
+      sh:datatype xsd:string ;
+      sh:minLength 3 ;
+      sh:severity sh:Violation ;
+      sh:message "An instrument must have a name with at least 3 characters."
+    ] ;
+
+	# -- RECOMMENDED (Warning) --
+
+    sh:property [
+      sh:path schema:category ;
+      sh:minCount 1 ;
+      sh:severity sh:Warning ;
+      sh:message "An instrument should have a category classification from a controlled vocabulary (schema:category)."
+    ] ;
+
+	# -- INFORMATIONAL (Info) --
+
+    sh:property [
+      sh:path schema:identifier ;
+      sh:severity sh:Info ;
+      sh:message "An instrument should have an identifier (schema:identifier)."
+    ] ;
+    sh:property [
+      sh:path schema:description ;
+      sh:datatype xsd:string ;
+      sh:severity sh:Info ;
+      sh:message "An instrument should have a text description."
+    ] ;
+    sh:property [
+      sh:path schema:manufacturer ;
+      sh:severity sh:Info ;
+      sh:message "An instrument should identify its manufacturer (schema:manufacturer)."
+    ] ;
+    sh:property [
+      sh:path schema:model ;
+      sh:severity sh:Info ;
+      sh:message "An instrument should specify its product model (schema:model)."
+    ] ;
+    sh:property [
+      sh:path schema:owner ;
+      sh:severity sh:Info ;
+      sh:message "An instrument should identify its owner (schema:owner)."
+    ] ;
+    sh:property [
+      sh:path schema:contributor ;
+      sh:severity sh:Info ;
+      sh:message "An instrument should identify contributors with roles (e.g. operator, custodian, PI)."
+    ] ;
+    sh:property [
+      sh:path schema:additionalType ;
+      sh:severity sh:Info ;
+      sh:message "An instrument should have a domain-specific type URI (schema:additionalType)."
+    ] ;
+    sh:property [
+      sh:path schema:url ;
+      sh:severity sh:Info ;
+      sh:message "An instrument should have a landing page URL (schema:url)."
+    ] ;
+    sh:property [
+      sh:path schema:validFrom ;
+      sh:severity sh:Info ;
+      sh:message "An instrument should have a commissioned date (schema:validFrom)."
+    ] .

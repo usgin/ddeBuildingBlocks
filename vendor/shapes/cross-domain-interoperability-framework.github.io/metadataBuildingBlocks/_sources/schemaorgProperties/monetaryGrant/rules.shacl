@@ -1,0 +1,71 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+# JSON schema requires anyOf: [funder, identifier, name, description].
+# A MonetaryGrant is valid if it has at least one of these four properties.
+cdifd:fundingShape
+    a sh:NodeShape ;
+    sh:targetClass schema:MonetaryGrant;
+    sh:or (
+        [sh:property [
+            sh:path schema:funder;
+            sh:minCount 1 ;
+            sh:or(  [sh:nodeKind sh:IRI]
+                    [sh:class schema:Person;]
+                    [sh:class schema:Organization; ]
+                        );
+            ];
+        ]
+        [sh:property [
+            sh:path schema:identifier;
+            sh:minCount 1 ;
+            sh:or (
+             [sh:nodeKind sh:IRIOrLiteral ]
+             [
+                 sh:and (
+                  [sh:class schema:PropertyValue ]
+                  [sh:or (
+                          [sh:property [
+                              sh:path schema:value ;
+                              sh:minCount 1 ;
+                              sh:datatype xsd:string ;
+                              sh:message "a value for the identifier should be provided; can provide either full URI or identifier token part of URI if a url is provided."
+                          ] ]
+                          [sh:property [
+                              sh:path schema:url ;
+                              sh:minCount 1 ;
+                              sh:datatype xsd:string ;
+                              sh:pattern "^https?:\\/\\/[^\\s]+$" ;
+                              sh:message "value must be a resolvable URL, but we aren't testing to see if the URL resolves..... Can't get xsd:anyURI to work with JSON Schema validation..."]
+                              ]
+                          );
+                  ]
+            )]);
+            sh:message "a monetary Grant should have an identifier that is a resolvable URI" ;
+            ];
+        ]
+        [sh:property cdifd:grantNameProperty ;]
+        [sh:property [
+            sh:path schema:description;
+            sh:minCount 1 ;
+            sh:datatype xsd:string ;
+            ];
+        ]
+    );
+    sh:message "Funding for creation or maintenance of the resource can be acknowledged using schema:MonetaryGrant with at least one of: a funder, an identifier, a name, or a description.";
+    .
+
+cdifd:grantNameProperty
+# names must be a literal, .
+    a sh:PropertyShape ;
+    sh:path schema:name;
+	sh:minCount 1 ;
+    sh:datatype xsd:string ;
+	sh:minLength 3 ;
+    sh:message "a title for the grant must be provided, and have a length of at least 3 characters."
+    .

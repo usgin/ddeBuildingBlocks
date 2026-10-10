@@ -1,0 +1,31 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix cdifd:       <https://cdif.org/validation/0.1/shacl#> .
+@prefix prov:        <http://www.w3.org/ns/prov#>.
+@base <https://www.ogc.org/rules/template/> .
+
+
+cdifd:derivedFromProperty
+	a sh:NodeShape ;
+    sh:targetObjectsOf prov:wasDerivedFrom ;
+    sh:filterShape [ sh:nodeKind sh:BlankNode ] ;
+    sh:or (
+        [sh:nodeKind sh:IRI ]
+        [sh:datatype xsd:string ]
+        [sh:class schema:CreativeWork;
+          sh:property 
+        		[
+                    sh:path schema:url ;
+                    sh:minCount 1 ;
+                    sh:datatype xsd:string ;
+                    # sh:pattern "^[a-zA-Z][a-zA-Z0-9+.-]*:[^\\s]*$";
+                    sh:pattern "^https?:\\/\\/[^\\s]+$" ;
+                    sh:message "value must be a resolvable URL, but we aren't testing to see if the URL resolves..... Can't get xsd:anyURI to work with JSON Schema validation..."
+                   ]
+         ]
+	);
+	sh:message "PROV:derivedFrom must have a string value, a CreativeWork citing a source or an @id reference to a source."
+	.

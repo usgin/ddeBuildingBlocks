@@ -1,0 +1,61 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+
+cdifd:webAPINode
+	a sh:NodeShape; 
+	sh:targetClass schema:WebAPI ;
+	sh:property
+		[sh:path schema:serviceType ;
+			sh:or ( [sh:nodeKind sh:IRI]
+				[sh:class schema:DefinedTerm]
+				[sh:datatype xsd:string;
+				  sh:minLength 3 ;] ) ;
+			sh:minCount 1 ;
+			sh:message "A WebAPI node must specify a service type with a string, IRI, or DefinedTerm";
+		];
+	sh:property 
+		[sh:path schema:documentation;
+			sh:or ( [sh:class schema:CreativeWork]
+			     [sh:nodeKind sh:IRI ]
+				[sh:datatype xsd:string] ) ;
+			sh:message "a link or URL to a machine-actionable service distribution object should be provided if it exists";
+			sh:minCount 1;
+			sh:severity sh:Info
+		];
+	sh:property [
+		sh:path schema:termsOfService ;
+		sh:or (
+			[sh:nodeKind sh:IRI]
+			[sh:datatype xsd:string]
+			[sh:class schema:CreativeWork]
+		) ;
+		sh:minCount 1 ;
+		sh:message "A WebAPI must specify terms of service (schema:termsOfService) as a string, IRI, or CreativeWork." ;
+	] ;
+	sh:property
+        [sh:path schema:potentialAction;
+			sh:or (
+				[sh:class schema:Action]
+				[sh:class schema:AssessAction]
+				[sh:class schema:ConsumeAction]
+				[sh:class schema:ControlAction]
+				[sh:class schema:CreateAction]
+				[sh:class schema:DeleteAction]
+				[sh:class schema:FindAction]
+				[sh:class schema:InteractAction]
+				[sh:class schema:MoveAction]
+				[sh:class schema:PlayAction]
+				[sh:class schema:SearchAction]
+				[sh:class schema:TransferAction]
+				[sh:class schema:UpdateAction]
+			) ;
+			sh:minCount 1;
+			sh:message "at least one action must be provided for a webAPI distribution"
+			]
+	.

@@ -1,0 +1,114 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+
+cdifd:CDIFPersonShape
+    a sh:NodeShape ;
+    sh:targetClass schema:Person ;
+	sh:or (
+		[sh:property [
+			sh:path schema:identifier;
+			sh:minCount 1 ;
+			sh:nodeKind sh:IRIOrLiteral ;
+			# sh:severity sh:Info ;
+			sh:message "a person should have an identifier that is a URI; use of ORCID is strongly encouraged" ; 
+			];
+		]
+		[sh:property cdifd:nameProperty ;]
+	);
+	
+	sh:property cdifd:contactPointProperty ;
+	sh:property cdifd:affiliationProperty ;
+	sh:message "A person must have a name or an identifier provided; affiliation to an organization is recommended." 
+	.
+
+cdifd:CDIFContactPointShape
+    a sh:NodeShape ;
+    sh:targetClass schema:ContactPoint ;
+    # An e-mail address or a contact web page (form, issue tracker); either will do.
+    sh:or (
+        [sh:property [ sh:path schema:email ; sh:minCount 1 ; ] ;]
+        [sh:property [ sh:path schema:url ; sh:minCount 1 ; ] ;]
+    ) ;
+    sh:severity sh:Info ;
+    sh:message "a contact point should give an e-mail address or a contact web page (schema:url); an e-mail address is strongly recommended" ;
+    sh:property [
+       sh:path schema:email ;
+       sh:datatype xsd:string ;
+       # REGEX for standard e-mail address format
+       sh:pattern "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$" ;
+       sh:severity sh:Info ;
+       sh:message "a contact point e-mail address should be well formed" ;
+    ] ;
+    sh:property [
+       sh:path schema:url ;
+       sh:datatype xsd:string ;
+       sh:pattern "^https?://[^\\s]+$" ;
+       sh:severity sh:Info ;
+       sh:message "a contact point web page should be an http(s) URL" ;
+    ].
+	
+cdifd:contactPointProperty
+    a sh:PropertyShape ;
+    sh:path schema:contactPoint;
+    sh:or ( [sh:class  schema:ContactPoint;]
+    [sh:nodeKind sh:IRI ;]
+    );
+    sh:minCount 1 ;
+    sh:severity sh:Info ;
+    sh:message "A Person should have a contactPoint (schema:ContactPoint or mailto: IRI)" ;
+    .
+
+cdifd:maintainerOrProviderContactPointShape
+    a sh:NodeShape ;
+# Person nodes used as schema:maintainer or schema:provider should have contactPoint
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:select """
+            PREFIX schema: <http://schema.org/>
+            SELECT ?this WHERE {
+                { ?record schema:maintainer ?this . }
+                UNION
+                { ?record schema:provider ?this . }
+                ?this a schema:Person .
+            }
+        """ ;
+    ] ;
+    sh:property [
+        sh:path schema:contactPoint ;
+        sh:or ( [sh:class schema:ContactPoint ;]
+                [sh:nodeKind sh:IRI ;] ) ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "A maintainer or provider Person should have a contactPoint for users to reach" ;
+    ] ;
+    .
+    
+cdifd:affiliationProperty
+# affiliation is always with an organization
+    a sh:PropertyShape ;
+    sh:path schema:affiliation ;
+    sh:or (
+        [sh:class  schema:Organization  ;]
+        [sh:nodeKind sh:IRI ;] 
+        );
+	sh:minCount 0 ;
+	sh:severity sh:Warning ;
+    sh:message "Optional: an affiliation must have object schema:Organization" 
+    .
+
+cdifd:nameProperty
+# names must be a literal, .
+    a sh:PropertyShape ;
+    sh:path schema:name;
+	sh:minCount 1 ;
+    sh:datatype xsd:string ;
+	sh:minLength 3 ;
+	# sh:severity sh:Warning ;
+    sh:message "a name for the person must be provided, and have a length of at least 3 characters." 
+    .

@@ -1,0 +1,107 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix cdifd:       <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+
+cdifd:CDIFDefinedTermShape
+    a sh:NodeShape ;
+    sh:target [
+	  a sh:SPARQLTarget ;
+#do not appy when defined term is example, apply when is object of other predicates
+#  that don't already handle a defined term (variableMeasured, propertyID, additionalProperty)
+#  add to the Value list if other uses are found
+      sh:select  """
+      PREFIX schema: <http://schema.org/>
+      SELECT DISTINCT ?this
+        WHERE {
+        ?this a schema:DefinedTerm .
+        {
+          ?this schema:name "example defined term" .
+          FILTER NOT EXISTS { ?s ?p ?this . }
+        }
+        Union
+        {
+         VALUES ?p {
+            schema:linkRelationship
+            schema:measurementTechnique
+            schema:keywords
+            schema:name
+          }
+         ?s ?p ?this .
+        }
+      }""";
+	] ;
+	sh:or (
+		[sh:property [
+			sh:path schema:identifier;
+			sh:minCount 1 ;
+			sh:or (
+			 [sh:datatype xsd:string ]
+			 [
+			     sh:and (
+			      [sh:class schema:PropertyValue ]
+	    		  [sh:or (
+	                    [sh:property [
+	                        sh:path schema:value ;
+	                        sh:minCount 1 ;
+	                        sh:datatype xsd:string ;
+	                        sh:message "a value for the identifier should be provided; can provide either full URI or identifier token part of URI if a url is provided."
+	                    ] ]
+	                    [sh:property [
+	                        sh:path schema:url ;
+	                        sh:minCount 1 ;
+	                        sh:datatype xsd:string ;
+	                        sh:pattern "^https?:\\/\\/[^\\s]+$" ;
+	                        sh:message "value expected to be a resolvable http URI, but we aren't testing to see if the URL resolves..."]
+	                        ]
+	                    );
+	            ]
+			     )
+			  ]
+			);
+			sh:message "a defined term should have an identifier that is a resolvable URI" ;
+			];
+		]
+		[sh:property cdifd:termLabelProperty ;]
+		[sh:property [
+			sh:path schema:termCode;
+			sh:minCount 1 ;
+			sh:datatype xsd:string;
+			sh:message "a termCode (short code or notation) for the term within its vocabulary" ;
+			];
+		]
+	);
+	sh:property [
+		sh:path schema:inDefinedTermSet;
+		sh:minCount 0 ;
+		sh:or (
+			[sh:nodeKind sh:IRI]
+			[sh:datatype xsd:string]
+		);
+		sh:severity sh:Info;
+		sh:message "inDefinedTermSet identifies the controlled vocabulary from which this term comes; should be a URI or string identifier"
+	];
+	sh:property [
+		sh:path schema:termCode;
+		sh:minCount 0 ;
+		sh:datatype xsd:string;
+		sh:severity sh:Info;
+		sh:message "termCode is a short code or notation for the term within its vocabulary (analogous to skos:notation)"
+	];
+	sh:message "A DefinedTerm must have a name (label), an identifier, OR a termCode. All three are recommended."
+	.
+	
+cdifd:termLabelProperty
+# names must be a literal, .
+    a sh:PropertyShape ;
+    sh:path schema:name;
+	sh:minCount 1 ;
+    sh:datatype xsd:string ;
+	sh:minLength 3 ;
+	# sh:severity sh:Warning ;
+    sh:message "a label (schema:name) for the term must be provided, and must have at least 3 characters" 
+    .

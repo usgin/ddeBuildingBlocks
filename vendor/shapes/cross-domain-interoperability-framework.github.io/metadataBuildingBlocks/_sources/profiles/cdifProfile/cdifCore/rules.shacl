@@ -1,0 +1,293 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix dcat:    <http://www.w3.org/ns/dcat#>.
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@prefix soso: <http://science-on-schema.org/1.2.3/validation/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+cdifd:CDIFSubjectOfPlacementShape a sh:NodeShape ;
+# schema:subjectOf attaches a catalog record to the resource being DOCUMENTED.
+# It may therefore only appear on a node that IS such a resource: typed with one
+# of the classes the cdifCore @type enum allows, and not itself a catalog
+# record. schema.yaml in this directory is the source of truth for that enum --
+# keep the list below in step with it.
+    sh:target [
+      a sh:SPARQLTarget ;
+      sh:select """
+        PREFIX schema: <http://schema.org/>
+        SELECT ?this
+        WHERE { ?this schema:subjectOf ?record . }
+      """ ;
+    ] ;
+    sh:property [
+        sh:path rdf:type ;
+        sh:qualifiedValueShape [
+            sh:in ( schema:CreativeWork schema:SoftwareApplication
+                    schema:SoftwareSourceCode schema:Product schema:WebAPI
+                    schema:Dataset schema:DigitalDocument schema:Collection
+                    schema:ImageObject schema:DataCatalog schema:DefinedTermSet
+                    schema:MediaObject ) ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:message "schema:subjectOf may only be attached to the resource being documented: a node typed with one of the classes the CDIF core @type enum allows (schema:Dataset, schema:CreativeWork, schema:SoftwareApplication, schema:SoftwareSourceCode, schema:Product, schema:WebAPI, schema:DigitalDocument, schema:Collection, schema:ImageObject, schema:DataCatalog, schema:DefinedTermSet, schema:MediaObject). A structure fragment or other non-resource node must not carry one."
+    ] ;
+    sh:property [
+        sh:path schema:additionalType ;
+        sh:not [ sh:in ( dcat:CatalogRecord ) ] ;
+        sh:message "schema:subjectOf must not be attached to a catalog record: the catalog record is what subjectOf points AT, not a resource that has one."
+    ]
+    .
+
+cdifd:CDIFDatasetMandatoryShape a sh:NodeShape ;
+# applies to every dataset description; catalog-record nodes (schema:about + additionalType dcat:CatalogRecord) are excluded by the SPARQL target
+	sh:target [
+	  a sh:SPARQLTarget ;
+    sh:select """
+       PREFIX schema: <http://schema.org/>
+       PREFIX ex: <https://example.org/>
+       PREFIX prov: <http://www.w3.org/ns/prov#>
+       PREFIX dcterms: <http://purl.org/dc/terms/>
+       PREFIX dcat: <http://www.w3.org/ns/dcat#>
+            SELECT ?this
+            WHERE {
+              ?this a schema:Dataset .
+              # Exclude catalog-record nodes (they describe a record, not a dataset).
+              MINUS {
+                ?this schema:about ?x .
+                ?this schema:additionalType dcat:CatalogRecord .
+              }
+              # Exclude datasets that are only *referenced* as provenance / source /
+              # derived-from / based-on resources rather than the resource being
+              # documented by this record. Such references carry an @id (and maybe a
+              # name/url for readability) but are not held to the full CDIF core
+              # requirements - the documented resource is the SUBJECT of provenance,
+              # never the object, so this never excludes the documented dataset.
+              FILTER NOT EXISTS { ?dpd prov:wasDerivedFrom ?this . }
+              FILTER NOT EXISTS { ?dpu prov:used ?this . }
+              FILTER NOT EXISTS { ?dib schema:isBasedOn ?this . }
+              FILTER NOT EXISTS { ?dsrc dcterms:source ?this . }
+            }
+          """ ;
+	] ;
+	sh:nodeKind sh:IRI ;
+	sh:message "A Dataset must have an @id that is a URI (IRI)" ;
+
+    sh:property
+		cdifd:resourceIdentifierProperty,
+		cdifd:nameProperty,
+		cdifd:rightsProperty,
+		cdifd:dateModifiedProperty,
+		cdifd:accessProperty,
+		cdifd:descriptionProperty,
+		cdifd:creatorProperty,
+		cdifd:keywordsProperty
+.
+
+cdifd:resourceIdentifierProperty
+# identifier for the resource described by the graph node
+    a sh:PropertyShape ;
+    sh:path schema:identifier ;
+	sh:minCount 1 ;
+	sh:or ( 
+		[sh:datatype xsd:string ;]
+		[sh:class  schema:PropertyValue ;
+			sh:property 
+				[sh:path schema:propertyID ;
+				  sh:or ( [ sh:datatype xsd:string ] [ sh:nodeKind sh:IRI ] ) ;  # scheme id may be a name string OR (preferably) a URI as an IRI reference,
+					  # so the JSON-LD IRI policy (PropertyIDUriShouldBeIRIShape) does not conflict
+				  sh:severity sh:Warning ;
+				  sh:message "If specifying an identifier via the PropertyValue, the scheme (authority, domain) within which the identifier is assigned and unique must be identifed, either by name or preferably using a URI. See https://registry.identifiers.org/registry"
+				];
+			sh:or (
+			   [sh:property 
+				[sh:path schema:url ;
+				  sh:datatype xsd:string ;
+				  sh:message "if possible, provide a resolvable URI that will provide a representation of the identified resource."
+				]]
+			   [sh:property 
+				[sh:path schema:value ;
+				  sh:datatype xsd:string ;
+				  sh:message "The identifer string; include applicable prefix (e.g. doi:, ark:, http:, isbn:)"
+				]]
+				)
+			]
+		);
+    sh:message "An identifier for the documented resource must be provided" 
+    .
+
+cdifd:nameProperty
+# names must be a literal, .
+    a sh:PropertyShape ;
+    sh:path schema:name;
+	sh:minCount 1 ;
+    sh:datatype xsd:string ;
+	sh:minLength 3 ;
+    sh:message "a name for the dataset must be provided, and have a length of at least 3 characters." 
+    .
+    
+cdifd:rightsProperty	
+	a sh:PropertyShape ;
+	sh:path [sh:alternativePath ( schema:license  schema:conditionsOfAccess ) ];
+	sh:or (
+		[sh:nodeKind sh:IRI ]
+		[sh:datatype xsd:string ]
+		[sh:class schema:CreativeWork;
+		  sh:property 
+				[
+                    sh:path schema:url ;
+                    sh:minCount 1 ;
+                    sh:datatype xsd:string ;
+                    # sh:pattern "^[a-zA-Z][a-zA-Z0-9+.-]*:[^\\s]*$";
+                    sh:pattern "^https?:\\/\\/[^\\s]+$" ;
+                    sh:message "value must be a resolvable URL, but we aren't testing to see if the URL resolves..... Can't get xsd:anyURI to work with JSON Schema validation..."
+                   ]
+         ] 
+	);
+	sh:minCount 1 ;
+	sh:message "To meet the requirements for FAIR data, information about licenses or other security, usage, or access limitations must be described" 
+	.
+	
+cdifd:dateModifiedProperty
+    a sh:PropertyShape ;
+    sh:path schema:dateModified;
+	# pyshacl doesn't seem to work validating xsd:date or xsd:dateTime in JSON-LD
+    # sh:datatype xsd:dateTime ;
+	sh:minCount 1 ;
+	sh:datatype xsd:string ;
+	# messy regex to screen for ISO8601 formats
+	sh:pattern "^[1-2][0-9]{3}-([0][1-9]|[1][0-2])(-([0-2][0-9]|[3][0-1])(T([0-1][0-9]|[2][0-3])(:[0-5][0-9])?(:[0-5][0-9](Z|[+-][0-2][0-9]:[0-5][0-9])?)?)?)?$" ;
+    sh:message "Date of most recent update to resource content is required, using ISO8601 format with at least a year and a month." 
+    .
+    
+cdifd:accessProperty
+# At least one of schema:url or schema:distribution must be present
+    a sh:PropertyShape ;
+    sh:path [sh:alternativePath ( schema:url schema:distribution ) ] ;
+    sh:minCount 1 ;
+    sh:message "At least one of schema:url (landing page) or schema:distribution (download/API) must be provided for resource access"
+    .
+
+cdifd:descriptionProperty
+    a sh:PropertyShape ;
+    sh:path schema:description ;
+    sh:minCount 1 ;
+    sh:datatype xsd:string ;
+    sh:severity sh:Warning ;
+    sh:message "A description of the resource is recommended for discovery"
+    .
+
+cdifd:creatorProperty
+    a sh:PropertyShape ;
+    sh:path schema:creator ;
+    sh:minCount 1 ;
+    sh:severity sh:Warning ;
+    sh:message "At least one creator (author/originator) is recommended"
+    .
+
+cdifd:keywordsProperty
+    a sh:PropertyShape ;
+    sh:path schema:keywords ;
+    sh:minCount 1 ;
+    sh:severity sh:Warning ;
+    sh:message "Keywords are recommended for discovery"
+    .
+
+cdifd:CDIFCatalogRecordShape
+    a sh:NodeShape ;
+    # only apply to dataset nodes that are 'about' a dataset node 
+	sh:target [
+	  a sh:SPARQLTarget ;
+        sh:select  """
+            PREFIX schema: <http://schema.org/>
+            PREFIX dcat: <http://www.w3.org/ns/dcat#>
+            SELECT ?this
+            WHERE {
+            ?this a schema:Dataset ;
+             schema:about ?parent ;
+             schema:additionalType dcat:CatalogRecord .
+            }
+        """;
+	] ;
+	sh:nodeKind sh:IRI ;
+	sh:property cdifd:metadataProfileProperty ;
+	sh:property cdifd:metadataConformsToPresent ;
+	sh:property cdifd:metadataSubjectProperty ;
+	sh:property cdifd:catalogRecordTypeProperty ;
+	sh:message "The target of the metadata record (about)."
+	.
+
+cdifd:metadataProfileProperty
+# Metadata needs to identify conventions followed in the serialization of this record.
+    a sh:PropertyShape ;
+    sh:path  dcterms:conformsTo  ;
+	sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:hasValue <https://w3id.org/cdif/core/1.1> ;
+    sh:message "provide identifiers for specifications used in this record to provide guidance for machine agents processing the metadata record" ;
+    sh:severity sh:Warning
+    .
+    
+cdifd:metadataConformsToPresent
+# Structural, and independent of WHICH profile is named: a catalog record must
+# declare its conventions somehow. Kept at Violation, while the
+# specific-profile assertion in metadataProfileProperty is only a Warning --
+# SHACL cannot tell whether the record meets that profile's requirements.
+    a sh:PropertyShape ;
+    sh:path dcterms:conformsTo ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "a catalog record must declare at least one dcterms:conformsTo IRI identifying the conventions its serialization follows"
+    .
+
+cdifd:metadataSubjectProperty
+    a sh:PropertyShape ;
+    sh:path  schema:about  ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:message "link to the target of the metadata node using the about property"
+    .
+
+cdifd:catalogRecordTypeProperty
+    a sh:PropertyShape ;
+    sh:path schema:additionalType ;
+    sh:minCount 1 ;
+    sh:hasValue dcat:CatalogRecord ;
+    sh:message "The CatalogRecord node must have schema:additionalType including dcat:CatalogRecord"
+    .
+
+# ---------------------------------------------------------------------------
+# SOSO namespace-check shapes (from Science on Schema.org v1.3.0)
+# Catch common schema.org namespace errors in Dataset @type declarations.
+# These shapes trigger only when an incorrect namespace variant is used;
+# correctly-namespaced documents produce no violations.
+# ---------------------------------------------------------------------------
+
+soso:DatasetNS1Shape
+    a sh:NodeShape ;
+    sh:targetClass <http://schema.orgDataset/> ;
+    sh:message "Expecting SO namespace of <http://schema.org/> not <http://schema.org>" ;
+    sh:not [
+        sh:path rdf:type ;
+        sh:minCount 1 ;
+    ] .
+
+soso:DatasetNS2Shape
+    a sh:NodeShape ;
+    sh:targetClass <https://schema.org/Dataset> ;
+    sh:message "Expecting SO namespace of <http://schema.org/> not <https://schema.org/>" ;
+    sh:not [
+        sh:path rdf:type ;
+        sh:minCount 1 ;
+    ] .
+
+soso:DatasetNS3Shape
+    a sh:NodeShape ;
+    sh:targetClass <https://schema.orgDataset/> ;
+    sh:message "Expecting SO namespace of <http://schema.org/> not <https://schema.org>" ;
+    sh:not [
+        sh:path rdf:type ;
+        sh:minCount 1 ;
+    ] .

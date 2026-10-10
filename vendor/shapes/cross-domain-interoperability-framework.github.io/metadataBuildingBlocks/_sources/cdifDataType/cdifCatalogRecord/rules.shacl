@@ -1,0 +1,77 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix dcterms: <http://purl.org/dc/terms/>.
+@prefix dcat:    <http://www.w3.org/ns/dcat#>.
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+
+cdifd:CDIFCatalogRecordShape
+    a sh:NodeShape ;
+    # only apply to dataset nodes that are 'about' a dataset node 
+	sh:target [
+	  a sh:SPARQLTarget ;
+	  sh:prefixes (
+         [ sh:prefix "schema" ; sh:namespace "http://schema.org/" ]
+         [ sh:prefix "ex" ; sh:namespace "https://example.org/" ]
+       );
+        sh:select  """
+            PREFIX schema: <http://schema.org/>
+            PREFIX dcat: <http://www.w3.org/ns/dcat#>
+            SELECT ?this
+            WHERE {
+            ?this a schema:Dataset ;
+             schema:about ?parent ;
+             schema:additionalType dcat:CatalogRecord .
+            }
+        """;
+	] ;
+	sh:nodeKind sh:IRI ;
+	sh:property cdifd:metadataProfileProperty ;
+	sh:property cdifd:metadataConformsToPresent ;
+	sh:property cdifd:metadataSubjectProperty ;
+	sh:property cdifd:catalogRecordTypeProperty ;
+	sh:message "The target of the metadata record (about)."
+	.
+
+cdifd:metadataProfileProperty
+# Metadata needs to identify conventions followed in the serialization of this record.
+    a sh:PropertyShape ;
+    sh:path  dcterms:conformsTo  ;
+	sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:hasValue <https://w3id.org/cdif/core/1.1> ;
+    sh:message "provide identifiers for specifications used in this record to provide guidance for machine agents processing the metadata record" ;
+    sh:severity sh:Warning
+    .
+    
+cdifd:metadataConformsToPresent
+# Structural, and independent of WHICH profile is named: a catalog record must
+# declare its conventions somehow. Kept at Violation, while the
+# specific-profile assertion in metadataProfileProperty is only a Warning --
+# SHACL cannot tell whether the record meets that profile's requirements.
+    a sh:PropertyShape ;
+    sh:path dcterms:conformsTo ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "a catalog record must declare at least one dcterms:conformsTo IRI identifying the conventions its serialization follows"
+    .
+
+cdifd:metadataSubjectProperty
+    a sh:PropertyShape ;
+    sh:path  schema:about  ;
+    sh:nodeKind sh:IRI ;
+    sh:minCount 1 ;
+    sh:message "link to the target of the metadata node using the about property"
+    .
+
+cdifd:catalogRecordTypeProperty
+    a sh:PropertyShape ;
+    sh:path schema:additionalType ;
+    sh:minCount 1 ;
+    sh:hasValue dcat:CatalogRecord ;
+    sh:message "The CatalogRecord node must have schema:additionalType including dcat:CatalogRecord"
+    .
