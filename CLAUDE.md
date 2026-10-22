@@ -186,7 +186,13 @@ Consequences worth knowing before debugging a resolution failure:
   which are what resolution actually uses.
 - **Those 4 commits are the only copy of the current tools.** Snapshot validation, the UTF-8 fix, the
   `UnresolvedRefs` check and the SHACL pass are unpushed and absent from upstream, so a tool sync run
-  from anywhere else reverts them. They belong in a PR to CDIF.
+  from anywhere else reverts them.
+- **NEVER push to CDIF `metadataBuildingBlocks` directly. It is always a pull request.** This holds
+  even though the account has ADMIN on that repository and `origin` there now points straight at it,
+  which together make an accidental `git push origin main` both possible and permanent. Tool changes
+  alter validation behaviour for every register that consumes CDIF — the `UnresolvedRefs` check turns
+  a previously green suite red wherever `vendor/` is unpopulated — so they need review by CDIF, not a
+  push from a downstream repo. Work on a branch and open a PR.
 - **`tools/resolve_schema.py`, `tools/regenerate_schema_json.py` and `tools/validate_examples.py` are
   copies, not originals.** The canonical versions live in `../metadataBuildingBlocks/tools/`. Fix
   them there and run `python tools/sync_resolve_schema.py --apply` **from that repo**; editing them
