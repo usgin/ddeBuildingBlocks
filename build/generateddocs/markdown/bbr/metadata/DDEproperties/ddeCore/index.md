@@ -298,14 +298,18 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
             schema1:url "https://doi.org/23609/53w7klh" ;
             schema1:value "doi:23609/53w7klh" ] ;
     schema1:image [ a schema1:ImageObject ;
-            schema1:contentUrl "http://azgs.az.gov/repository/browse/3757.jpg" ;
-            schema1:encodingFormat "application/xml" ;
-            schema1:name "Quick view lithostratigraphic map of Arizona" ],
-        [ a schema1:ImageObject ;
             schema1:contentUrl "http://azgs.az.gov/repository/browse/2222.jpg" ;
             schema1:encodingFormat "image/png" ;
-            schema1:name "Another map of Arizona" ] ;
+            schema1:name "Another map of Arizona" ],
+        [ a schema1:ImageObject ;
+            schema1:contentUrl "http://azgs.az.gov/repository/browse/3757.jpg" ;
+            schema1:encodingFormat "application/xml" ;
+            schema1:name "Quick view lithostratigraphic map of Arizona" ] ;
     schema1:keywords [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Synthesis from Multiple Sources" ;
+            schema1:termCode "synthesisFromMultipleSources" ],
+        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Digital Conversion from Published Source" ;
             schema1:termCode "digitalConversionFromPublishedSource" ],
@@ -313,10 +317,6 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Synthesis from Multiple Sources" ;
-            schema1:termCode "synthesisFromMultipleSources" ],
         "Arizona",
         "Geologic Map",
         "Geology",
@@ -443,6 +443,11 @@ x-jsonld-prefixes:
   schema: http://schema.org/
   dde: https://www.ddeworld.org/resource/
   dcterms: http://purl.org/dc/terms/
+x-bblocks-metadata:
+  itemIdentifier: dde.bbr.metadata.DDEproperties.ddeCore
+  register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
+  version: '0.1'
+  dateOfLastChange: '2026-10-22'
 
 ```
 

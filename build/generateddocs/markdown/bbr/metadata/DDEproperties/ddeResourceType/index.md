@@ -148,6 +148,11 @@ $defs:
 x-jsonld-prefixes:
   schema: http://schema.org/
   dde: https://www.ddeworld.org/resource/
+x-bblocks-metadata:
+  itemIdentifier: dde.bbr.metadata.DDEproperties.ddeResourceType
+  register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
+  version: '0.1'
+  dateOfLastChange: '2026-10-22'
 
 ```
 

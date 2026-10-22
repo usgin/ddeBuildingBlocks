@@ -322,12 +322,12 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
 <urn:dde:example-plate-tectonics-video> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Movie" ;
-            schema1:termCode "movie" ],
+            schema1:name "Product" ;
+            schema1:termCode "product" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Product" ;
-            schema1:termCode "product" ] ;
+            schema1:name "Movie" ;
+            schema1:termCode "movie" ] ;
     schema1:creator ( [ a schema1:Organization ;
                 schema1:name "Deep-time Digital Earth (DDE)" ;
                 schema1:url "https://www.ddeworld.org/" ] ) ;
@@ -346,13 +346,13 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
             schema1:name "video thumbnail" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Data Integration Synthesis" ;
-            schema1:termCode "dataIntegrationSynthesis" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Data Integration Synthesis" ;
+            schema1:termCode "dataIntegrationSynthesis" ],
         "continental drift",
         "earth science",
         "educational video",
@@ -454,6 +454,11 @@ x-jsonld-prefixes:
   dcat: http://www.w3.org/ns/dcat#
   prov: http://www.w3.org/ns/prov#
   dqv: http://www.w3.org/ns/dqv#
+x-bblocks-metadata:
+  itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEAudioVisualProduct
+  register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
+  version: '0.1'
+  dateOfLastChange: '2026-10-22'
 
 ```
 

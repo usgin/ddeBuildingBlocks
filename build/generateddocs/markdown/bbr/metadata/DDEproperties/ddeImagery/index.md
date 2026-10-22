@@ -299,13 +299,13 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
 @prefix schema1: <http://schema.org/> .
 
 [] schema1:additionalProperty [ a schema1:PropertyValue ;
-            schema1:name "Wavelength Range" ;
-            schema1:propertyID dde:wavelength ;
-            schema1:value "0.43-2.29 micrometers" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Processing Level" ;
             schema1:propertyID dde:processedLevel ;
-            schema1:value "Level2" ] ;
+            schema1:value "Level2" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Wavelength Range" ;
+            schema1:propertyID dde:wavelength ;
+            schema1:value "0.43-2.29 micrometers" ] ;
     prov:wasGeneratedBy [ a schema1:Action,
                 prov:Activity ;
             schema1:endTime "2023-06-15T03:45:12Z" ;
@@ -317,20 +317,20 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
             schema1:startTime "2023-06-15T03:45:00Z" ;
             prov:used [ schema1:instrument [ a schema1:Product,
                                 schema1:Thing ;
-                            schema1:additionalType dde:sensorType ;
-                            schema1:name "Multispectral" ] ],
+                            schema1:additionalType dde:platform ;
+                            schema1:name "Landsat-8" ] ],
+                [ schema1:instrument [ a schema1:Product,
+                                schema1:Thing ;
+                            schema1:additionalType dde:equipment ;
+                            schema1:name "Operational Land Imager (OLI)" ] ],
                 [ schema1:instrument [ a schema1:Product,
                                 schema1:Thing ;
                             schema1:additionalType dde:signalGenerator ;
                             schema1:name "Passive solar" ] ],
                 [ schema1:instrument [ a schema1:Product,
                                 schema1:Thing ;
-                            schema1:additionalType dde:platform ;
-                            schema1:name "Landsat-8" ] ],
-                [ schema1:instrument [ a schema1:Product,
-                                schema1:Thing ;
-                            schema1:additionalType dde:equipment ;
-                            schema1:name "Operational Land Imager (OLI)" ] ] ] .
+                            schema1:additionalType dde:sensorType ;
+                            schema1:name "Multispectral" ] ] ] .
 
 
 ```
@@ -427,6 +427,11 @@ x-jsonld-prefixes:
   schema: http://schema.org/
   dde: https://www.ddeworld.org/resource/
   prov: http://www.w3.org/ns/prov#
+x-bblocks-metadata:
+  itemIdentifier: dde.bbr.metadata.DDEproperties.ddeImagery
+  register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
+  version: '0.1'
+  dateOfLastChange: '2026-10-22'
 
 ```
 

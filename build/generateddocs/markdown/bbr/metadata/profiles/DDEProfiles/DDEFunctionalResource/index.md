@@ -430,6 +430,11 @@ x-jsonld-prefixes:
   dcat: http://www.w3.org/ns/dcat#
   prov: http://www.w3.org/ns/prov#
   dqv: http://www.w3.org/ns/dqv#
+x-bblocks-metadata:
+  itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEFunctionalResource
+  register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
+  version: '0.1'
+  dateOfLastChange: '2026-10-22'
 
 ```
 

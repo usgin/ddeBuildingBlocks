@@ -469,13 +469,13 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
             schema1:url "https://epsg.io/4326" ;
             schema1:value "EPSG:4326" ],
         [ a schema1:PropertyValue ;
-            schema1:name "Spatial Resolution" ;
-            schema1:propertyID dde:spatialResolution ;
-            schema1:value "1:500000" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Spatial Representation Type" ;
             schema1:propertyID dde:spatialRepresentationType ;
             schema1:value "vector" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Spatial Resolution" ;
+            schema1:propertyID dde:spatialResolution ;
+            schema1:value "1:500000" ],
         [ a schema1:PropertyValue ;
             schema1:name "Reference System Type" ;
             schema1:propertyID dde:referenceSystemType ;
@@ -498,13 +498,13 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
             schema1:name "thumbnail" ] ;
     schema1:inLanguage "zho" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Geological Mapping" ;
-            schema1:termCode "geologicalMapping" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Geological Mapping" ;
+            schema1:termCode "geologicalMapping" ],
         "China",
         "aquifer",
         "groundwater",
@@ -637,6 +637,11 @@ x-jsonld-prefixes:
   dcat: http://www.w3.org/ns/dcat#
   prov: http://www.w3.org/ns/prov#
   dqv: http://www.w3.org/ns/dqv#
+x-bblocks-metadata:
+  itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEDataset
+  register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
+  version: '0.1'
+  dateOfLastChange: '2026-10-22'
 
 ```
 

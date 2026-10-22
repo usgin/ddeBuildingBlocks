@@ -135,6 +135,11 @@ allOf:
       minContains: 1
 x-jsonld-prefixes:
   schema: http://schema.org/
+x-bblocks-metadata:
+  itemIdentifier: dde.bbr.metadata.DDEproperties.ddeCatalogRecord
+  register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
+  version: '0.1'
+  dateOfLastChange: '2026-10-22'
 
 ```
 
