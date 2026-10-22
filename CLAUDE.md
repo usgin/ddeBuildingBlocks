@@ -177,18 +177,27 @@ Consequences worth knowing before debugging a resolution failure:
 - If resolution fails with `failed to fetch URL`, the ref is **not vendored**, not necessarily moved.
   Run `--refresh-remote` before hunting for a rename.
 - Editing `vendor/` by hand is reported: the digest check prints `does not match remote-lock.json`.
-- A local clone of CDIF sits at `../metadataBuildingBlocks` (remote named `cdif`). It is a **fork**
-  (`origin` is `usgin/metadataBuildingBlocks`) and was **334 commits behind `cdif/main`** on
-  2026-10-09 — `git -C ../metadataBuildingBlocks fetch cdif` before trusting it. Prefer the vendored
-  copies in this repo, which are what resolution actually uses.
+- A local clone of CDIF sits at `../metadataBuildingBlocks`. Since 2026-10-22 its single remote
+  `origin` is CDIF itself (`Cross-Domain-Interoperability-Framework/metadataBuildingBlocks`): the
+  `usgin` fork it used to point at was archived and so read-only, and the duplicate `cdif` and
+  `upstream` remotes were removed. Use `git -C ../metadataBuildingBlocks fetch origin` — older notes
+  and commit messages in this repo say `cdif/main`, which no longer exists as a ref. It was level
+  with `origin/main` and 4 commits ahead on 2026-10-22. Prefer the vendored copies in this repo,
+  which are what resolution actually uses.
+- **Those 4 commits are the only copy of the current tools.** Snapshot validation, the UTF-8 fix, the
+  `UnresolvedRefs` check and the SHACL pass are unpushed and absent from upstream, so a tool sync run
+  from anywhere else reverts them. They belong in a PR to CDIF.
 - **`tools/resolve_schema.py`, `tools/regenerate_schema_json.py` and `tools/validate_examples.py` are
   copies, not originals.** The canonical versions live in `../metadataBuildingBlocks/tools/`. Fix
   them there and run `python tools/sync_resolve_schema.py --apply` **from that repo**; editing them
   locally means the next sync overwrites your fix.
 - **Only sync from an up-to-date canonical clone.** The sync overwrites all three files, so running
   it from a stale clone downgrades them — in September it silently reverted a drift-check flag, and
-  from that clone today it would remove vendoring support entirely. When the clone is behind, copy
-  the single intended file by hand and say so in the commit message.
+  in October a sync from the then-343-behind clone would have removed vendoring support entirely.
+  The clone was brought level on 2026-10-22, so a sync is safe again; check `fetch origin` first, and
+  when it is behind, copy the single intended file by hand and say so in the commit message.
+- `sync_resolve_schema.py`'s `TARGETS` also lists `geochemBuildingBlocks`, whose GitHub repo is
+  **archived** — tool changes synced there cannot be pushed.
 
 ## Conventions
 
