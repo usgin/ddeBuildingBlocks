@@ -219,12 +219,23 @@ before and after any change.
 reports are "failed" on nothing but warnings and info. Do not read them as breakage, and do not chase
 them as bugs — check the severities inside before acting.
 
-Four URI-valued literals are **known-latent**: `schema:propertyID` in `ddeCore`, `DDEDiscovery`,
-`DDEDocument` and `DDESemanticResource` match the URI/CURIE pattern but sit outside the `$ref`
-closure that pulls in `additionalProperty`'s shapes, so neither the register nor the local suite
-flags them. They would start failing the moment any of those blocks gains that reference. By
-contrast `DDEDiscovery`'s `schema:propertyID` value `"Wikidata"` is a free label, does **not** match
-the pattern, and must not be converted.
+Four URI-valued literals must **stay** literals, and two CDIF shape files disagree about why.
+`schema:propertyID` in `ddeCore`, `DDEDiscovery`, `DDEDocument` and `DDESemanticResource` matches the
+URI/CURIE pattern that `additionalProperty/rules.shacl` says must be serialized `{"@id": …}`, but
+those four sit inside `schema:identifier`, which `cdifCore`'s `cdifd:resourceIdentifierProperty`
+constrains with an `sh:or` whose PropertyValue branch requires `schema:propertyID` to be
+`sh:datatype xsd:string`. The `sh:severity sh:Warning` on that inner shape softens only a direct
+report — inside an `sh:or` it still decides conformance — so an IRI `propertyID` fails the branch,
+the whole `or` fails, and the outer `sh:Violation` fires with "An identifier for the documented
+resource must be provided".
+
+**So converting them trades zero violations for one.** This was tried on 2026-10-22 and reverted;
+the two rules cannot both be satisfied for an identifier whose scheme is a registry URI, and it is
+worth raising upstream. The four are only unflagged by the first rule because `additionalProperty`'s
+shapes are outside their `$ref` closure — that is luck, not design.
+
+Separately, `DDEDiscovery`'s `schema:propertyID` value `"Wikidata"` is a free label, does **not**
+match the pattern, and must not be converted either.
 
 Aligned with CDIF as of 2026-10-22, pinned in `vendor/remote-lock.json` and `vendor/shapes-lock.json`.
 The 2026-10 resolve picked up an upstream refactor of the reference and concept types — every
