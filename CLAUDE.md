@@ -45,14 +45,21 @@ the `.md`/`.jsonld`/example files are edited by hand:**
 | `{blockName}Schema.json` | generated | `tools/regenerate_schema_json.py` |
 | `resolvedSchema.json` | generated | `tools/resolve_schema.py` |
 | `vendor/remote/`, `vendor/remote-lock.json` | generated | `tools/resolve_schema.py --refresh-remote` |
+| `vendor/shapes/`, `vendor/shapes-lock.json` | generated | `tools/validate_examples.py --refresh-shapes` |
 | `build/` | generated | CI (`bblocks-postprocess`), committed back to `main` |
+
+The two vendor trees have separate locks on purpose: `resolve_schema.py --refresh-remote` rewrites
+`vendor/remote-lock.json` from whatever it fetched, so shape pins kept in the same file would be
+dropped the next time anyone re-pinned the schemas.
 
 After editing any `schema.yaml`, regenerate both derived files or the published register goes stale
 against the source.
 
 `validate_examples.py` validates against the committed `resolvedSchema.json` by default, so a run is
 deterministic and offline. `--live` re-resolves `schema.yaml` instead. Either way it refuses to
-validate against a schema containing unresolved `$ref` placeholders — see below.
+validate against a schema containing unresolved `$ref` placeholders — see below. It runs **two
+layers**: JSON Schema and SHACL. The register checks both, so a change that satisfies the schemas can
+still be wrong.
 
 Do not hand-edit anything under `build/`. The CI postprocess job rewrites it and commits over your
 changes ("Building blocks postprocessing" commits on `main` are the bot).
@@ -94,8 +101,45 @@ narrow to one block (the filter matches on path, and is the way to "run a single
 
 An unresolved `$ref` becomes `{"$comment": "failed to fetch URL: …"}`, which is an empty schema that
 accepts anything. The suite therefore reports `UnresolvedRefs` as an **error** rather than a pass —
-if you see that, `vendor/` is missing or incomplete and the fix is `--refresh-remote`. Do not read a
-green run from before 2026-10-09 as meaningful: it predates that check.
+if you see that, `vendor/` is missing or incomplete and the fix is `--refresh-remote`.
+
+Two cliffs make older green runs meaningless: a run before **2026-10-09** predates the
+`UnresolvedRefs` check, and one before **2026-10-10** did not check SHACL at all.
+
+### The SHACL pass
+
+Every run ends with a line like:
+
+```
+SHACL: 0 violation(s), 19 warning(s), 7 info across 17 example(s) [15 local + 24 vendored shape files]
+```
+
+`sh:Violation` fails the run; `sh:Warning` and `sh:Info` are CDIF recommendations, reported but not
+fatal. `--no-shacl` skips the pass; `--refresh-shapes` re-fetches and re-pins the shapes (the URL set
+is derived from `vendor/remote-lock.json` — the `rules.shacl` beside each vendored schema — so
+vendoring a new remote block brings its shapes along; 4 of the 28 blocks have none).
+
+**It needs `rdflib` and `pyshacl`, and this repo has no dependency manifest.** Without them the pass
+prints a notice and is **skipped**, so `17 passed` can be read as a clean bill of health for a layer
+that never ran. Check the `SHACL:` line is present before believing a green run; if the shape count
+reads `0 vendored`, remote blocks' rules are not being applied either.
+
+Three details in the implementation are load-bearing and look like candidates for simplification.
+They are not:
+
+- **One graph per `rules.shacl`, never a union.** The registers reuse shape URIs across files, so a
+  merged graph lands two `sh:path` on one `PropertyShape` and pyshacl rejects the whole graph with a
+  `ShapeLoadError`.
+- **Shapes scoped to each block's `$ref` closure**, not every file available. Unscoped,
+  `additionalProperty`'s rules fire on blocks that never reference it and manufacture violations the
+  published register does not report — `ddeCore` went from 0 to 2 violations and 2 to 22 warnings.
+- **An example with no inline `@context` is uplifted with the block's `context.jsonld`.** Without it
+  rdflib keeps `schema:propertyID` as a *relative* IRI: the triple count looks healthy, every shape
+  targeting `http://schema.org/…` matches nothing, and two examples report clean while the register
+  fails them.
+
+Local output matches `bblocks-postprocess` exactly on this register, which is the test that these
+three are right. If a change makes local and CI disagree, suspect one of them.
 
 ```bash
 python tools/augment_register.py
@@ -163,15 +207,28 @@ Consequences worth knowing before debugging a resolution failure:
 and commits regenerated `build/` output back. `deploy-viewer.yml` then publishes the custom viewer to
 GitHub Pages on that workflow's success.
 
-## Current state (2026-10-09)
+## Current state (2026-10-22)
 
-Working tree clean. `python tools/validate_examples.py` reports **17 passed, 0 failed**, and
-`--live` agrees — both genuine, since the suite now errors rather than passing on unresolved refs.
-Keep it there: run it before and after any change.
+Working tree clean. `python tools/validate_examples.py` reports **17 passed, 0 failed** with
+**0 SHACL violations** (19 warnings, 7 info — all advisory), and `--live` agrees. The published
+register reports the same: 0 violations, same 19 warnings and 7 info. Keep it there: run the suite
+before and after any change.
 
-Aligned with CDIF as of 2026-10-09, pinned in `vendor/remote-lock.json`. The last resolve picked up
-an upstream refactor of the reference and concept types — every block's `$defs` changed name even
-where constraints did not:
+**The register's 12 `build/tests/**/example_1_1.validation_failed.txt` files are expected.**
+`bblocks-postprocess` marks a report failed on *any* SHACL result, advisory ones included, so 12
+reports are "failed" on nothing but warnings and info. Do not read them as breakage, and do not chase
+them as bugs — check the severities inside before acting.
+
+Four URI-valued literals are **known-latent**: `schema:propertyID` in `ddeCore`, `DDEDiscovery`,
+`DDEDocument` and `DDESemanticResource` match the URI/CURIE pattern but sit outside the `$ref`
+closure that pulls in `additionalProperty`'s shapes, so neither the register nor the local suite
+flags them. They would start failing the moment any of those blocks gains that reference. By
+contrast `DDEDiscovery`'s `schema:propertyID` value `"Wikidata"` is a free label, does **not** match
+the pattern, and must not be converted.
+
+Aligned with CDIF as of 2026-10-22, pinned in `vendor/remote-lock.json` and `vendor/shapes-lock.json`.
+The 2026-10 resolve picked up an upstream refactor of the reference and concept types — every
+block's `$defs` changed name even where constraints did not:
 
 | was | now |
 |---|---|
