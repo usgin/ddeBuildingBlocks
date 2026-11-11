@@ -1,10 +1,12 @@
 ---
 $schema: https://json-schema.org/draft/2020-12/schema
 title: CDIF Provenance Activity
-description: Extended provenance activity building block for CDIF. Extends the minimal
-  prov:Activity (generatedBy) with schema.org Action properties for comprehensive
-  provenance documentation including agents, instruments, methodology, temporal bounds,
-  action chaining, and more.
+description: Extended provenance activity building block for CDIF -- the schema.org
+  implementation. Extends the minimal prov:Activity (generatedBy) with schema.org Action
+  properties for agents, instruments, inputs and outputs, methodology and plan, temporal
+  bounds, action chaining, and more. What the activity used is recorded with
+  schema:instrument (instruments, software, reagents) and schema:object (inputs), not
+  with prov:used.
 type: object
 allOf:
 - $ref: ../../provProperties/generatedBy/schema.yaml
@@ -20,30 +22,36 @@ allOf:
       description: Must include both schema:Action and prov:Activity (prov:Activity
         required by base generatedBy schema)
     'prov:used':
-      type: array
       description: >-
-        Base generatedBy defines the allowed item shapes (string | {@id} |
-        inline prov:Entity | a role-keyed wrapper naming schema:instrument /
-        bios:computationalTool / bios:reagent). This profile only PINS the
-        schema:instrument wrapper's value to the Instrument description when that
-        key is present; it adds no other restriction, so all base item shapes
-        (including inline prov:Entity inputs such as samples) remain valid.
-        The wrapped value is an ARRAY of Instrument. schema:instrument is 0..* --
-        one activity commonly uses several instruments in the same role (a laser
-        ablation cell plus the ICP-MS it feeds) -- and this schema implements
-        every 1..* / 0..* property as a JSON array, never as "object or array",
-        so a consumer never has to test the value's type before iterating.
+        Not used by this profile. A prov:used a record carries is accepted when it
+        passes the core shape in generatedBy (strings and @id references) and is
+        checked by nothing more. Record instruments, software and reagents with
+        schema:instrument, and inputs with schema:object.
+    'schema:instrument':
+      type: array
+      minItems: 1
+      description: >-
+        Instruments, software and reagents the activity used. Each item is either an
+        {@id} reference to a thing described elsewhere, or a description in place whose
+        schema:additionalType carries exactly one of three Wikidata terms (as the Wikidata
+        entity IRI https://www.wikidata.org/entity/Q..., or a wd: CURIE bound to it), which says
+        what kind of thing it is and selects the shape it must have:
+        https://www.wikidata.org/entity/Q3099911 (measuring instrument) -> Instrument;
+        https://www.wikidata.org/entity/Q7397 (software) -> Software;
+        https://www.wikidata.org/entity/Q2356542 (chemical reagent, used here for reagents
+        and reference materials) -> Reagent. The kind is read from additionalType, not
+        @type, because a reagent can be a schema:Product just as an instrument is.
+        Always an array: one activity commonly uses several (a laser ablation cell plus
+        the ICP-MS it feeds, the acquisition software, the standards).
       items:
-        if:
-          type: object
-          required: ['schema:instrument']
-        then:
-          properties:
-            'schema:instrument':
-              type: array
-              minItems: 1
-              items:
-                $ref: '#/$defs/Instrument'
+        anyOf:
+        - description: reference to an instrument, software or reagent described elsewhere
+          $ref: ../objectReference/schema.yaml
+        - $ref: '#/$defs/UsedResource'
+  anyOf:
+  - required: ['schema:instrument']
+  - required: ['schema:object']
+  - required: ['schema:actionProcess']
     'schema:name':
       type: string
       description: Human-readable name for the activity
@@ -154,7 +162,13 @@ allOf:
       - description: "reference to a place defined elsewhere"
         $ref: ../objectReference/schema.yaml
     'schema:actionProcess':
-      description: Methodology or protocol for this activity
+      description: >-
+        The plan the activity followed, or the procedure as it was performed. The
+        {@id} reference form is the link to the plan (a protocol, method or workflow
+        definition described elsewhere; CDIF defines no inline plan object). An inline
+        HowTo is the procedure as performed; when the activity also followed a plan,
+        that HowTo links the plan with schema:isBasedOn. One path finds the plan in
+        both cases: prov:wasGeneratedBy/schema:actionProcess/schema:isBasedOn?
       anyOf:
       - $ref: '#/$defs/HowTo'
       - type: string
@@ -164,7 +178,11 @@ allOf:
       type: string
       description: Error description for failed activities
     'schema:additionalProperty':
-      description: Domain-specific extension properties
+      description: >-
+        Domain-specific extension properties, typically the parameter values this run
+        used. schema.org does not list Action among this property's domains, so
+        validator.schema.org warns on it; that warning is known and accepted, because
+        schema.org has no Action property for parameter values.
       type: array
       items:
         $ref: '#/$defs/AdditionalProperty'
@@ -183,6 +201,126 @@ $defs:
     $ref: ../../schemaorgProperties/spatialExtent/schema.yaml
   AdditionalProperty:
     $ref: ../../schemaorgProperties/additionalProperty/schema.yaml
+  UsedResource:
+    type: object
+    description: >-
+      An instrument, software or reagent described in place. schema:additionalType
+      must carry exactly one of the three kind terms; the kind then pins the shape.
+      A domain profile adds its own properties (a role, a version, settings).
+    required:
+    - '@type'
+    - 'schema:additionalType'
+    properties:
+      '@type':
+        type: array
+        items:
+          type: string
+        minItems: 1
+      'schema:additionalType':
+        type: array
+        minItems: 1
+    oneOf:
+    - $ref: '#/$defs/KindInstrument'
+    - $ref: '#/$defs/KindSoftware'
+    - $ref: '#/$defs/KindReagent'
+    allOf:
+    - if:
+        $ref: '#/$defs/KindInstrument'
+      then:
+        $ref: '#/$defs/Instrument'
+    - if:
+        $ref: '#/$defs/KindSoftware'
+      then:
+        $ref: '#/$defs/Software'
+    - if:
+        $ref: '#/$defs/KindReagent'
+      then:
+        $ref: '#/$defs/Reagent'
+  KindInstrument:
+    description: schema:additionalType names the Wikidata measuring-instrument term
+    properties:
+      'schema:additionalType':
+        contains:
+          type: object
+          required: ['@id']
+          properties:
+            '@id':
+              enum:
+              - https://www.wikidata.org/entity/Q3099911
+              - wd:Q3099911
+    required: ['schema:additionalType']
+  KindSoftware:
+    description: schema:additionalType names the Wikidata software term
+    properties:
+      'schema:additionalType':
+        contains:
+          type: object
+          required: ['@id']
+          properties:
+            '@id':
+              enum:
+              - https://www.wikidata.org/entity/Q7397
+              - wd:Q7397
+    required: ['schema:additionalType']
+  KindReagent:
+    description: schema:additionalType names the Wikidata chemical-reagent term
+    properties:
+      'schema:additionalType':
+        contains:
+          type: object
+          required: ['@id']
+          properties:
+            '@id':
+              enum:
+              - https://www.wikidata.org/entity/Q2356542
+              - wd:Q2356542
+    required: ['schema:additionalType']
+  Software:
+    type: object
+    description: Software used by the activity (acquisition, reduction, processing).
+    properties:
+      '@type':
+        type: array
+        items:
+          type: string
+        contains:
+          const: schema:SoftwareApplication
+      '@id':
+        type: string
+      'schema:name':
+        type: string
+      'schema:softwareVersion':
+        type: string
+      'schema:url':
+        type: string
+        format: uri
+    required:
+    - '@type'
+    - schema:name
+  Reagent:
+    type: object
+    description: >-
+      A reagent, standard or reference material used by the activity. @type says what
+      the material is: schema:DefinedTerm for a material identified by a registry entry
+      (e.g. a GeoReM reference material), schema:Product for a catalogued specimen or
+      purchased lot, schema:ChemicalSubstance for a bulk chemical.
+    properties:
+      '@type':
+        type: array
+        items:
+          type: string
+        contains:
+          enum:
+          - schema:DefinedTerm
+          - schema:Product
+          - schema:ChemicalSubstance
+      '@id':
+        type: string
+      'schema:name':
+        type: string
+    required:
+    - '@type'
+    - schema:name
   HowTo:
     type: object
     description: A methodology or protocol described as a HowTo with optional steps
@@ -206,6 +344,11 @@ $defs:
         type: string
         format: uri
         description: URL to a published methodology or protocol document
+      'schema:isBasedOn':
+        description: >-
+          The plan this procedure was based on, when the activity both followed a plan
+          and records the procedure as performed. A reference only, for now.
+        $ref: ../objectReference/schema.yaml
       'schema:step':
         type: array
         description: Ordered steps in this methodology

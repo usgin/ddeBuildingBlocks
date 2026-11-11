@@ -9,9 +9,11 @@
 
 
 # ------------------------------------------------------------
-# Activity shape --targets prov:Activity nodes that are
-# standalone or referenced via prov:wasGeneratedBy
-# (same SPARQL targeting pattern as generatedBy/rules.shacl)
+# Activity shape --targets prov:Activity + schema:Action nodes
+# that are standalone or referenced via prov:wasGeneratedBy
+# (same SPARQL targeting pattern as generatedBy/rules.shacl).
+# A prov:Activity without schema:Action is a provActivity (PROV-O
+# implementation) node and is not checked here.
 # ------------------------------------------------------------
 
 cdifd:cdifProvActivityShape
@@ -23,7 +25,7 @@ cdifd:cdifProvActivityShape
 	  PREFIX prov: <http://www.w3.org/ns/prov#>
 	  SELECT DISTINCT ?this
 	    WHERE {
-	    ?this a prov:Activity .
+	    ?this a prov:Activity , schema:Action .
 	    {
 	      FILTER NOT EXISTS { ?s ?p ?this . }
 	    }
@@ -36,16 +38,12 @@ cdifd:cdifProvActivityShape
 
 	# -- REQUIRED (Violation) --
 
-	sh:property [
-		sh:path prov:used ;
-		sh:or ( [sh:nodeKind sh:IRI]
-			[sh:nodeKind sh:BlankNode]
-			[sh:datatype xsd:string ;
-			  sh:minLength 3 ;] ) ;
-		sh:minCount 1 ;
-		sh:severity sh:Violation ;
-		sh:message "A cdifProvActivity must specify at least one resource that was used (prov:used)" ;
-	] ;
+	sh:or (
+		[ sh:path schema:instrument ; sh:minCount 1 ]
+		[ sh:path schema:object ; sh:minCount 1 ]
+		[ sh:path schema:actionProcess ; sh:minCount 1 ]
+	) ;
+	sh:message "A cdifProvActivity must have at least one of schema:instrument, schema:object or schema:actionProcess" ;
 
 	# schema:name check removed — provActivity/rules.shacl is the
 	# authoritative source (cdifd:provActivityShape) to avoid
@@ -65,10 +63,11 @@ cdifd:cdifProvActivityShape
 		sh:or (
 			[sh:class schema:Person ;]
 			[sh:class schema:Organization ;]
+			[sh:class schema:Role ;]
 			[sh:nodeKind sh:IRI ;]
 		) ;
 		sh:severity sh:Warning ;
-		sh:message "A cdifProvActivity should identify a responsible agent (schema:Person, schema:Organization, or IRI reference)" ;
+		sh:message "A cdifProvActivity should identify a responsible agent (schema:Person, schema:Organization, schema:Role/AgentInRole, or IRI reference)" ;
 	] ;
 
 	sh:property [
@@ -91,12 +90,13 @@ cdifd:cdifProvActivityShape
 		sh:path schema:instrument ;
 		sh:or (
 			[sh:nodeKind sh:IRI ;]
-			[sh:datatype xsd:string ;]
+			[sh:class schema:Product ;]
+			[sh:class schema:SoftwareApplication ;]
 			[sh:class schema:DefinedTerm ;]
-			[sh:class schema:CreativeWork ;]
+			[sh:class schema:ChemicalSubstance ;]
 		) ;
 		sh:severity sh:Info ;
-		sh:message "Instruments should be a DefinedTerm, CreativeWork, IRI, or descriptive string" ;
+		sh:message "A schema:instrument value should be an IRI reference, or an instrument (schema:Product), software (schema:SoftwareApplication) or reagent (schema:DefinedTerm, schema:Product or schema:ChemicalSubstance)" ;
 	] ;
 
 	sh:property [

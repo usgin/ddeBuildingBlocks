@@ -67,8 +67,32 @@ cdifd:CDIFDatasetMandatoryShape a sh:NodeShape ;
               # never the object, so this never excludes the documented dataset.
               FILTER NOT EXISTS { ?dpd prov:wasDerivedFrom ?this . }
               FILTER NOT EXISTS { ?dpu prov:used ?this . }
+              FILTER NOT EXISTS { ?dpo schema:object ?this . }
+              FILTER NOT EXISTS { ?dpi schema:instrument ?this . }
               FILTER NOT EXISTS { ?dib schema:isBasedOn ?this . }
               FILTER NOT EXISTS { ?dsrc dcterms:source ?this . }
+              # Exclude datasets that are MEMBERS OF A DISTRIBUTION -- files
+              # inside a packaged download. Measured 2026-11-06 against the
+              # Astromat record in doc-discoverydatadescription: a zip
+              # distribution lists its two component files as schema:hasPart,
+              # both typed schema:Dataset, and this shape then demanded an
+              # identifier, a licence, a dateModified and a landing page of
+              # each -- 8 of that record's 11 violations -- while the
+              # distribution's own description says the components "are not
+              # individually accessible". The only way to satisfy it was to
+              # invent metadata for a file nobody can fetch.
+              #
+              # Scoped to parts of a DISTRIBUTION rather than to every object
+              # of schema:hasPart, deliberately: hasPart carries several
+              # different meanings in CDIF, and a member dataset of a
+              # collection IS an independently documented resource that should
+              # still be held to these requirements. Only a component of a
+              # packaged download is not. Same discipline as the exclusions
+              # above -- the documented resource is never reached this way.
+              FILTER NOT EXISTS {
+                ?dsd schema:distribution ?dist .
+                ?dist schema:hasPart ?this .
+              }
             }
           """ ;
 	] ;
@@ -158,7 +182,7 @@ cdifd:dateModifiedProperty
 	sh:minCount 1 ;
 	sh:datatype xsd:string ;
 	# messy regex to screen for ISO8601 formats
-	sh:pattern "^[1-2][0-9]{3}-([0][1-9]|[1][0-2])(-([0-2][0-9]|[3][0-1])(T([0-1][0-9]|[2][0-3])(:[0-5][0-9])?(:[0-5][0-9](Z|[+-][0-2][0-9]:[0-5][0-9])?)?)?)?$" ;
+	sh:pattern "^[1-2][0-9]{3}-([0][1-9]|[1][0-2])(-([0-2][0-9]|[3][0-1])(T([0-1][0-9]|[2][0-3])(:[0-5][0-9](:[0-5][0-9](\\.[0-9]+)?)?)?(Z|[+-][0-2][0-9]:[0-5][0-9])?)?)?$" ;
     sh:message "Date of most recent update to resource content is required, using ISO8601 format with at least a year and a month." 
     .
     
@@ -267,7 +291,10 @@ cdifd:catalogRecordTypeProperty
 
 soso:DatasetNS1Shape
     a sh:NodeShape ;
-    sh:targetClass <http://schema.orgDataset/> ;
+    # A context with "@vocab": "http://schema.org" (no trailing slash) makes
+    # Dataset expand to http://schema.orgDataset. The SOSO original targeted
+    # it with a trailing slash, which no document produces.
+    sh:targetClass <http://schema.orgDataset> ;
     sh:message "Expecting SO namespace of <http://schema.org/> not <http://schema.org>" ;
     sh:not [
         sh:path rdf:type ;
@@ -285,7 +312,7 @@ soso:DatasetNS2Shape
 
 soso:DatasetNS3Shape
     a sh:NodeShape ;
-    sh:targetClass <https://schema.orgDataset/> ;
+    sh:targetClass <https://schema.orgDataset> ;
     sh:message "Expecting SO namespace of <http://schema.org/> not <https://schema.org>" ;
     sh:not [
         sh:path rdf:type ;

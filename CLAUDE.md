@@ -290,8 +290,11 @@ These broke every example at once and will break the next one written from an ol
 - `time:hasTRS` is a string URI, not `{"@id": …}`.
 - `prov:wasDerivedFrom` items are a string or `{"@id"}` only — `additionalProperties: false`, so no
   `@type`/`schema:name` alongside.
-- `schema:instrument` inside `prov:used` is an **array**, and each instrument's `@type` must contain
-  both `schema:Product` and `schema:Thing` (`minItems: 2`) with `schema:additionalType` as an array.
+- `schema:instrument` sits directly on the activity (not inside `prov:used`, whose role-keyed
+  wrappers CDIF no longer accepts) and is an **array**. Each item's `@type` must contain
+  `schema:Product` (`schema:Thing` allowed, no longer required), and its `schema:additionalType`
+  array must contain exactly one Wikidata kind term, written as the entity IRI:
+  `https://www.wikidata.org/entity/Q3099911` for an instrument.
 
 ### Checking against CDIF
 

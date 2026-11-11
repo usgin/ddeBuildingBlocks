@@ -8,7 +8,7 @@ All properties are optional.
 
 Each imagery acquisition event is represented as a provenance activity following the cdifProv pattern. The activity captures:
 
-- **Instruments** (`prov:used` with `schema:instrument`): Each instrument is typed via `schema:additionalType` with a DDE category:
+- **Instruments** (`schema:instrument` on the activity): Each instrument is typed via `schema:additionalType` with a DDE category, alongside the Wikidata kind term `https://www.wikidata.org/entity/Q3099911` that cdifProvActivity requires:
   - `dde:sensorType` — Type of sensor (e.g., "Multispectral", "SAR", "LiDAR")
   - `dde:platform` — Platform carrying the sensor (e.g., "Landsat-8", "Sentinel-2A")
   - `dde:equipment` — Equipment used for acquisition (e.g., "Operational Land Imager")
