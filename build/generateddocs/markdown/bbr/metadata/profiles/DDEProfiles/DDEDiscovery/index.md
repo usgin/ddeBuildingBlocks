@@ -501,12 +501,12 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
 <urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Map" ;
-            schema1:termCode "map" ],
+            schema1:name "Geographic Dataset" ;
+            schema1:termCode "geographicDataset" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Geographic Dataset" ;
-            schema1:termCode "geographicDataset" ] ;
+            schema1:name "Map" ;
+            schema1:termCode "map" ] ;
     schema1:alternateName "Bedrock lithostratigraphic map of China",
         "中国基岩地层图" ;
     schema1:dateModified "2018-09-07" ;
@@ -1430,16 +1430,8 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
             schema1:termCode "digitalConversionFromPublishedSource" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Environment" ;
-            schema1:termCode "environment" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Hydrogeology" ;
             schema1:termCode "GI_HG_hydrogeology" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Paleontology" ;
-            schema1:termCode "GI_PO_paleontology" ],
         [ a schema1:DefinedTerm ;
             schema1:identifier "https://edits.nationalmap.gov/apps/gaz-domestic/public/gaz-record/1779777" ;
             schema1:name "Arizona" ],
@@ -1447,6 +1439,14 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Synthesis from Multiple Sources" ;
             schema1:termCode "synthesisFromMultipleSources" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Environment" ;
+            schema1:termCode "environment" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Paleontology" ;
+            schema1:termCode "GI_PO_paleontology" ],
         "Geologic Map",
         "Geology",
         "United States" ;
@@ -1558,7 +1558,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-10-27'
+  dateOfLastChange: '2026-11-11'
 
 ```
 

@@ -19,7 +19,7 @@ All properties are optional.
 
 Each imagery acquisition event is represented as a provenance activity following the cdifProv pattern. The activity captures:
 
-- **Instruments** (`prov:used` with `schema:instrument`): Each instrument is typed via `schema:additionalType` with a DDE category:
+- **Instruments** (`schema:instrument` on the activity): Each instrument is typed via `schema:additionalType` with a DDE category, alongside the Wikidata kind term `https://www.wikidata.org/entity/Q3099911` that cdifProvActivity requires:
   - `dde:sensorType` — Type of sensor (e.g., "Multispectral", "SAR", "LiDAR")
   - `dde:platform` — Platform carrying the sensor (e.g., "Landsat-8", "Sentinel-2A")
   - `dde:equipment` — Equipment used for acquisition (e.g., "Operational Land Imager")
@@ -50,72 +50,6 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
       "schema:name": "Landsat-8 OLI imagery acquisition",
       "schema:startTime": "2023-06-15T03:45:00Z",
       "schema:endTime": "2023-06-15T03:45:12Z",
-      "prov:used": [
-        {
-          "schema:instrument": [
-            {
-              "@type": [
-                "schema:Product",
-                "schema:Thing"
-              ],
-              "schema:name": "Multispectral",
-              "schema:additionalType": [
-                {
-                  "@id": "dde:sensorType"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "schema:instrument": [
-            {
-              "@type": [
-                "schema:Product",
-                "schema:Thing"
-              ],
-              "schema:name": "Landsat-8",
-              "schema:additionalType": [
-                {
-                  "@id": "dde:platform"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "schema:instrument": [
-            {
-              "@type": [
-                "schema:Product",
-                "schema:Thing"
-              ],
-              "schema:name": "Operational Land Imager (OLI)",
-              "schema:additionalType": [
-                {
-                  "@id": "dde:equipment"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "schema:instrument": [
-            {
-              "@type": [
-                "schema:Product",
-                "schema:Thing"
-              ],
-              "schema:name": "Passive solar",
-              "schema:additionalType": [
-                {
-                  "@id": "dde:signalGenerator"
-                }
-              ]
-            }
-          ]
-        }
-      ],
       "schema:participant": [
         {
           "@type": [
@@ -128,6 +62,68 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
             ],
             "schema:name": "USGS / NASA"
           }
+        }
+      ],
+      "schema:instrument": [
+        {
+          "@type": [
+            "schema:Product",
+            "schema:Thing"
+          ],
+          "schema:name": "Multispectral",
+          "schema:additionalType": [
+            {
+              "@id": "dde:sensorType"
+            },
+            {
+              "@id": "https://www.wikidata.org/entity/Q3099911"
+            }
+          ]
+        },
+        {
+          "@type": [
+            "schema:Product",
+            "schema:Thing"
+          ],
+          "schema:name": "Landsat-8",
+          "schema:additionalType": [
+            {
+              "@id": "dde:platform"
+            },
+            {
+              "@id": "https://www.wikidata.org/entity/Q3099911"
+            }
+          ]
+        },
+        {
+          "@type": [
+            "schema:Product",
+            "schema:Thing"
+          ],
+          "schema:name": "Operational Land Imager (OLI)",
+          "schema:additionalType": [
+            {
+              "@id": "dde:equipment"
+            },
+            {
+              "@id": "https://www.wikidata.org/entity/Q3099911"
+            }
+          ]
+        },
+        {
+          "@type": [
+            "schema:Product",
+            "schema:Thing"
+          ],
+          "schema:name": "Passive solar",
+          "schema:additionalType": [
+            {
+              "@id": "dde:signalGenerator"
+            },
+            {
+              "@id": "https://www.wikidata.org/entity/Q3099911"
+            }
+          ]
         }
       ]
     }
@@ -181,72 +177,6 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
       "schema:name": "Landsat-8 OLI imagery acquisition",
       "schema:startTime": "2023-06-15T03:45:00Z",
       "schema:endTime": "2023-06-15T03:45:12Z",
-      "prov:used": [
-        {
-          "schema:instrument": [
-            {
-              "@type": [
-                "schema:Product",
-                "schema:Thing"
-              ],
-              "schema:name": "Multispectral",
-              "schema:additionalType": [
-                {
-                  "@id": "dde:sensorType"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "schema:instrument": [
-            {
-              "@type": [
-                "schema:Product",
-                "schema:Thing"
-              ],
-              "schema:name": "Landsat-8",
-              "schema:additionalType": [
-                {
-                  "@id": "dde:platform"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "schema:instrument": [
-            {
-              "@type": [
-                "schema:Product",
-                "schema:Thing"
-              ],
-              "schema:name": "Operational Land Imager (OLI)",
-              "schema:additionalType": [
-                {
-                  "@id": "dde:equipment"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "schema:instrument": [
-            {
-              "@type": [
-                "schema:Product",
-                "schema:Thing"
-              ],
-              "schema:name": "Passive solar",
-              "schema:additionalType": [
-                {
-                  "@id": "dde:signalGenerator"
-                }
-              ]
-            }
-          ]
-        }
-      ],
       "schema:participant": [
         {
           "@type": [
@@ -259,6 +189,68 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
             ],
             "schema:name": "USGS / NASA"
           }
+        }
+      ],
+      "schema:instrument": [
+        {
+          "@type": [
+            "schema:Product",
+            "schema:Thing"
+          ],
+          "schema:name": "Multispectral",
+          "schema:additionalType": [
+            {
+              "@id": "dde:sensorType"
+            },
+            {
+              "@id": "https://www.wikidata.org/entity/Q3099911"
+            }
+          ]
+        },
+        {
+          "@type": [
+            "schema:Product",
+            "schema:Thing"
+          ],
+          "schema:name": "Landsat-8",
+          "schema:additionalType": [
+            {
+              "@id": "dde:platform"
+            },
+            {
+              "@id": "https://www.wikidata.org/entity/Q3099911"
+            }
+          ]
+        },
+        {
+          "@type": [
+            "schema:Product",
+            "schema:Thing"
+          ],
+          "schema:name": "Operational Land Imager (OLI)",
+          "schema:additionalType": [
+            {
+              "@id": "dde:equipment"
+            },
+            {
+              "@id": "https://www.wikidata.org/entity/Q3099911"
+            }
+          ]
+        },
+        {
+          "@type": [
+            "schema:Product",
+            "schema:Thing"
+          ],
+          "schema:name": "Passive solar",
+          "schema:additionalType": [
+            {
+              "@id": "dde:signalGenerator"
+            },
+            {
+              "@id": "https://www.wikidata.org/entity/Q3099911"
+            }
+          ]
         }
       ]
     }
@@ -297,40 +289,45 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
 @prefix dde: <https://www.ddeworld.org/resource/> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix schema1: <http://schema.org/> .
+@prefix wd: <https://www.wikidata.org/entity/> .
 
 [] schema1:additionalProperty [ a schema1:PropertyValue ;
-            schema1:name "Processing Level" ;
-            schema1:propertyID dde:processedLevel ;
-            schema1:value "Level2" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Wavelength Range" ;
             schema1:propertyID dde:wavelength ;
-            schema1:value "0.43-2.29 micrometers" ] ;
+            schema1:value "0.43-2.29 micrometers" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Processing Level" ;
+            schema1:propertyID dde:processedLevel ;
+            schema1:value "Level2" ] ;
     prov:wasGeneratedBy [ a schema1:Action,
                 prov:Activity ;
             schema1:endTime "2023-06-15T03:45:12Z" ;
+            schema1:instrument [ a schema1:Product,
+                        schema1:Thing ;
+                    schema1:additionalType dde:equipment,
+                        wd:Q3099911 ;
+                    schema1:name "Operational Land Imager (OLI)" ],
+                [ a schema1:Product,
+                        schema1:Thing ;
+                    schema1:additionalType dde:platform,
+                        wd:Q3099911 ;
+                    schema1:name "Landsat-8" ],
+                [ a schema1:Product,
+                        schema1:Thing ;
+                    schema1:additionalType dde:sensorType,
+                        wd:Q3099911 ;
+                    schema1:name "Multispectral" ],
+                [ a schema1:Product,
+                        schema1:Thing ;
+                    schema1:additionalType dde:signalGenerator,
+                        wd:Q3099911 ;
+                    schema1:name "Passive solar" ] ;
             schema1:name "Landsat-8 OLI imagery acquisition" ;
             schema1:participant [ a schema1:Role ;
                     schema1:contributor [ a schema1:Organization ;
                             schema1:name "USGS / NASA" ] ;
                     schema1:roleName "DataCollector" ] ;
-            schema1:startTime "2023-06-15T03:45:00Z" ;
-            prov:used [ schema1:instrument [ a schema1:Product,
-                                schema1:Thing ;
-                            schema1:additionalType dde:equipment ;
-                            schema1:name "Operational Land Imager (OLI)" ] ],
-                [ schema1:instrument [ a schema1:Product,
-                                schema1:Thing ;
-                            schema1:additionalType dde:platform ;
-                            schema1:name "Landsat-8" ] ],
-                [ schema1:instrument [ a schema1:Product,
-                                schema1:Thing ;
-                            schema1:additionalType dde:sensorType ;
-                            schema1:name "Multispectral" ] ],
-                [ schema1:instrument [ a schema1:Product,
-                                schema1:Thing ;
-                            schema1:additionalType dde:signalGenerator ;
-                            schema1:name "Passive solar" ] ] ] .
+            schema1:startTime "2023-06-15T03:45:00Z" ] .
 
 
 ```
@@ -352,9 +349,10 @@ properties:
     type: array
     description: Imagery acquisition activities following the cdifProv pattern. Each
       activity can include instruments typed with DDE categories (dde:sensorType,
-      dde:platform, dde:equipment, dde:signalGenerator) via prov:used/schema:instrument,
-      a data collector via schema:participant as an agentInRole, and temporal bounds
-      via schema:startTime/schema:endTime.
+      dde:platform, dde:equipment, dde:signalGenerator) as schema:instrument items,
+      each also carrying the Wikidata kind term https://www.wikidata.org/entity/Q3099911
+      that cdifProvActivity requires, a data collector via schema:participant as an
+      agentInRole, and temporal bounds via schema:startTime/schema:endTime.
     items:
       $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifProvActivity/schema.yaml
     x-jsonld-id: http://www.w3.org/ns/prov#wasGeneratedBy
@@ -431,7 +429,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.DDEproperties.ddeImagery
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-10-27'
+  dateOfLastChange: '2026-11-11'
 
 ```
 

@@ -379,12 +379,12 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
 <urn:dde:example-chronostrat-chart> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Defined Term Set" ;
-            schema1:termCode "definedTermSet" ],
+            schema1:name "Vocabulary" ;
+            schema1:termCode "vocabulary" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Vocabulary" ;
-            schema1:termCode "vocabulary" ] ;
+            schema1:name "Defined Term Set" ;
+            schema1:termCode "definedTermSet" ] ;
     schema1:creator ( [ a schema1:Organization ;
                 schema1:name "International Commission on Stratigraphy" ;
                 schema1:url "https://stratigraphy.org/" ] ) ;
@@ -490,7 +490,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDESemanticResource
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-10-27'
+  dateOfLastChange: '2026-11-11'
 
 ```
 
