@@ -48,10 +48,6 @@ allOf:
         - description: reference to an instrument, software or reagent described elsewhere
           $ref: ../objectReference/schema.yaml
         - $ref: '#/$defs/UsedResource'
-  anyOf:
-  - required: ['schema:instrument']
-  - required: ['schema:object']
-  - required: ['schema:actionProcess']
     'schema:name':
       type: string
       description: Human-readable name for the activity
@@ -186,6 +182,12 @@ allOf:
       type: array
       items:
         $ref: '#/$defs/AdditionalProperty'
+  # At least one of these: what the activity used, what it acted on, or the plan / procedure it
+  # followed. Kept after the properties block, where it cannot capture property definitions.
+  anyOf:
+  - required: ['schema:instrument']
+  - required: ['schema:object']
+  - required: ['schema:actionProcess']
 $defs:
   Person:
     $ref: ../../schemaorgProperties/person/schema.yaml
