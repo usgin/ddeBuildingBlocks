@@ -324,13 +324,13 @@ ex:dde-webapi-001 a schema1:Dataset,
             schema1:contentUrl "https://example.org/services/dde-geomap/preview.png" ;
             schema1:name "Service preview showing geological map tiles" ] ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geologic Mapping" ;
-            schema1:termCode "GeologicMapping" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Compilation" ;
-            schema1:termCode "Compilation" ] ;
+            schema1:termCode "Compilation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geologic Mapping" ;
+            schema1:termCode "GeologicMapping" ] ;
     schema1:license "https://creativecommons.org/licenses/by/4.0/" ;
     schema1:name "DDE Global Geological Map Service" ;
     schema1:potentialAction [ a schema1:Action ;
@@ -480,7 +480,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEWebAPI
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-11'
+  dateOfLastChange: '2026-11-13'
 
 ```
 

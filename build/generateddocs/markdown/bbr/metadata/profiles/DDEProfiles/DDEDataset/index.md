@@ -468,18 +468,18 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
             schema1:propertyID dde:referenceSystemType ;
             schema1:value "geodeticGeographic2D" ],
         [ a schema1:PropertyValue ;
-            schema1:name "Coordinate Reference System" ;
-            schema1:propertyID dde:referenceSystemIdentifier ;
-            schema1:url "https://epsg.io/4326" ;
-            schema1:value "EPSG:4326" ],
+            schema1:name "Spatial Resolution" ;
+            schema1:propertyID dde:spatialResolution ;
+            schema1:value "1:500000" ],
         [ a schema1:PropertyValue ;
             schema1:name "Spatial Representation Type" ;
             schema1:propertyID dde:spatialRepresentationType ;
             schema1:value "vector" ],
         [ a schema1:PropertyValue ;
-            schema1:name "Spatial Resolution" ;
-            schema1:propertyID dde:spatialResolution ;
-            schema1:value "1:500000" ] ;
+            schema1:name "Coordinate Reference System" ;
+            schema1:propertyID dde:referenceSystemIdentifier ;
+            schema1:url "https://epsg.io/4326" ;
+            schema1:value "EPSG:4326" ] ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
             schema1:name "Geographic Dataset" ;
@@ -641,7 +641,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEDataset
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-11'
+  dateOfLastChange: '2026-11-13'
 
 ```
 

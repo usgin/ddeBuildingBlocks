@@ -183,11 +183,6 @@ Shows spatialCoverage with GeoShape bounding box and additionalProperty entries 
 @prefix schema1: <http://schema.org/> .
 
 [] schema1:additionalProperty [ a schema1:PropertyValue ;
-            schema1:name "Coordinate Reference System" ;
-            schema1:propertyID dde:referenceSystemIdentifier ;
-            schema1:url "https://epsg.io/4326" ;
-            schema1:value "EPSG:4326" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Spatial Representation Type" ;
             schema1:propertyID dde:spatialRepresentationType ;
             schema1:value "vector" ],
@@ -195,6 +190,11 @@ Shows spatialCoverage with GeoShape bounding box and additionalProperty entries 
             schema1:name "Spatial Resolution" ;
             schema1:propertyID dde:spatialResolution ;
             schema1:value "1:1000000" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Coordinate Reference System" ;
+            schema1:propertyID dde:referenceSystemIdentifier ;
+            schema1:url "https://epsg.io/4326" ;
+            schema1:value "EPSG:4326" ],
         [ a schema1:PropertyValue ;
             schema1:name "Reference System Type" ;
             schema1:propertyID dde:referenceSystemType ;
@@ -395,7 +395,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.DDEproperties.ddeGeographicDataset
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-11'
+  dateOfLastChange: '2026-11-13'
 
 ```
 
