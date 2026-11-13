@@ -183,13 +183,13 @@ Shows spatialCoverage with GeoShape bounding box and additionalProperty entries 
 @prefix schema1: <http://schema.org/> .
 
 [] schema1:additionalProperty [ a schema1:PropertyValue ;
-            schema1:name "Spatial Representation Type" ;
-            schema1:propertyID dde:spatialRepresentationType ;
-            schema1:value "vector" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Spatial Resolution" ;
             schema1:propertyID dde:spatialResolution ;
             schema1:value "1:1000000" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Spatial Representation Type" ;
+            schema1:propertyID dde:spatialRepresentationType ;
+            schema1:value "vector" ],
         [ a schema1:PropertyValue ;
             schema1:name "Coordinate Reference System" ;
             schema1:propertyID dde:referenceSystemIdentifier ;
