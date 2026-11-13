@@ -149,13 +149,8 @@ properties:
             type: string
             description: a WKT geometry description string, e.g. 'POINT(-76 -18)'
       'geosparql:crs':
-        type: object
-        required: ['@id']
-        additionalProperties: false
-        properties:
-          '@id':
-            type: string
-            description: identifier string for coordinate reference system, e.g., 'CRS84'
+        description: "identifier string for coordinate reference system, e.g., 'CRS84'"
+        $ref: ../../cdifDataType/objectReference/schema.yaml
     # A geometry that states no WKT states nothing. geosparql:hasGeometry itself
     # stays optional -- one of the anyOf branches below -- so this only applies
     # once a geometry is present.

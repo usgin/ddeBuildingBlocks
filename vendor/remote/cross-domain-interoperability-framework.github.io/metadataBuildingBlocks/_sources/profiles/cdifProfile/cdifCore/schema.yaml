@@ -87,13 +87,8 @@ properties:
     items:
       anyOf:
       - type: string
-      - type: object
-        required: ['@id']
-        additionalProperties: false
-        properties:
-          '@id':
-            type: string
-            description: IRI for an equivalent resource or alternate identifier
+      - description: "IRI for an equivalent resource or alternate identifier"
+        $ref: ../../../cdifDataType/objectReference/schema.yaml
       - $ref: '#/$defs/Identifier'
   'schema:version':
     type:
@@ -119,13 +114,8 @@ properties:
     items:
       anyOf:
       - type: string
-      - type: object
-        required: ['@id']
-        additionalProperties: false
-        properties:
-          '@id':
-            type: string
-            description: a reference to a resource defining conditions of Access
+      - description: "a reference to a resource defining conditions of Access"
+        $ref: ../../../cdifDataType/objectReference/schema.yaml
       - $ref: '#/$defs/Reference'
   'schema:license':
     description: 'legal statement of conditions for use and access; recommend using schema:CreativeWork
@@ -137,13 +127,8 @@ properties:
     items:
       anyOf:
       - type: string
-      - type: object
-        required: ['@id']
-        additionalProperties: false
-        properties:
-          '@id':
-            type: string
-            description: a reference to a license defintion
+      - description: "a reference to a license defintion"
+        $ref: ../../../cdifDataType/objectReference/schema.yaml
       - $ref: '#/$defs/Reference'
   'schema:url':
     type: string
@@ -180,13 +165,8 @@ properties:
     items:
       anyOf:
       - type: string
-      - type: object
-        required: ['@id']
-        additionalProperties: false
-        properties:
-          '@id':
-            type: string
-            description: a reference to a publishing principles statement
+      - description: "a reference to a publishing principles statement"
+        $ref: ../../../cdifDataType/objectReference/schema.yaml
       - $ref: '#/$defs/Reference'
   'schema:keywords':
     description: Keywords are an array of strings, an array of schema:DefinedTerms, or some combination
@@ -207,15 +187,8 @@ properties:
         type: array
         items:
           anyOf:
-          - type: object
-            additionalProperties: false
-            properties:
-              '@id':
-                type: string
-                description: a identifier for an agent defined in this metadata, or externally; must be
-                  dereferenceable
-            required:
-            - '@id'
+          - description: "a identifier for an agent defined in this metadata, or externally; must be dereferenceable"
+            $ref: ../../../cdifDataType/objectReference/schema.yaml
           - $ref: '#/$defs/Person'
           - $ref: '#/$defs/Organization'
   'schema:contributor':
@@ -223,28 +196,16 @@ properties:
     type: array
     items:
       anyOf:
-      - type: object
-        additionalProperties: false
-        properties:
-          '@id':
-            type: string
-            description: a identifier for an agent defined in this metadata, or externally; must be dereferenceable
-        required:
-        - '@id'
+      - description: "a identifier for an agent defined in this metadata, or externally; must be dereferenceable"
+        $ref: ../../../cdifDataType/objectReference/schema.yaml
       - $ref: '#/$defs/Person'
       - $ref: '#/$defs/Organization'
       - $ref: '#/$defs/Contributor'
   'schema:publisher':
     description: Party who made the dataset publicly available
     anyOf:
-    - type: object
-      additionalProperties: false
-      properties:
-        '@id':
-          type: string
-          description: a identifier for an agent defined in this metadata, or externally; must be dereferenceable
-      required:
-      - '@id'
+    - description: "a identifier for an agent defined in this metadata, or externally; must be dereferenceable"
+      $ref: ../../../cdifDataType/objectReference/schema.yaml
     - $ref: '#/$defs/Person'
     - $ref: '#/$defs/Organization'
   'schema:provider':
@@ -253,14 +214,8 @@ properties:
     type: array
     items:
       anyOf:
-      - type: object
-        additionalProperties: false
-        properties:
-          '@id':
-            type: string
-            description: a identifier for an agent defined in this metadata, or externally; must be dereferenceable
-        required:
-        - '@id'
+      - description: "a identifier for an agent defined in this metadata, or externally; must be dereferenceable"
+        $ref: ../../../cdifDataType/objectReference/schema.yaml
       - $ref: '#/$defs/Person'
       - $ref: '#/$defs/Organization'
   'schema:funding':

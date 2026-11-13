@@ -7,75 +7,137 @@
 @base <https://www.ogc.org/rules/template/> .
 
 
-cdifd:CDIFActionShape
+# A schema:Action in CDIF is a WEB SERVICE OPERATION: this block documents an
+# endpoint invoked over HTTP (see description.md and the schema's own
+# description), and its only consumer here is webAPI's schema:potentialAction.
+#
+# Until 2026-10-28 one shape selected every node typed schema:Action or one of
+# twelve subtypes and required schema:target of all of them. That is a
+# different and much larger claim -- that any Action-shaped node anywhere is an
+# endpoint -- and it is false: geochemBuildingBlocks types each analytical
+# workflow step as a schema:Action, because a step is a schema:HowToStep, and
+# the rule then demanded a URL from a sample-preparation step. 744 violations,
+# not one of them a defect. The `FILTER NOT EXISTS { ?this a prov:Activity }`
+# was an earlier patch for the same over-reach, and it covered only the one
+# consumer that had complained; the type list could never enumerate the rest.
+#
+# This repo's own corpus could not have caught it. Of 22 Action-typed nodes,
+# every one that carries a target sits under schema:potentialAction, and every
+# one without a target is prov:Activity co-typed and so excluded. gBB's steps
+# are the first case that is neither.
+#
+# So presence and content are now separate shapes, each selected by what makes
+# it true:
+#
+#   * PRESENCE is contextual. An Action offered as some resource's
+#     schema:potentialAction is an operation that resource invites you to
+#     invoke, so it must say where. Objects of schema:potentialAction
+#     establishes that context WITHOUT reading schema:target, the property
+#     under test -- the same discipline cdifd:xasAnalysisLocationClassified
+#     applies for the opposite failure.
+#   * CONTENT applies wherever an Action does carry a schema:target, whatever
+#     its position in the graph. That is what keeps this block's own two
+#     standalone examples checked: they are root nodes, not potentialAction
+#     objects, so a presence-only shape would have quietly stopped firing on
+#     them -- the dead-rule failure mode, where a green result means the rule
+#     never ran.
+#
+# One case is stricter than before, deliberately: a schema:potentialAction
+# given as a bare {@id} reference with nothing in the graph describing it is
+# now a violation, where the old type-filtered target skipped it for having no
+# rdf:type. That agrees with the JSON Schema, which gives Action no reference
+# branch and requires schema:target outright. An operation described as its own
+# node elsewhere in the SAME graph still passes -- the target selects it by IRI
+# and finds its triples -- so only a genuinely undescribed operation fails.
+#
+# Content stays scoped to Action-typed subjects deliberately. schema:target is
+# also a LinkRole property (schemaorgProperties/linkRole), and a LinkRole's
+# EntryPoint legitimately carries schema:url instead of a urlTemplate;
+# cdifd:CDIFEntryPointShape there is authoritative for that case and already
+# accepts either. Widening this to all subjects of schema:target would fail
+# every LinkRole in the corpus.
+
+cdifd:CDIFWebServiceActionShape
+    a sh:NodeShape ;
+    sh:targetObjectsOf schema:potentialAction ;
+    sh:property [
+        a sh:PropertyShape ;
+        sh:path schema:target ;
+        sh:minCount 1 ;
+        sh:message "An action offered as a schema:potentialAction must carry a schema:target giving the endpoint to invoke it."
+    ] .
+
+
+cdifd:CDIFActionTargetShape
     a sh:NodeShape ;
     sh:target [
         a sh:SPARQLTarget ;
         sh:select """
             PREFIX schema: <http://schema.org/>
-            PREFIX prov: <http://www.w3.org/ns/prov#>
             SELECT ?this WHERE {
                 ?this a ?type .
+                ?this schema:target ?target .
                 FILTER (?type IN (
                     schema:Action, schema:AssessAction, schema:ConsumeAction,
                     schema:ControlAction, schema:CreateAction, schema:FindAction,
                     schema:InteractAction, schema:MoveAction, schema:PlayAction, schema:SearchAction,
                     schema:DeleteAction, schema:TransferAction, schema:UpdateAction
                 ))
-                FILTER NOT EXISTS { ?this a prov:Activity }
             }
         """ ;
     ] ;
     # actionNameProperty removed — provActivity/rules.shacl is the
     # authoritative source for schema:name on activities, to avoid
     # duplicate violations on dual-typed Action/Activity nodes.
-	sh:property
-		[sh:path schema:target;
-			sh:minCount 1;
-			sh:class schema:EntryPoint;
-				sh:property 	
-					[sh:path schema:contentType;
-						sh:datatype xsd:string;
-					];
-				sh:property
-					[sh:path schema:urlTemplate;
-						sh:datatype xsd:string;
-						sh:minCount 1;
-						sh:message "A web service distribution must include a URL; the CDIF schema allows URL Templates";
-					];
-				sh:property
-					[sh:path schema:httpMethod;
-						sh:datatype xsd:string;
-					]
-		];
-		
-	sh:property 	
-		[sh:path schema:query-input;
-			sh:class schema:PropertyValueSpecification;
-                sh:property
-				[
-					sh:path schema:valueName;
-					sh:datatype xsd:string;
-					sh:minCount 1;
-					sh:message "if a URL template has query parameters, match the parameter name in this field and provide a description";
-				];
-                sh:property
-				[
-					sh:path schema:description;
-					sh:datatype xsd:string;
-					sh:minCount 1;
-					sh:message "provide a description for the query parameter";
-				];
-                sh:property
-				[
-					sh:path schema:valueRequired;
-					sh:datatype xsd:boolean;
-					sh:message "valueRequired is specified by a boolean (not a string) value, either 'true' or 'false'";
-				];
-        ].
-        
+    sh:property [
+        a sh:PropertyShape ;
+        sh:path schema:target ;
+        sh:class schema:EntryPoint ;
+        sh:property [
+            sh:path schema:contentType ;
+            sh:datatype xsd:string ;
+        ] ;
+        sh:property [
+            sh:path schema:urlTemplate ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:message "A web service distribution must include a URL; the CDIF schema allows URL Templates" ;
+        ] ;
+        sh:property [
+            sh:path schema:httpMethod ;
+            sh:datatype xsd:string ;
+        ]
+    ] .
 
 
+# Applies wherever the property is present, which is the honest trigger: the
+# constraints are about the parameter descriptions themselves, so nothing is
+# claimed about an action that documents no parameters.
+cdifd:CDIFActionQueryInputShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf schema:query-input ;
+    sh:property [
+        a sh:PropertyShape ;
+        sh:path schema:query-input ;
+        sh:class schema:PropertyValueSpecification ;
+        sh:property [
+            sh:path schema:valueName ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:message "if a URL template has query parameters, match the parameter name in this field and provide a description" ;
+        ] ;
+        sh:property [
+            sh:path schema:description ;
+            sh:datatype xsd:string ;
+            sh:minCount 1 ;
+            sh:message "provide a description for the query parameter" ;
+        ] ;
+        sh:property [
+            sh:path schema:valueRequired ;
+            sh:datatype xsd:boolean ;
+            sh:message "valueRequired is specified by a boolean (not a string) value, either 'true' or 'false'" ;
+        ]
+    ] .
 
 
 # cdifd:actionNameProperty removed — the schema:name requirement for

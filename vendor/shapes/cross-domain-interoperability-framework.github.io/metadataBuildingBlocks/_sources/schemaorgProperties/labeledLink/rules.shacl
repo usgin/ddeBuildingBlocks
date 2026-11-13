@@ -10,6 +10,10 @@
 @base <https://www.ogc.org/rules/template/> .
 
 
+# A CreativeWork's url accepts the schemes CDIFEntryPointShape (linkRole) accepts,
+# not only http(s): a citation or source is often a download location, such as the
+# 1000 Genomes data collections on ftp://, NCBI GEO on ftp:// or a cloud bucket on
+# s3:// or gs://. derivedFrom's CreativeWork branch uses the same pattern.
 cdifd:CDIFLabeledLinkShape
     a sh:NodeShape ;
     sh:targetClass schema:CreativeWork ;
@@ -18,8 +22,8 @@ cdifd:CDIFLabeledLinkShape
         sh:minCount 1 ;
         sh:datatype xsd:string ;
         # sh:pattern "^[a-zA-Z][a-zA-Z0-9+.-]*:[^\\s]*$";
-        sh:pattern "^https?:\\/\\/[^\\s]+$" ;
-        sh:message "value must be a resolvable URL, but we aren't testing to see if the URL resolves..... Can't get xsd:anyURI to work with JSON Schema validation..."
+        sh:pattern "^(https?|ftps?|sftp|s3|gs)://[^\\s]+$" ;
+        sh:message "schema:url must be an http(s), ftp(s), sftp, s3 or gs URL. Whether it resolves is not tested."
         ] 
         .
 

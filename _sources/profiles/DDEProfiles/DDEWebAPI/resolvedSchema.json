@@ -92,16 +92,19 @@
                                         "type": "string"
                                       },
                                       {
+                                        "title": "Object Reference",
+                                        "description": "A reference to a node defined elsewhere, by its @id.",
                                         "type": "object",
-                                        "additionalProperties": false,
+                                        "properties": {
+                                          "@id": {
+                                            "type": "string",
+                                            "description": "resolvable @id of the referenced node"
+                                          }
+                                        },
                                         "required": [
                                           "@id"
                                         ],
-                                        "properties": {
-                                          "@id": {
-                                            "type": "string"
-                                          }
-                                        }
+                                        "additionalProperties": false
                                       }
                                     ],
                                     "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -147,16 +150,19 @@
                                 "type": "string"
                               },
                               {
+                                "title": "Object Reference",
+                                "description": "A reference to a node defined elsewhere, by its @id.",
                                 "type": "object",
+                                "properties": {
+                                  "@id": {
+                                    "type": "string",
+                                    "description": "resolvable @id of the referenced node"
+                                  }
+                                },
                                 "required": [
                                   "@id"
                                 ],
-                                "additionalProperties": false,
-                                "properties": {
-                                  "@id": {
-                                    "type": "string"
-                                  }
-                                }
+                                "additionalProperties": false
                               }
                             ]
                           },
@@ -218,32 +224,36 @@
               "description": "identifier for the metadata record"
             },
             "schema:about": {
+              "title": "Object Reference",
+              "description": "this must be the @id value of the node containing the resource description metadata",
               "type": "object",
-              "required": [
-                "@id"
-              ],
-              "additionalProperties": false,
               "properties": {
                 "@id": {
                   "type": "string",
-                  "description": "this must be the @id value of the node containing the resource description metadata"
+                  "description": "resolvable @id of the referenced node"
                 }
-              }
+              },
+              "required": [
+                "@id"
+              ],
+              "additionalProperties": false
             },
             "dcterms:conformsTo": {
               "type": "array",
               "items": {
+                "title": "Object Reference",
+                "description": "uri for specifications that this metadata record conforms to",
                 "type": "object",
-                "required": [
-                  "@id"
-                ],
-                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string",
-                    "description": "uri for specifications that this metadata record conforms to"
+                    "description": "resolvable @id of the referenced node"
                   }
-                }
+                },
+                "required": [
+                  "@id"
+                ],
+                "additionalProperties": false
               },
               "minItems": 1,
               "description": "uri for specifications that this metadata record conforms to. Minimimally should specify uri for CDIF discovery profile."
@@ -299,16 +309,19 @@
                                   "type": "string"
                                 },
                                 {
+                                  "title": "Object Reference",
+                                  "description": "A reference to a node defined elsewhere, by its @id.",
                                   "type": "object",
-                                  "additionalProperties": false,
+                                  "properties": {
+                                    "@id": {
+                                      "type": "string",
+                                      "description": "resolvable @id of the referenced node"
+                                    }
+                                  },
                                   "required": [
                                     "@id"
                                   ],
-                                  "properties": {
-                                    "@id": {
-                                      "type": "string"
-                                    }
-                                  }
+                                  "additionalProperties": false
                                 }
                               ],
                               "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -430,16 +443,19 @@
                                       "type": "string"
                                     },
                                     {
+                                      "title": "Object Reference",
+                                      "description": "A reference to a node defined elsewhere, by its @id.",
                                       "type": "object",
-                                      "additionalProperties": false,
+                                      "properties": {
+                                        "@id": {
+                                          "type": "string",
+                                          "description": "resolvable @id of the referenced node"
+                                        }
+                                      },
                                       "required": [
                                         "@id"
                                       ],
-                                      "properties": {
-                                        "@id": {
-                                          "type": "string"
-                                        }
-                                      }
+                                      "additionalProperties": false
                                     }
                                   ],
                                   "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -691,16 +707,19 @@
                                   "type": "string"
                                 },
                                 {
+                                  "title": "Object Reference",
+                                  "description": "A reference to a node defined elsewhere, by its @id.",
                                   "type": "object",
-                                  "additionalProperties": false,
+                                  "properties": {
+                                    "@id": {
+                                      "type": "string",
+                                      "description": "resolvable @id of the referenced node"
+                                    }
+                                  },
                                   "required": [
                                     "@id"
                                   ],
-                                  "properties": {
-                                    "@id": {
-                                      "type": "string"
-                                    }
-                                  }
+                                  "additionalProperties": false
                                 }
                               ],
                               "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -844,16 +863,19 @@
                           "type": "string"
                         },
                         {
+                          "title": "Object Reference",
+                          "description": "A reference to a node defined elsewhere, by its @id.",
                           "type": "object",
-                          "additionalProperties": false,
+                          "properties": {
+                            "@id": {
+                              "type": "string",
+                              "description": "resolvable @id of the referenced node"
+                            }
+                          },
                           "required": [
                             "@id"
                           ],
-                          "properties": {
-                            "@id": {
-                              "type": "string"
-                            }
-                          }
+                          "additionalProperties": false
                         }
                       ],
                       "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -980,16 +1002,19 @@
                             "type": "string"
                           },
                           {
+                            "title": "Object Reference",
+                            "description": "A reference to a node defined elsewhere, by its @id.",
                             "type": "object",
-                            "additionalProperties": false,
+                            "properties": {
+                              "@id": {
+                                "type": "string",
+                                "description": "resolvable @id of the referenced node"
+                              }
+                            },
                             "required": [
                               "@id"
                             ],
-                            "properties": {
-                              "@id": {
-                                "type": "string"
-                              }
-                            }
+                            "additionalProperties": false
                           }
                         ],
                         "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -1035,16 +1060,19 @@
                     "type": "string"
                   },
                   {
+                    "title": "Object Reference",
+                    "description": "A reference to a node defined elsewhere, by its @id.",
                     "type": "object",
+                    "properties": {
+                      "@id": {
+                        "type": "string",
+                        "description": "resolvable @id of the referenced node"
+                      }
+                    },
                     "required": [
                       "@id"
                     ],
-                    "additionalProperties": false,
-                    "properties": {
-                      "@id": {
-                        "type": "string"
-                      }
-                    }
+                    "additionalProperties": false
                   }
                 ]
               },
@@ -1276,16 +1304,19 @@
                       "type": "string"
                     },
                     {
+                      "title": "Object Reference",
+                      "description": "A reference to a node defined elsewhere, by its @id.",
                       "type": "object",
-                      "additionalProperties": false,
+                      "properties": {
+                        "@id": {
+                          "type": "string",
+                          "description": "resolvable @id of the referenced node"
+                        }
+                      },
                       "required": [
                         "@id"
                       ],
-                      "properties": {
-                        "@id": {
-                          "type": "string"
-                        }
-                      }
+                      "additionalProperties": false
                     }
                   ],
                   "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -1399,16 +1430,19 @@
                                     "type": "string"
                                   },
                                   {
+                                    "title": "Object Reference",
+                                    "description": "A reference to a node defined elsewhere, by its @id.",
                                     "type": "object",
-                                    "additionalProperties": false,
+                                    "properties": {
+                                      "@id": {
+                                        "type": "string",
+                                        "description": "resolvable @id of the referenced node"
+                                      }
+                                    },
                                     "required": [
                                       "@id"
                                     ],
-                                    "properties": {
-                                      "@id": {
-                                        "type": "string"
-                                      }
-                                    }
+                                    "additionalProperties": false
                                   }
                                 ],
                                 "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -1454,16 +1488,19 @@
                             "type": "string"
                           },
                           {
+                            "title": "Object Reference",
+                            "description": "A reference to a node defined elsewhere, by its @id.",
                             "type": "object",
+                            "properties": {
+                              "@id": {
+                                "type": "string",
+                                "description": "resolvable @id of the referenced node"
+                              }
+                            },
                             "required": [
                               "@id"
                             ],
-                            "additionalProperties": false,
-                            "properties": {
-                              "@id": {
-                                "type": "string"
-                              }
-                            }
+                            "additionalProperties": false
                           }
                         ]
                       },
@@ -1517,17 +1554,19 @@
                 "type": "string"
               },
               {
+                "title": "Object Reference",
+                "description": "IRI for an equivalent resource or alternate identifier",
                 "type": "object",
-                "required": [
-                  "@id"
-                ],
-                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string",
-                    "description": "IRI for an equivalent resource or alternate identifier"
+                    "description": "resolvable @id of the referenced node"
                   }
-                }
+                },
+                "required": [
+                  "@id"
+                ],
+                "additionalProperties": false
               },
               {
                 "description": "Properties for a schema.org identifier (schema:PropertyValue pattern).\n**Union-type policy:** In CDIF profile UML models an attribute typed as\nschema:Identifier / schema:PropertyValue is represented by a single attribute\nof that class type. The JSON Schema implementation permits the property value\nto be EITHER a plain string (interpreted as the bare identifier value) OR a\nfull schema:PropertyValue object (with explicit @type, propertyID, value).\nConsumers should accept either form.\n",
@@ -1549,16 +1588,19 @@
                         "type": "string"
                       },
                       {
+                        "title": "Object Reference",
+                        "description": "A reference to a node defined elsewhere, by its @id.",
                         "type": "object",
-                        "additionalProperties": false,
+                        "properties": {
+                          "@id": {
+                            "type": "string",
+                            "description": "resolvable @id of the referenced node"
+                          }
+                        },
                         "required": [
                           "@id"
                         ],
-                        "properties": {
-                          "@id": {
-                            "type": "string"
-                          }
-                        }
+                        "additionalProperties": false
                       }
                     ],
                     "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -1627,17 +1669,19 @@
                 "type": "string"
               },
               {
+                "title": "Object Reference",
+                "description": "a reference to a resource defining conditions of Access",
                 "type": "object",
-                "required": [
-                  "@id"
-                ],
-                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string",
-                    "description": "a reference to a resource defining conditions of Access"
+                    "description": "resolvable @id of the referenced node"
                   }
-                }
+                },
+                "required": [
+                  "@id"
+                ],
+                "additionalProperties": false
               },
               {
                 "$ref": "#/$defs/Reference"
@@ -1655,17 +1699,19 @@
                 "type": "string"
               },
               {
+                "title": "Object Reference",
+                "description": "a reference to a license defintion",
                 "type": "object",
-                "required": [
-                  "@id"
-                ],
-                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string",
-                    "description": "a reference to a license defintion"
+                    "description": "resolvable @id of the referenced node"
                   }
-                }
+                },
+                "required": [
+                  "@id"
+                ],
+                "additionalProperties": false
               },
               {
                 "$ref": "#/$defs/Reference"
@@ -1790,16 +1836,19 @@
                                               "type": "string"
                                             },
                                             {
+                                              "title": "Object Reference",
+                                              "description": "A reference to a node defined elsewhere, by its @id.",
                                               "type": "object",
-                                              "additionalProperties": false,
+                                              "properties": {
+                                                "@id": {
+                                                  "type": "string",
+                                                  "description": "resolvable @id of the referenced node"
+                                                }
+                                              },
                                               "required": [
                                                 "@id"
                                               ],
-                                              "properties": {
-                                                "@id": {
-                                                  "type": "string"
-                                                }
-                                              }
+                                              "additionalProperties": false
                                             }
                                           ],
                                           "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -1845,16 +1894,19 @@
                                       "type": "string"
                                     },
                                     {
+                                      "title": "Object Reference",
+                                      "description": "A reference to a node defined elsewhere, by its @id.",
                                       "type": "object",
+                                      "properties": {
+                                        "@id": {
+                                          "type": "string",
+                                          "description": "resolvable @id of the referenced node"
+                                        }
+                                      },
                                       "required": [
                                         "@id"
                                       ],
-                                      "additionalProperties": false,
-                                      "properties": {
-                                        "@id": {
-                                          "type": "string"
-                                        }
-                                      }
+                                      "additionalProperties": false
                                     }
                                   ]
                                 },
@@ -2061,16 +2113,19 @@
                                           "type": "string"
                                         },
                                         {
+                                          "title": "Object Reference",
+                                          "description": "A reference to a node defined elsewhere, by its @id.",
                                           "type": "object",
-                                          "additionalProperties": false,
+                                          "properties": {
+                                            "@id": {
+                                              "type": "string",
+                                              "description": "resolvable @id of the referenced node"
+                                            }
+                                          },
                                           "required": [
                                             "@id"
                                           ],
-                                          "properties": {
-                                            "@id": {
-                                              "type": "string"
-                                            }
-                                          }
+                                          "additionalProperties": false
                                         }
                                       ],
                                       "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -2192,16 +2247,19 @@
                                               "type": "string"
                                             },
                                             {
+                                              "title": "Object Reference",
+                                              "description": "A reference to a node defined elsewhere, by its @id.",
                                               "type": "object",
-                                              "additionalProperties": false,
+                                              "properties": {
+                                                "@id": {
+                                                  "type": "string",
+                                                  "description": "resolvable @id of the referenced node"
+                                                }
+                                              },
                                               "required": [
                                                 "@id"
                                               ],
-                                              "properties": {
-                                                "@id": {
-                                                  "type": "string"
-                                                }
-                                              }
+                                              "additionalProperties": false
                                             }
                                           ],
                                           "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -2453,16 +2511,19 @@
                                           "type": "string"
                                         },
                                         {
+                                          "title": "Object Reference",
+                                          "description": "A reference to a node defined elsewhere, by its @id.",
                                           "type": "object",
-                                          "additionalProperties": false,
+                                          "properties": {
+                                            "@id": {
+                                              "type": "string",
+                                              "description": "resolvable @id of the referenced node"
+                                            }
+                                          },
                                           "required": [
                                             "@id"
                                           ],
-                                          "properties": {
-                                            "@id": {
-                                              "type": "string"
-                                            }
-                                          }
+                                          "additionalProperties": false
                                         }
                                       ],
                                       "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -2651,16 +2712,19 @@
                                         "type": "string"
                                       },
                                       {
+                                        "title": "Object Reference",
+                                        "description": "A reference to a node defined elsewhere, by its @id.",
                                         "type": "object",
-                                        "additionalProperties": false,
+                                        "properties": {
+                                          "@id": {
+                                            "type": "string",
+                                            "description": "resolvable @id of the referenced node"
+                                          }
+                                        },
                                         "required": [
                                           "@id"
                                         ],
-                                        "properties": {
-                                          "@id": {
-                                            "type": "string"
-                                          }
-                                        }
+                                        "additionalProperties": false
                                       }
                                     ],
                                     "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -2706,16 +2770,19 @@
                                 "type": "string"
                               },
                               {
+                                "title": "Object Reference",
+                                "description": "A reference to a node defined elsewhere, by its @id.",
                                 "type": "object",
+                                "properties": {
+                                  "@id": {
+                                    "type": "string",
+                                    "description": "resolvable @id of the referenced node"
+                                  }
+                                },
                                 "required": [
                                   "@id"
                                 ],
-                                "additionalProperties": false,
-                                "properties": {
-                                  "@id": {
-                                    "type": "string"
-                                  }
-                                }
+                                "additionalProperties": false
                               }
                             ]
                           },
@@ -3089,16 +3156,19 @@
                                         "type": "string"
                                       },
                                       {
+                                        "title": "Object Reference",
+                                        "description": "A reference to a node defined elsewhere, by its @id.",
                                         "type": "object",
-                                        "additionalProperties": false,
+                                        "properties": {
+                                          "@id": {
+                                            "type": "string",
+                                            "description": "resolvable @id of the referenced node"
+                                          }
+                                        },
                                         "required": [
                                           "@id"
                                         ],
-                                        "properties": {
-                                          "@id": {
-                                            "type": "string"
-                                          }
-                                        }
+                                        "additionalProperties": false
                                       }
                                     ],
                                     "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -3144,16 +3214,19 @@
                                 "type": "string"
                               },
                               {
+                                "title": "Object Reference",
+                                "description": "A reference to a node defined elsewhere, by its @id.",
                                 "type": "object",
+                                "properties": {
+                                  "@id": {
+                                    "type": "string",
+                                    "description": "resolvable @id of the referenced node"
+                                  }
+                                },
                                 "required": [
                                   "@id"
                                 ],
-                                "additionalProperties": false,
-                                "properties": {
-                                  "@id": {
-                                    "type": "string"
-                                  }
-                                }
+                                "additionalProperties": false
                               }
                             ]
                           },
@@ -3244,17 +3317,19 @@
                 "type": "string"
               },
               {
+                "title": "Object Reference",
+                "description": "a reference to a publishing principles statement",
                 "type": "object",
-                "required": [
-                  "@id"
-                ],
-                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string",
-                    "description": "a reference to a publishing principles statement"
+                    "description": "resolvable @id of the referenced node"
                   }
-                }
+                },
+                "required": [
+                  "@id"
+                ],
+                "additionalProperties": false
               },
               {
                 "$ref": "#/$defs/Reference"
@@ -3333,16 +3408,19 @@
                                     "type": "string"
                                   },
                                   {
+                                    "title": "Object Reference",
+                                    "description": "A reference to a node defined elsewhere, by its @id.",
                                     "type": "object",
-                                    "additionalProperties": false,
+                                    "properties": {
+                                      "@id": {
+                                        "type": "string",
+                                        "description": "resolvable @id of the referenced node"
+                                      }
+                                    },
                                     "required": [
                                       "@id"
                                     ],
-                                    "properties": {
-                                      "@id": {
-                                        "type": "string"
-                                      }
-                                    }
+                                    "additionalProperties": false
                                   }
                                 ],
                                 "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -3388,16 +3466,19 @@
                             "type": "string"
                           },
                           {
+                            "title": "Object Reference",
+                            "description": "A reference to a node defined elsewhere, by its @id.",
                             "type": "object",
+                            "properties": {
+                              "@id": {
+                                "type": "string",
+                                "description": "resolvable @id of the referenced node"
+                              }
+                            },
                             "required": [
                               "@id"
                             ],
-                            "additionalProperties": false,
-                            "properties": {
-                              "@id": {
-                                "type": "string"
-                              }
-                            }
+                            "additionalProperties": false
                           }
                         ]
                       },
@@ -3450,17 +3531,19 @@
               "items": {
                 "anyOf": [
                   {
+                    "title": "Object Reference",
+                    "description": "a identifier for an agent defined in this metadata, or externally; must be dereferenceable",
                     "type": "object",
-                    "additionalProperties": false,
                     "properties": {
                       "@id": {
                         "type": "string",
-                        "description": "a identifier for an agent defined in this metadata, or externally; must be dereferenceable"
+                        "description": "resolvable @id of the referenced node"
                       }
                     },
                     "required": [
                       "@id"
-                    ]
+                    ],
+                    "additionalProperties": false
                   },
                   {
                     "$ref": "#/$defs/CdifCore_Person"
@@ -3479,17 +3562,19 @@
           "items": {
             "anyOf": [
               {
+                "title": "Object Reference",
+                "description": "a identifier for an agent defined in this metadata, or externally; must be dereferenceable",
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string",
-                    "description": "a identifier for an agent defined in this metadata, or externally; must be dereferenceable"
+                    "description": "resolvable @id of the referenced node"
                   }
                 },
                 "required": [
                   "@id"
-                ]
+                ],
+                "additionalProperties": false
               },
               {
                 "$ref": "#/$defs/CdifCore_Person"
@@ -3582,16 +3667,19 @@
                                             "type": "string"
                                           },
                                           {
+                                            "title": "Object Reference",
+                                            "description": "A reference to a node defined elsewhere, by its @id.",
                                             "type": "object",
-                                            "additionalProperties": false,
+                                            "properties": {
+                                              "@id": {
+                                                "type": "string",
+                                                "description": "resolvable @id of the referenced node"
+                                              }
+                                            },
                                             "required": [
                                               "@id"
                                             ],
-                                            "properties": {
-                                              "@id": {
-                                                "type": "string"
-                                              }
-                                            }
+                                            "additionalProperties": false
                                           }
                                         ],
                                         "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -3637,16 +3725,19 @@
                                     "type": "string"
                                   },
                                   {
+                                    "title": "Object Reference",
+                                    "description": "A reference to a node defined elsewhere, by its @id.",
                                     "type": "object",
+                                    "properties": {
+                                      "@id": {
+                                        "type": "string",
+                                        "description": "resolvable @id of the referenced node"
+                                      }
+                                    },
                                     "required": [
                                       "@id"
                                     ],
-                                    "additionalProperties": false,
-                                    "properties": {
-                                      "@id": {
-                                        "type": "string"
-                                      }
-                                    }
+                                    "additionalProperties": false
                                   }
                                 ]
                               },
@@ -3752,16 +3843,19 @@
                                         "type": "string"
                                       },
                                       {
+                                        "title": "Object Reference",
+                                        "description": "A reference to a node defined elsewhere, by its @id.",
                                         "type": "object",
-                                        "additionalProperties": false,
+                                        "properties": {
+                                          "@id": {
+                                            "type": "string",
+                                            "description": "resolvable @id of the referenced node"
+                                          }
+                                        },
                                         "required": [
                                           "@id"
                                         ],
-                                        "properties": {
-                                          "@id": {
-                                            "type": "string"
-                                          }
-                                        }
+                                        "additionalProperties": false
                                       }
                                     ],
                                     "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -3883,16 +3977,19 @@
                                             "type": "string"
                                           },
                                           {
+                                            "title": "Object Reference",
+                                            "description": "A reference to a node defined elsewhere, by its @id.",
                                             "type": "object",
-                                            "additionalProperties": false,
+                                            "properties": {
+                                              "@id": {
+                                                "type": "string",
+                                                "description": "resolvable @id of the referenced node"
+                                              }
+                                            },
                                             "required": [
                                               "@id"
                                             ],
-                                            "properties": {
-                                              "@id": {
-                                                "type": "string"
-                                              }
-                                            }
+                                            "additionalProperties": false
                                           }
                                         ],
                                         "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -4144,16 +4241,19 @@
                                         "type": "string"
                                       },
                                       {
+                                        "title": "Object Reference",
+                                        "description": "A reference to a node defined elsewhere, by its @id.",
                                         "type": "object",
-                                        "additionalProperties": false,
+                                        "properties": {
+                                          "@id": {
+                                            "type": "string",
+                                            "description": "resolvable @id of the referenced node"
+                                          }
+                                        },
                                         "required": [
                                           "@id"
                                         ],
-                                        "properties": {
-                                          "@id": {
-                                            "type": "string"
-                                          }
-                                        }
+                                        "additionalProperties": false
                                       }
                                     ],
                                     "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -4257,17 +4357,19 @@
           "description": "Party who made the dataset publicly available",
           "anyOf": [
             {
+              "title": "Object Reference",
+              "description": "a identifier for an agent defined in this metadata, or externally; must be dereferenceable",
               "type": "object",
-              "additionalProperties": false,
               "properties": {
                 "@id": {
                   "type": "string",
-                  "description": "a identifier for an agent defined in this metadata, or externally; must be dereferenceable"
+                  "description": "resolvable @id of the referenced node"
                 }
               },
               "required": [
                 "@id"
-              ]
+              ],
+              "additionalProperties": false
             },
             {
               "$ref": "#/$defs/CdifCore_Person"
@@ -4283,17 +4385,19 @@
           "items": {
             "anyOf": [
               {
+                "title": "Object Reference",
+                "description": "a identifier for an agent defined in this metadata, or externally; must be dereferenceable",
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string",
-                    "description": "a identifier for an agent defined in this metadata, or externally; must be dereferenceable"
+                    "description": "resolvable @id of the referenced node"
                   }
                 },
                 "required": [
                   "@id"
-                ]
+                ],
+                "additionalProperties": false
               },
               {
                 "$ref": "#/$defs/CdifCore_Person"
@@ -4347,16 +4451,19 @@
                         "type": "string"
                       },
                       {
+                        "title": "Object Reference",
+                        "description": "A reference to a node defined elsewhere, by its @id.",
                         "type": "object",
-                        "additionalProperties": false,
+                        "properties": {
+                          "@id": {
+                            "type": "string",
+                            "description": "resolvable @id of the referenced node"
+                          }
+                        },
                         "required": [
                           "@id"
                         ],
-                        "properties": {
-                          "@id": {
-                            "type": "string"
-                          }
-                        }
+                        "additionalProperties": false
                       }
                     ],
                     "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -4464,16 +4571,19 @@
                                     "type": "string"
                                   },
                                   {
+                                    "title": "Object Reference",
+                                    "description": "A reference to a node defined elsewhere, by its @id.",
                                     "type": "object",
-                                    "additionalProperties": false,
+                                    "properties": {
+                                      "@id": {
+                                        "type": "string",
+                                        "description": "resolvable @id of the referenced node"
+                                      }
+                                    },
                                     "required": [
                                       "@id"
                                     ],
-                                    "properties": {
-                                      "@id": {
-                                        "type": "string"
-                                      }
-                                    }
+                                    "additionalProperties": false
                                   }
                                 ],
                                 "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -4595,16 +4705,19 @@
                                         "type": "string"
                                       },
                                       {
+                                        "title": "Object Reference",
+                                        "description": "A reference to a node defined elsewhere, by its @id.",
                                         "type": "object",
-                                        "additionalProperties": false,
+                                        "properties": {
+                                          "@id": {
+                                            "type": "string",
+                                            "description": "resolvable @id of the referenced node"
+                                          }
+                                        },
                                         "required": [
                                           "@id"
                                         ],
-                                        "properties": {
-                                          "@id": {
-                                            "type": "string"
-                                          }
-                                        }
+                                        "additionalProperties": false
                                       }
                                     ],
                                     "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -4856,16 +4969,19 @@
                                     "type": "string"
                                   },
                                   {
+                                    "title": "Object Reference",
+                                    "description": "A reference to a node defined elsewhere, by its @id.",
                                     "type": "object",
-                                    "additionalProperties": false,
+                                    "properties": {
+                                      "@id": {
+                                        "type": "string",
+                                        "description": "resolvable @id of the referenced node"
+                                      }
+                                    },
                                     "required": [
                                       "@id"
                                     ],
-                                    "properties": {
-                                      "@id": {
-                                        "type": "string"
-                                      }
-                                    }
+                                    "additionalProperties": false
                                   }
                                 ],
                                 "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -5232,16 +5348,19 @@
                                         "type": "string"
                                       },
                                       {
+                                        "title": "Object Reference",
+                                        "description": "A reference to a node defined elsewhere, by its @id.",
                                         "type": "object",
-                                        "additionalProperties": false,
+                                        "properties": {
+                                          "@id": {
+                                            "type": "string",
+                                            "description": "resolvable @id of the referenced node"
+                                          }
+                                        },
                                         "required": [
                                           "@id"
                                         ],
-                                        "properties": {
-                                          "@id": {
-                                            "type": "string"
-                                          }
-                                        }
+                                        "additionalProperties": false
                                       }
                                     ],
                                     "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -5287,16 +5406,19 @@
                                 "type": "string"
                               },
                               {
+                                "title": "Object Reference",
+                                "description": "A reference to a node defined elsewhere, by its @id.",
                                 "type": "object",
+                                "properties": {
+                                  "@id": {
+                                    "type": "string",
+                                    "description": "resolvable @id of the referenced node"
+                                  }
+                                },
                                 "required": [
                                   "@id"
                                 ],
-                                "additionalProperties": false,
-                                "properties": {
-                                  "@id": {
-                                    "type": "string"
-                                  }
-                                }
+                                "additionalProperties": false
                               }
                             ]
                           },
@@ -5358,32 +5480,36 @@
               "description": "identifier for the metadata record"
             },
             "schema:about": {
+              "title": "Object Reference",
+              "description": "this must be the @id value of the node containing the resource description metadata",
               "type": "object",
-              "required": [
-                "@id"
-              ],
-              "additionalProperties": false,
               "properties": {
                 "@id": {
                   "type": "string",
-                  "description": "this must be the @id value of the node containing the resource description metadata"
+                  "description": "resolvable @id of the referenced node"
                 }
-              }
+              },
+              "required": [
+                "@id"
+              ],
+              "additionalProperties": false
             },
             "dcterms:conformsTo": {
               "type": "array",
               "items": {
+                "title": "Object Reference",
+                "description": "uri for specifications that this metadata record conforms to",
                 "type": "object",
-                "required": [
-                  "@id"
-                ],
-                "additionalProperties": false,
                 "properties": {
                   "@id": {
                     "type": "string",
-                    "description": "uri for specifications that this metadata record conforms to"
+                    "description": "resolvable @id of the referenced node"
                   }
-                }
+                },
+                "required": [
+                  "@id"
+                ],
+                "additionalProperties": false
               },
               "minItems": 1,
               "description": "uri for specifications that this metadata record conforms to. Minimimally should specify uri for CDIF discovery profile."
@@ -5439,16 +5565,19 @@
                                   "type": "string"
                                 },
                                 {
+                                  "title": "Object Reference",
+                                  "description": "A reference to a node defined elsewhere, by its @id.",
                                   "type": "object",
-                                  "additionalProperties": false,
+                                  "properties": {
+                                    "@id": {
+                                      "type": "string",
+                                      "description": "resolvable @id of the referenced node"
+                                    }
+                                  },
                                   "required": [
                                     "@id"
                                   ],
-                                  "properties": {
-                                    "@id": {
-                                      "type": "string"
-                                    }
-                                  }
+                                  "additionalProperties": false
                                 }
                               ],
                               "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -5570,16 +5699,19 @@
                                       "type": "string"
                                     },
                                     {
+                                      "title": "Object Reference",
+                                      "description": "A reference to a node defined elsewhere, by its @id.",
                                       "type": "object",
-                                      "additionalProperties": false,
+                                      "properties": {
+                                        "@id": {
+                                          "type": "string",
+                                          "description": "resolvable @id of the referenced node"
+                                        }
+                                      },
                                       "required": [
                                         "@id"
                                       ],
-                                      "properties": {
-                                        "@id": {
-                                          "type": "string"
-                                        }
-                                      }
+                                      "additionalProperties": false
                                     }
                                   ],
                                   "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -5831,16 +5963,19 @@
                                   "type": "string"
                                 },
                                 {
+                                  "title": "Object Reference",
+                                  "description": "A reference to a node defined elsewhere, by its @id.",
                                   "type": "object",
-                                  "additionalProperties": false,
+                                  "properties": {
+                                    "@id": {
+                                      "type": "string",
+                                      "description": "resolvable @id of the referenced node"
+                                    }
+                                  },
                                   "required": [
                                     "@id"
                                   ],
-                                  "properties": {
-                                    "@id": {
-                                      "type": "string"
-                                    }
-                                  }
+                                  "additionalProperties": false
                                 }
                               ],
                               "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -5984,16 +6119,19 @@
                           "type": "string"
                         },
                         {
+                          "title": "Object Reference",
+                          "description": "A reference to a node defined elsewhere, by its @id.",
                           "type": "object",
-                          "additionalProperties": false,
+                          "properties": {
+                            "@id": {
+                              "type": "string",
+                              "description": "resolvable @id of the referenced node"
+                            }
+                          },
                           "required": [
                             "@id"
                           ],
-                          "properties": {
-                            "@id": {
-                              "type": "string"
-                            }
-                          }
+                          "additionalProperties": false
                         }
                       ],
                       "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -6200,16 +6338,19 @@
                                 "type": "string"
                               },
                               {
+                                "title": "Object Reference",
+                                "description": "A reference to a node defined elsewhere, by its @id.",
                                 "type": "object",
-                                "additionalProperties": false,
+                                "properties": {
+                                  "@id": {
+                                    "type": "string",
+                                    "description": "resolvable @id of the referenced node"
+                                  }
+                                },
                                 "required": [
                                   "@id"
                                 ],
-                                "properties": {
-                                  "@id": {
-                                    "type": "string"
-                                  }
-                                }
+                                "additionalProperties": false
                               }
                             ],
                             "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -6255,16 +6396,19 @@
                         "type": "string"
                       },
                       {
+                        "title": "Object Reference",
+                        "description": "A reference to a node defined elsewhere, by its @id.",
                         "type": "object",
+                        "properties": {
+                          "@id": {
+                            "type": "string",
+                            "description": "resolvable @id of the referenced node"
+                          }
+                        },
                         "required": [
                           "@id"
                         ],
-                        "additionalProperties": false,
-                        "properties": {
-                          "@id": {
-                            "type": "string"
-                          }
-                        }
+                        "additionalProperties": false
                       }
                     ]
                   },
@@ -6432,16 +6576,19 @@
                               "type": "string"
                             },
                             {
+                              "title": "Object Reference",
+                              "description": "A reference to a node defined elsewhere, by its @id.",
                               "type": "object",
-                              "additionalProperties": false,
+                              "properties": {
+                                "@id": {
+                                  "type": "string",
+                                  "description": "resolvable @id of the referenced node"
+                                }
+                              },
                               "required": [
                                 "@id"
                               ],
-                              "properties": {
-                                "@id": {
-                                  "type": "string"
-                                }
-                              }
+                              "additionalProperties": false
                             }
                           ],
                           "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -6487,16 +6634,19 @@
                       "type": "string"
                     },
                     {
+                      "title": "Object Reference",
+                      "description": "A reference to a node defined elsewhere, by its @id.",
                       "type": "object",
+                      "properties": {
+                        "@id": {
+                          "type": "string",
+                          "description": "resolvable @id of the referenced node"
+                        }
+                      },
                       "required": [
                         "@id"
                       ],
-                      "additionalProperties": false,
-                      "properties": {
-                        "@id": {
-                          "type": "string"
-                        }
-                      }
+                      "additionalProperties": false
                     }
                   ]
                 },
@@ -6880,16 +7030,19 @@
                         "type": "string"
                       },
                       {
+                        "title": "Object Reference",
+                        "description": "A reference to a node defined elsewhere, by its @id.",
                         "type": "object",
-                        "additionalProperties": false,
+                        "properties": {
+                          "@id": {
+                            "type": "string",
+                            "description": "resolvable @id of the referenced node"
+                          }
+                        },
                         "required": [
                           "@id"
                         ],
-                        "properties": {
-                          "@id": {
-                            "type": "string"
-                          }
-                        }
+                        "additionalProperties": false
                       }
                     ],
                     "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -7111,16 +7264,19 @@
                       "type": "string"
                     },
                     {
+                      "title": "Object Reference",
+                      "description": "A reference to a node defined elsewhere, by its @id.",
                       "type": "object",
-                      "additionalProperties": false,
+                      "properties": {
+                        "@id": {
+                          "type": "string",
+                          "description": "resolvable @id of the referenced node"
+                        }
+                      },
                       "required": [
                         "@id"
                       ],
-                      "properties": {
-                        "@id": {
-                          "type": "string"
-                        }
-                      }
+                      "additionalProperties": false
                     }
                   ],
                   "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -7242,16 +7398,19 @@
                           "type": "string"
                         },
                         {
+                          "title": "Object Reference",
+                          "description": "A reference to a node defined elsewhere, by its @id.",
                           "type": "object",
-                          "additionalProperties": false,
+                          "properties": {
+                            "@id": {
+                              "type": "string",
+                              "description": "resolvable @id of the referenced node"
+                            }
+                          },
                           "required": [
                             "@id"
                           ],
-                          "properties": {
-                            "@id": {
-                              "type": "string"
-                            }
-                          }
+                          "additionalProperties": false
                         }
                       ],
                       "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -7503,16 +7662,19 @@
                       "type": "string"
                     },
                     {
+                      "title": "Object Reference",
+                      "description": "A reference to a node defined elsewhere, by its @id.",
                       "type": "object",
-                      "additionalProperties": false,
+                      "properties": {
+                        "@id": {
+                          "type": "string",
+                          "description": "resolvable @id of the referenced node"
+                        }
+                      },
                       "required": [
                         "@id"
                       ],
-                      "properties": {
-                        "@id": {
-                          "type": "string"
-                        }
-                      }
+                      "additionalProperties": false
                     }
                   ],
                   "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -8110,16 +8272,19 @@
                               "type": "string"
                             },
                             {
+                              "title": "Object Reference",
+                              "description": "A reference to a node defined elsewhere, by its @id.",
                               "type": "object",
-                              "additionalProperties": false,
+                              "properties": {
+                                "@id": {
+                                  "type": "string",
+                                  "description": "resolvable @id of the referenced node"
+                                }
+                              },
                               "required": [
                                 "@id"
                               ],
-                              "properties": {
-                                "@id": {
-                                  "type": "string"
-                                }
-                              }
+                              "additionalProperties": false
                             }
                           ],
                           "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -8165,16 +8330,19 @@
                       "type": "string"
                     },
                     {
+                      "title": "Object Reference",
+                      "description": "A reference to a node defined elsewhere, by its @id.",
                       "type": "object",
+                      "properties": {
+                        "@id": {
+                          "type": "string",
+                          "description": "resolvable @id of the referenced node"
+                        }
+                      },
                       "required": [
                         "@id"
                       ],
-                      "additionalProperties": false,
-                      "properties": {
-                        "@id": {
-                          "type": "string"
-                        }
-                      }
+                      "additionalProperties": false
                     }
                   ]
                 },
@@ -8308,16 +8476,19 @@
                               "type": "string"
                             },
                             {
+                              "title": "Object Reference",
+                              "description": "A reference to a node defined elsewhere, by its @id.",
                               "type": "object",
-                              "additionalProperties": false,
+                              "properties": {
+                                "@id": {
+                                  "type": "string",
+                                  "description": "resolvable @id of the referenced node"
+                                }
+                              },
                               "required": [
                                 "@id"
                               ],
-                              "properties": {
-                                "@id": {
-                                  "type": "string"
-                                }
-                              }
+                              "additionalProperties": false
                             }
                           ],
                           "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings."
@@ -8363,16 +8534,19 @@
                       "type": "string"
                     },
                     {
+                      "title": "Object Reference",
+                      "description": "A reference to a node defined elsewhere, by its @id.",
                       "type": "object",
+                      "properties": {
+                        "@id": {
+                          "type": "string",
+                          "description": "resolvable @id of the referenced node"
+                        }
+                      },
                       "required": [
                         "@id"
                       ],
-                      "additionalProperties": false,
-                      "properties": {
-                        "@id": {
-                          "type": "string"
-                        }
-                      }
+                      "additionalProperties": false
                     }
                   ]
                 },

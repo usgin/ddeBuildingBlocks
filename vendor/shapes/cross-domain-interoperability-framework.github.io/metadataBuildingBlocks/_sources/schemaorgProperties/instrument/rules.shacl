@@ -33,12 +33,12 @@ cdifd:instrumentNode
 
 	# -- RECOMMENDED (Warning) --
 
-    sh:property [
-      sh:path schema:category ;
-      sh:minCount 1 ;
-      sh:severity sh:Warning ;
-      sh:message "An instrument should have a category classification from a controlled vocabulary (schema:category)."
-    ] ;
+    # The classification requirement moved to cdifd:instrumentClassified at the
+    # foot of this file, which accepts schema:additionalType as well. Measured
+    # 2026-11-06: of 21 instrument nodes across mBB's examples, 14 carried
+    # schema:additionalType only and 3 schema:category only, so asking for
+    # schema:category alone reported 17 of 21 instruments as unclassified while
+    # their classification sat in the other property.
 
 	# -- INFORMATIONAL (Info) --
 
@@ -88,3 +88,30 @@ cdifd:instrumentNode
       sh:severity sh:Info ;
       sh:message "An instrument should have a commissioned date (schema:validFrom)."
     ] .
+
+
+# Either property satisfies this: schema:category is schema.org's own slot, and
+# schema:additionalType is what CDIF's XAS and geochem records actually use,
+# carrying a controlled-vocabulary IRI such as xas:xraymonochromator or
+# nxs:base_classes/NXinstrument.html. A separate NodeShape rather than an sh:or
+# on cdifd:instrumentNode, because sh:severity on that shape would apply to its
+# sh:Violation name rule too.
+cdifd:instrumentClassified
+	a sh:NodeShape;
+	sh:target [
+	  a sh:SPARQLTarget ;
+      sh:select  """
+      PREFIX schema: <http://schema.org/>
+      SELECT DISTINCT ?this
+        WHERE {
+          ?s schema:instrument ?this .
+          FILTER (isIRI(?this) || isBlank(?this))
+          }""";
+	] ;
+	sh:or (
+	  [ sh:property [ sh:path schema:category ; sh:minCount 1 ] ]
+	  [ sh:property [ sh:path schema:additionalType ; sh:minCount 1 ] ]
+	) ;
+	sh:severity sh:Warning ;
+	sh:message "An instrument should carry a classification from a controlled vocabulary, in either schema:category or schema:additionalType." ;
+	.
