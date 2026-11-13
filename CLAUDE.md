@@ -10,6 +10,29 @@ the deliverables are schemas, JSON-LD contexts, and the generated register at
 https://usgin.github.io/ddeBuildingBlocks/. Everything is JSON Schema 2020-12 over schema.org terms
 in JSON-LD.
 
+## Remotes — GitHub is primary here, unlike the sibling DDE repos
+
+| Remote | URL | Role |
+|---|---|---|
+| `origin` | `github.com/usgin/ddeBuildingBlocks` | **Primary.** Push here. |
+| `gitlab` | `code.axiomearth.ai/Steve_Geonetwork/ddeBuildingBlocks` | Backup copy, added 2026-11-13. |
+
+The other two DDE repos (`dde-geonetwork2026`, `dde-metadata`) make the DDE GitLab normative and keep
+GitHub as the mirror. **This one is the other way round, on purpose.** GitHub is not merely hosting
+it — two things that only exist on GitHub produce the deliverable:
+
+- `.github/workflows/process-bblocks.yml` calls OGC's reusable workflow
+  `opengeospatial/bblocks-postprocess/.github/workflows/validate-and-process.yml@master` with
+  `contents: write`, so the register's generated artifacts are built and committed by GitHub Actions.
+- `.github/workflows/deploy-viewer.yml` publishes the viewer and register to GitHub Pages at
+  `https://usgin.github.io/ddeBuildingBlocks/`, which is the URL consumers resolve.
+
+A push to `gitlab` therefore builds nothing and publishes nothing. Treat that remote as a backup:
+push `origin` first, then `gitlab`. If `main` ever differs between them, GitHub is correct and the
+published register follows GitHub. Flipping the roles would need a `.gitlab-ci.yml` that reproduces
+the bblocks-postprocess step and somewhere other than GitHub Pages to publish to — and the published
+URLs are already baked into consumers, including this repo's own `$ref`s to CDIF.
+
 ## Two-layer architecture
 
 The whole repo is one composition pattern, and understanding it explains every file:
