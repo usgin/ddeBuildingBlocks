@@ -540,10 +540,52 @@ _SCHEMA_DEF_KEYS = frozenset({"type", "oneOf", "anyOf", "allOf", "$ref"})
 # A conditional is one construct: these keys travel together or not at all.
 _CONDITIONAL_KEYS = ("if", "then", "else")
 
+# Array-level keywords a property can state beside its `items`.
+_ARRAY_CONSTRAINT_KEYS = ("minItems", "maxItems", "uniqueItems",
+                          "contains", "minContains", "maxContains")
+
+
+# Keywords that make a schema a CHOICE between shapes rather than one shape.
+# Two of these cannot be merged without deciding which wins, so a property
+# definition carrying any of them is replaced rather than combined.
+_CHOICE_KEYS = frozenset({"oneOf", "anyOf", "allOf", "$ref", "not",
+                          "if", "then", "else"})
+
 
 def _is_complete_schema(d: dict) -> bool:
     """Return True if d looks like a complete schema definition (has type, composition, or $ref)."""
     return bool(d.keys() & _SCHEMA_DEF_KEYS)
+
+
+def _is_plain_object_schema(d: dict) -> bool:
+    """One object shape stated as properties, with no choice between shapes.
+
+    Two of these describe the same object from different angles, so merging
+    them loses nothing and replacing one with the other loses whatever only
+    it declared. That is the case the blanket replacement below got wrong:
+    every module states the record's ``@context`` as a plain object of
+    prefixes, so in a composite only the last module's prefixes survived --
+    `cdifCore`'s five pins and its ``required`` reached no composite at all.
+    """
+    if d.get("type") != "object" or "properties" not in d:
+        return False
+    return not (d.keys() & _CHOICE_KEYS)
+
+
+def _contains_entries(d: dict) -> list:
+    """Every ``contains`` constraint a property definition carries.
+
+    They live either directly on the definition or, after an earlier merge
+    accumulated several, as ``{"contains": ...}`` entries in its ``allOf``.
+    Returned as allOf-ready entries so a replacement can re-attach them.
+    """
+    out = []
+    if "contains" in d:
+        out.append({"contains": copy.deepcopy(d["contains"])})
+    for entry in d.get("allOf") or []:
+        if isinstance(entry, dict) and "contains" in entry:
+            out.append(copy.deepcopy(entry))
+    return out
 
 
 def deep_merge(base: dict, overlay: dict) -> dict:
@@ -614,9 +656,51 @@ def _deep_merge_inner(base: dict, overlay: dict, in_properties: bool) -> dict:
                         new_items_allof = [base_items, overlay_items]
                     overlay_schema = copy.deepcopy(v)
                     overlay_schema["items"] = {"allOf": new_items_allof}
+                    # The array-level constraints sit beside items, not in it,
+                    # so replacing the base with the overlay dropped them:
+                    # xasCore's prov:wasGeneratedBy minItems + contains (the
+                    # required analysis event) vanished under xasOptional's
+                    # items-only patch. Keep the base's where the overlay
+                    # states none of its own.
+                    for kw in _ARRAY_CONSTRAINT_KEYS:
+                        if kw in result[k] and kw not in overlay_schema:
+                            overlay_schema[kw] = result[k][kw]
                     result[k] = overlay_schema
+                elif _is_plain_object_schema(result[k]) \
+                        and _is_plain_object_schema(v):
+                    # Two statements of the same object shape: merge, do not
+                    # choose. `required` is the union -- both modules' demands
+                    # hold -- which the generic merge below would not do,
+                    # because a list there is replaced wholesale.
+                    union = sorted(set(result[k].get("required") or [])
+                                   | set(v.get("required") or []))
+                    result[k] = _deep_merge_inner(result[k], v,
+                                                  in_properties=False)
+                    if union:
+                        result[k]["required"] = union
                 else:
+                    # Replacement is right -- the two state different shapes --
+                    # but a `contains` the base accumulated is a separate
+                    # constraint, not part of the shape, so it survives. Four
+                    # merges of `dcterms:conformsTo` dropped a base holding
+                    # nothing but accumulated `contains` entries, which is how
+                    # a composite came to demand one module's profile URI and
+                    # forget the rest.
+                    carried = _contains_entries(result[k])
                     result[k] = copy.deepcopy(v)
+                    if carried:
+                        kept = _contains_entries(result[k])
+                        for entry in kept:
+                            if entry not in carried:
+                                carried.append(entry)
+                        result[k].pop("contains", None)
+                        residual = [e for e in (result[k].get("allOf") or [])
+                                    if not (isinstance(e, dict)
+                                            and "contains" in e)]
+                        if len(carried) == 1 and not residual:
+                            result[k]["contains"] = carried[0]["contains"]
+                        else:
+                            result[k]["allOf"] = residual + carried
             elif k == "properties":
                 result[k] = _deep_merge_inner(result[k], v, in_properties=True)
             elif k == "contains":
