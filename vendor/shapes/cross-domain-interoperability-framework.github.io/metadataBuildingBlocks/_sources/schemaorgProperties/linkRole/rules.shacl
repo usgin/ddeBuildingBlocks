@@ -44,11 +44,13 @@ cdifd:CDIFEntryPointShape
         [ sh:property [ sh:path schema:url ; sh:minCount 1 ] ]
         [ sh:property [ sh:path schema:urlTemplate ; sh:minCount 1 ] ]
     ) ;
-    # Applies only when schema:url is present -- no minCount here.
+    # Applies only when schema:url is present -- no minCount here. Besides http(s),
+    # the download protocols data archives use: ftp(s) (NCBI GEO, PRIDE, LASP), sftp,
+    # and the s3 and gs cloud object stores.
     sh:property [
         a sh:PropertyShape ;
         sh:path schema:url ;
         sh:datatype xsd:string ;
-        sh:pattern "^https?://[^\\s]+$" ;
-        sh:message "If a schema:EntryPoint carries schema:url, it must resolve over http(s)."
+        sh:pattern "^(https?|ftps?|sftp|s3|gs)://[^\\s]+$" ;
+        sh:message "If a schema:EntryPoint carries schema:url, it must be an http(s), ftp(s), sftp, s3 or gs URL."
     ] .

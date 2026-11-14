@@ -27,9 +27,18 @@ cdifd:CDIFVariableMeasuredShape
         }
       }""";
 	] ;
+	# Presence and value are separate shapes so a missing propertyID does not
+	# report as a malformed one. Until 2026-11-06 one sh:message covered both
+	# sh:minCount and the sh:or below, so a variable carrying no propertyID was
+	# told its value had the wrong form.
 	sh:property [
         sh:path schema:propertyID;
         sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "a variable should carry a schema:propertyID identifying the concept it measures." ;
+	] ;
+	sh:property [
+        sh:path schema:propertyID;
         sh:severity sh:Warning ;
         sh:or (
             [sh:nodeKind sh:IRI]

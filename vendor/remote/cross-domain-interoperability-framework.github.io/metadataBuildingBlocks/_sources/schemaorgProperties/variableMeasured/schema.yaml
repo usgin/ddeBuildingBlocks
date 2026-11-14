@@ -34,13 +34,8 @@ properties:
   schema:measurementTechnique:
     anyOf:
     - type: string
-    - type: object
-      required: ['@id']
-      additionalProperties: false
-      properties:
-        '@id':
-          type: string
-          description: reference to a skos concept
+    - description: "reference to a skos concept"
+      $ref: ../../cdifDataType/objectReference/schema.yaml
     - $ref: '#/$defs/DefinedTerm'
     description: Text description or URI specifying how values for the variable were obtained.
   schema:propertyID:
@@ -48,12 +43,7 @@ properties:
     items:
       anyOf:
       - type: string
-      - type: object
-        required: ['@id']
-        additionalProperties: false
-        properties:
-          '@id':
-            type: string
+      - $ref: ../../cdifDataType/objectReference/schema.yaml
       - $ref: '#/$defs/DefinedTerm'
     description: identifier or name for the property concept
   schema:unitText:
@@ -62,12 +52,7 @@ properties:
   schema:unitCode:
     anyOf:
     - type: string
-    - type: object
-      required: ['@id']
-      additionalProperties: false
-      properties:
-        '@id':
-          type: string
+    - $ref: ../../cdifDataType/objectReference/schema.yaml
     - $ref: '#/$defs/DefinedTerm'
     description: URI or code identifying the unit of measure
   schema:minValue:

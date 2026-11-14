@@ -5,6 +5,13 @@ description: 'The time interval during which data was collected or observations 
   the 18th century) (see https://documentation.ardc.edu.au/display/DOC/Temporal+coverage). For documentation
   of Earth Science, Paleobiology or Paleontology datasets, we are interested in the second case-- the
   time period that data are linked to thematically. NOTE-- context must include "time": "http://www.w3.org/2006/time#"}'
+properties:
+  'schema:description':
+    type: string
+    description: >-
+      free text description of the temporal extent. Declared here rather than in
+      one interval form so that any object form below may carry it; the plain
+      ISO 8601 string form cannot.
 anyOf:
 - type: object
   description: a w3c time proper interval with bounds that are named time ordinal eras with identifier,
@@ -18,9 +25,6 @@ anyOf:
       contains:
         const: time:ProperInterval
       minItems: 1
-    'schema:description':
-      type: string
-      description: free text description of the temporal interval
     'time:intervalStartedBy':
       type: string
       format: uri
@@ -61,9 +65,6 @@ anyOf:
       contains:
         const: time:ProperInterval
       minItems: 1
-    'schema:description':
-      type: string
-      description: free text description of the temporal interval
     'time:hasBeginning':
       type: object
       properties:
@@ -76,6 +77,8 @@ anyOf:
           minItems: 1
         'time:inTimePosition':
           $ref: '#/$defs/timePosition_type'
+      required:
+      - 'time:inTimePosition'
     'time:hasEnd':
       type: object
       properties:
@@ -88,6 +91,34 @@ anyOf:
           minItems: 1
         'time:inTimePosition':
           $ref: '#/$defs/timePosition_type'
+      required:
+      - 'time:inTimePosition'
+  anyOf:
+  - required:
+    - 'time:hasBeginning'
+  - required:
+    - 'time:hasEnd'
+- type: object
+  description: >-
+    a w3c time proper interval with calendar date bounds, each a time:Instant
+    giving its date as time:inXSDDate (an xsd:date, YYYY-MM-DD). The object form
+    of a calendar interval, for when the interval needs a description, which the
+    ISO 8601 string form below cannot carry.
+  properties:
+    '@type':
+      default: ['time:ProperInterval']
+      type: array
+      items:
+        type: string
+      contains:
+        const: time:ProperInterval
+      minItems: 1
+    'time:hasBeginning':
+      $ref: '#/$defs/calendarInstant_type'
+    'time:hasEnd':
+      $ref: '#/$defs/calendarInstant_type'
+  required:
+  - '@type'
   anyOf:
   - required:
     - 'time:hasBeginning'
@@ -97,6 +128,24 @@ anyOf:
   description: Simple ISO8601 encoding of calendar date, dateTime, or time interval with calendar date
     bounds
 $defs:
+  calendarInstant_type:
+    type: object
+    properties:
+      '@type':
+        default: ['time:Instant']
+        type: array
+        items:
+          type: string
+        contains:
+          const: time:Instant
+        minItems: 1
+      'time:inXSDDate':
+        type: string
+        description: the date of the instant, as an xsd:date
+        pattern: ^-?\d{4,}-\d{2}-\d{2}(Z|[+-]\d{2}:\d{2})?$
+    required:
+    - '@type'
+    - 'time:inXSDDate'
   timePosition_type:
     type: object
     properties:
