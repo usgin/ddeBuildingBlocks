@@ -151,13 +151,13 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
         "@type": [
           "time:Instant"
         ],
-        "time:inXSDDateTime": "2021-08-05"
+        "time:inXSDDate": "2021-08-05"
       },
       "time:hasEnd": {
         "@type": [
           "time:Instant"
         ],
-        "time:inXSDDateTime": "2021-10-05"
+        "time:inXSDDate": "2021-10-05"
       }
     }
   ],
@@ -313,13 +313,13 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
         "@type": [
           "time:Instant"
         ],
-        "time:inXSDDateTime": "2021-08-05"
+        "time:inXSDDate": "2021-08-05"
       },
       "time:hasEnd": {
         "@type": [
           "time:Instant"
         ],
-        "time:inXSDDateTime": "2021-10-05"
+        "time:inXSDDate": "2021-10-05"
       }
     }
   ],
@@ -384,9 +384,9 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
     schema1:subjectOf <urn:uuid:dde-event-catalog-record> ;
     schema1:temporalCoverage [ a time:ProperInterval ;
             time:hasBeginning [ a time:Instant ;
-                    time:inXSDDateTime "2021-08-05" ] ;
+                    time:inXSDDate "2021-08-05" ] ;
             time:hasEnd [ a time:Instant ;
-                    time:inXSDDateTime "2021-10-05" ] ] ;
+                    time:inXSDDate "2021-10-05" ] ] ;
     schema1:url "https://www.iodp.org/expedition396" .
 
 <urn:uuid:dde-event-catalog-record> a schema1:Dataset ;
@@ -459,7 +459,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEEvent
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-13'
+  dateOfLastChange: '2026-11-14'
 
 ```
 

@@ -314,14 +314,14 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
                     schema1:name "Multispectral" ],
                 [ a schema1:Product,
                         schema1:Thing ;
-                    schema1:additionalType dde:equipment,
-                        wd:Q3099911 ;
-                    schema1:name "Operational Land Imager (OLI)" ],
-                [ a schema1:Product,
-                        schema1:Thing ;
                     schema1:additionalType dde:signalGenerator,
                         wd:Q3099911 ;
-                    schema1:name "Passive solar" ] ;
+                    schema1:name "Passive solar" ],
+                [ a schema1:Product,
+                        schema1:Thing ;
+                    schema1:additionalType dde:equipment,
+                        wd:Q3099911 ;
+                    schema1:name "Operational Land Imager (OLI)" ] ;
             schema1:name "Landsat-8 OLI imagery acquisition" ;
             schema1:participant [ a schema1:Role ;
                     schema1:contributor [ a schema1:Organization ;
@@ -429,7 +429,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.DDEproperties.ddeImagery
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-13'
+  dateOfLastChange: '2026-11-14'
 
 ```
 
