@@ -2,10 +2,32 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "title": "DDE Semantic Resource profile",
-    "description": "DDE profile for semantic resources (semanticResource, definedTermSet). Extends DDEDiscovery with resource type constraint.",
+    "description": "DDE profile for semantic resources (semanticResource, definedTermSet). Extends ddeCore with resource type constraint.",
     "allOf": [
         {
             "$ref": "../../../DDEproperties/ddeCore/ddeCoreSchema.json"
+        },
+        {
+            "properties": {
+                "schema:subjectOf": {
+                    "properties": {
+                        "dcterms:conformsTo": {
+                            "contains": {
+                                "type": "object",
+                                "required": [
+                                    "@id"
+                                ],
+                                "additionalProperties": false,
+                                "properties": {
+                                    "@id": {
+                                        "const": "https://w3id.org/cdif/dde/1.0/DDESemanticResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         },
         {
             "properties": {

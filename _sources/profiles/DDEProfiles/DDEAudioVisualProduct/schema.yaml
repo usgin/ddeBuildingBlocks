@@ -5,6 +5,24 @@ description: DDE profile for audiovisual resources (movie, sound). Extends ddeCo
   constraint and schema:duration.
 allOf:
 - $ref: ../../../DDEproperties/ddeCore/schema.yaml
+# Conformance URI for this profile. DDE profiles are the schemas that
+# document instances claim conformance to, so the URI belongs here rather
+# than on a property building block. Placement follows the CDIF profile
+# modules (cdifCore, cdifManifest, cdifProvenance): a bare "contains" over
+# schema:subjectOf/dcterms:conformsTo. Nothing else is restated, because
+# cdifCore already requires schema:subjectOf and cdifCatalogRecord already
+# requires dcterms:conformsTo and types its items as objectReference.
+- properties:
+    'schema:subjectOf':
+      properties:
+        'dcterms:conformsTo':
+          contains:
+            type: object
+            required: ['@id']
+            additionalProperties: false
+            properties:
+              '@id':
+                const: 'https://w3id.org/cdif/dde/1.0/DDEAudioVisualProduct'
 - type: object
   properties:
     schema:additionalType:
@@ -32,14 +50,11 @@ allOf:
     schema:measurementTechnique:
       description: The technique, technology, or methodology used for measurement or determination of
         the dataset values.
-      anyOf:
-      - type: string
-      - $ref: '#/$defs/DefinedTerm'
-      - type: array
-        items:
-          anyOf:
-          - type: string
-          - $ref: '#/$defs/DefinedTerm'
+      type: array
+      items:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/DefinedTerm'
     schema:temporalCoverage:
       description: Temporal extent of resource content.
       type: array

@@ -38,7 +38,8 @@ URLs are already baked into consumers, including this repo's own `$ref`s to CDIF
 The whole repo is one composition pattern, and understanding it explains every file:
 
 - **`_sources/DDEproperties/`** — *property* building blocks. Each defines a slice of DDE-specific
-  constraints (`ddeCore`, `ddeResourceType`, `ddeCatalogRecord`, `ddeGeographicDataset`, `ddeImagery`).
+  constraints (`ddeCore`, `ddeResourceType`, `ddeActivity`, `ddeGeographicDataset`, `ddeImagery`).
+  **None of them declares a conformance URI** — see below.
 - **`_sources/profiles/DDEProfiles/`** — *profile* building blocks, one per DDE resource type. Each
   composes property blocks and pins `schema:additionalType` to the codelist terms valid for that type.
 
@@ -53,8 +54,38 @@ Constraints are expressed almost entirely as `contains` + `minContains` over arr
 adding a resource-type profile, copy an existing one and change the `enum` of allowed `termCode`s —
 the surrounding boilerplate is deliberately uniform.
 
-`archive/deprecated/` holds superseded blocks (`DDEService`, `ddeServiceInfo`); it is outside
-`_sources/` so the postprocessor ignores it.
+`archive/deprecated/` holds superseded blocks (`DDEService`, `ddeServiceInfo`, `ddeCatalogRecord`);
+it is outside `_sources/` so the postprocessor ignores it.
+
+## Conformance URIs live on the profiles, one per profile
+
+A DDE profile is what a *document instance* conforms to, so each one pins its own
+`https://w3id.org/cdif/dde/1.0/{profileName}`, where `{profileName}` is the register name
+verbatim — `DDEDataset`, `DDEImage`, `DDECollection`, and so on. The constraint is a bare
+`contains` over `schema:subjectOf`/`dcterms:conformsTo`, the placement CDIF itself uses in
+`cdifCore`, `cdifManifest` and `cdifProvenance`. Nothing restates that the array exists:
+`cdifCore` already requires `schema:subjectOf` and `cdifCatalogRecord` already requires
+`dcterms:conformsTo` and types its items as `objectReference`.
+
+Pins compose, because each is a separate `contains` over the same array. A `DDECollection`
+record therefore carries three — `cdif/core/1.1`, `cdif/manifest/1.1` and
+`cdif/dde/1.0/DDECollection` — and dropping any one of them fails validation. Verified that way
+2026-11-15.
+
+**Property blocks declare none.** Until 2026-11-15 `ddeCore` pinned
+`https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore` through a `ddeCatalogRecord`
+wrapper. That was wrong twice over: it was a register path with no version in it, and it
+asserted conformance to a building block rather than to a profile. `ddeCatalogRecord` existed
+only to carry that pin, so it is now in `archive/deprecated/` and `ddeCore` inherits
+`schema:subjectOf` from `cdifCore` unchanged.
+
+The new URIs are **not yet registered at w3id.org** — that is a separate pull request against
+the `perma-id/w3id.org` repository, outside this one. They work as identifiers in the meantime;
+they just will not resolve.
+
+Two gaps, pre-existing: `DDEWebAPI` has neither a `description.md` nor a `rules.shacl`, so it is
+the one profile with no SHACL conformance warning and no register prose. And every profile's
+`description.md` says it "Extends DDEDiscovery" while the schemas all `$ref` `ddeCore` directly.
 
 ## Source of truth and the generated chain
 

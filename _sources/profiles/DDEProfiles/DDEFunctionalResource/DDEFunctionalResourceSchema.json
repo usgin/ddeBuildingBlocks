@@ -2,10 +2,32 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "title": "DDE Functional Resource profile",
-    "description": "DDE profile for functional resources (application, webApplication, model). Extends DDEDiscovery with resource type constraint and requires a schema:relatedLink with linkRelationship \"implementationSoftware\".",
+    "description": "DDE profile for functional resources (application, webApplication, model). Extends ddeCore with resource type constraint and requires a schema:relatedLink with linkRelationship \"implementationSoftware\".",
     "allOf": [
         {
             "$ref": "../../../DDEproperties/ddeCore/ddeCoreSchema.json"
+        },
+        {
+            "properties": {
+                "schema:subjectOf": {
+                    "properties": {
+                        "dcterms:conformsTo": {
+                            "contains": {
+                                "type": "object",
+                                "required": [
+                                    "@id"
+                                ],
+                                "additionalProperties": false,
+                                "properties": {
+                                    "@id": {
+                                        "const": "https://w3id.org/cdif/dde/1.0/DDEFunctionalResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         },
         {
             "properties": {

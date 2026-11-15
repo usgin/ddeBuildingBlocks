@@ -2,10 +2,28 @@
 $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 title: DDE Software profile
-description: DDE profile for software resources. Extends DDEDiscovery with
+description: DDE profile for software resources. Extends ddeCore with
   resource type constraint.
 allOf:
 - $ref: ../../../DDEproperties/ddeCore/schema.yaml
+# Conformance URI for this profile. DDE profiles are the schemas that
+# document instances claim conformance to, so the URI belongs here rather
+# than on a property building block. Placement follows the CDIF profile
+# modules (cdifCore, cdifManifest, cdifProvenance): a bare "contains" over
+# schema:subjectOf/dcterms:conformsTo. Nothing else is restated, because
+# cdifCore already requires schema:subjectOf and cdifCatalogRecord already
+# requires dcterms:conformsTo and types its items as objectReference.
+- properties:
+    'schema:subjectOf':
+      properties:
+        'dcterms:conformsTo':
+          contains:
+            type: object
+            required: ['@id']
+            additionalProperties: false
+            properties:
+              '@id':
+                const: 'https://w3id.org/cdif/dde/1.0/DDESoftware'
 - properties:
     'schema:additionalType':
       contains:

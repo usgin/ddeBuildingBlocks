@@ -8,6 +8,28 @@
             "$ref": "../../../DDEproperties/ddeCore/ddeCoreSchema.json"
         },
         {
+            "properties": {
+                "schema:subjectOf": {
+                    "properties": {
+                        "dcterms:conformsTo": {
+                            "contains": {
+                                "type": "object",
+                                "required": [
+                                    "@id"
+                                ],
+                                "additionalProperties": false,
+                                "properties": {
+                                    "@id": {
+                                        "const": "https://w3id.org/cdif/dde/1.0/DDEAudioVisualProduct"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        {
             "type": "object",
             "properties": {
                 "schema:additionalType": {
@@ -44,27 +66,17 @@
                 },
                 "schema:measurementTechnique": {
                     "description": "The technique, technology, or methodology used for measurement or determination of the dataset values.",
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "$ref": "#/$defs/DefinedTerm"
-                        },
-                        {
-                            "type": "array",
-                            "items": {
-                                "anyOf": [
-                                    {
-                                        "type": "string"
-                                    },
-                                    {
-                                        "$ref": "#/$defs/DefinedTerm"
-                                    }
-                                ]
+                    "type": "array",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "$ref": "#/$defs/DefinedTerm"
                             }
-                        }
-                    ]
+                        ]
+                    }
                 },
                 "schema:temporalCoverage": {
                     "description": "Temporal extent of resource content.",

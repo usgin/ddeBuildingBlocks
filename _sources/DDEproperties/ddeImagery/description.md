@@ -21,4 +21,4 @@ Each imagery acquisition event is represented as a provenance activity following
 Properties that describe the image product itself (not the acquisition activity):
 
 - **`dde:wavelength`** — Wavelength range (e.g., "0.43-2.29 micrometers"). Value: string.
-- **`dde:processedLevel`** — Processing level. Value from `ProcessingLevelCode` enum: Level0, Level1, Level2, Level3, Level4.
+- **`dde:processingLevel`** — Processing level. Value from `ProcessingLevelCode` enum: Level0, Level1, Level2, Level3, Level4.
