@@ -1,0 +1,134 @@
+---
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+title: Tabular Data Type
+description: Tabular data type aligned with CDIF 2026 schema using DDI-CDI and CSVW properties. Typed
+  as cdi:TabularTextDataSet.
+properties:
+  '@type':
+    type: array
+    items:
+      type: string
+    minItems: 2
+    allOf:
+    - contains:
+        const: cdi:TabularTextDataSet
+  cdi:arrayBase:
+    type: integer
+  cdi:commentPrefix:
+    type: string
+    description: Character(s) that mark a line as a comment.
+  cdi:delimiter:
+    type: string
+    description: Field delimiter (e.g., "," or tab).
+  cdi:hasHeader:
+    type: boolean
+    default: true
+  cdi:headerRowCount:
+    type: integer
+    default: 1
+  cdi:isDelimited:
+    type: boolean
+    description: Schema constraint is that one of {'isDelimited','isFixedWidth'} must be present with
+      a True value; the other one may be present or omitted, but if present must have a false value.
+  cdi:isFixedWidth:
+    type: boolean
+  cdi:lineTerminator:
+    type: array
+    items:
+      type: string
+    description: Allowed line terminators, in order (default [CRLF, LF]).
+
+  cdi:quoteCharacter:
+    type: string
+    default: '"'
+  cdi:skipBlankRows:
+    type: boolean
+    default: false
+  cdi:skipDataColumns:
+    type: integer
+    default: 0
+  cdi:skipInitialSpace:
+    type: boolean
+    default: true
+  cdi:skipRows:
+    type: integer
+    default: 0
+  cdi:escapeCharacter:
+    type: string
+    description: The character used to escape special characters in the data. From DDI-CDI
+      PhysicalSegmentLayout.escapeCharacter.
+  cdi:headerIsCaseSensitive:
+    type: boolean
+    default: false
+    description: Whether column header names are case-sensitive. From DDI-CDI
+      PhysicalSegmentLayout.headerIsCaseSensitive.
+  cdi:treatConsecutiveDelimitersAsOne:
+    type: boolean
+    default: false
+    description: Whether consecutive delimiters should be treated as a single delimiter. From DDI-CDI
+      PhysicalSegmentLayout.treatConsecutiveDelimitersAsOne.
+  cdi:tableDirection:
+    type: string
+    default: Auto
+    enum:
+    - Auto
+    - Ltr
+    - Rtl
+    description: Direction in which columns are arranged in each row (DDI-CDI
+      TabularTextDataSet.tableDirection, TableDirectionValues enumeration).
+  cdi:textDirection:
+    type: string
+    enum:
+    - Auto
+    - Inherit
+    - Ltr
+    - Rtl
+    description: Reading order of text within cells (DDI-CDI TabularTextDataSet.textDirection,
+      TextDirectionValues enumeration).
+  cdi:trim:
+    type: string
+    enum:
+    - Both
+    - End
+    - Neither
+    - Start
+    description: Which spaces to remove from a data value (DDI-CDI TabularTextDataSet.trim,
+      TrimValues enumeration).
+  cdif:hasPhysicalMapping:
+    type: array
+    description: Links variables to their physical representation in this dataset.
+    items:
+      $ref: ../../cdifDataType/cdifPhysicalMapping/schema.yaml
+  'schema:additionalProperty':
+    description: Soft-typed extension properties. The row and column counts live here rather than
+      as bare properties, so that each carries a schema:propertyID identifying the concept it
+      quantifies - DDI Discovery caseQuantity for the row count and variableQuantity for the
+      column count. As bare unprefixed `countRows`/`countColumns` they were the only two
+      properties on this class with no namespace and no definition, so nothing said what they
+      meant or tied them to a vocabulary.
+    type: array
+    items:
+      $ref: '#/$defs/AdditionalProperty'
+oneOf:
+- properties:
+    cdi:isDelimited:
+      const: true
+    cdi:isFixedWidth:
+      const: false
+  required:
+  - cdi:isDelimited
+- properties:
+    cdi:isDelimited:
+      const: false
+    cdi:isFixedWidth:
+      const: true
+  required:
+  - cdi:isFixedWidth
+required:
+- '@type'
+- 'cdif:hasPhysicalMapping'
+
+$defs:
+  AdditionalProperty:
+    $ref: ../../schemaorgProperties/additionalProperty/schema.yaml
