@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "title": "DDE Geoscience Discovery metadata schema",
-  "description": "JSON schema for JSON-LD documents that describe geoscience datasets for the DDE Discovery profile. Composes CDIF mandatory and optional properties with DDE-specific required and optional extensions. DDE adds resource typing from the DDE ResourceTypeCode codelist, topic category and acquisition type keywords from DDE codelists, browse graphics, DDE profile conformance, alternate names, and measurement techniques. Conditional extensions for imagery (ddeImagery) are applied by resource-type profiles (e.g., DDEImage). Service resources use the DDEWebAPI profile which composes the CDIF webAPI building block.",
+  "description": "JSON schema for JSON-LD documents that describe geoscience datasets for the DDE Discovery profile. Composes CDIF core properties with DDE-specific required and optional extensions. DDE adds resource typing from the DDE ResourceTypeCode codelist, topic category and acquisition type keywords from DDE codelists, browse graphics, DDE profile conformance, alternate names, and measurement techniques. Conditional extensions for imagery (ddeImagery) are applied by resource-type profiles (e.g., DDEImage). Service resources use the DDEWebAPI profile which composes the CDIF webAPI building block.",
   "properties": {
     "schema:subjectOf": {
       "type": "object",
@@ -1172,8 +1172,7 @@
     },
     "schema:image": {
       "type": "array",
-      "description": "Browse graphics for the resource. At least one ImageObject is required for DDE metadata.",
-      "minItems": 1,
+      "description": "Browse graphics for the resource. Optional, matching the DDE XSD, where browseGraphic is minOccurs=\"0\" maxOccurs=\"unbounded\".",
       "items": {
         "type": "object",
         "properties": {
@@ -6699,8 +6698,7 @@
       "type": "object",
       "required": [
         "schema:additionalType",
-        "schema:keywords",
-        "schema:image"
+        "schema:keywords"
       ]
     },
     {

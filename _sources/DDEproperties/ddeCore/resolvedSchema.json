@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "title": "DDE Mandatory metadata properties",
-  "description": "Extends CDIF mandatory metadata with DDE-specific mandatory fields.",
+  "description": "Extends CDIFCore metadata with DDE-specific mandatory fields.",
   "properties": {
     "schema:additionalType": {
       "type": "array",
@@ -6656,8 +6656,7 @@
         },
         "schema:image": {
           "type": "array",
-          "description": "Browse graphics for the resource. At least one ImageObject is required for DDE metadata.",
-          "minItems": 1,
+          "description": "Browse graphics for the resource. Optional, matching the DDE XSD, where browseGraphic is minOccurs=\"0\" maxOccurs=\"unbounded\".",
           "items": {
             "type": "object",
             "properties": {
@@ -6694,8 +6693,7 @@
       },
       "required": [
         "schema:additionalType",
-        "schema:keywords",
-        "schema:image"
+        "schema:keywords"
       ]
     }
   ],

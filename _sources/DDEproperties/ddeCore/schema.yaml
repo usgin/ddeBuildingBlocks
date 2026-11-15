@@ -1,9 +1,9 @@
 ---
 $schema: https://json-schema.org/draft/2020-12/schema
 title: DDE Mandatory metadata properties
-description: Extends CDIF mandatory metadata with DDE-specific mandatory fields.
+description: Extends CDIFCore metadata with DDE-specific mandatory fields.
 allOf:
-- $ref: '#/$defs/CdifMandatory'
+- $ref: '#/$defs/CdifCore'
 - $ref: ../ddeResourceType/schema.yaml
 - type: object
   properties:
@@ -52,9 +52,8 @@ allOf:
           type: string
     'schema:image':
       type: array
-      description: Browse graphics for the resource. At least one ImageObject is required
-        for DDE metadata.
-      minItems: 1
+      description: Browse graphics for the resource. Optional, matching the DDE XSD,
+        where browseGraphic is minOccurs="0" maxOccurs="unbounded".
       items:
         type: object
         properties:
@@ -81,9 +80,8 @@ allOf:
   required:
   - 'schema:additionalType'
   - 'schema:keywords'
-  - 'schema:image'
 $defs:
-  CdifMandatory:
+  CdifCore:
     $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifCore/schema.yaml
   DefinedTerm:
     $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/schema.yaml
