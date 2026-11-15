@@ -2,10 +2,10 @@
   "x-defs": {
     "dde.bbr.metadata.DDEproperties.ddeCore": {
       "title": "DDE Mandatory metadata properties",
-      "description": "Extends CDIF mandatory metadata with DDE-specific mandatory fields.",
+      "description": "Extends CDIFCore metadata with DDE-specific mandatory fields: a DDE resource type, keywords from the DDE TopicCategoryCode and AcquisitionTypeCode codelists, alternate names and browse graphics.\nThis block declares no conformance URI. In DDE the profiles under profiles/DDEProfiles are what a document instance conforms to -- each one composes this block, restricts the resource type and adds extensions -- so each profile pins its own https://w3id.org/cdif/dde/1.0/{profileName}, and a record states the profile it follows rather than the property bundle inside it. Until 2026-11-15 this block pinned https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore through a ddeCatalogRecord wrapper, which named a register path with no version and asserted conformance to a building block that is not a document profile. schema:subjectOf is now inherited unchanged from cdifCore, which already requires it and refs cdifCatalogRecord for its shape.",
       "allOf": [
         {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeCore/$defs/CdifMandatory"
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeCore/$defs/CdifCore"
         },
         {
           "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeResourceType"
@@ -13,14 +13,6 @@
         {
           "type": "object",
           "properties": {
-            "schema:subjectOf": {
-              "x-jsonld-id": "http://schema.org/subjectOf",
-              "allOf": [
-                {
-                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeCore/$defs/DdeCatalogRecord"
-                }
-              ]
-            },
             "schema:keywords": {
               "type": "array",
               "description": "Extends base CDIF keyword schema to require DefinedTerms from both the DDE TopicCategoryCode and AcquisitionTypeCode codelists.",
@@ -88,24 +80,16 @@
               "x-jsonld-id": "http://schema.org/keywords"
             },
             "schema:alternateName": {
-              "description": "Alternative names or aliases for the resource.",
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              ],
+              "description": "Alternative names or aliases for the resource. A list, per the CDIF convention that any 0..* or 1..* property is always an array, so a consumer never has to branch on the JSON type.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
               "x-jsonld-id": "http://schema.org/alternateName"
             },
             "schema:image": {
               "type": "array",
-              "description": "Browse graphics for the resource. At least one ImageObject is required for DDE metadata.",
-              "minItems": 1,
+              "description": "Browse graphics for the resource. Optional, matching the DDE XSD, where browseGraphic is minOccurs=\"0\" maxOccurs=\"unbounded\".",
               "items": {
                 "type": "object",
                 "properties": {
@@ -148,20 +132,16 @@
           },
           "required": [
             "schema:additionalType",
-            "schema:keywords",
-            "schema:image"
+            "schema:keywords"
           ]
         }
       ],
       "$defs": {
-        "CdifMandatory": {
+        "CdifCore": {
           "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore"
         },
         "DefinedTerm": {
           "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm_1"
-        },
-        "DdeCatalogRecord": {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeCatalogRecord"
         }
       },
       "x-jsonld-prefixes": {
@@ -173,7 +153,7 @@
         "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeCore",
         "register": "https://usgin.github.io/ddeBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-14"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -437,7 +417,7 @@
         "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
         "register": "https://usgin.github.io/ddeBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-14"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -525,7 +505,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.definedTerm",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -678,7 +658,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.variableMeasured",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/variableMeasured/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -797,7 +777,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.statisticalVariable",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/statisticalVariable/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -1103,7 +1083,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.temporalExtent",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/temporalExtent/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -1174,7 +1154,7 @@
         "itemIdentifier": "cdif.bbr.metadata.qualityProperties.qualityMeasure",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/qualityProperties/qualityMeasure/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -1276,7 +1256,7 @@
         "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeResourceType",
         "register": "https://usgin.github.io/ddeBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-14"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -1831,7 +1811,7 @@
         "itemIdentifier": "cdif.bbr.metadata.profiles.cdifProfile.cdifCore",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/profiles/cdifProfile/cdifCore/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -1919,58 +1899,9 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.definedTerm",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml",
-      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
-    },
-    "dde.bbr.metadata.DDEproperties.ddeCatalogRecord": {
-      "type": "object",
-      "allOf": [
-        {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifCatalogRecord"
-        },
-        {
-          "properties": {
-            "dcterms:conformsTo": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "@id": {
-                    "type": "string"
-                  }
-                }
-              },
-              "minItems": 1,
-              "contains": {
-                "type": "object",
-                "properties": {
-                  "@id": {
-                    "enum": [
-                      "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
-                    ]
-                  }
-                },
-                "required": [
-                  "@id"
-                ]
-              },
-              "minContains": 1
-            }
-          }
-        }
-      ],
-      "x-jsonld-prefixes": {
-        "schema": "http://schema.org/"
-      },
-      "x-bblocks-metadata": {
-        "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeCatalogRecord",
-        "register": "https://usgin.github.io/ddeBuildingBlocks/build/register.json",
-        "version": "0.1",
-        "dateOfLastChange": "2026-11-14"
-      },
-      "x-schema-source": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCatalogRecord/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.schemaorgProperties.spatialExtent": {
@@ -2230,7 +2161,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.spatialExtent",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/spatialExtent/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -2328,7 +2259,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.additionalProperty",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -2401,7 +2332,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.identifier",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -2474,7 +2405,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.identifier",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -2497,7 +2428,7 @@
         "itemIdentifier": "cdif.bbr.metadata.cdifDataType.objectReference",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/objectReference/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -2638,7 +2569,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.labeledLink",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/labeledLink/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -2661,7 +2592,7 @@
         "itemIdentifier": "cdif.bbr.metadata.cdifDataType.objectReference",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/objectReference/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -2749,7 +2680,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.linkRole",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/linkRole/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -2769,7 +2700,7 @@
         "itemIdentifier": "cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifConceptOrTermOrString/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -2910,7 +2841,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.labeledLink",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/labeledLink/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -2937,7 +2868,7 @@
         "itemIdentifier": "cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifConceptOrTerm/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -3168,7 +3099,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.dataDownload",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/dataDownload/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -3259,7 +3190,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.webAPI",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/webAPI/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -3419,7 +3350,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.person",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/person/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -3554,7 +3485,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.organization",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/organization/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -3623,7 +3554,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.agentInRole",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/agentInRole/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -3725,7 +3656,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.monetaryGrant",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/monetaryGrant/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -3785,7 +3716,7 @@
         "itemIdentifier": "cdif.bbr.metadata.provProperties.generatedBy",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/provProperties/generatedBy/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -3816,7 +3747,7 @@
         "itemIdentifier": "cdif.bbr.metadata.provProperties.derivedFrom",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/provProperties/derivedFrom/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -3983,7 +3914,7 @@
         "itemIdentifier": "cdif.bbr.metadata.cdifDataType.cdifCatalogRecord",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.2",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifCatalogRecord/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -4003,7 +3934,7 @@
         "itemIdentifier": "cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifConceptOrTermOrString/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -4355,7 +4286,7 @@
         "itemIdentifier": "cdif.bbr.metadata.skosProperties.skosConcept",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/skosProperties/skosConcept/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -4553,7 +4484,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.action",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/action/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -4580,7 +4511,7 @@
         "itemIdentifier": "cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifConceptOrTerm/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -4639,7 +4570,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.actionResult",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/actionResult/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -4991,7 +4922,7 @@
         "itemIdentifier": "cdif.bbr.metadata.skosProperties.skosConcept",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/skosProperties/skosConcept/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -5003,6 +4934,32 @@
   "allOf": [
     {
       "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeCore"
+    },
+    {
+      "properties": {
+        "schema:subjectOf": {
+          "properties": {
+            "dcterms:conformsTo": {
+              "contains": {
+                "type": "object",
+                "required": [
+                  "@id"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "@id": {
+                    "enum": [
+                      "https://w3id.org/cdif/dde/1.0/DDEDataset"
+                    ]
+                  }
+                }
+              },
+              "x-jsonld-id": "http://purl.org/dc/terms/conformsTo"
+            }
+          },
+          "x-jsonld-id": "http://schema.org/subjectOf"
+        }
+      }
     },
     {
       "type": "object",
@@ -5044,27 +5001,17 @@
         },
         "schema:measurementTechnique": {
           "description": "The technique, technology, or methodology used for measurement or determination of the dataset values.",
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/$defs/DefinedTerm"
-            },
-            {
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/$defs/DefinedTerm"
-                  }
-                ]
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEDataset/schema-oas3.0.json#/$defs/DefinedTerm"
               }
-            }
-          ],
+            ]
+          },
           "x-jsonld-id": "http://schema.org/measurementTechnique"
         },
         "schema:variableMeasured": {
@@ -5155,7 +5102,7 @@
     "itemIdentifier": "dde.bbr.metadata.profiles.DDEProfiles.DDEDataset",
     "register": "https://usgin.github.io/ddeBuildingBlocks/build/register.json",
     "version": "0.1",
-    "dateOfLastChange": "2026-11-14"
+    "dateOfLastChange": "2026-11-15"
   },
   "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
 }

@@ -1,11 +1,25 @@
 $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 title: DDE Event profile
-description: DDE profile for event resources (initiative, fieldSession). Extends DDEDiscovery
+description: DDE profile for event resources (initiative, fieldSession). Extends ddeCore
   with resource type constraint and requires schema:temporalCoverage (mandatory temporal
   extent for events).
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
+- properties:
+    schema:subjectOf:
+      properties:
+        dcterms:conformsTo:
+          contains:
+            type: object
+            required:
+            - '@id'
+            additionalProperties: false
+            properties:
+              '@id':
+                const: https://w3id.org/cdif/dde/1.0/DDEEvent
+          x-jsonld-id: http://purl.org/dc/terms/conformsTo
+      x-jsonld-id: http://schema.org/subjectOf
 - properties:
     schema:additionalType:
       contains:
@@ -53,4 +67,4 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEEvent
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-14'
+  dateOfLastChange: '2026-11-15'

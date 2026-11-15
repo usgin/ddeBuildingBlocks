@@ -3,7 +3,7 @@
 
 `dde.bbr.metadata.profiles.DDEProfiles.DDEDocument` *v0.1*
 
-DDE profile for document resources (document, article, thesis, book, poster, webPage). Extends DDEDiscovery with resource type constraint.
+DDE profile for document resources (document, article, thesis, book, poster, webPage). Extends ddeCore with resource type constraint.
 
 [*Status*](http://www.opengis.net/def/status): Under development
 
@@ -11,15 +11,33 @@ DDE profile for document resources (document, article, thesis, book, poster, web
 
 ## DDE Document Profile
 
-DDE profile for document resources. Extends DDEDiscovery with a resource type constraint.
+DDE profile for document resources. Extends `ddeCore` with a resource type constraint.
 
 ### Resource type codes
 document, article, thesis, book, poster, webPage
 
 ### Composed building blocks
 
-1. **DDEDiscovery** — Base DDE discovery profile
+1. **ddeCore** — DDE core properties: resource type from `dde:codelist/ResourceTypeCode`, topic category and acquisition type keywords, alternate names, optional browse graphics. `ddeCore` composes `cdifCore`, so CDIF's mandatory fields come in with it.
 2. **Resource type constraint** — `schema:termCode` must be one of the document group codes
+
+### Conformance
+
+A document instance claiming this profile declares it on the catalog record:
+
+```json
+"schema:subjectOf": {
+    "dcterms:conformsTo": [
+        {"@id": "https://w3id.org/cdif/core/1.1"},
+        {"@id": "https://w3id.org/cdif/dde/1.0/DDEDocument"}
+    ]
+}
+```
+
+`https://w3id.org/cdif/dde/1.0/DDEDocument` is required by this profile's schema, as a
+`contains` over `schema:subjectOf`/`dcterms:conformsTo`. The URI is on the profile
+because DDE profiles are what document instances conform to; the property building
+blocks they compose, `ddeCore` among them, declare none of their own.
 
 ## Examples
 
@@ -28,149 +46,146 @@ DDE discovery metadata for a published research article on global plate tectonic
 #### json
 ```json
 {
-  "@context": {
-    "schema": "http://schema.org/",
-    "dde": "https://www.ddeworld.org/resource/",
-    "cdif": "https://cdif.org/profile/",
-    "dcterms": "http://purl.org/dc/terms/",
-    "dcat": "http://www.w3.org/ns/dcat#",
-    "prov": "http://www.w3.org/ns/prov#"
-  },
-  "@id": "urn:dde:example-plate-tectonics-article",
-  "@type": [
-    "schema:Dataset"
-  ],
-  "schema:name": "Global Plate Tectonics and Paleogeography Since the Late Paleozoic",
-  "schema:description": "Published research article presenting a comprehensive plate tectonic and paleogeographic model for the Earth from the Late Paleozoic to the present day (410 Ma to 0 Ma). Includes digital reconstructions of continental configurations, ocean basins, and major tectonic boundaries through geological time.",
-  "schema:identifier": {
+    "@context": {
+        "schema": "http://schema.org/",
+        "dde": "https://www.ddeworld.org/resource/",
+        "cdif": "https://cdif.org/profile/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "dcat": "http://www.w3.org/ns/dcat#",
+        "prov": "http://www.w3.org/ns/prov#"
+    },
+    "@id": "urn:dde:example-plate-tectonics-article",
     "@type": [
-      "schema:PropertyValue"
+        "schema:Dataset"
     ],
-    "schema:propertyID": "schema:identifier",
-    "schema:name": "DOI",
-    "schema:value": "10.1016/j.earscirev.2021.103477",
-    "schema:url": "https://doi.org/10.1016/j.earscirev.2021.103477"
-  },
-  "schema:dateModified": "2021-02-15",
-  "schema:datePublished": "2021-02-15",
-  "schema:inLanguage": "eng",
-  "schema:license": [
-    {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "Elsevier User License",
-      "schema:url": "https://www.elsevier.com/about/policies/open-access-licenses"
-    }
-  ],
-  "schema:subjectOf": {
-    "@id": "urn:uuid:dde-document-catalog-record",
-    "@type": [
-      "schema:Dataset"
-    ],
-    "schema:additionalType": [
-      {
-        "@id": "dcat:CatalogRecord"
-      }
-    ],
-    "schema:about": {
-      "@id": "urn:dde:example-plate-tectonics-article"
-    },
-    "dcterms:conformsTo": [
-      {
-        "@id": "https://w3id.org/cdif/core/1.1"
-      },
-      {
-        "@id": "https://w3id.org/cdif/discovery/1.1"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
-      }
-    ],
-    "schema:sdDatePublished": "2021-02-15"
-  },
-  "schema:additionalType": [
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Document",
-      "schema:termCode": "document",
-      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-    },
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Article",
-      "schema:termCode": "article",
-      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-    }
-  ],
-  "schema:keywords": [
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Geoscientific Information",
-      "schema:termCode": "geoscientificInformation",
-      "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
-    },
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Data Integration Synthesis",
-      "schema:termCode": "dataIntegrationSynthesis",
-      "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
-    },
-    "plate tectonics",
-    "paleogeography",
-    "Pangaea",
-    "continental drift"
-  ],
-  "schema:image": [
-    {
-      "@type": [
-        "schema:ImageObject"
-      ],
-      "schema:contentUrl": "https://doi.org/10.1016/j.earscirev.2021.103477/thumbnail.jpg",
-      "schema:name": "article thumbnail",
-      "schema:encodingFormat": "image/jpeg"
-    }
-  ],
-  "schema:creator": {
-    "@list": [
-      {
+    "schema:name": "Global Plate Tectonics and Paleogeography Since the Late Paleozoic",
+    "schema:description": "Published research article presenting a comprehensive plate tectonic and paleogeographic model for the Earth from the Late Paleozoic to the present day (410 Ma to 0 Ma). Includes digital reconstructions of continental configurations, ocean basins, and major tectonic boundaries through geological time.",
+    "schema:identifier": {
         "@type": [
-          "schema:Person"
+            "schema:PropertyValue"
         ],
-        "schema:name": "Dietmar Muller",
-        "schema:identifier": "https://orcid.org/0000-0002-3334-5764",
-        "schema:affiliation": {
-          "@type": [
-            "schema:Organization"
-          ],
-          "schema:name": "University of Sydney"
+        "schema:propertyID": "schema:identifier",
+        "schema:name": "DOI",
+        "schema:value": "10.1016/j.earscirev.2021.103477",
+        "schema:url": "https://doi.org/10.1016/j.earscirev.2021.103477"
+    },
+    "schema:dateModified": "2021-02-15",
+    "schema:datePublished": "2021-02-15",
+    "schema:inLanguage": "eng",
+    "schema:license": [
+        {
+            "@type": [
+                "schema:CreativeWork"
+            ],
+            "schema:name": "Elsevier User License",
+            "schema:url": "https://www.elsevier.com/about/policies/open-access-licenses"
         }
-      }
+    ],
+    "schema:subjectOf": {
+        "@id": "urn:uuid:dde-document-catalog-record",
+        "@type": [
+            "schema:Dataset"
+        ],
+        "schema:additionalType": [
+            {
+                "@id": "dcat:CatalogRecord"
+            }
+        ],
+        "schema:about": {
+            "@id": "urn:dde:example-plate-tectonics-article"
+        },
+        "dcterms:conformsTo": [
+            {
+                "@id": "https://w3id.org/cdif/core/1.1"
+            },
+            {
+                "@id": "https://w3id.org/cdif/discovery/1.1"
+            },
+            {
+                "@id": "https://w3id.org/cdif/dde/1.0/DDEDocument"
+            }
+        ],
+        "schema:sdDatePublished": "2021-02-15"
+    },
+    "schema:additionalType": [
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Document",
+            "schema:termCode": "document",
+            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+        },
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Article",
+            "schema:termCode": "article",
+            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+        }
+    ],
+    "schema:keywords": [
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Geoscientific Information",
+            "schema:termCode": "geoscientificInformation",
+            "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
+        },
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Data Integration Synthesis",
+            "schema:termCode": "dataIntegrationSynthesis",
+            "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
+        },
+        "plate tectonics",
+        "paleogeography",
+        "Pangaea",
+        "continental drift"
+    ],
+    "schema:image": [
+        {
+            "@type": [
+                "schema:ImageObject"
+            ],
+            "schema:contentUrl": "https://doi.org/10.1016/j.earscirev.2021.103477/thumbnail.jpg",
+            "schema:name": "article thumbnail",
+            "schema:encodingFormat": "image/jpeg"
+        }
+    ],
+    "schema:creator": {
+        "@list": [
+            {
+                "@type": [
+                    "schema:Person"
+                ],
+                "schema:name": "Dietmar Muller",
+                "schema:identifier": "https://orcid.org/0000-0002-3334-5764",
+                "schema:affiliation": {
+                    "@type": [
+                        "schema:Organization"
+                    ],
+                    "schema:name": "University of Sydney"
+                }
+            }
+        ]
+    },
+    "schema:distribution": [
+        {
+            "@type": [
+                "schema:DataDownload"
+            ],
+            "schema:name": "Article PDF",
+            "schema:contentUrl": "https://doi.org/10.1016/j.earscirev.2021.103477",
+            "schema:encodingFormat": [
+                "application/pdf"
+            ]
+        }
     ]
-  },
-  "schema:distribution": [
-    {
-      "@type": [
-        "schema:DataDownload"
-      ],
-      "schema:name": "Article PDF",
-      "schema:contentUrl": "https://doi.org/10.1016/j.earscirev.2021.103477",
-      "schema:encodingFormat": [
-        "application/pdf"
-      ]
-    }
-  ]
 }
 
 ```
@@ -245,10 +260,7 @@ DDE discovery metadata for a published research article on global plate tectonic
         "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
+        "@id": "https://w3id.org/cdif/dde/1.0/DDEDocument"
       }
     ],
     "schema:sdDatePublished": "2021-02-15"
@@ -345,12 +357,12 @@ DDE discovery metadata for a published research article on global plate tectonic
 <urn:dde:example-plate-tectonics-article> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Article" ;
-            schema1:termCode "article" ],
+            schema1:name "Document" ;
+            schema1:termCode "document" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Document" ;
-            schema1:termCode "document" ] ;
+            schema1:name "Article" ;
+            schema1:termCode "article" ] ;
     schema1:creator ( [ a schema1:Person ;
                 schema1:affiliation [ a schema1:Organization ;
                         schema1:name "University of Sydney" ] ;
@@ -374,13 +386,13 @@ DDE discovery metadata for a published research article on global plate tectonic
             schema1:name "article thumbnail" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Data Integration Synthesis" ;
             schema1:termCode "dataIntegrationSynthesis" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "Pangaea",
         "continental drift",
         "paleogeography",
@@ -392,9 +404,8 @@ DDE discovery metadata for a published research article on global plate tectonic
     schema1:subjectOf <urn:uuid:dde-document-catalog-record> .
 
 <urn:uuid:dde-document-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
-        <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDocument>,
-        <https://w3id.org/cdif/core/1.1>,
+    dcterms:conformsTo <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/dde/1.0/DDEDocument>,
         <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about <urn:dde:example-plate-tectonics-article> ;
     schema1:additionalType dcat:CatalogRecord ;
@@ -410,9 +421,23 @@ $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 title: DDE Document profile
 description: DDE profile for document resources (document, article, thesis, book,
-  poster, webPage). Extends DDEDiscovery with resource type constraint.
+  poster, webPage). Extends ddeCore with resource type constraint.
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
+- properties:
+    schema:subjectOf:
+      properties:
+        dcterms:conformsTo:
+          contains:
+            type: object
+            required:
+            - '@id'
+            additionalProperties: false
+            properties:
+              '@id':
+                const: https://w3id.org/cdif/dde/1.0/DDEDocument
+          x-jsonld-id: http://purl.org/dc/terms/conformsTo
+      x-jsonld-id: http://schema.org/subjectOf
 - properties:
     schema:additionalType:
       contains:
@@ -462,7 +487,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEDocument
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-14'
+  dateOfLastChange: '2026-11-15'
 
 ```
 

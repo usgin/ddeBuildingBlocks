@@ -5,6 +5,20 @@ description: DDE profile for audiovisual resources (movie, sound). Extends ddeCo
   with resource type constraint and schema:duration.
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
+- properties:
+    schema:subjectOf:
+      properties:
+        dcterms:conformsTo:
+          contains:
+            type: object
+            required:
+            - '@id'
+            additionalProperties: false
+            properties:
+              '@id':
+                const: https://w3id.org/cdif/dde/1.0/DDEAudioVisualProduct
+          x-jsonld-id: http://purl.org/dc/terms/conformsTo
+      x-jsonld-id: http://schema.org/subjectOf
 - type: object
   properties:
     schema:additionalType:
@@ -34,14 +48,11 @@ allOf:
     schema:measurementTechnique:
       description: The technique, technology, or methodology used for measurement
         or determination of the dataset values.
-      anyOf:
-      - type: string
-      - $ref: '#/$defs/DefinedTerm'
-      - type: array
-        items:
-          anyOf:
-          - type: string
-          - $ref: '#/$defs/DefinedTerm'
+      type: array
+      items:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/DefinedTerm'
       x-jsonld-id: http://schema.org/measurementTechnique
     schema:temporalCoverage:
       description: Temporal extent of resource content.
@@ -77,4 +88,4 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEAudioVisualProduct
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-14'
+  dateOfLastChange: '2026-11-15'

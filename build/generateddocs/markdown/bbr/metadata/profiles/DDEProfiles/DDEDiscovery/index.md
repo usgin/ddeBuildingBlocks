@@ -11,19 +11,27 @@ Gather building blocks to generate a DDE Geoscience Discovery record. Composes C
 
 ## DDE Geoscience Discovery Metadata Profile
 
-Composes CDIF discovery metadata building blocks with DDE-specific extensions to create a complete geoscience discovery metadata profile.
+Composes `ddeCore` with a temporal extent and quality measurements, to give a DDE discovery metadata profile that is not tied to one resource type.
+
+**This is a sibling of the resource-type profiles, not their base.** Every DDE profile `$ref`s `ddeCore` directly; none `$ref`s DDEDiscovery. Each profile's description said it "extends DDEDiscovery" until 2026-11-15, which no schema ever did.
 
 ### Composed building blocks
 
-1. **cdifCore** — Base CDIF mandatory fields: @id, @type, name, identifier, dateModified, subjectOf, license/conditionsOfAccess, url/distribution.
-2. **cdifOptional** — CDIF optional fields: description, creator, contributor, publisher, provider, keywords, spatialCoverage, temporalCoverage, distribution, provenance, quality, funding, etc.
-3. **ddeCore** — DDE mandatory extensions:
-   - Resource type from `dde:codelist/ResourceTypeCode` (42 geoscience types)
-   - Topic category keywords from `dde:codelist/TopicCategoryCode`
-   - Acquisition type keywords from `dde:codelist/AcquisitionTypeCode`
-   - Browse graphic images (`schema:ImageObject`)
-   - DDE profile conformance
-4. **ddeOptional** — DDE optional extensions: alternate names.
+1. **ddeCore** — DDE core properties:
+   - Resource type from `dde:codelist/ResourceTypeCode`, required
+   - Topic category keywords from `dde:codelist/TopicCategoryCode`, required
+   - Acquisition type keywords from `dde:codelist/AcquisitionTypeCode`, required
+   - Alternate names, optional
+   - Browse graphic images (`schema:ImageObject`), optional, matching the DDE XSD
+   `ddeCore` composes `cdifCore`, which brings in CDIF's mandatory fields: `@id`, `@type`,
+   `@context`, `schema:name`, `schema:identifier`, `schema:dateModified`,
+   `schema:subjectOf`, one of license or conditionsOfAccess, and one of url or distribution.
+2. **`schema:temporalCoverage`** (optional) — temporal extent of the resource content.
+3. **`dqv:hasQualityMeasurement`** (optional) — quality measurements reported for the resource.
+
+There are no `cdifOptional` or `ddeOptional` building blocks. This list named both until
+2026-11-15; CDIF's optional discovery properties live in `cdifCore` and `cdifDiscovery`,
+and DDE's alternate names in `ddeCore`.
 
 ### Resource-type profiles
 
@@ -32,7 +40,28 @@ The following profiles extend DDEDiscovery with resource-type-specific constrain
 - **DDEDataset** — Datasets; conditional ddeGeographicDataset for geographicDataset type.
 - **DDEImage** — Imagery resources; includes ddeImagery; conditional ddeGeographicDataset for map type.
 - **DDEWebAPI** — Service resources described as WebAPIs; composes CDIF webAPI building block with DDE ServiceTypeCode constraints.
-- **DDECollection**, **DDEDocument**, **DDEEvent**, **DDESoftware**, etc. — Resource-type-specific additionalType constraints.
+- **DDECollection** — Collections; composes `cdifManifest` for `schema:hasPart`.
+- **DDEAudioVisualProduct**, **DDEDocument**, **DDEEvent**, **DDEFunctionalResource**,
+  **DDESemanticResource**, **DDESoftware** — resource-type `additionalType` constraints,
+  each adding the few properties its type needs.
+
+### Conformance
+
+A document instance claiming this profile declares it on the catalog record:
+
+```json
+"schema:subjectOf": {
+    "dcterms:conformsTo": [
+        {"@id": "https://w3id.org/cdif/core/1.1"},
+        {"@id": "https://w3id.org/cdif/dde/1.0/DDEDiscovery"}
+    ]
+}
+```
+
+`https://w3id.org/cdif/dde/1.0/DDEDiscovery` is required by this profile's schema, as a
+`contains` over `schema:subjectOf`/`dcterms:conformsTo`. The URI is on the profile
+because DDE profiles are what document instances conform to; the property building
+blocks they compose, `ddeCore` among them, declare none of their own.
 
 ## Examples
 
@@ -41,219 +70,216 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
 #### json
 ```json
 {
-  "@context": {
-    "schema": "http://schema.org/",
-    "dde": "https://www.ddeworld.org/resource/",
-    "cdif": "https://cdif.org/profile/",
-    "dcterms": "http://purl.org/dc/terms/",
-    "dcat": "http://www.w3.org/ns/dcat#",
-    "spdx": "http://spdx.org/rdf/terms#",
-    "geosparql": "http://www.opengis.net/ont/geosparql#",
-    "time": "http://www.w3.org/2006/time#",
-    "prov": "http://www.w3.org/ns/prov#"
-  },
-  "@id": "urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654",
-  "@type": [
-    "schema:Dataset"
-  ],
-  "schema:name": "CHN CGS EN 1:1M Bedrock Lithostratigraphy",
-  "schema:alternateName": [
-    "Bedrock lithostratigraphic map of China",
-    "中国基岩地层图"
-  ],
-  "schema:description": "China 1:1M Bedrock Geology layer are composed by 63 sheets separate geological layers and information about sedimentary strata, quaternary strata, Igneous and metamorphic rocks. Sedimentary strata are be mapped by chronostratigraphic units and the rock formations. Intrusive rocks are be showed by the rock plus years, Pliocene strata are expressed by lithology and volcanic pattern. The layer includes more than 5,000 lithostratigraphic units and more than 1700 intrusive unit. Each geological units have attributes. For more information about China geological maps that are available please visit http://en.cgs.gov.cn/",
-  "schema:identifier": "urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654",
-  "schema:dateModified": "2018-09-07",
-  "schema:inLanguage": "zho",
-  "schema:license": [
-    "licenceUnrestricted"
-  ],
-  "schema:url": "http://en.cgs.gov.cn/",
-  "schema:subjectOf": {
-    "@id": "urn:uuid:22e1d1ca752a7bc3ff4e90014e760e8a08947654",
+    "@context": {
+        "schema": "http://schema.org/",
+        "dde": "https://www.ddeworld.org/resource/",
+        "cdif": "https://cdif.org/profile/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "dcat": "http://www.w3.org/ns/dcat#",
+        "spdx": "http://spdx.org/rdf/terms#",
+        "geosparql": "http://www.opengis.net/ont/geosparql#",
+        "time": "http://www.w3.org/2006/time#",
+        "prov": "http://www.w3.org/ns/prov#"
+    },
+    "@id": "urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654",
     "@type": [
-      "schema:Dataset"
+        "schema:Dataset"
     ],
+    "schema:name": "CHN CGS EN 1:1M Bedrock Lithostratigraphy",
+    "schema:alternateName": [
+        "Bedrock lithostratigraphic map of China",
+        "中国基岩地层图"
+    ],
+    "schema:description": "China 1:1M Bedrock Geology layer are composed by 63 sheets separate geological layers and information about sedimentary strata, quaternary strata, Igneous and metamorphic rocks. Sedimentary strata are be mapped by chronostratigraphic units and the rock formations. Intrusive rocks are be showed by the rock plus years, Pliocene strata are expressed by lithology and volcanic pattern. The layer includes more than 5,000 lithostratigraphic units and more than 1700 intrusive unit. Each geological units have attributes. For more information about China geological maps that are available please visit http://en.cgs.gov.cn/",
+    "schema:identifier": "urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654",
+    "schema:dateModified": "2018-09-07",
+    "schema:inLanguage": "zho",
+    "schema:license": [
+        "licenceUnrestricted"
+    ],
+    "schema:url": "http://en.cgs.gov.cn/",
+    "schema:subjectOf": {
+        "@id": "urn:uuid:22e1d1ca752a7bc3ff4e90014e760e8a08947654",
+        "@type": [
+            "schema:Dataset"
+        ],
+        "schema:additionalType": [
+            {
+                "@id": "dcat:CatalogRecord"
+            }
+        ],
+        "schema:about": {
+            "@id": "urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654"
+        },
+        "dcterms:conformsTo": [
+            {
+                "@id": "https://w3id.org/cdif/core/1.1"
+            },
+            {
+                "@id": "https://w3id.org/cdif/discovery/1.1"
+            },
+            {
+                "@id": "https://w3id.org/cdif/dde/1.0/DDEDiscovery"
+            }
+        ],
+        "schema:sdDatePublished": "2018-09-07",
+        "schema:maintainer": {
+            "@type": [
+                "schema:Person"
+            ],
+            "schema:name": "Yang Tiantian",
+            "schema:identifier": "http://orcid.org/q34r2675427",
+            "schema:contactPoint": {
+                "@type": [
+                    "schema:ContactPoint"
+                ],
+                "schema:email": "ytiantian@mail.cgs.gov.cn"
+            }
+        }
+    },
     "schema:additionalType": [
-      {
-        "@id": "dcat:CatalogRecord"
-      }
-    ],
-    "schema:about": {
-      "@id": "urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654"
-    },
-    "dcterms:conformsTo": [
-      {
-        "@id": "https://w3id.org/cdif/core/1.1"
-      },
-      {
-        "@id": "https://w3id.org/cdif/discovery/1.1"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
-      }
-    ],
-    "schema:sdDatePublished": "2018-09-07",
-    "schema:maintainer": {
-      "@type": [
-        "schema:Person"
-      ],
-      "schema:name": "Yang Tiantian",
-      "schema:identifier": "http://orcid.org/q34r2675427",
-      "schema:contactPoint": {
-        "@type": [
-          "schema:ContactPoint"
-        ],
-        "schema:email": "ytiantian@mail.cgs.gov.cn"
-      }
-    }
-  },
-  "schema:additionalType": [
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Geographic Dataset",
-      "schema:termCode": "geographicDataset",
-      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-    },
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Map",
-      "schema:termCode": "map",
-      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-    }
-  ],
-  "schema:keywords": [
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Geoscientific Information",
-      "schema:termCode": "geoscientificInformation",
-      "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
-    },
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Geological Mapping",
-      "schema:termCode": "geologicalMapping",
-      "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
-    },
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Data Integration Synthesis",
-      "schema:termCode": "dataIntegrationSynthesis",
-      "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
-    },
-    "OneGeology",
-    "geology",
-    "Asia",
-    "China"
-  ],
-  "schema:image": [
-    {
-      "@type": [
-        "schema:ImageObject"
-      ],
-      "schema:contentUrl": "http://onegeology-geonetwork.brgm.fr/geonetwork3/srv/eng//resources.get?uuid=22e1d1ca752a7bc3ff4e90014e760e8a08947654&fname=22e1d1ca752a7bc3ff4e90014e760e8a08947654_s.png",
-      "schema:name": "thumbnail",
-      "schema:encodingFormat": "image/png"
-    },
-    {
-      "@type": [
-        "schema:ImageObject"
-      ],
-      "schema:contentUrl": "http://onegeology-geonetwork.brgm.fr/geonetwork3/srv/eng//resources.get?uuid=22e1d1ca752a7bc3ff4e90014e760e8a08947654&fname=22e1d1ca752a7bc3ff4e90014e760e8a08947654.png",
-      "schema:name": "large thumbnail",
-      "schema:encodingFormat": "image/png"
-    }
-  ],
-  "schema:spatialCoverage": [
-    {
-      "@type": [
-        "schema:Place"
-      ],
-      "schema:geo": {
-        "@type": [
-          "schema:GeoShape"
-        ],
-        "schema:box": "18.1609 73.499 53.5585 135.08"
-      }
-    }
-  ],
-  "schema:temporalCoverage": [
-    {
-      "@type": [
-        "time:ProperInterval"
-      ],
-      "time:hasBeginning": {
-        "@type": [
-          "time:Instant"
-        ],
-        "time:inTimePosition": {
-          "@type": [
-            "time:TimePosition"
-          ],
-          "time:hasTRS": "https://example.org/trs/ma-before-present",
-          "time:numericPosition": 3804
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Geographic Dataset",
+            "schema:termCode": "geographicDataset",
+            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+        },
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Map",
+            "schema:termCode": "map",
+            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
         }
-      },
-      "time:hasEnd": {
-        "@type": [
-          "time:Instant"
-        ],
-        "time:inTimePosition": {
-          "@type": [
-            "time:TimePosition"
-          ],
-          "time:hasTRS": "https://example.org/trs/ma-before-present",
-          "time:numericPosition": 0
+    ],
+    "schema:keywords": [
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Geoscientific Information",
+            "schema:termCode": "geoscientificInformation",
+            "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
+        },
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Geological Mapping",
+            "schema:termCode": "geologicalMapping",
+            "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
+        },
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Data Integration Synthesis",
+            "schema:termCode": "dataIntegrationSynthesis",
+            "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
+        },
+        "OneGeology",
+        "geology",
+        "Asia",
+        "China"
+    ],
+    "schema:image": [
+        {
+            "@type": [
+                "schema:ImageObject"
+            ],
+            "schema:contentUrl": "http://onegeology-geonetwork.brgm.fr/geonetwork3/srv/eng//resources.get?uuid=22e1d1ca752a7bc3ff4e90014e760e8a08947654&fname=22e1d1ca752a7bc3ff4e90014e760e8a08947654_s.png",
+            "schema:name": "thumbnail",
+            "schema:encodingFormat": "image/png"
+        },
+        {
+            "@type": [
+                "schema:ImageObject"
+            ],
+            "schema:contentUrl": "http://onegeology-geonetwork.brgm.fr/geonetwork3/srv/eng//resources.get?uuid=22e1d1ca752a7bc3ff4e90014e760e8a08947654&fname=22e1d1ca752a7bc3ff4e90014e760e8a08947654.png",
+            "schema:name": "large thumbnail",
+            "schema:encodingFormat": "image/png"
         }
-      }
-    }
-  ],
-  "schema:distribution": [
-    {
-      "@type": [
-        "schema:DataDownload"
-      ],
-      "schema:name": "CHN_CGS_EN_1M_BLS",
-      "schema:description": "CHN CGS EN 1:1M Bedrock Lithostratigraphy",
-      "schema:contentUrl": "http://onegeologychina.cgs.gov.cn/cgi-bin/mapserv.exe?map=C:/ms4w/apps/CHINAGEOLOGY/CHINAMMAP_ENGLISH.map&",
-      "schema:encodingFormat": [
-        "image/jpg",
-        "image/png",
-        "image/tif"
-      ]
-    }
-  ],
-  "schema:relatedLink": [
-    {
-      "@type": [
-        "schema:LinkRole"
-      ],
-      "schema:linkRelationship": "order",
-      "target": {
-        "@type": [
-          "schema:EntryPoint"
-        ],
-        "schema:name": "China geological maps that are available",
-        "schema:url": "http://en.cgs.gov.cn/"
-      }
-    }
-  ],
-  "prov:wasDerivedFrom": [
-    "Paleoarchean through Holocene geological mapping data from 63 separate geological survey sheets"
-  ]
+    ],
+    "schema:spatialCoverage": [
+        {
+            "@type": [
+                "schema:Place"
+            ],
+            "schema:geo": {
+                "@type": [
+                    "schema:GeoShape"
+                ],
+                "schema:box": "18.1609 73.499 53.5585 135.08"
+            }
+        }
+    ],
+    "schema:temporalCoverage": [
+        {
+            "@type": [
+                "time:ProperInterval"
+            ],
+            "time:hasBeginning": {
+                "@type": [
+                    "time:Instant"
+                ],
+                "time:inTimePosition": {
+                    "@type": [
+                        "time:TimePosition"
+                    ],
+                    "time:hasTRS": "https://example.org/trs/ma-before-present",
+                    "time:numericPosition": 3804
+                }
+            },
+            "time:hasEnd": {
+                "@type": [
+                    "time:Instant"
+                ],
+                "time:inTimePosition": {
+                    "@type": [
+                        "time:TimePosition"
+                    ],
+                    "time:hasTRS": "https://example.org/trs/ma-before-present",
+                    "time:numericPosition": 0
+                }
+            }
+        }
+    ],
+    "schema:distribution": [
+        {
+            "@type": [
+                "schema:DataDownload"
+            ],
+            "schema:name": "CHN_CGS_EN_1M_BLS",
+            "schema:description": "CHN CGS EN 1:1M Bedrock Lithostratigraphy",
+            "schema:contentUrl": "http://onegeologychina.cgs.gov.cn/cgi-bin/mapserv.exe?map=C:/ms4w/apps/CHINAGEOLOGY/CHINAMMAP_ENGLISH.map&",
+            "schema:encodingFormat": [
+                "image/jpg",
+                "image/png",
+                "image/tif"
+            ]
+        }
+    ],
+    "schema:relatedLink": [
+        {
+            "@type": [
+                "schema:LinkRole"
+            ],
+            "schema:linkRelationship": "order",
+            "target": {
+                "@type": [
+                    "schema:EntryPoint"
+                ],
+                "schema:name": "China geological maps that are available",
+                "schema:url": "http://en.cgs.gov.cn/"
+            }
+        }
+    ],
+    "prov:wasDerivedFrom": [
+        "Paleoarchean through Holocene geological mapping data from 63 separate geological survey sheets"
+    ]
 }
 
 ```
@@ -322,10 +348,7 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
         "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
+        "@id": "https://w3id.org/cdif/dde/1.0/DDEDiscovery"
       }
     ],
     "schema:sdDatePublished": "2018-09-07",
@@ -534,12 +557,12 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
             schema1:termCode "geoscientificInformation" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Data Integration Synthesis" ;
-            schema1:termCode "dataIntegrationSynthesis" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Geological Mapping" ;
             schema1:termCode "geologicalMapping" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Data Integration Synthesis" ;
+            schema1:termCode "dataIntegrationSynthesis" ],
         "Asia",
         "China",
         "OneGeology",
@@ -565,9 +588,8 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
     prov:wasDerivedFrom "Paleoarchean through Holocene geological mapping data from 63 separate geological survey sheets" .
 
 <urn:uuid:22e1d1ca752a7bc3ff4e90014e760e8a08947654> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
-        <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery>,
-        <https://w3id.org/cdif/core/1.1>,
+    dcterms:conformsTo <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/dde/1.0/DDEDiscovery>,
         <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about <urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654> ;
     schema1:additionalType dcat:CatalogRecord ;
@@ -587,381 +609,380 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
 #### json
 ```json
 {
-  "@context": {
-    "schema": "http://schema.org/",
-    "dde": "https://www.ddeworld.org/resource/",
-    "cdif": "https://cdif.org/profile/",
-    "dcterms": "http://purl.org/dc/terms/",
-    "dcat": "http://www.w3.org/ns/dcat#",
-    "spdx": "http://spdx.org/rdf/terms#",
-    "geosparql": "http://www.opengis.net/ont/geosparql#",
-    "time": "http://www.w3.org/2006/time#",
-    "prov": "http://www.w3.org/ns/prov#",
-    "dqv": "http://www.w3.org/ns/dqv#"
-  },
-  "@id": "https://doi.org/23609/53w7klh",
-  "@type": [
-    "schema:Dataset"
-  ],
-  "schema:name": "US-AZ_AZGS_1M_Lithostratigraphy",
-  "schema:alternateName": "Arizona 1:1000000 Lithostratigraphic map",
-  "schema:description": "Lithostratigraphic unit distribution for the Geologic Map of Arizona at 1:1,000,000-scale. Shows entire state with map units defined broadly by age and lithologic type. The map was compiled by modifying the previous 1:1000000 statemap version with more recent mapping.",
-  "schema:identifier": {
+    "@context": {
+        "schema": "http://schema.org/",
+        "dde": "https://www.ddeworld.org/resource/",
+        "cdif": "https://cdif.org/profile/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "dcat": "http://www.w3.org/ns/dcat#",
+        "spdx": "http://spdx.org/rdf/terms#",
+        "geosparql": "http://www.opengis.net/ont/geosparql#",
+        "time": "http://www.w3.org/2006/time#",
+        "prov": "http://www.w3.org/ns/prov#",
+        "dqv": "http://www.w3.org/ns/dqv#"
+    },
+    "@id": "https://doi.org/23609/53w7klh",
     "@type": [
-      "schema:PropertyValue"
+        "schema:Dataset"
     ],
-    "schema:propertyID": "https://registry.identifiers.org/registry/doi",
-    "schema:value": "doi:23609/53w7klh",
-    "schema:url": "https://doi.org/23609/53w7klh"
-  },
-  "schema:dateModified": "2016-04-14",
-  "schema:datePublished": "2006-05-04",
-  "schema:version": "4",
-  "schema:inLanguage": "eng",
-  "schema:license": [
-    {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "Creative Commons CC0 1.0 Universal",
-      "schema:url": "https://creativecommons.org/publicdomain/zero/1.0/"
-    }
-  ],
-  "schema:conditionsOfAccess": [
-    {
-      "@id": "https://test.org/otherlicense/zero/1.0/"
-    }
-  ],
-  "schema:url": "https://hdl.handle.net/10150/630741",
-  "schema:subjectOf": {
-    "@id": "urn:uuid:c98705ae-058a-43fb-85a2-7b5209d9a4b3",
-    "@type": [
-      "schema:Dataset"
+    "schema:name": "US-AZ_AZGS_1M_Lithostratigraphy",
+    "schema:alternateName": [
+        "Arizona 1:1000000 Lithostratigraphic map"
     ],
-    "schema:additionalType": [
-      {
-        "@id": "dcat:CatalogRecord"
-      }
-    ],
-    "schema:about": {
-      "@id": "https://doi.org/23609/53w7klh"
-    },
-    "dcterms:conformsTo": [
-      {
-        "@id": "https://w3id.org/cdif/core/1.1"
-      },
-      {
-        "@id": "https://w3id.org/cdif/discovery/1.1"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
-      }
-    ],
-    "schema:sdDatePublished": "2017-04-24",
-    "schema:maintainer": {
-      "@type": [
-        "schema:Person"
-      ],
-      "schema:name": "publications manager",
-      "schema:identifier": "https://orcid.org/0000-0041-6041-6309",
-      "schema:contactPoint": {
+    "schema:description": "Lithostratigraphic unit distribution for the Geologic Map of Arizona at 1:1,000,000-scale. Shows entire state with map units defined broadly by age and lithologic type. The map was compiled by modifying the previous 1:1000000 statemap version with more recent mapping.",
+    "schema:identifier": {
         "@type": [
-          "schema:ContactPoint"
+            "schema:PropertyValue"
         ],
-        "schema:email": "metadata@azgs.az.gov"
-      }
-    }
-  },
-  "schema:additionalType": [
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Dataset",
-      "schema:termCode": "dataset",
-      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-    }
-  ],
-  "schema:keywords": [
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Geoscientific Information",
-      "schema:termCode": "geoscientificInformation",
-      "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
+        "schema:propertyID": "https://registry.identifiers.org/registry/doi",
+        "schema:value": "doi:23609/53w7klh",
+        "schema:url": "https://doi.org/23609/53w7klh"
     },
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Paleontology",
-      "schema:termCode": "GI_PO_paleontology",
-      "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
-    },
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Hydrogeology",
-      "schema:termCode": "GI_HG_hydrogeology",
-      "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
-    },
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Environment",
-      "schema:termCode": "environment",
-      "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
-    },
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Digital Conversion from Published Source",
-      "schema:termCode": "digitalConversionFromPublishedSource",
-      "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
-    },
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Synthesis from Multiple Sources",
-      "schema:termCode": "synthesisFromMultipleSources",
-      "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
-    },
-    "United States",
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Arizona",
-      "schema:identifier": "https://edits.nationalmap.gov/apps/gaz-domestic/public/gaz-record/1779777"
-    },
-    "Geology",
-    "Geologic Map"
-  ],
-  "schema:image": [
-    {
-      "@type": [
-        "schema:ImageObject"
-      ],
-      "schema:contentUrl": "http://azgs.az.gov/repository/browse/3757.jpg",
-      "schema:name": "Quick view lithostratigraphic map of Arizona",
-      "schema:description": "description of the browse image"
-    },
-    {
-      "@type": [
-        "schema:ImageObject"
-      ],
-      "schema:contentUrl": "http://azgs.az.gov/repository/browse/2222.jpg",
-      "schema:name": "Another map of Arizona",
-      "schema:description": "description of the browse image2",
-      "schema:encodingFormat": "image/png"
-    }
-  ],
-  "schema:creator": {
-    "@list": [
-      {
-        "@type": [
-          "schema:Person"
-        ],
-        "schema:name": "Stephen Richard",
-        "schema:identifier": "https://orcid.org/0000-0001-6041-5302",
-        "schema:contactPoint": {
-          "@type": [
-            "schema:ContactPoint"
-          ],
-          "schema:email": "richards@azgs.az.gov"
+    "schema:dateModified": "2016-04-14",
+    "schema:datePublished": "2006-05-04",
+    "schema:version": "4",
+    "schema:inLanguage": "eng",
+    "schema:license": [
+        {
+            "@type": [
+                "schema:CreativeWork"
+            ],
+            "schema:name": "Creative Commons CC0 1.0 Universal",
+            "schema:url": "https://creativecommons.org/publicdomain/zero/1.0/"
         }
-      }
-    ]
-  },
-  "schema:contributor": [
-    {
-      "@type": [
-        "schema:Role"
-      ],
-      "schema:roleName": "pointOfContact",
-      "schema:contributor": {
-        "@type": [
-          "schema:Person"
-        ],
-        "schema:name": "Ryan Clark",
-        "schema:identifier": "https://orcid.org/0000-0041-6041-6309",
-        "schema:contactPoint": {
-          "@type": [
-            "schema:ContactPoint"
-          ],
-          "schema:email": "clarkr@azgs.az.gov"
+    ],
+    "schema:conditionsOfAccess": [
+        {
+            "@id": "https://test.org/otherlicense/zero/1.0/"
         }
-      }
-    }
-  ],
-  "schema:provider": [
-    {
-      "@type": [
-        "schema:Organization"
-      ],
-      "schema:name": "Arizona Geological Survey",
-      "schema:identifier": "https://ror.org/00vcszp55",
-      "schema:contactPoint": {
+    ],
+    "schema:url": "https://hdl.handle.net/10150/630741",
+    "schema:subjectOf": {
+        "@id": "urn:uuid:c98705ae-058a-43fb-85a2-7b5209d9a4b3",
         "@type": [
-          "schema:ContactPoint"
+            "schema:Dataset"
         ],
-        "schema:email": "info@azgs.az.gov"
-      }
-    }
-  ],
-  "schema:spatialCoverage": [
-    {
-      "@type": [
-        "schema:Place"
-      ],
-      "schema:name": [
-        "Arizona"
-      ],
-      "schema:identifier": {
-        "@type": [
-          "schema:PropertyValue"
+        "schema:additionalType": [
+            {
+                "@id": "dcat:CatalogRecord"
+            }
         ],
-        "schema:propertyID": "Wikidata",
-        "schema:value": "https://www.wikidata.org/wiki/Q816"
-      },
-      "schema:geo": {
-        "@type": [
-          "schema:GeoShape"
-        ],
-        "schema:box": "31.332177 -114.81651 37.00426 -109.045223"
-      }
-    }
-  ],
-  "schema:temporalCoverage": [
-    {
-      "@type": [
-        "time:ProperInterval"
-      ],
-      "time:intervalStartedBy": "http://resource.geosciml.org/classifier/ics/ischart/Paleoproterozoic",
-      "time:intervalFinishedBy": "http://resource.geosciml.org/classifier/ics/ischart/Holocene",
-      "time:hasBeginning": {
-        "@type": [
-          "time:Instant"
-        ],
-        "time:inTimePosition": {
-          "@type": [
-            "time:TimePosition"
-          ],
-          "time:hasTRS": "https://example.org/trs/ma-before-present",
-          "time:numericPosition": 1870
+        "schema:about": {
+            "@id": "https://doi.org/23609/53w7klh"
         },
-        "schema:name": "Early Proterozoic",
-        "schema:identifier": "http://resource.geosciml.org/classifier/ics/ischart/Paleoproterozoic"
-      },
-      "time:hasEnd": {
-        "@type": [
-          "time:Instant"
+        "dcterms:conformsTo": [
+            {
+                "@id": "https://w3id.org/cdif/core/1.1"
+            },
+            {
+                "@id": "https://w3id.org/cdif/discovery/1.1"
+            },
+            {
+                "@id": "https://w3id.org/cdif/dde/1.0/DDEDiscovery"
+            }
         ],
-        "schema:name": "Holocene",
-        "schema:identifier": "http://resource.geosciml.org/classifier/ics/ischart/Holocene"
-      }
-    }
-  ],
-  "schema:distribution": [
-    {
-      "@type": [
-        "schema:DataDownload"
-      ],
-      "schema:name": "gsmlp:GeologicUnitView",
-      "schema:description": "OGC get capabilities URL",
-      "schema:contentUrl": "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology_WFS/MapServer/WFSServer?",
-      "schema:encodingFormat": [
-        "application/xml"
-      ],
-      "schema:provider": [
-        {
-          "@type": [
-            "schema:Organization"
-          ],
-          "schema:name": "Arizona Geological Survey",
-          "schema:identifier": "https://ror.org/00vcszp55"
+        "schema:sdDatePublished": "2017-04-24",
+        "schema:maintainer": {
+            "@type": [
+                "schema:Person"
+            ],
+            "schema:name": "publications manager",
+            "schema:identifier": "https://orcid.org/0000-0041-6041-6309",
+            "schema:contactPoint": {
+                "@type": [
+                    "schema:ContactPoint"
+                ],
+                "schema:email": "metadata@azgs.az.gov"
+            }
         }
-      ],
-      "dcterms:conformsTo": [
+    },
+    "schema:additionalType": [
         {
-          "@id": "http://www.opengis.net/def/nil/OGC/0/missing"
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Dataset",
+            "schema:termCode": "dataset",
+            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
         }
-      ]
-    },
-    {
-      "@type": [
-        "schema:DataDownload"
-      ],
-      "schema:name": "US-AZ_AZGS_1M_Lithostratigraphy",
-      "schema:description": "OGC get map URL",
-      "schema:contentUrl": "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology/MapServer/WMSServer?",
-      "schema:encodingFormat": [
-        "image/jpg",
-        "image/png",
-        "image/tif"
-      ],
-      "dcterms:conformsTo": [
+    ],
+    "schema:keywords": [
         {
-          "@id": "http://www.opengis.net/def/nil/OGC/0/missing"
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Geoscientific Information",
+            "schema:termCode": "geoscientificInformation",
+            "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
+        },
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Paleontology",
+            "schema:termCode": "GI_PO_paleontology",
+            "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
+        },
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Hydrogeology",
+            "schema:termCode": "GI_HG_hydrogeology",
+            "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
+        },
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Environment",
+            "schema:termCode": "environment",
+            "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
+        },
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Digital Conversion from Published Source",
+            "schema:termCode": "digitalConversionFromPublishedSource",
+            "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
+        },
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Synthesis from Multiple Sources",
+            "schema:termCode": "synthesisFromMultipleSources",
+            "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
+        },
+        "United States",
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Arizona",
+            "schema:identifier": "https://edits.nationalmap.gov/apps/gaz-domestic/public/gaz-record/1779777"
+        },
+        "Geology",
+        "Geologic Map"
+    ],
+    "schema:image": [
+        {
+            "@type": [
+                "schema:ImageObject"
+            ],
+            "schema:contentUrl": "http://azgs.az.gov/repository/browse/3757.jpg",
+            "schema:name": "Quick view lithostratigraphic map of Arizona",
+            "schema:description": "description of the browse image"
+        },
+        {
+            "@type": [
+                "schema:ImageObject"
+            ],
+            "schema:contentUrl": "http://azgs.az.gov/repository/browse/2222.jpg",
+            "schema:name": "Another map of Arizona",
+            "schema:description": "description of the browse image2",
+            "schema:encodingFormat": "image/png"
         }
-      ]
-    }
-  ],
-  "dqv:hasQualityMeasurement": [
-    {
-      "@type": [
-        "dqv:QualityMeasurement"
-      ],
-      "schema:description": "Line work reviewed for consistency with source maps",
-      "dqv:isMeasurementOf": "completeness",
-      "dqv:value": "Line work reviewed for consistency with source maps"
-    }
-  ],
-  "prov:wasDerivedFrom": [
-    {
-      "@id": "https://doi.org/24596/tehou246"
+    ],
+    "schema:creator": {
+        "@list": [
+            {
+                "@type": [
+                    "schema:Person"
+                ],
+                "schema:name": "Stephen Richard",
+                "schema:identifier": "https://orcid.org/0000-0001-6041-5302",
+                "schema:contactPoint": {
+                    "@type": [
+                        "schema:ContactPoint"
+                    ],
+                    "schema:email": "richards@azgs.az.gov"
+                }
+            }
+        ]
     },
-    {
-      "@id": "https://doi.org/24596/h35wp59y"
-    }
-  ],
-  "schema:relatedLink": [
-    {
-      "@type": [
-        "schema:LinkRole"
-      ],
-      "schema:linkRelationship": "information",
-      "target": {
-        "@type": [
-          "schema:EntryPoint"
-        ],
-        "schema:name": "Geologic Map of Arizona",
-        "schema:url": "https://hdl.handle.net/10150/630741"
-      }
-    },
-    {
-      "@type": [
-        "schema:LinkRole"
-      ],
-      "schema:linkRelationship": "completeMetadata",
-      "target": {
-        "@type": [
-          "schema:EntryPoint"
-        ],
-        "schema:name": "ISO19115 metadata record",
-        "schema:url": "http://repository.stategeothermaldata.org/metadata/record/4e6b8f72f7d6c3856f092c6b850180eb.iso.xml",
-        "schema:encodingType": "INSPIRE 19115"
-      }
-    }
-  ]
+    "schema:contributor": [
+        {
+            "@type": [
+                "schema:Role"
+            ],
+            "schema:roleName": "pointOfContact",
+            "schema:contributor": {
+                "@type": [
+                    "schema:Person"
+                ],
+                "schema:name": "Ryan Clark",
+                "schema:identifier": "https://orcid.org/0000-0041-6041-6309",
+                "schema:contactPoint": {
+                    "@type": [
+                        "schema:ContactPoint"
+                    ],
+                    "schema:email": "clarkr@azgs.az.gov"
+                }
+            }
+        }
+    ],
+    "schema:provider": [
+        {
+            "@type": [
+                "schema:Organization"
+            ],
+            "schema:name": "Arizona Geological Survey",
+            "schema:identifier": "https://ror.org/00vcszp55",
+            "schema:contactPoint": {
+                "@type": [
+                    "schema:ContactPoint"
+                ],
+                "schema:email": "info@azgs.az.gov"
+            }
+        }
+    ],
+    "schema:spatialCoverage": [
+        {
+            "@type": [
+                "schema:Place"
+            ],
+            "schema:name": [
+                "Arizona"
+            ],
+            "schema:identifier": {
+                "@type": [
+                    "schema:PropertyValue"
+                ],
+                "schema:propertyID": "Wikidata",
+                "schema:value": "https://www.wikidata.org/wiki/Q816"
+            },
+            "schema:geo": {
+                "@type": [
+                    "schema:GeoShape"
+                ],
+                "schema:box": "31.332177 -114.81651 37.00426 -109.045223"
+            }
+        }
+    ],
+    "schema:temporalCoverage": [
+        {
+            "@type": [
+                "time:ProperInterval"
+            ],
+            "time:intervalStartedBy": "http://resource.geosciml.org/classifier/ics/ischart/Paleoproterozoic",
+            "time:intervalFinishedBy": "http://resource.geosciml.org/classifier/ics/ischart/Holocene",
+            "time:hasBeginning": {
+                "@type": [
+                    "time:Instant"
+                ],
+                "time:inTimePosition": {
+                    "@type": [
+                        "time:TimePosition"
+                    ],
+                    "time:hasTRS": "https://example.org/trs/ma-before-present",
+                    "time:numericPosition": 1870
+                },
+                "schema:name": "Early Proterozoic",
+                "schema:identifier": "http://resource.geosciml.org/classifier/ics/ischart/Paleoproterozoic"
+            },
+            "time:hasEnd": {
+                "@type": [
+                    "time:Instant"
+                ],
+                "schema:name": "Holocene",
+                "schema:identifier": "http://resource.geosciml.org/classifier/ics/ischart/Holocene"
+            }
+        }
+    ],
+    "schema:distribution": [
+        {
+            "@type": [
+                "schema:DataDownload"
+            ],
+            "schema:name": "gsmlp:GeologicUnitView",
+            "schema:description": "OGC get capabilities URL",
+            "schema:contentUrl": "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology_WFS/MapServer/WFSServer?",
+            "schema:encodingFormat": [
+                "application/xml"
+            ],
+            "schema:provider": [
+                {
+                    "@type": [
+                        "schema:Organization"
+                    ],
+                    "schema:name": "Arizona Geological Survey",
+                    "schema:identifier": "https://ror.org/00vcszp55"
+                }
+            ],
+            "dcterms:conformsTo": [
+                {
+                    "@id": "http://www.opengis.net/def/nil/OGC/0/missing"
+                }
+            ]
+        },
+        {
+            "@type": [
+                "schema:DataDownload"
+            ],
+            "schema:name": "US-AZ_AZGS_1M_Lithostratigraphy",
+            "schema:description": "OGC get map URL",
+            "schema:contentUrl": "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology/MapServer/WMSServer?",
+            "schema:encodingFormat": [
+                "image/jpg",
+                "image/png",
+                "image/tif"
+            ],
+            "dcterms:conformsTo": [
+                {
+                    "@id": "http://www.opengis.net/def/nil/OGC/0/missing"
+                }
+            ]
+        }
+    ],
+    "dqv:hasQualityMeasurement": [
+        {
+            "@type": [
+                "dqv:QualityMeasurement"
+            ],
+            "schema:description": "Line work reviewed for consistency with source maps",
+            "dqv:isMeasurementOf": "completeness",
+            "dqv:value": "Line work reviewed for consistency with source maps"
+        }
+    ],
+    "prov:wasDerivedFrom": [
+        {
+            "@id": "https://doi.org/24596/tehou246"
+        },
+        {
+            "@id": "https://doi.org/24596/h35wp59y"
+        }
+    ],
+    "schema:relatedLink": [
+        {
+            "@type": [
+                "schema:LinkRole"
+            ],
+            "schema:linkRelationship": "information",
+            "target": {
+                "@type": [
+                    "schema:EntryPoint"
+                ],
+                "schema:name": "Geologic Map of Arizona",
+                "schema:url": "https://hdl.handle.net/10150/630741"
+            }
+        },
+        {
+            "@type": [
+                "schema:LinkRole"
+            ],
+            "schema:linkRelationship": "completeMetadata",
+            "target": {
+                "@type": [
+                    "schema:EntryPoint"
+                ],
+                "schema:name": "ISO19115 metadata record",
+                "schema:url": "http://repository.stategeothermaldata.org/metadata/record/4e6b8f72f7d6c3856f092c6b850180eb.iso.xml",
+                "schema:encodingType": "INSPIRE 19115"
+            }
+        }
+    ]
 }
 
 ```
@@ -999,7 +1020,9 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
     "schema:Dataset"
   ],
   "schema:name": "US-AZ_AZGS_1M_Lithostratigraphy",
-  "schema:alternateName": "Arizona 1:1000000 Lithostratigraphic map",
+  "schema:alternateName": [
+    "Arizona 1:1000000 Lithostratigraphic map"
+  ],
   "schema:description": "Lithostratigraphic unit distribution for the Geologic Map of Arizona at 1:1,000,000-scale. Shows entire state with map units defined broadly by age and lithologic type. The map was compiled by modifying the previous 1:1000000 statemap version with more recent mapping.",
   "schema:identifier": {
     "@type": [
@@ -1049,10 +1072,7 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
         "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
+        "@id": "https://w3id.org/cdif/dde/1.0/DDEDiscovery"
       }
     ],
     "schema:sdDatePublished": "2017-04-24",
@@ -1395,39 +1415,50 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
     schema1:description "Lithostratigraphic unit distribution for the Geologic Map of Arizona at 1:1,000,000-scale. Shows entire state with map units defined broadly by age and lithologic type. The map was compiled by modifying the previous 1:1000000 statemap version with more recent mapping." ;
     schema1:distribution [ a schema1:DataDownload ;
             dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
-            schema1:contentUrl "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology/MapServer/WMSServer?" ;
-            schema1:description "OGC get map URL" ;
-            schema1:encodingFormat "image/jpg",
-                "image/png",
-                "image/tif" ;
-            schema1:name "US-AZ_AZGS_1M_Lithostratigraphy" ],
-        [ a schema1:DataDownload ;
-            dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
             schema1:contentUrl "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology_WFS/MapServer/WFSServer?" ;
             schema1:description "OGC get capabilities URL" ;
             schema1:encodingFormat "application/xml" ;
             schema1:name "gsmlp:GeologicUnitView" ;
             schema1:provider [ a schema1:Organization ;
                     schema1:identifier "https://ror.org/00vcszp55" ;
-                    schema1:name "Arizona Geological Survey" ] ] ;
+                    schema1:name "Arizona Geological Survey" ] ],
+        [ a schema1:DataDownload ;
+            dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
+            schema1:contentUrl "http://services.azgs.az.gov/ArcGIS/services/OneGeology/AZGS_Arizona_Geology/MapServer/WMSServer?" ;
+            schema1:description "OGC get map URL" ;
+            schema1:encodingFormat "image/jpg",
+                "image/png",
+                "image/tif" ;
+            schema1:name "US-AZ_AZGS_1M_Lithostratigraphy" ] ;
     schema1:identifier [ a schema1:PropertyValue ;
             schema1:propertyID "https://registry.identifiers.org/registry/doi" ;
             schema1:url "https://doi.org/23609/53w7klh" ;
             schema1:value "doi:23609/53w7klh" ] ;
     schema1:image [ a schema1:ImageObject ;
+            schema1:contentUrl "http://azgs.az.gov/repository/browse/3757.jpg" ;
+            schema1:description "description of the browse image" ;
+            schema1:name "Quick view lithostratigraphic map of Arizona" ],
+        [ a schema1:ImageObject ;
             schema1:contentUrl "http://azgs.az.gov/repository/browse/2222.jpg" ;
             schema1:description "description of the browse image2" ;
             schema1:encodingFormat "image/png" ;
-            schema1:name "Another map of Arizona" ],
-        [ a schema1:ImageObject ;
-            schema1:contentUrl "http://azgs.az.gov/repository/browse/3757.jpg" ;
-            schema1:description "description of the browse image" ;
-            schema1:name "Quick view lithostratigraphic map of Arizona" ] ;
+            schema1:name "Another map of Arizona" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Hydrogeology" ;
+            schema1:termCode "GI_HG_hydrogeology" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Environment" ;
             schema1:termCode "environment" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Synthesis from Multiple Sources" ;
+            schema1:termCode "synthesisFromMultipleSources" ],
+        [ a schema1:DefinedTerm ;
+            schema1:identifier "https://edits.nationalmap.gov/apps/gaz-domestic/public/gaz-record/1779777" ;
+            schema1:name "Arizona" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Digital Conversion from Published Source" ;
@@ -1440,17 +1471,6 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Paleontology" ;
             schema1:termCode "GI_PO_paleontology" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Synthesis from Multiple Sources" ;
-            schema1:termCode "synthesisFromMultipleSources" ],
-        [ a schema1:DefinedTerm ;
-            schema1:identifier "https://edits.nationalmap.gov/apps/gaz-domestic/public/gaz-record/1779777" ;
-            schema1:name "Arizona" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Hydrogeology" ;
-            schema1:termCode "GI_HG_hydrogeology" ],
         "Geologic Map",
         "Geology",
         "United States" ;
@@ -1464,9 +1484,9 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
             schema1:identifier "https://ror.org/00vcszp55" ;
             schema1:name "Arizona Geological Survey" ] ;
     schema1:relatedLink [ a schema1:LinkRole ;
-            schema1:linkRelationship "information" ],
+            schema1:linkRelationship "completeMetadata" ],
         [ a schema1:LinkRole ;
-            schema1:linkRelationship "completeMetadata" ] ;
+            schema1:linkRelationship "information" ] ;
     schema1:spatialCoverage [ a schema1:Place ;
             schema1:geo [ a schema1:GeoShape ;
                     schema1:box "31.332177 -114.81651 37.00426 -109.045223" ] ;
@@ -1497,9 +1517,8 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
         <https://doi.org/24596/tehou246> .
 
 <urn:uuid:c98705ae-058a-43fb-85a2-7b5209d9a4b3> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
-        <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDiscovery>,
-        <https://w3id.org/cdif/core/1.1>,
+    dcterms:conformsTo <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/dde/1.0/DDEDiscovery>,
         <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about <https://doi.org/23609/53w7klh> ;
     schema1:additionalType dcat:CatalogRecord ;
@@ -1520,15 +1539,29 @@ $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 title: DDE Geoscience Discovery metadata schema
 description: JSON schema for JSON-LD documents that describe geoscience datasets for
-  the DDE Discovery profile. Composes CDIF mandatory and optional properties with
-  DDE-specific required and optional extensions. DDE adds resource typing from the
-  DDE ResourceTypeCode codelist, topic category and acquisition type keywords from
-  DDE codelists, browse graphics, DDE profile conformance, alternate names, and measurement
-  techniques. Conditional extensions for imagery (ddeImagery) are applied by resource-type
-  profiles (e.g., DDEImage). Service resources use the DDEWebAPI profile which composes
-  the CDIF webAPI building block.
+  the DDE Discovery profile. Composes CDIF core properties with DDE-specific required
+  and optional extensions. DDE adds resource typing from the DDE ResourceTypeCode
+  codelist, topic category and acquisition type keywords from DDE codelists, browse
+  graphics, DDE profile conformance, alternate names, and measurement techniques.
+  Conditional extensions for imagery (ddeImagery) are applied by resource-type profiles
+  (e.g., DDEImage). Service resources use the DDEWebAPI profile which composes the
+  CDIF webAPI building block.
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
+- properties:
+    schema:subjectOf:
+      properties:
+        dcterms:conformsTo:
+          contains:
+            type: object
+            required:
+            - '@id'
+            additionalProperties: false
+            properties:
+              '@id':
+                const: https://w3id.org/cdif/dde/1.0/DDEDiscovery
+          x-jsonld-id: http://purl.org/dc/terms/conformsTo
+      x-jsonld-id: http://schema.org/subjectOf
 - type: object
   properties:
     schema:temporalCoverage:
@@ -1564,7 +1597,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-14'
+  dateOfLastChange: '2026-11-15'
 
 ```
 

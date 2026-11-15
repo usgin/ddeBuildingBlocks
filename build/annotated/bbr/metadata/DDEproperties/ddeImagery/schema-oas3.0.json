@@ -1,5 +1,257 @@
 {
   "x-defs": {
+    "dde.bbr.metadata.DDEproperties.ddeActivity": {
+      "type": "object",
+      "title": "DDE acquisition activity",
+      "description": "Narrows cdifProvActivity for DDE acquisition. Everything an acquisition activity may carry -- schema:instrument, schema:participant, schema:startTime, schema:endTime, schema:agent and the rest -- is inherited from cdifProvActivity rather than restated here; this block adds only what is DDE-specific.\nWhat it adds: at least one instrument typed with a DDE acquisition category. cdifProvActivity already requires each described-in-place instrument to carry the Wikidata measuring-instrument term, so a DDE instrument's schema:additionalType carries both, for example [{\"@id\": \"dde:sensorType\"}, {\"@id\": \"https://www.wikidata.org/entity/Q3099911\"}].\nWhat it does not add: a required data collector. The DDE XSD has no collector element -- MD_Imagery is sensor, platform, equipment, signalGenerator, wavelength and processingLevel, all optional -- so a DataCollector participant is a convention, not an obligation. DataCollectorRole below documents the shape without requiring it, and participants of any other shape cdifProvActivity allows remain valid.",
+      "allOf": [
+        {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifProvActivity"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schema:instrument": {
+              "description": "At least one instrument carries a DDE acquisition category. \"contains\" rather than \"items\" on purpose: an acquisition may legitimately list instruments that are not DDE-categorised alongside the ones that are, and constraining every item would reject them.",
+              "contains": {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeActivity/$defs/DdeTypedInstrument"
+              },
+              "x-jsonld-id": "http://schema.org/instrument"
+            },
+            "schema:participant": {
+              "description": "Unconstrained beyond cdifProvActivity. DataCollectorRole records the shape DDE imagery conventionally uses for the collecting agent; it is referenced here only so the definition travels with the block, and imposes nothing.",
+              "x-jsonld-id": "http://schema.org/participant"
+            }
+          }
+        }
+      ],
+      "$defs": {
+        "DdeTypedInstrument": {
+          "type": "object",
+          "description": "An instrument whose schema:additionalType names a DDE acquisition category. The four categories are listed as separate anyOf branches rather than one enum so each can be extended independently later, and so a validation failure names which category was expected.",
+          "properties": {
+            "schema:additionalType": {
+              "type": "array",
+              "anyOf": [
+                {
+                  "contains": {
+                    "type": "object",
+                    "required": [
+                      "@id"
+                    ],
+                    "properties": {
+                      "@id": {
+                        "enum": [
+                          "dde:sensorType"
+                        ]
+                      }
+                    }
+                  }
+                },
+                {
+                  "contains": {
+                    "type": "object",
+                    "required": [
+                      "@id"
+                    ],
+                    "properties": {
+                      "@id": {
+                        "enum": [
+                          "dde:platform"
+                        ]
+                      }
+                    }
+                  }
+                },
+                {
+                  "contains": {
+                    "type": "object",
+                    "required": [
+                      "@id"
+                    ],
+                    "properties": {
+                      "@id": {
+                        "enum": [
+                          "dde:equipment"
+                        ]
+                      }
+                    }
+                  }
+                },
+                {
+                  "contains": {
+                    "type": "object",
+                    "required": [
+                      "@id"
+                    ],
+                    "properties": {
+                      "@id": {
+                        "enum": [
+                          "dde:signalGenerator"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ],
+              "x-jsonld-id": "http://schema.org/additionalType"
+            }
+          },
+          "required": [
+            "schema:additionalType"
+          ]
+        },
+        "DataCollectorRole": {
+          "type": "object",
+          "description": "The conventional shape for the collecting agent: a schema:Role with roleName DataCollector wrapping a Person or an Organization. Documented, not required -- see the block description.",
+          "properties": {
+            "@type": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "contains": {
+                "enum": [
+                  "schema:Role"
+                ]
+              }
+            },
+            "schema:roleName": {
+              "x-jsonld-id": "http://schema.org/roleName",
+              "enum": [
+                "DataCollector"
+              ]
+            },
+            "schema:contributor": {
+              "anyOf": [
+                {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.person"
+                },
+                {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization"
+                }
+              ],
+              "x-jsonld-id": "http://schema.org/contributor"
+            }
+          },
+          "required": [
+            "@type",
+            "schema:roleName"
+          ]
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/",
+        "dde": "https://www.ddeworld.org/resource/",
+        "prov": "http://www.w3.org/ns/prov#"
+      },
+      "x-bblocks-metadata": {
+        "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeActivity",
+        "register": "https://usgin.github.io/ddeBuildingBlocks/build/register.json",
+        "version": "0.1",
+        "dateOfLastChange": "2026-11-15"
+      },
+      "x-schema-source": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeActivity/schema.json",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.additionalProperty": {
+      "type": "object",
+      "title": "additionalProperty PropertyValue",
+      "description": "PropertyValue values required to define a soft-typed property with a value. ",
+      "properties": {
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": [
+              "schema:PropertyValue"
+            ]
+          },
+          "minItems": 1
+        },
+        "schema:propertyID": {
+          "type": "array",
+          "items": {
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/propertyID_item"
+          },
+          "minItems": 1,
+          "description": "identifier or name for the property concept quantified by the values in this variable slot. Multiple values can specify the property at different levels of granularity.",
+          "x-jsonld-id": "http://schema.org/propertyID"
+        },
+        "schema:name": {
+          "type": "string",
+          "x-jsonld-id": "http://schema.org/name"
+        },
+        "schema:value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "x-jsonld-id": "http://schema.org/value"
+        },
+        "schema:unitCode": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/DefinedTerm"
+            }
+          ],
+          "x-jsonld-id": "http://schema.org/unitCode"
+        },
+        "schema:unitText": {
+          "type": "string",
+          "x-jsonld-id": "http://schema.org/unitText"
+        }
+      },
+      "required": [
+        "schema:name",
+        "schema:value"
+      ],
+      "$defs": {
+        "DefinedTerm": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm"
+        },
+        "propertyID_item": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/DefinedTerm"
+            }
+          ]
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/",
+        "nxs": "https://manual.nexusformat.org/classes/"
+      },
+      "x-bblocks-metadata": {
+        "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.additionalProperty",
+        "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
+        "version": "0.1",
+        "dateOfLastChange": "2026-11-15"
+      },
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.json",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
     "cdif.bbr.metadata.cdifDataType.cdifProvActivity": {
       "title": "CDIF Provenance Activity",
       "description": "Extended provenance activity building block for CDIF -- the schema.org implementation. Extends the minimal prov:Activity (generatedBy) with schema.org Action properties for agents, instruments, inputs and outputs, methodology and plan, temporal bounds, action chaining, and more. What the activity used is recorded with schema:instrument (instruments, software, reagents) and schema:object (inputs), not with prov:used.",
@@ -38,7 +290,7 @@
                     "description": "reference to an instrument, software or reagent described elsewhere",
                     "allOf": [
                       {
-                        "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                        "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                       }
                     ]
                   },
@@ -87,7 +339,7 @@
                   "description": "reference to an agent defined elsewhere",
                   "allOf": [
                     {
-                      "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                      "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                     }
                   ]
                 }
@@ -112,7 +364,7 @@
                     "description": "reference to a participant defined elsewhere",
                     "allOf": [
                       {
-                        "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                        "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                       }
                     ]
                   }
@@ -172,7 +424,7 @@
                   "description": "reference to a place defined elsewhere",
                   "allOf": [
                     {
-                      "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                      "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                     }
                   ]
                 }
@@ -192,7 +444,7 @@
                   "description": "reference to a methodology defined elsewhere",
                   "allOf": [
                     {
-                      "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                      "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                     }
                   ]
                 }
@@ -252,7 +504,7 @@
           "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.spatialExtent"
         },
         "AdditionalProperty": {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty"
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty_1"
         },
         "UsedResource": {
           "type": "object",
@@ -495,7 +747,7 @@
               "x-jsonld-id": "http://schema.org/isBasedOn",
               "allOf": [
                 {
-                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                 }
               ]
             },
@@ -534,7 +786,7 @@
               "description": "reference to an entity described elsewhere",
               "allOf": [
                 {
-                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                 }
               ]
             },
@@ -636,7 +888,7 @@
                   "description": "reference to an agent defined elsewhere",
                   "allOf": [
                     {
-                      "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                      "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                     }
                   ]
                 }
@@ -653,7 +905,7 @@
                     "description": "reference to an instrument, software or reagent described elsewhere",
                     "allOf": [
                       {
-                        "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                        "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                       }
                     ]
                   },
@@ -691,13 +943,21 @@
               "x-jsonld-id": "http://schema.org/additionalProperty"
             },
             "schema:actionProcess": {
-              "description": "Sub-procedure for this step, a nested schema:HowTo with its own ordered steps. Use it for a step whose internal procedure has several phases.",
-              "x-jsonld-id": "http://schema.org/actionProcess",
-              "allOf": [
+              "description": "Sub-procedure for this step, a nested schema:HowTo with its own ordered steps. Use it for a step whose internal procedure has several phases. An {@id} reference names a HowTo described elsewhere in the document or outside it: a sub-procedure several steps share, or one a framed document cuts to its @id where the procedures refer to each other.",
+              "anyOf": [
                 {
                   "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifProvActivity/$defs/HowTo"
+                },
+                {
+                  "description": "reference to a sub-procedure defined elsewhere",
+                  "allOf": [
+                    {
+                      "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
+                    }
+                  ]
                 }
-              ]
+              ],
+              "x-jsonld-id": "http://schema.org/actionProcess"
             }
           },
           "required": [
@@ -763,190 +1023,9 @@
         "itemIdentifier": "cdif.bbr.metadata.cdifDataType.cdifProvActivity",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifProvActivity/schema.json",
-      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
-    },
-    "cdif.bbr.metadata.schemaorgProperties.additionalProperty": {
-      "type": "object",
-      "title": "additionalProperty PropertyValue",
-      "description": "PropertyValue values required to define a soft-typed property with a value. ",
-      "properties": {
-        "@type": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "contains": {
-            "enum": [
-              "schema:PropertyValue"
-            ]
-          },
-          "minItems": 1
-        },
-        "schema:propertyID": {
-          "type": "array",
-          "items": {
-            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/propertyID_item"
-          },
-          "minItems": 1,
-          "description": "identifier or name for the property concept quantified by the values in this variable slot. Multiple values can specify the property at different levels of granularity.",
-          "x-jsonld-id": "http://schema.org/propertyID"
-        },
-        "schema:name": {
-          "type": "string",
-          "x-jsonld-id": "http://schema.org/name"
-        },
-        "schema:value": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            },
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "object"
-            }
-          ],
-          "x-jsonld-id": "http://schema.org/value"
-        },
-        "schema:unitCode": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/DefinedTerm"
-            }
-          ],
-          "x-jsonld-id": "http://schema.org/unitCode"
-        },
-        "schema:unitText": {
-          "type": "string",
-          "x-jsonld-id": "http://schema.org/unitText"
-        }
-      },
-      "required": [
-        "schema:name",
-        "schema:value"
-      ],
-      "$defs": {
-        "DefinedTerm": {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm"
-        },
-        "propertyID_item": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
-            },
-            {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/DefinedTerm"
-            }
-          ]
-        }
-      },
-      "x-jsonld-prefixes": {
-        "schema": "http://schema.org/",
-        "nxs": "https://manual.nexusformat.org/classes/"
-      },
-      "x-bblocks-metadata": {
-        "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.additionalProperty",
-        "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
-        "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
-      },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.json",
-      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
-    },
-    "cdif.bbr.metadata.provProperties.generatedBy": {
-      "title": "Activity that generated the resource (CDIF core)",
-      "description": "The CDIF core definition of a prov:wasGeneratedBy value: a prov:Activity whose prov:used items are strings or @id references. Any further structure belongs to the profiles that extend it (cdifProvActivity for the schema.org implementation, provActivity for the PROV-O one), which may only narrow it.",
-      "type": "object",
-      "required": [
-        "@type"
-      ],
-      "properties": {
-        "@type": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minItems": 1,
-          "contains": {
-            "enum": [
-              "prov:Activity"
-            ]
-          },
-          "description": "Must include prov:Activity. Stated as \"contains\" rather than a single value so an extending profile can add types (cdifProvActivity adds schema:Action)."
-        },
-        "prov:used": {
-          "type": "array",
-          "description": "Entities the activity used. Optional. Each item is a string (an IRI or a free-text name) or an object that identifies the entity by @id. The @id reference is deliberately NOT sealed: an extending profile may describe the entity in place as long as it keeps the @id, and a profile that wants only bare references can seal it itself. Role-keyed wrappers (an object whose key names a role, with no @id) are not accepted; in the schema.org implementation what an activity used is recorded with schema:instrument and schema:object instead.",
-          "items": {
-            "anyOf": [
-              {
-                "type": "string",
-                "description": "an IRI or a free-text name of the entity used"
-              },
-              {
-                "type": "object",
-                "description": "an entity used, identified by @id; it may also be described in place",
-                "required": [
-                  "@id"
-                ],
-                "properties": {
-                  "@id": {
-                    "type": "string"
-                  }
-                }
-              }
-            ]
-          },
-          "x-jsonld-id": "http://www.w3.org/ns/prov#used"
-        }
-      },
-      "x-jsonld-prefixes": {
-        "schema": "http://schema.org/",
-        "prov": "http://www.w3.org/ns/prov#"
-      },
-      "x-bblocks-metadata": {
-        "itemIdentifier": "cdif.bbr.metadata.provProperties.generatedBy",
-        "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
-        "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
-      },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/provProperties/generatedBy/schema.json",
-      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
-    },
-    "cdif.bbr.metadata.cdifDataType.objectReference": {
-      "title": "Object Reference",
-      "description": "A reference to a node defined elsewhere, by its @id.",
-      "type": "object",
-      "properties": {
-        "@id": {
-          "type": "string",
-          "description": "resolvable @id of the referenced node"
-        }
-      },
-      "required": [
-        "@id"
-      ],
-      "additionalProperties": false,
-      "x-bblocks-metadata": {
-        "itemIdentifier": "cdif.bbr.metadata.cdifDataType.objectReference",
-        "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
-        "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
-      },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/objectReference/schema.json",
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifProvActivity/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.schemaorgProperties.person": {
@@ -1069,7 +1148,7 @@
                 "type": "string"
               },
               {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
               }
             ]
           },
@@ -1104,9 +1183,9 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.person",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/person/schema.json",
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/person/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.schemaorgProperties.organization": {
@@ -1199,7 +1278,7 @@
                 "type": "string"
               },
               {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
               }
             ]
           },
@@ -1239,9 +1318,203 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.organization",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/organization/schema.json",
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/organization/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.definedTerm": {
+      "description": "schema.org Defined Term schema.\n\n**Union-type policy:** In CDIF profile UML models an attribute typed as\nschema:DefinedTerm is represented by a single attribute of that class type.\nThe JSON Schema implementation permits the property value to be EITHER a\nplain string (interpreted as schema:name or schema:termCode in the default\nvocabulary) OR a full schema:DefinedTerm object (with explicit @type, name,\nidentifier, termCode, inDefinedTermSet). Consumers should accept either form.\n\nNote that this differs from the cdif Concept policy: a Concept (skos:Concept)\nin CDIF profiles MUST be a controlled-vocabulary entry (object form or\n@id-reference) \u2014 plain strings are not permitted for Concept-typed values\nbecause vocabulary identity cannot be recovered from an unscoped label.\n",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": [
+              "schema:DefinedTerm"
+            ]
+          },
+          "minItems": 1
+        },
+        "schema:name": {
+          "type": "string",
+          "description": "text label for the term that is useful to human user",
+          "x-jsonld-id": "http://schema.org/name"
+        },
+        "schema:identifier": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier_1"
+            }
+          ],
+          "x-jsonld-id": "http://schema.org/identifier"
+        },
+        "schema:inDefinedTermSet": {
+          "description": "The controlled vocabulary responsible for this keyword, as EITHER a plain URI string identifying the vocabulary, OR an object reference ({\"@id\": \"<uri>\"}) to a vocabulary defined elsewhere in the document. Both forms are already in use across CDIF profiles and downstream ADA building blocks; permitting only the string form made the object form - the natural JSON-LD spelling of a reference - invalid, while this class's own union-type policy above explicitly anticipates both.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+            }
+          ],
+          "x-jsonld-id": "http://schema.org/inDefinedTermSet"
+        },
+        "schema:termCode": {
+          "type": "string",
+          "description": "A representative code for this keyword in the controlled vocabulary. Analogous to skos:Notation",
+          "x-jsonld-id": "http://schema.org/termCode"
+        }
+      },
+      "allOf": [
+        {
+          "required": [
+            "@type"
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "required": [
+                "schema:name"
+              ]
+            },
+            {
+              "required": [
+                "schema:identifier"
+              ]
+            },
+            {
+              "required": [
+                "schema:termCode"
+              ]
+            }
+          ]
+        }
+      ],
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-bblocks-metadata": {
+        "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.definedTerm",
+        "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
+        "version": "0.1",
+        "dateOfLastChange": "2026-11-15"
+      },
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.json",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.cdifDataType.objectReference": {
+      "title": "Object Reference",
+      "description": "A reference to a node defined elsewhere, by its @id.",
+      "type": "object",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "description": "resolvable @id of the referenced node"
+        }
+      },
+      "required": [
+        "@id"
+      ],
+      "additionalProperties": false,
+      "x-bblocks-metadata": {
+        "itemIdentifier": "cdif.bbr.metadata.cdifDataType.objectReference",
+        "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
+        "version": "0.1",
+        "dateOfLastChange": "2026-11-15"
+      },
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/objectReference/schema.json",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.provProperties.generatedBy": {
+      "title": "Activity that generated the resource (CDIF core)",
+      "description": "The CDIF core definition of a prov:wasGeneratedBy value: a prov:Activity whose prov:used items are strings or @id references. Any further structure belongs to the profiles that extend it (cdifProvActivity for the schema.org implementation, provActivity for the PROV-O one), which may only narrow it.",
+      "type": "object",
+      "required": [
+        "@type"
+      ],
+      "properties": {
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "contains": {
+            "enum": [
+              "prov:Activity"
+            ]
+          },
+          "description": "Must include prov:Activity. Stated as \"contains\" rather than a single value so an extending profile can add types (cdifProvActivity adds schema:Action)."
+        },
+        "prov:used": {
+          "type": "array",
+          "description": "Entities the activity used. Optional. Each item is a string (an IRI or a free-text name) or an object that identifies the entity by @id. The @id reference is deliberately NOT sealed: an extending profile may describe the entity in place as long as it keeps the @id, and a profile that wants only bare references can seal it itself. Role-keyed wrappers (an object whose key names a role, with no @id) are not accepted; in the schema.org implementation what an activity used is recorded with schema:instrument and schema:object instead.",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "description": "an IRI or a free-text name of the entity used"
+              },
+              {
+                "type": "object",
+                "description": "an entity used, identified by @id; it may also be described in place",
+                "required": [
+                  "@id"
+                ],
+                "properties": {
+                  "@id": {
+                    "type": "string"
+                  }
+                }
+              }
+            ]
+          },
+          "x-jsonld-id": "http://www.w3.org/ns/prov#used"
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/",
+        "prov": "http://www.w3.org/ns/prov#"
+      },
+      "x-bblocks-metadata": {
+        "itemIdentifier": "cdif.bbr.metadata.provProperties.generatedBy",
+        "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
+        "version": "0.1",
+        "dateOfLastChange": "2026-11-15"
+      },
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/provProperties/generatedBy/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.cdifDataType.objectReference_1": {
+      "title": "Object Reference",
+      "description": "A reference to a node defined elsewhere, by its @id.",
+      "type": "object",
+      "properties": {
+        "@id": {
+          "type": "string",
+          "description": "resolvable @id of the referenced node"
+        }
+      },
+      "required": [
+        "@id"
+      ],
+      "additionalProperties": false,
+      "x-bblocks-metadata": {
+        "itemIdentifier": "cdif.bbr.metadata.cdifDataType.objectReference",
+        "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
+        "version": "0.1",
+        "dateOfLastChange": "2026-11-15"
+      },
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/objectReference/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.schemaorgProperties.agentInRole": {
@@ -1277,7 +1550,7 @@
               "description": "IRI reference to a Person or Organization defined elsewhere",
               "allOf": [
                 {
-                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                 }
               ]
             },
@@ -1308,9 +1581,9 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.agentInRole",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/agentInRole/schema.json",
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/agentInRole/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.schemaorgProperties.identifier": {
@@ -1335,7 +1608,7 @@
               "type": "string"
             },
             {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
             }
           ],
           "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings.",
@@ -1381,9 +1654,9 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.identifier",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.json",
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.schemaorgProperties.instrument": {
@@ -1456,7 +1729,7 @@
                 "type": "string"
               },
               {
-                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
               }
             ]
           },
@@ -1594,7 +1867,7 @@
                 "description": "Reference to a sub-component defined elsewhere.",
                 "allOf": [
                   {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                   }
                 ]
               }
@@ -1633,7 +1906,7 @@
               "x-jsonld-id": "http://schema.org/about",
               "allOf": [
                 {
-                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                 }
               ]
             },
@@ -1646,7 +1919,7 @@
                     "type": "string"
                   },
                   {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                   }
                 ]
               }
@@ -1676,13 +1949,13 @@
           "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.person"
         },
         "DefinedTerm": {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm"
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm_1"
         },
         "AgentInRole": {
           "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.agentInRole"
         },
         "AdditionalProperty": {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty"
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty_1"
         },
         "AdditionalPropertySpecification": {
           "type": "object",
@@ -1839,7 +2112,7 @@
                         "type": "string"
                       },
                       {
-                        "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                        "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                       }
                     ]
                   },
@@ -1886,9 +2159,9 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.instrument",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.2",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/instrument/schema.json",
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/instrument/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.schemaorgProperties.spatialExtent": {
@@ -2098,7 +2371,7 @@
               "description": "identifier string for coordinate reference system, e.g., 'CRS84'",
               "allOf": [
                 {
-                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                 }
               ]
             }
@@ -2135,7 +2408,7 @@
           "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString"
         },
         "DefinedTerm": {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm"
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm_1"
         },
         "Identifier": {
           "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.identifier"
@@ -2148,12 +2421,203 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.spatialExtent",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/spatialExtent/schema.json",
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/spatialExtent/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
-    "cdif.bbr.metadata.schemaorgProperties.definedTerm": {
+    "cdif.bbr.metadata.schemaorgProperties.additionalProperty_1": {
+      "type": "object",
+      "title": "additionalProperty PropertyValue",
+      "description": "PropertyValue values required to define a soft-typed property with a value. ",
+      "properties": {
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": [
+              "schema:PropertyValue"
+            ]
+          },
+          "minItems": 1
+        },
+        "schema:propertyID": {
+          "type": "array",
+          "items": {
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty_1/$defs/propertyID_item"
+          },
+          "minItems": 1,
+          "description": "identifier or name for the property concept quantified by the values in this variable slot. Multiple values can specify the property at different levels of granularity.",
+          "x-jsonld-id": "http://schema.org/propertyID"
+        },
+        "schema:name": {
+          "type": "string",
+          "x-jsonld-id": "http://schema.org/name"
+        },
+        "schema:value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object"
+            }
+          ],
+          "x-jsonld-id": "http://schema.org/value"
+        },
+        "schema:unitCode": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty_1/$defs/DefinedTerm"
+            }
+          ],
+          "x-jsonld-id": "http://schema.org/unitCode"
+        },
+        "schema:unitText": {
+          "type": "string",
+          "x-jsonld-id": "http://schema.org/unitText"
+        }
+      },
+      "required": [
+        "schema:name",
+        "schema:value"
+      ],
+      "$defs": {
+        "DefinedTerm": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm_1"
+        },
+        "propertyID_item": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty_1/$defs/DefinedTerm"
+            }
+          ]
+        }
+      },
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/",
+        "nxs": "https://manual.nexusformat.org/classes/"
+      },
+      "x-bblocks-metadata": {
+        "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.additionalProperty",
+        "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
+        "version": "0.1",
+        "dateOfLastChange": "2026-11-15"
+      },
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString": {
+      "title": "CDIF Concept-or-Term-or-String",
+      "description": "Shared shape for a CDIF property that carries either a controlled-vocabulary value or a bare string label. Wraps cdifConceptOrTerm (SKOS-concept @id-ref, schema:DefinedTerm, or inline cdif:Concept) with a plain-string alternative used for legacy or single-word labels not yet bound to a vocabulary.",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm"
+        }
+      ],
+      "x-bblocks-metadata": {
+        "itemIdentifier": "cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString",
+        "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
+        "version": "0.1",
+        "dateOfLastChange": "2026-11-15"
+      },
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifConceptOrTermOrString/schema.yaml",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.identifier_1": {
+      "description": "Properties for a schema.org identifier (schema:PropertyValue pattern).\n**Union-type policy:** In CDIF profile UML models an attribute typed as\nschema:Identifier / schema:PropertyValue is represented by a single attribute\nof that class type. The JSON Schema implementation permits the property value\nto be EITHER a plain string (interpreted as the bare identifier value) OR a\nfull schema:PropertyValue object (with explicit @type, propertyID, value).\nConsumers should accept either form.\n",
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": [
+              "schema:PropertyValue"
+            ]
+          },
+          "minItems": 1
+        },
+        "schema:propertyID": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+            }
+          ],
+          "description": "In this context for the schema:PropertyValue, this field is an identifier for the identifier schema, e.g. DOI, ARK.  Get values from https://registry.identifiers.org/registry/ for interoperability. URI-shape values MUST be serialized as JSON-LD IRI references ({\"@id\":\"...\"}) so they participate in RDF entailment; free-label strings remain valid as strings.",
+          "x-jsonld-id": "http://schema.org/propertyID"
+        },
+        "schema:value": {
+          "type": "string",
+          "description": "the identifier string. E.g. 10.5066/F7VX0DMQ",
+          "x-jsonld-id": "http://schema.org/value"
+        },
+        "schema:url": {
+          "type": "string",
+          "format": "uri",
+          "description": "web-resolveable string for the identifier; host name part is location of a resolver that will return some representation for the given identifier value. E.g. https://doi.org/10.5066/F7VX0DMQ ",
+          "x-jsonld-id": "http://schema.org/url"
+        }
+      },
+      "allOf": [
+        {
+          "required": [
+            "@type"
+          ]
+        },
+        {
+          "anyOf": [
+            {
+              "required": [
+                "schema:value"
+              ]
+            },
+            {
+              "required": [
+                "schema:url"
+              ]
+            }
+          ]
+        }
+      ],
+      "x-jsonld-prefixes": {
+        "schema": "http://schema.org/"
+      },
+      "x-bblocks-metadata": {
+        "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.identifier",
+        "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
+        "version": "0.1",
+        "dateOfLastChange": "2026-11-15"
+      },
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.json",
+      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
+    },
+    "cdif.bbr.metadata.schemaorgProperties.definedTerm_1": {
       "description": "schema.org Defined Term schema.\n\n**Union-type policy:** In CDIF profile UML models an attribute typed as\nschema:DefinedTerm is represented by a single attribute of that class type.\nThe JSON Schema implementation permits the property value to be EITHER a\nplain string (interpreted as schema:name or schema:termCode in the default\nvocabulary) OR a full schema:DefinedTerm object (with explicit @type, name,\nidentifier, termCode, inDefinedTermSet). Consumers should accept either form.\n\nNote that this differs from the cdif Concept policy: a Concept (skos:Concept)\nin CDIF profiles MUST be a controlled-vocabulary entry (object form or\n@id-reference) \u2014 plain strings are not permitted for Concept-typed values\nbecause vocabulary identity cannot be recovered from an unscoped label.\n",
       "type": "object",
       "properties": {
@@ -2192,7 +2656,7 @@
               "type": "string"
             },
             {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
             }
           ],
           "x-jsonld-id": "http://schema.org/inDefinedTermSet"
@@ -2236,29 +2700,9 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.definedTerm",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.json",
-      "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
-    },
-    "cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString": {
-      "title": "CDIF Concept-or-Term-or-String",
-      "description": "Shared shape for a CDIF property that carries either a controlled-vocabulary value or a bare string label. Wraps cdifConceptOrTerm (SKOS-concept @id-ref, schema:DefinedTerm, or inline cdif:Concept) with a plain-string alternative used for legacy or single-word labels not yet bound to a vocabulary.",
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm"
-        }
-      ],
-      "x-bblocks-metadata": {
-        "itemIdentifier": "cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString",
-        "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
-        "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
-      },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifConceptOrTermOrString/schema.json",
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.schemaorgProperties.labeledLink": {
@@ -2321,7 +2765,7 @@
           "description": "The related resource -- the DCAT canonical pointer to what is being related to, which is distinct from schema:url, the presentation URL of the link itself.\nAn @id reference is the RECOMMENDED form and a string is permitted, which is DCMI's own position: \"Recommended practice is to identify the related resource by means of a URI. If this is not possible or feasible, a string conforming to a formal identification system may be provided.\" DCMI declares no rdfs:range for this property, and of the 13 DCMI properties carrying an \"intended to be used with non-literal values\" restriction, this is deliberately not one. dcat.ttl does not re-declare or constrain it at all -- the only triple mentioning it in the whole DCAT vocabulary is `dcat:distribution rdfs:subPropertyOf dcterms:relation`.\nSo objectReference-only would be stricter than both DCAT and DCMI and would reject a form the specification sanctions. The anyOf matches how schema:additionalType is handled here: both forms valid, the object form used in examples and required only where a `contains` pins a specific value.\nIt was string-only until 2026-10-01, which rejected the @id form outright. Reported from outside by a PSDI validator taking a things-not-strings approach (profile-core#16): their DCAT catalogue mirrors the DCAT-3 spec examples and wrote {\"@id\": ...}, which failed both layers -- while CDIF's own documented URI serialization policy (agents.md) says URI values SHOULD be {\"@id\": ...}. The register required the one form its own policy argues against.",
           "anyOf": [
             {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
             },
             {
               "type": "string",
@@ -2397,9 +2841,9 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.labeledLink",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/labeledLink/schema.json",
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/labeledLink/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.schemaorgProperties.linkRole": {
@@ -2485,9 +2929,9 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.linkRole",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/linkRole/schema.json",
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/linkRole/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm": {
@@ -2497,12 +2941,12 @@
           "description": "reference to a skos concept for the data type",
           "allOf": [
             {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
             }
           ]
         },
         {
-          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm"
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm_1"
         },
         {
           "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/Concept"
@@ -2512,9 +2956,9 @@
         "itemIdentifier": "cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifConceptOrTerm/schema.json",
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifConceptOrTerm/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     },
     "cdif.bbr.metadata.skosProperties.skosConcept": {
@@ -2766,12 +3210,12 @@
               "description": "Concept scheme(s) this concept belongs to.",
               "anyOf": [
                 {
-                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                 },
                 {
                   "type": "array",
                   "items": {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                   }
                 }
               ],
@@ -2781,12 +3225,12 @@
               "description": "Concept scheme(s) for which this is a top concept.",
               "anyOf": [
                 {
-                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                 },
                 {
                   "type": "array",
                   "items": {
-                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
                   }
                 }
               ],
@@ -2834,7 +3278,7 @@
           "description": "A reference to a SKOS Concept by URI.",
           "allOf": [
             {
-              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference"
+              "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference_1"
             }
           ]
         },
@@ -2864,27 +3308,27 @@
         "itemIdentifier": "cdif.bbr.metadata.skosProperties.skosConcept",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-13"
+        "dateOfLastChange": "2026-11-15"
       },
-      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/skosProperties/skosConcept/schema.json",
+      "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/skosProperties/skosConcept/schema.yaml",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     }
   },
   "title": "DDE Imagery properties",
-  "description": "Conditional extension for imagery resources. Maps DDE imagery acquisition metadata into the CDIF provenance pattern (cdifProv). Sensor, platform, equipment, and signalGenerator become typed instruments (via schema:additionalType) under prov:wasGeneratedBy activities; collector becomes a schema:participant with DataCollector role; startTime and endTime are temporal bounds on the activity. Wavelength and processedLevel remain as dataset-level additionalProperty values. All properties are optional.",
+  "description": "Conditional extension for imagery resources. Maps DDE imagery acquisition metadata into the CDIF provenance pattern (cdifProv). Sensor, platform, equipment, and signalGenerator become typed instruments (via schema:additionalType) under prov:wasGeneratedBy activities; collector becomes a schema:participant with DataCollector role; startTime and endTime are temporal bounds on the activity. Wavelength and processingLevel remain as dataset-level additionalProperty values. All properties are optional.",
   "type": "object",
   "properties": {
     "prov:wasGeneratedBy": {
       "type": "array",
       "description": "Imagery acquisition activities following the cdifProv pattern. Each activity can include instruments typed with DDE categories (dde:sensorType, dde:platform, dde:equipment, dde:signalGenerator) as schema:instrument items, each also carrying the Wikidata kind term https://www.wikidata.org/entity/Q3099911 that cdifProvActivity requires, a data collector via schema:participant as an agentInRole, and temporal bounds via schema:startTime/schema:endTime.",
       "items": {
-        "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.cdifDataType.cdifProvActivity"
+        "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema-oas3.0.json#/x-defs/dde.bbr.metadata.DDEproperties.ddeActivity"
       },
       "x-jsonld-id": "http://www.w3.org/ns/prov#wasGeneratedBy"
     },
     "schema:additionalProperty": {
       "type": "array",
-      "description": "Dataset-level additional properties for imagery resources. Wavelength and processedLevel describe the image product itself rather than the acquisition activity.",
+      "description": "Dataset-level additional properties for imagery resources. Wavelength and processingLevel describe the image product itself rather than the acquisition activity.",
       "items": {
         "anyOf": [
           {
@@ -2952,7 +3396,7 @@
           "type": "array",
           "contains": {
             "enum": [
-              "dde:processedLevel"
+              "dde:processingLevel"
             ]
           },
           "minItems": 1,
@@ -2990,7 +3434,7 @@
     "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeImagery",
     "register": "https://usgin.github.io/ddeBuildingBlocks/build/register.json",
     "version": "0.1",
-    "dateOfLastChange": "2026-11-14"
+    "dateOfLastChange": "2026-11-15"
   },
   "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
 }

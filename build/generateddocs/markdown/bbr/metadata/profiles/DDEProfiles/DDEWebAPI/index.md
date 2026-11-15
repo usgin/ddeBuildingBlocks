@@ -3,9 +3,71 @@
 
 `dde.bbr.metadata.profiles.DDEProfiles.DDEWebAPI` *v0.1*
 
-DDE profile for resources that are web services. Composes ddeCore, ddeOptional, and the CDIF webAPI building block. Narrows serviceType to the DDE ServiceTypeCode codelist. Includes dataset references for operated datasets.
+DDE profile for resources that are web services: the described resource is itself a WebAPI, so @type must include schema:WebAPI. Composes ddeCore and the CDIF webAPI building block (potentialAction, termsOfService, documentation), and narrows schema:serviceType to a term from the DDE ServiceTypeCode codelist. schema:dataset carries the datasets the service operates on. Conformance URI: https://w3id.org/cdif/dde/1.0/DDEWebAPI.
 
 [*Status*](http://www.opengis.net/def/status): Under development
+
+## Description
+
+## DDE WebAPI Profile
+
+DDE profile for resources that **are** web services. Unlike the other profiles, where
+`schema:distribution` may offer an API as one way to reach a dataset, here the described
+resource is itself the service, so `@type` must include `schema:WebAPI`.
+
+### Resource type codes
+service, webAPI, repository
+
+### Composed building blocks
+
+1. **ddeCore** — DDE core properties: resource type from `dde:codelist/ResourceTypeCode`,
+   topic category and acquisition type keywords, alternate names, optional browse graphics.
+   `ddeCore` composes `cdifCore`, so CDIF's mandatory fields come in with it.
+2. **webAPI** (CDIF `schemaorgProperties/webAPI`) — service-specific properties:
+   `schema:potentialAction`, `schema:termsOfService`, `schema:documentation`.
+3. **`@type`** (required) — must contain `schema:WebAPI`.
+4. **Resource type constraint** — `schema:termCode` must be one of the service group codes.
+5. **`schema:serviceType`** — a `schema:DefinedTerm` from `dde:codelist/ServiceTypeCode`,
+   narrowing CDIF's open service typing to the 37 DDE codes. Requires `@type`,
+   `schema:inDefinedTermSet` and `schema:termCode`.
+6. **`schema:dataset`** (optional) — datasets operated on by the service, the DDE
+   `operatedDataset` element. Each entry is a URI or a `schema:PropertyValue` identifier.
+
+### DDE ServiceTypeCode groups
+
+The codelist covers nine categories: data services (`DataService>DataAccess`,
+`DataService>MapView`, …), knowledge services (`DDE_GeoscienceKnowledgeDirectory`,
+`DDE_DeepShovel`, `DDE_Scholar`, …), platform services (`DDE_PlatformCatalogue`,
+`DDE_PlatformRegistry`, `DDE_EarthExplorer`, …), thematic services
+(`Theme>MineralResourceAssessment`, `Theme>GeologicMapping`, `Theme>Dinosaur`, …), and the
+generic `VocabularyService`, `RegistryService`, `DiscoveryService`, `ViewService` and
+`OtherService`. See `schema.yaml` for the full enumeration.
+
+### Validation
+
+`rules.shacl` reports, at warning severity: the missing conformance URI, a `@type` without
+`schema:WebAPI`, a missing or wrongly-scoped `schema:serviceType`, and an
+`schema:additionalType` outside the service group. The `schema:serviceType` term shape is
+scoped with `sh:targetObjectsOf`, not `sh:targetClass schema:DefinedTerm`, so it does not
+fire on every keyword in the record.
+
+### Conformance
+
+A document instance claiming this profile declares it on the catalog record:
+
+```json
+"schema:subjectOf": {
+    "dcterms:conformsTo": [
+        {"@id": "https://w3id.org/cdif/core/1.1"},
+        {"@id": "https://w3id.org/cdif/dde/1.0/DDEWebAPI"}
+    ]
+}
+```
+
+`https://w3id.org/cdif/dde/1.0/DDEWebAPI` is required by this profile's schema, as a
+`contains` over `schema:subjectOf`/`dcterms:conformsTo`. The URI is on the profile
+because DDE profiles are what document instances conform to; the property building
+blocks they compose, `ddeCore` among them, declare none of their own.
 
 ## Examples
 
@@ -16,142 +78,139 @@ terms of service, and capability document reference.
 #### json
 ```json
 {
-  "@context": {
-    "schema": "http://schema.org/",
-    "dcterms": "http://purl.org/dc/terms/",
-    "dcat": "http://www.w3.org/ns/dcat#",
-    "dde": "https://www.ddeworld.org/resource/",
-    "ex": "https://example.org/",
-    "prov": "http://www.w3.org/ns/prov#"
-  },
-  "@id": "ex:dde-webapi-001",
-  "@type": [
-    "schema:Dataset",
-    "schema:WebAPI",
-    "schema:Product"
-  ],
-  "schema:name": "DDE Global Geological Map Service",
-  "schema:identifier": "https://doi.org/10.1234/dde-geomap-api",
-  "schema:description": "A WMS/WFS service providing access to the DDE Global Geological Map, offering tiled map views and vector feature queries for geological units, faults, and contacts at 1:5M scale.",
-  "schema:url": "https://example.org/services/dde-geomap",
-  "schema:dateModified": "2026-02-15",
-  "schema:license": [
-    "https://creativecommons.org/licenses/by/4.0/"
-  ],
-  "schema:additionalType": [
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode",
-      "schema:termCode": "webAPI",
-      "schema:name": "Web API"
-    }
-  ],
-  "schema:keywords": [
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode",
-      "schema:termCode": "GeologicMapping",
-      "schema:name": "Geologic Mapping"
+    "@context": {
+        "schema": "http://schema.org/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "dcat": "http://www.w3.org/ns/dcat#",
+        "dde": "https://www.ddeworld.org/resource/",
+        "ex": "https://example.org/",
+        "prov": "http://www.w3.org/ns/prov#"
     },
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode",
-      "schema:termCode": "Compilation",
-      "schema:name": "Compilation"
-    }
-  ],
-  "schema:image": [
-    {
-      "@type": [
-        "schema:ImageObject"
-      ],
-      "schema:contentUrl": "https://example.org/services/dde-geomap/preview.png",
-      "schema:name": "Service preview showing geological map tiles"
-    }
-  ],
-  "schema:serviceType": {
+    "@id": "ex:dde-webapi-001",
     "@type": [
-      "schema:DefinedTerm"
+        "schema:Dataset",
+        "schema:WebAPI",
+        "schema:Product"
     ],
-    "schema:inDefinedTermSet": "dde:codelist/ServiceTypeCode",
-    "schema:termCode": "DataService>MapView",
-    "schema:name": "Map View Data Service"
-  },
-  "schema:termsOfService": "Open access, no authentication required. Rate limit: 1000 requests/hour.",
-  "schema:documentation": "https://example.org/services/dde-geomap/wms?service=WMS&request=GetCapabilities",
-  "schema:potentialAction": [
-    {
-      "@type": [
-        "schema:Action"
-      ],
-      "schema:name": "GetMap",
-      "schema:description": "Request a rendered map image for a geographic extent",
-      "schema:target": {
-        "@type": [
-          "schema:EntryPoint"
-        ],
-        "schema:urlTemplate": "https://example.org/services/dde-geomap/wms?service=WMS&request=GetMap&layers={layer}&bbox={bbox}&width={width}&height={height}&format={format}",
-        "schema:httpMethod": [
-          "GET"
-        ],
-        "schema:encodingFormat": "image/png"
-      }
-    },
-    {
-      "@type": [
-        "schema:Action"
-      ],
-      "schema:name": "GetFeature",
-      "schema:description": "Query vector features for geological units within a bounding box",
-      "schema:target": {
-        "@type": [
-          "schema:EntryPoint"
-        ],
-        "schema:urlTemplate": "https://example.org/services/dde-geomap/wfs?service=WFS&request=GetFeature&typeName={typeName}&bbox={bbox}&outputFormat={format}",
-        "schema:httpMethod": [
-          "GET"
-        ],
-        "schema:encodingFormat": "application/json"
-      }
-    }
-  ],
-  "schema:dataset": [
-    "https://doi.org/10.1234/dde-global-geomap-v1"
-  ],
-  "schema:subjectOf": {
-    "@id": "urn:uuid:dde-webapi-catalog-record",
-    "@type": [
-      "schema:Dataset"
+    "schema:name": "DDE Global Geological Map Service",
+    "schema:identifier": "https://doi.org/10.1234/dde-geomap-api",
+    "schema:description": "A WMS/WFS service providing access to the DDE Global Geological Map, offering tiled map views and vector feature queries for geological units, faults, and contacts at 1:5M scale.",
+    "schema:url": "https://example.org/services/dde-geomap",
+    "schema:dateModified": "2026-02-15",
+    "schema:license": [
+        "https://creativecommons.org/licenses/by/4.0/"
     ],
     "schema:additionalType": [
-      {
-        "@id": "dcat:CatalogRecord"
-      }
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode",
+            "schema:termCode": "webAPI",
+            "schema:name": "Web API"
+        }
     ],
-    "schema:about": {
-      "@id": "ex:dde-webapi-001"
+    "schema:keywords": [
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode",
+            "schema:termCode": "GeologicMapping",
+            "schema:name": "Geologic Mapping"
+        },
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode",
+            "schema:termCode": "Compilation",
+            "schema:name": "Compilation"
+        }
+    ],
+    "schema:image": [
+        {
+            "@type": [
+                "schema:ImageObject"
+            ],
+            "schema:contentUrl": "https://example.org/services/dde-geomap/preview.png",
+            "schema:name": "Service preview showing geological map tiles"
+        }
+    ],
+    "schema:serviceType": {
+        "@type": [
+            "schema:DefinedTerm"
+        ],
+        "schema:inDefinedTermSet": "dde:codelist/ServiceTypeCode",
+        "schema:termCode": "DataService>MapView",
+        "schema:name": "Map View Data Service"
     },
-    "dcterms:conformsTo": [
-      {
-        "@id": "https://w3id.org/cdif/core/1.1"
-      },
-      {
-        "@id": "https://w3id.org/cdif/discovery/1.1"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEWebAPI"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
-      }
-    ]
-  }
+    "schema:termsOfService": "Open access, no authentication required. Rate limit: 1000 requests/hour.",
+    "schema:documentation": "https://example.org/services/dde-geomap/wms?service=WMS&request=GetCapabilities",
+    "schema:potentialAction": [
+        {
+            "@type": [
+                "schema:Action"
+            ],
+            "schema:name": "GetMap",
+            "schema:description": "Request a rendered map image for a geographic extent",
+            "schema:target": {
+                "@type": [
+                    "schema:EntryPoint"
+                ],
+                "schema:urlTemplate": "https://example.org/services/dde-geomap/wms?service=WMS&request=GetMap&layers={layer}&bbox={bbox}&width={width}&height={height}&format={format}",
+                "schema:httpMethod": [
+                    "GET"
+                ],
+                "schema:encodingFormat": "image/png"
+            }
+        },
+        {
+            "@type": [
+                "schema:Action"
+            ],
+            "schema:name": "GetFeature",
+            "schema:description": "Query vector features for geological units within a bounding box",
+            "schema:target": {
+                "@type": [
+                    "schema:EntryPoint"
+                ],
+                "schema:urlTemplate": "https://example.org/services/dde-geomap/wfs?service=WFS&request=GetFeature&typeName={typeName}&bbox={bbox}&outputFormat={format}",
+                "schema:httpMethod": [
+                    "GET"
+                ],
+                "schema:encodingFormat": "application/json"
+            }
+        }
+    ],
+    "schema:dataset": [
+        "https://doi.org/10.1234/dde-global-geomap-v1"
+    ],
+    "schema:subjectOf": {
+        "@id": "urn:uuid:dde-webapi-catalog-record",
+        "@type": [
+            "schema:Dataset"
+        ],
+        "schema:additionalType": [
+            {
+                "@id": "dcat:CatalogRecord"
+            }
+        ],
+        "schema:about": {
+            "@id": "ex:dde-webapi-001"
+        },
+        "dcterms:conformsTo": [
+            {
+                "@id": "https://w3id.org/cdif/core/1.1"
+            },
+            {
+                "@id": "https://w3id.org/cdif/discovery/1.1"
+            },
+            {
+                "@id": "https://w3id.org/cdif/dde/1.0/DDEWebAPI"
+            }
+        ]
+    }
 }
 
 ```
@@ -291,10 +350,7 @@ terms of service, and capability document reference.
         "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEWebAPI"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
+        "@id": "https://w3id.org/cdif/dde/1.0/DDEWebAPI"
       }
     ]
   }
@@ -324,29 +380,29 @@ ex:dde-webapi-001 a schema1:Dataset,
             schema1:contentUrl "https://example.org/services/dde-geomap/preview.png" ;
             schema1:name "Service preview showing geological map tiles" ] ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Compilation" ;
-            schema1:termCode "Compilation" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geologic Mapping" ;
-            schema1:termCode "GeologicMapping" ] ;
+            schema1:termCode "GeologicMapping" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Compilation" ;
+            schema1:termCode "Compilation" ] ;
     schema1:license "https://creativecommons.org/licenses/by/4.0/" ;
     schema1:name "DDE Global Geological Map Service" ;
     schema1:potentialAction [ a schema1:Action ;
-            schema1:description "Request a rendered map image for a geographic extent" ;
-            schema1:name "GetMap" ;
-            schema1:target [ a schema1:EntryPoint ;
-                    schema1:encodingFormat "image/png" ;
-                    schema1:httpMethod "GET" ;
-                    schema1:urlTemplate "https://example.org/services/dde-geomap/wms?service=WMS&request=GetMap&layers={layer}&bbox={bbox}&width={width}&height={height}&format={format}" ] ],
-        [ a schema1:Action ;
             schema1:description "Query vector features for geological units within a bounding box" ;
             schema1:name "GetFeature" ;
             schema1:target [ a schema1:EntryPoint ;
                     schema1:encodingFormat "application/json" ;
                     schema1:httpMethod "GET" ;
-                    schema1:urlTemplate "https://example.org/services/dde-geomap/wfs?service=WFS&request=GetFeature&typeName={typeName}&bbox={bbox}&outputFormat={format}" ] ] ;
+                    schema1:urlTemplate "https://example.org/services/dde-geomap/wfs?service=WFS&request=GetFeature&typeName={typeName}&bbox={bbox}&outputFormat={format}" ] ],
+        [ a schema1:Action ;
+            schema1:description "Request a rendered map image for a geographic extent" ;
+            schema1:name "GetMap" ;
+            schema1:target [ a schema1:EntryPoint ;
+                    schema1:encodingFormat "image/png" ;
+                    schema1:httpMethod "GET" ;
+                    schema1:urlTemplate "https://example.org/services/dde-geomap/wms?service=WMS&request=GetMap&layers={layer}&bbox={bbox}&width={width}&height={height}&format={format}" ] ] ;
     schema1:serviceType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ServiceTypeCode" ;
             schema1:name "Map View Data Service" ;
@@ -356,9 +412,8 @@ ex:dde-webapi-001 a schema1:Dataset,
     schema1:url "https://example.org/services/dde-geomap" .
 
 <urn:uuid:dde-webapi-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
-        <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEWebAPI>,
-        <https://w3id.org/cdif/core/1.1>,
+    dcterms:conformsTo <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/dde/1.0/DDEWebAPI>,
         <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about ex:dde-webapi-001 ;
     schema1:additionalType dcat:CatalogRecord .
@@ -374,12 +429,24 @@ type: object
 title: DDE WebAPI profile
 description: DDE profile for resources that ARE web services. The resource itself
   is described as a WebAPI with service type, operations, terms of service, and documentation.
-  Composes ddeCore + ddeCore for discovery metadata, and the CDIF webAPI building
-  block for service-specific properties (serviceType, potentialAction, termsOfService,
-  documentation). DDE narrows serviceType to require a term from the DDE ServiceTypeCode
-  codelist. schema:dataset identifies datasets operated on by the service.
+  Composes ddeCore for discovery metadata, and the CDIF webAPI building block for
+  service-specific properties (serviceType, potentialAction, termsOfService, documentation).
+  DDE narrows serviceType to require a term from the DDE ServiceTypeCode codelist.
+  schema:dataset identifies datasets operated on by the service.
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
+- properties:
+    schema:subjectOf:
+      properties:
+        dcterms:conformsTo:
+          contains:
+            type: object
+            required:
+            - '@id'
+            additionalProperties: false
+            properties:
+              '@id':
+                const: https://w3id.org/cdif/dde/1.0/DDEWebAPI
 - $ref: '#/$defs/CdifWebAPI'
 - type: object
   properties:
@@ -480,7 +547,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEWebAPI
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-14'
+  dateOfLastChange: '2026-11-15'
 
 ```
 

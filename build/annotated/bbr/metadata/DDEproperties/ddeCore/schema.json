@@ -1,10 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "DDE Mandatory metadata properties",
-  "description": "Extends CDIF mandatory metadata with DDE-specific mandatory fields.",
+  "description": "Extends CDIFCore metadata with DDE-specific mandatory fields: a DDE resource type, keywords from the DDE TopicCategoryCode and AcquisitionTypeCode codelists, alternate names and browse graphics.\nThis block declares no conformance URI. In DDE the profiles under profiles/DDEProfiles are what a document instance conforms to -- each one composes this block, restricts the resource type and adds extensions -- so each profile pins its own https://w3id.org/cdif/dde/1.0/{profileName}, and a record states the profile it follows rather than the property bundle inside it. Until 2026-11-15 this block pinned https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore through a ddeCatalogRecord wrapper, which named a register path with no version and asserted conformance to a building block that is not a document profile. schema:subjectOf is now inherited unchanged from cdifCore, which already requires it and refs cdifCatalogRecord for its shape.",
   "allOf": [
     {
-      "$ref": "#/$defs/CdifMandatory"
+      "$ref": "#/$defs/CdifCore"
     },
     {
       "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.json"
@@ -12,10 +12,6 @@
     {
       "type": "object",
       "properties": {
-        "schema:subjectOf": {
-          "$ref": "#/$defs/DdeCatalogRecord",
-          "x-jsonld-id": "http://schema.org/subjectOf"
-        },
         "schema:keywords": {
           "type": "array",
           "description": "Extends base CDIF keyword schema to require DefinedTerms from both the DDE TopicCategoryCode and AcquisitionTypeCode codelists.",
@@ -75,24 +71,16 @@
           "x-jsonld-id": "http://schema.org/keywords"
         },
         "schema:alternateName": {
-          "description": "Alternative names or aliases for the resource.",
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          ],
+          "description": "Alternative names or aliases for the resource. A list, per the CDIF convention that any 0..* or 1..* property is always an array, so a consumer never has to branch on the JSON type.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
           "x-jsonld-id": "http://schema.org/alternateName"
         },
         "schema:image": {
           "type": "array",
-          "description": "Browse graphics for the resource. At least one ImageObject is required for DDE metadata.",
-          "minItems": 1,
+          "description": "Browse graphics for the resource. Optional, matching the DDE XSD, where browseGraphic is minOccurs=\"0\" maxOccurs=\"unbounded\".",
           "items": {
             "type": "object",
             "properties": {
@@ -133,20 +121,16 @@
       },
       "required": [
         "schema:additionalType",
-        "schema:keywords",
-        "schema:image"
+        "schema:keywords"
       ]
     }
   ],
   "$defs": {
-    "CdifMandatory": {
+    "CdifCore": {
       "$ref": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/profiles/cdifProfile/cdifCore/schema.json"
     },
     "DefinedTerm": {
       "$ref": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.json"
-    },
-    "DdeCatalogRecord": {
-      "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCatalogRecord/schema.json"
     }
   },
   "x-jsonld-prefixes": {
@@ -158,6 +142,6 @@
     "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeCore",
     "register": "https://usgin.github.io/ddeBuildingBlocks/build/register.json",
     "version": "0.1",
-    "dateOfLastChange": "2026-11-14"
+    "dateOfLastChange": "2026-11-15"
   }
 }

@@ -3,12 +3,24 @@ type: object
 title: DDE WebAPI profile
 description: DDE profile for resources that ARE web services. The resource itself
   is described as a WebAPI with service type, operations, terms of service, and documentation.
-  Composes ddeCore + ddeCore for discovery metadata, and the CDIF webAPI building
-  block for service-specific properties (serviceType, potentialAction, termsOfService,
-  documentation). DDE narrows serviceType to require a term from the DDE ServiceTypeCode
-  codelist. schema:dataset identifies datasets operated on by the service.
+  Composes ddeCore for discovery metadata, and the CDIF webAPI building block for
+  service-specific properties (serviceType, potentialAction, termsOfService, documentation).
+  DDE narrows serviceType to require a term from the DDE ServiceTypeCode codelist.
+  schema:dataset identifies datasets operated on by the service.
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
+- properties:
+    schema:subjectOf:
+      properties:
+        dcterms:conformsTo:
+          contains:
+            type: object
+            required:
+            - '@id'
+            additionalProperties: false
+            properties:
+              '@id':
+                const: https://w3id.org/cdif/dde/1.0/DDEWebAPI
 - $ref: '#/$defs/CdifWebAPI'
 - type: object
   properties:
@@ -109,4 +121,4 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEWebAPI
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-14'
+  dateOfLastChange: '2026-11-15'

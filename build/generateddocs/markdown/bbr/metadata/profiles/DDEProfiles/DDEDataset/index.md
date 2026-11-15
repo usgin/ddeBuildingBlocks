@@ -3,7 +3,7 @@
 
 `dde.bbr.metadata.profiles.DDEProfiles.DDEDataset` *v0.1*
 
-DDE profile for dataset resources (dataset, dataCatalog, geographicDataset, nonGeographicDataset). Extends DDEDiscovery with resource type constraint. For geographicDataset, compose additionally with ddeGeographicDataset.
+DDE profile for dataset resources (dataset, dataCatalog, geographicDataset, nonGeographicDataset). Extends ddeCore with resource type constraint. For geographicDataset, compose additionally with ddeGeographicDataset.
 
 [*Status*](http://www.opengis.net/def/status): Under development
 
@@ -11,16 +11,34 @@ DDE profile for dataset resources (dataset, dataCatalog, geographicDataset, nonG
 
 ## DDE Dataset Profile
 
-DDE profile for dataset resources. Extends DDEDiscovery with a resource type constraint requiring `schema:additionalType` to include a `schema:termCode` from: dataset, dataCatalog, geographicDataset, nonGeographicDataset.
+DDE profile for dataset resources. Extends `ddeCore` with a resource type constraint requiring `schema:additionalType` to include a `schema:termCode` from: dataset, dataCatalog, geographicDataset, nonGeographicDataset.
 
 ### Composed building blocks
 
-1. **DDEDiscovery** — Base DDE discovery profile (cdifCore + cdifOptional + ddeCore + ddeOptional)
+1. **ddeCore** — DDE core properties: resource type from `dde:codelist/ResourceTypeCode`, topic category and acquisition type keywords, alternate names, optional browse graphics. `ddeCore` composes `cdifCore`, so CDIF's mandatory fields come in with it.
 2. **Resource type constraint** — `schema:termCode` must be one of the dataset group codes
 
 ### Sub-profile: geographicDataset
 
 When the resource type is `geographicDataset`, additionally compose with **ddeGeographicDataset** building block for mandatory `schema:spatialCoverage` and optional spatial representation properties (spatialRepresentationType, spatialResolution, referenceSystemType, referenceSystemIdentifier).
+
+### Conformance
+
+A document instance claiming this profile declares it on the catalog record:
+
+```json
+"schema:subjectOf": {
+    "dcterms:conformsTo": [
+        {"@id": "https://w3id.org/cdif/core/1.1"},
+        {"@id": "https://w3id.org/cdif/dde/1.0/DDEDataset"}
+    ]
+}
+```
+
+`https://w3id.org/cdif/dde/1.0/DDEDataset` is required by this profile's schema, as a
+`contains` over `schema:subjectOf`/`dcterms:conformsTo`. The URI is on the profile
+because DDE profiles are what document instances conform to; the property building
+blocks they compose, `ddeCore` among them, declare none of their own.
 
 ## Examples
 
@@ -29,207 +47,204 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
 #### json
 ```json
 {
-  "@context": {
-    "schema": "http://schema.org/",
-    "dde": "https://www.ddeworld.org/resource/",
-    "cdif": "https://cdif.org/profile/",
-    "dcterms": "http://purl.org/dc/terms/",
-    "dcat": "http://www.w3.org/ns/dcat#",
-    "time": "http://www.w3.org/2006/time#",
-    "prov": "http://www.w3.org/ns/prov#"
-  },
-  "@id": "urn:dde:example-hydrogeological-map",
-  "@type": [
-    "schema:Dataset"
-  ],
-  "schema:name": "China 1:500K Hydrogeological Map",
-  "schema:description": "National-scale hydrogeological map of China at 1:500,000 scale, depicting aquifer types, groundwater flow systems, and hydrogeological units across all provinces. Compiled from regional geological survey data by the China Geological Survey.",
-  "schema:identifier": "urn:cgs:hydrogeology-500k-2020",
-  "schema:dateModified": "2020-11-15",
-  "schema:inLanguage": "zho",
-  "schema:license": [
-    "licenceUnrestricted"
-  ],
-  "schema:url": "http://en.cgs.gov.cn/",
-  "schema:subjectOf": {
-    "@id": "urn:uuid:dde-dataset-catalog-record",
+    "@context": {
+        "schema": "http://schema.org/",
+        "dde": "https://www.ddeworld.org/resource/",
+        "cdif": "https://cdif.org/profile/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "dcat": "http://www.w3.org/ns/dcat#",
+        "time": "http://www.w3.org/2006/time#",
+        "prov": "http://www.w3.org/ns/prov#"
+    },
+    "@id": "urn:dde:example-hydrogeological-map",
     "@type": [
-      "schema:Dataset"
+        "schema:Dataset"
     ],
+    "schema:name": "China 1:500K Hydrogeological Map",
+    "schema:description": "National-scale hydrogeological map of China at 1:500,000 scale, depicting aquifer types, groundwater flow systems, and hydrogeological units across all provinces. Compiled from regional geological survey data by the China Geological Survey.",
+    "schema:identifier": "urn:cgs:hydrogeology-500k-2020",
+    "schema:dateModified": "2020-11-15",
+    "schema:inLanguage": "zho",
+    "schema:license": [
+        "licenceUnrestricted"
+    ],
+    "schema:url": "http://en.cgs.gov.cn/",
+    "schema:subjectOf": {
+        "@id": "urn:uuid:dde-dataset-catalog-record",
+        "@type": [
+            "schema:Dataset"
+        ],
+        "schema:additionalType": [
+            {
+                "@id": "dcat:CatalogRecord"
+            }
+        ],
+        "schema:about": {
+            "@id": "urn:dde:example-hydrogeological-map"
+        },
+        "dcterms:conformsTo": [
+            {
+                "@id": "https://w3id.org/cdif/core/1.1"
+            },
+            {
+                "@id": "https://w3id.org/cdif/discovery/1.1"
+            },
+            {
+                "@id": "https://w3id.org/cdif/dde/1.0/DDEDataset"
+            }
+        ],
+        "schema:sdDatePublished": "2020-11-15"
+    },
     "schema:additionalType": [
-      {
-        "@id": "dcat:CatalogRecord"
-      }
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Geographic Dataset",
+            "schema:termCode": "geographicDataset",
+            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+        }
     ],
-    "schema:about": {
-      "@id": "urn:dde:example-hydrogeological-map"
-    },
-    "dcterms:conformsTo": [
-      {
-        "@id": "https://w3id.org/cdif/core/1.1"
-      },
-      {
-        "@id": "https://w3id.org/cdif/discovery/1.1"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDataset"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
-      }
+    "schema:keywords": [
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Geoscientific Information",
+            "schema:termCode": "geoscientificInformation",
+            "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
+        },
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Geological Mapping",
+            "schema:termCode": "geologicalMapping",
+            "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
+        },
+        "hydrogeology",
+        "groundwater",
+        "aquifer",
+        "China"
     ],
-    "schema:sdDatePublished": "2020-11-15"
-  },
-  "schema:additionalType": [
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Geographic Dataset",
-      "schema:termCode": "geographicDataset",
-      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-    }
-  ],
-  "schema:keywords": [
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Geoscientific Information",
-      "schema:termCode": "geoscientificInformation",
-      "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
-    },
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Geological Mapping",
-      "schema:termCode": "geologicalMapping",
-      "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
-    },
-    "hydrogeology",
-    "groundwater",
-    "aquifer",
-    "China"
-  ],
-  "schema:image": [
-    {
-      "@type": [
-        "schema:ImageObject"
-      ],
-      "schema:contentUrl": "https://example.org/thumbnails/hydrogeological-map-500k.png",
-      "schema:name": "thumbnail",
-      "schema:encodingFormat": "image/png"
-    }
-  ],
-  "schema:spatialCoverage": [
-    {
-      "@type": [
-        "schema:Place"
-      ],
-      "schema:geo": {
-        "@type": [
-          "schema:GeoShape"
-        ],
-        "schema:box": "18.1609 73.499 53.5585 135.08"
-      }
-    }
-  ],
-  "schema:temporalCoverage": [
-    {
-      "@type": [
-        "time:ProperInterval"
-      ],
-      "time:hasBeginning": {
-        "@type": [
-          "time:Instant"
-        ],
-        "time:inTimePosition": {
-          "@type": [
-            "time:TimePosition"
-          ],
-          "time:hasTRS": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian",
-          "time:numericPosition": 2015
-        }
-      },
-      "time:hasEnd": {
-        "@type": [
-          "time:Instant"
-        ],
-        "time:inTimePosition": {
-          "@type": [
-            "time:TimePosition"
-          ],
-          "time:hasTRS": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian",
-          "time:numericPosition": 2020
-        }
-      }
-    }
-  ],
-  "schema:distribution": [
-    {
-      "@type": [
-        "schema:DataDownload"
-      ],
-      "schema:name": "Hydrogeological Map Shapefile",
-      "schema:description": "Vector data in ESRI Shapefile format",
-      "schema:contentUrl": "https://example.org/data/hydrogeology-500k.zip",
-      "schema:encodingFormat": [
-        "application/x-shapefile"
-      ]
-    }
-  ],
-  "schema:additionalProperty": [
-    {
-      "@type": [
-        "schema:PropertyValue"
-      ],
-      "schema:propertyID": [
+    "schema:image": [
         {
-          "@id": "dde:spatialRepresentationType"
+            "@type": [
+                "schema:ImageObject"
+            ],
+            "schema:contentUrl": "https://example.org/thumbnails/hydrogeological-map-500k.png",
+            "schema:name": "thumbnail",
+            "schema:encodingFormat": "image/png"
         }
-      ],
-      "schema:name": "Spatial Representation Type",
-      "schema:value": "vector"
-    },
-    {
-      "@type": [
-        "schema:PropertyValue"
-      ],
-      "schema:propertyID": [
+    ],
+    "schema:spatialCoverage": [
         {
-          "@id": "dde:spatialResolution"
+            "@type": [
+                "schema:Place"
+            ],
+            "schema:geo": {
+                "@type": [
+                    "schema:GeoShape"
+                ],
+                "schema:box": "18.1609 73.499 53.5585 135.08"
+            }
         }
-      ],
-      "schema:name": "Spatial Resolution",
-      "schema:value": "1:500000"
-    },
-    {
-      "@type": [
-        "schema:PropertyValue"
-      ],
-      "schema:propertyID": [
+    ],
+    "schema:temporalCoverage": [
         {
-          "@id": "dde:referenceSystemType"
+            "@type": [
+                "time:ProperInterval"
+            ],
+            "time:hasBeginning": {
+                "@type": [
+                    "time:Instant"
+                ],
+                "time:inTimePosition": {
+                    "@type": [
+                        "time:TimePosition"
+                    ],
+                    "time:hasTRS": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian",
+                    "time:numericPosition": 2015
+                }
+            },
+            "time:hasEnd": {
+                "@type": [
+                    "time:Instant"
+                ],
+                "time:inTimePosition": {
+                    "@type": [
+                        "time:TimePosition"
+                    ],
+                    "time:hasTRS": "http://www.opengis.net/def/uom/ISO-8601/0/Gregorian",
+                    "time:numericPosition": 2020
+                }
+            }
         }
-      ],
-      "schema:name": "Reference System Type",
-      "schema:value": "geodeticGeographic2D"
-    },
-    {
-      "@type": [
-        "schema:PropertyValue"
-      ],
-      "schema:propertyID": [
+    ],
+    "schema:distribution": [
         {
-          "@id": "dde:referenceSystemIdentifier"
+            "@type": [
+                "schema:DataDownload"
+            ],
+            "schema:name": "Hydrogeological Map Shapefile",
+            "schema:description": "Vector data in ESRI Shapefile format",
+            "schema:contentUrl": "https://example.org/data/hydrogeology-500k.zip",
+            "schema:encodingFormat": [
+                "application/x-shapefile"
+            ]
         }
-      ],
-      "schema:name": "Coordinate Reference System",
-      "schema:value": "EPSG:4326",
-      "schema:url": "https://epsg.io/4326"
-    }
-  ]
+    ],
+    "schema:additionalProperty": [
+        {
+            "@type": [
+                "schema:PropertyValue"
+            ],
+            "schema:propertyID": [
+                {
+                    "@id": "dde:spatialRepresentationType"
+                }
+            ],
+            "schema:name": "Spatial Representation Type",
+            "schema:value": "vector"
+        },
+        {
+            "@type": [
+                "schema:PropertyValue"
+            ],
+            "schema:propertyID": [
+                {
+                    "@id": "dde:spatialResolution"
+                }
+            ],
+            "schema:name": "Spatial Resolution",
+            "schema:value": "1:500000"
+        },
+        {
+            "@type": [
+                "schema:PropertyValue"
+            ],
+            "schema:propertyID": [
+                {
+                    "@id": "dde:referenceSystemType"
+                }
+            ],
+            "schema:name": "Reference System Type",
+            "schema:value": "geodeticGeographic2D"
+        },
+        {
+            "@type": [
+                "schema:PropertyValue"
+            ],
+            "schema:propertyID": [
+                {
+                    "@id": "dde:referenceSystemIdentifier"
+                }
+            ],
+            "schema:name": "Coordinate Reference System",
+            "schema:value": "EPSG:4326",
+            "schema:url": "https://epsg.io/4326"
+        }
+    ]
 }
 
 ```
@@ -292,10 +307,7 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
         "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDataset"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
+        "@id": "https://w3id.org/cdif/dde/1.0/DDEDataset"
       }
     ],
     "schema:sdDatePublished": "2020-11-15"
@@ -464,10 +476,6 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
 
 <urn:dde:example-hydrogeological-map> a schema1:Dataset ;
     schema1:additionalProperty [ a schema1:PropertyValue ;
-            schema1:name "Spatial Resolution" ;
-            schema1:propertyID dde:spatialResolution ;
-            schema1:value "1:500000" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Spatial Representation Type" ;
             schema1:propertyID dde:spatialRepresentationType ;
             schema1:value "vector" ],
@@ -476,6 +484,10 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
             schema1:propertyID dde:referenceSystemIdentifier ;
             schema1:url "https://epsg.io/4326" ;
             schema1:value "EPSG:4326" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Spatial Resolution" ;
+            schema1:propertyID dde:spatialResolution ;
+            schema1:value "1:500000" ],
         [ a schema1:PropertyValue ;
             schema1:name "Reference System Type" ;
             schema1:propertyID dde:referenceSystemType ;
@@ -527,9 +539,8 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
     schema1:url "http://en.cgs.gov.cn/" .
 
 <urn:uuid:dde-dataset-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
-        <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDEDataset>,
-        <https://w3id.org/cdif/core/1.1>,
+    dcterms:conformsTo <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/dde/1.0/DDEDataset>,
         <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about <urn:dde:example-hydrogeological-map> ;
     schema1:additionalType dcat:CatalogRecord ;
@@ -549,6 +560,20 @@ description: DDE profile for dataset resources (dataset, dataCatalog, geographic
   termCode is geographicDataset, ddeGeographicDataset constraints are applied.
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
+- properties:
+    schema:subjectOf:
+      properties:
+        dcterms:conformsTo:
+          contains:
+            type: object
+            required:
+            - '@id'
+            additionalProperties: false
+            properties:
+              '@id':
+                const: https://w3id.org/cdif/dde/1.0/DDEDataset
+          x-jsonld-id: http://purl.org/dc/terms/conformsTo
+      x-jsonld-id: http://schema.org/subjectOf
 - type: object
   properties:
     schema:additionalType:
@@ -576,14 +601,11 @@ allOf:
     schema:measurementTechnique:
       description: The technique, technology, or methodology used for measurement
         or determination of the dataset values.
-      anyOf:
-      - type: string
-      - $ref: '#/$defs/DefinedTerm'
-      - type: array
-        items:
-          anyOf:
-          - type: string
-          - $ref: '#/$defs/DefinedTerm'
+      type: array
+      items:
+        anyOf:
+        - type: string
+        - $ref: '#/$defs/DefinedTerm'
       x-jsonld-id: http://schema.org/measurementTechnique
     schema:variableMeasured:
       description: What does the dataset measure? (e.g., temperature, pressure)
@@ -641,7 +663,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEDataset
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-14'
+  dateOfLastChange: '2026-11-15'
 
 ```
 

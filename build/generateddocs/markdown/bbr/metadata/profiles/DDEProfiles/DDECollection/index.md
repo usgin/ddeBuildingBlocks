@@ -3,7 +3,7 @@
 
 `dde.bbr.metadata.profiles.DDEProfiles.DDECollection` *v0.1*
 
-DDE profile for collection resources (aggregate, collection, series, learningResource, guide). Extends DDEDiscovery with resource type constraint and requires schema:hasPart for collection members.
+DDE profile for collection resources (aggregate, collection, series, learningResource, guide). Extends ddeCore with resource type constraint and requires schema:hasPart for collection members.
 
 [*Status*](http://www.opengis.net/def/status): Under development
 
@@ -11,22 +11,47 @@ DDE profile for collection resources (aggregate, collection, series, learningRes
 
 ## DDE Collection Profile
 
-DDE profile for collection resources. Extends DDEDiscovery with a resource type constraint and requires `schema:hasPart` to describe collection members.
+DDE profile for collection resources. Extends `ddeCore` with a resource type constraint and requires `schema:hasPart` to describe collection members.
 
 ### Resource type codes
 aggregate, collection, series, learningResource, guide
 
 ### Composed building blocks
 
-1. **DDEDiscovery** — Base DDE discovery profile
+1. **ddeCore** — DDE core properties: resource type from `dde:codelist/ResourceTypeCode`, topic category and acquisition type keywords, alternate names, optional browse graphics. `ddeCore` composes `cdifCore`, so CDIF's mandatory fields come in with it.
 2. **Resource type constraint** — `schema:termCode` must be one of the collection group codes
-3. **`schema:hasPart`** (required) — Array of collection members, each with at least `schema:name`
+3. **cdifManifest** — `schema:hasPart` on the Dataset, for members retrievable at their own addresses, and on a `schema:distribution` item, for component files inside an archive
+4. **`schema:hasPart`** (required) — at least one member, each classified with a DDE resource type
 
 ### Collection member structure
-Each member in `schema:hasPart` must have:
-- `schema:name` (required) — Name of the collection member
-- `schema:description` (optional) — Description of the member
-- `schema:url` (optional) — URL to the member resource
+
+The member shape comes from **cdifManifest**'s `resourcePartItem`: `@id`, `@type`,
+`schema:name`, `schema:description`, `schema:encodingFormat`, `schema:url` and
+`schema:about`. On top of that, every member carries a DDE resource type
+(`ddeResourceType`) — `items`, not `contains`, so each member is classified rather than
+just one of them.
+
+Before 2026-11-15 this block defined its own member shape, with `schema:name` required and
+no way to say where a member could be retrieved, which is the one thing a manifest exists
+to express.
+
+### Conformance
+
+A document instance claiming this profile declares it on the catalog record:
+
+```json
+"schema:subjectOf": {
+    "dcterms:conformsTo": [
+        {"@id": "https://w3id.org/cdif/core/1.1"},
+        {"@id": "https://w3id.org/cdif/dde/1.0/DDECollection"}
+    ]
+}
+```
+
+`https://w3id.org/cdif/dde/1.0/DDECollection` is required by this profile's schema, as a
+`contains` over `schema:subjectOf`/`dcterms:conformsTo`. The URI is on the profile
+because DDE profiles are what document instances conform to; the property building
+blocks they compose, `ddeCore` among them, declare none of their own.
 
 ## Examples
 
@@ -35,152 +60,152 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
 #### json
 ```json
 {
-  "@context": {
-    "schema": "http://schema.org/",
-    "dde": "https://www.ddeworld.org/resource/",
-    "cdif": "https://cdif.org/profile/",
-    "dcterms": "http://purl.org/dc/terms/",
-    "dcat": "http://www.w3.org/ns/dcat#",
-    "time": "http://www.w3.org/2006/time#",
-    "prov": "http://www.w3.org/ns/prov#"
-  },
-  "@id": "urn:dde:example-onegeology-collection",
-  "@type": [
-    "schema:Dataset"
-  ],
-  "schema:name": "OneGeology Global Geological Map Collection",
-  "schema:description": "A curated collection of 1:1M scale geological maps contributed by national geological surveys through the OneGeology initiative. Each member map covers a single country or territory and uses harmonized symbology based on the GeoSciML Portrayal schema.",
-  "schema:identifier": "urn:onegeology:global-collection-2024",
-  "schema:dateModified": "2024-06-01",
-  "schema:inLanguage": "eng",
-  "schema:license": [
-    {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "Creative Commons Attribution 4.0",
-      "schema:url": "https://creativecommons.org/licenses/by/4.0/"
-    }
-  ],
-  "schema:url": "https://onegeology.org/",
-  "schema:subjectOf": {
-    "@id": "urn:uuid:dde-collection-catalog-record",
+    "@context": {
+        "schema": "http://schema.org/",
+        "dde": "https://www.ddeworld.org/resource/",
+        "cdif": "https://cdif.org/profile/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "dcat": "http://www.w3.org/ns/dcat#",
+        "time": "http://www.w3.org/2006/time#",
+        "prov": "http://www.w3.org/ns/prov#"
+    },
+    "@id": "urn:dde:example-onegeology-collection",
     "@type": [
-      "schema:Dataset"
+        "schema:Dataset"
     ],
-    "schema:additionalType": [
-      {
-        "@id": "dcat:CatalogRecord"
-      }
+    "schema:name": "OneGeology Global Geological Map Collection",
+    "schema:description": "A curated collection of 1:1M scale geological maps contributed by national geological surveys through the OneGeology initiative. Each member map covers a single country or territory and uses harmonized symbology based on the GeoSciML Portrayal schema.",
+    "schema:identifier": "urn:onegeology:global-collection-2024",
+    "schema:dateModified": "2024-06-01",
+    "schema:inLanguage": "eng",
+    "schema:license": [
+        {
+            "@type": [
+                "schema:CreativeWork"
+            ],
+            "schema:name": "Creative Commons Attribution 4.0",
+            "schema:url": "https://creativecommons.org/licenses/by/4.0/"
+        }
     ],
-    "schema:about": {
-      "@id": "urn:dde:example-onegeology-collection"
-    },
-    "dcterms:conformsTo": [
-      {
-        "@id": "https://w3id.org/cdif/core/1.1"
-      },
-      {
-        "@id": "https://w3id.org/cdif/discovery/1.1"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDECollection"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
-      }
-    ],
-    "schema:sdDatePublished": "2024-06-01"
-  },
-  "schema:additionalType": [
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Series",
-      "schema:termCode": "series",
-      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-    },
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Collection",
-      "schema:termCode": "collection",
-      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-    }
-  ],
-  "schema:keywords": [
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Geoscientific Information",
-      "schema:termCode": "geoscientificInformation",
-      "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
-    },
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Geological Mapping",
-      "schema:termCode": "geologicalMapping",
-      "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
-    },
-    "OneGeology",
-    "geology",
-    "geological map",
-    "global"
-  ],
-  "schema:image": [
-    {
-      "@type": [
-        "schema:ImageObject"
-      ],
-      "schema:contentUrl": "https://onegeology.org/images/global-map-preview.png",
-      "schema:name": "thumbnail",
-      "schema:encodingFormat": "image/png"
-    }
-  ],
-  "schema:spatialCoverage": [
-    {
-      "@type": [
-        "schema:Place"
-      ],
-      "schema:geo": {
+    "schema:url": "https://onegeology.org/",
+    "schema:subjectOf": {
+        "@id": "urn:uuid:dde-collection-catalog-record",
         "@type": [
-          "schema:GeoShape"
+            "schema:Dataset"
         ],
-        "schema:box": "-90 -180 90 180"
-      }
-    }
-  ],
-  "schema:hasPart": [
-    {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "China 1:1M Bedrock Lithostratigraphy",
-      "schema:description": "Geological map of China compiled from 63 separate survey sheets",
-      "schema:url": "http://en.cgs.gov.cn/"
+        "schema:additionalType": [
+            {
+                "@id": "dcat:CatalogRecord"
+            }
+        ],
+        "schema:about": {
+            "@id": "urn:dde:example-onegeology-collection"
+        },
+        "dcterms:conformsTo": [
+            {
+                "@id": "https://w3id.org/cdif/core/1.1"
+            },
+            {
+                "@id": "https://w3id.org/cdif/discovery/1.1"
+            },
+            {
+                "@id": "https://w3id.org/cdif/dde/1.0/DDECollection"
+            },
+            {
+                "@id": "https://w3id.org/cdif/manifest/1.1"
+            }
+        ],
+        "schema:sdDatePublished": "2024-06-01"
     },
-    {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "Australia 1:1M Surface Geology",
-      "schema:description": "National-scale surface geology map of Australia by Geoscience Australia",
-      "schema:url": "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets"
-    },
-    {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "United Kingdom 1:625K Bedrock Geology",
-      "schema:description": "Bedrock geological map of the United Kingdom by the British Geological Survey",
-      "schema:url": "https://www.bgs.ac.uk/geological-data/"
-    }
-  ]
+    "schema:additionalType": [
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Series",
+            "schema:termCode": "series",
+            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+        },
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Collection",
+            "schema:termCode": "collection",
+            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+        }
+    ],
+    "schema:keywords": [
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Geoscientific Information",
+            "schema:termCode": "geoscientificInformation",
+            "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
+        },
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Geological Mapping",
+            "schema:termCode": "geologicalMapping",
+            "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
+        },
+        "OneGeology",
+        "geology",
+        "geological map",
+        "global"
+    ],
+    "schema:image": [
+        {
+            "@type": [
+                "schema:ImageObject"
+            ],
+            "schema:contentUrl": "https://onegeology.org/images/global-map-preview.png",
+            "schema:name": "thumbnail",
+            "schema:encodingFormat": "image/png"
+        }
+    ],
+    "schema:spatialCoverage": [
+        {
+            "@type": [
+                "schema:Place"
+            ],
+            "schema:geo": {
+                "@type": [
+                    "schema:GeoShape"
+                ],
+                "schema:box": "-90 -180 90 180"
+            }
+        }
+    ],
+    "schema:hasPart": [
+        {
+            "@type": [
+                "schema:CreativeWork"
+            ],
+            "schema:name": "China 1:1M Bedrock Lithostratigraphy",
+            "schema:description": "Geological map of China compiled from 63 separate survey sheets",
+            "schema:url": "http://en.cgs.gov.cn/"
+        },
+        {
+            "@type": [
+                "schema:CreativeWork"
+            ],
+            "schema:name": "Australia 1:1M Surface Geology",
+            "schema:description": "National-scale surface geology map of Australia by Geoscience Australia",
+            "schema:url": "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets"
+        },
+        {
+            "@type": [
+                "schema:CreativeWork"
+            ],
+            "schema:name": "United Kingdom 1:625K Bedrock Geology",
+            "schema:description": "Bedrock geological map of the United Kingdom by the British Geological Survey",
+            "schema:url": "https://www.bgs.ac.uk/geological-data/"
+        }
+    ]
 }
 
 ```
@@ -249,10 +274,10 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
         "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDECollection"
+        "@id": "https://w3id.org/cdif/dde/1.0/DDECollection"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
+        "@id": "https://w3id.org/cdif/manifest/1.1"
       }
     ],
     "schema:sdDatePublished": "2024-06-01"
@@ -367,13 +392,13 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
     schema1:dateModified "2024-06-01" ;
     schema1:description "A curated collection of 1:1M scale geological maps contributed by national geological surveys through the OneGeology initiative. Each member map covers a single country or territory and uses harmonized symbology based on the GeoSciML Portrayal schema." ;
     schema1:hasPart [ a schema1:CreativeWork ;
-            schema1:description "National-scale surface geology map of Australia by Geoscience Australia" ;
-            schema1:name "Australia 1:1M Surface Geology" ;
-            schema1:url "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets" ],
-        [ a schema1:CreativeWork ;
             schema1:description "Bedrock geological map of the United Kingdom by the British Geological Survey" ;
             schema1:name "United Kingdom 1:625K Bedrock Geology" ;
             schema1:url "https://www.bgs.ac.uk/geological-data/" ],
+        [ a schema1:CreativeWork ;
+            schema1:description "National-scale surface geology map of Australia by Geoscience Australia" ;
+            schema1:name "Australia 1:1M Surface Geology" ;
+            schema1:url "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets" ],
         [ a schema1:CreativeWork ;
             schema1:description "Geological map of China compiled from 63 separate survey sheets" ;
             schema1:name "China 1:1M Bedrock Lithostratigraphy" ;
@@ -385,13 +410,13 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
             schema1:name "thumbnail" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Geological Mapping" ;
-            schema1:termCode "geologicalMapping" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Geological Mapping" ;
+            schema1:termCode "geologicalMapping" ],
         "OneGeology",
         "geological map",
         "geology",
@@ -407,10 +432,10 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
     schema1:url "https://onegeology.org/" .
 
 <urn:uuid:dde-collection-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
-        <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDECollection>,
-        <https://w3id.org/cdif/core/1.1>,
-        <https://w3id.org/cdif/discovery/1.1> ;
+    dcterms:conformsTo <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/dde/1.0/DDECollection>,
+        <https://w3id.org/cdif/discovery/1.1>,
+        <https://w3id.org/cdif/manifest/1.1> ;
     schema1:about <urn:dde:example-onegeology-collection> ;
     schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2024-06-01" .
@@ -424,11 +449,40 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
 $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 title: DDE Collection profile
-description: DDE profile for collection resources (aggregate, collection, series,
-  learningResource, guide). Extends DDEDiscovery with resource type constraint and
-  requires schema:hasPart to describe collection members.
+description: 'DDE profile for collection resources (aggregate, collection, series,
+  learningResource, guide). Composes ddeCore with the CDIF manifest profile and adds
+  the DDE-specific constraints: the collection''s own resource type, a DDE resource
+  type on every member, and a temporal extent.
+
+  schema:hasPart comes from cdifManifest, so a member carries that profile''s resourcePartItem
+  shape -- @id, @type, schema:name, schema:description, schema:encodingFormat, schema:url,
+  schema:about -- and a DDE resource type in addition, the two composing through the
+  allOf below. Before this the block defined its own member shape with no way to say
+  where a member could be retrieved, which is the one thing a manifest exists to express.
+
+  Three conformance URIs land on the catalog record, each a separate "contains" over
+  the same dcterms:conformsTo array: cdif/core/1.1 from cdifCore, cdif/manifest/1.1
+  from cdifManifest, and this profile''s own cdif/dde/1.0/DDECollection. Manifest
+  conformance is against 1.1, matching what this repository vendors. Nothing here
+  restates that the array is required -- cdifCore requires schema:subjectOf and cdifCatalogRecord
+  requires dcterms:conformsTo, so a branch doing that by hand was removed 2026-11-15.'
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
+- properties:
+    schema:subjectOf:
+      properties:
+        dcterms:conformsTo:
+          contains:
+            type: object
+            required:
+            - '@id'
+            additionalProperties: false
+            properties:
+              '@id':
+                const: https://w3id.org/cdif/dde/1.0/DDECollection
+          x-jsonld-id: http://purl.org/dc/terms/conformsTo
+      x-jsonld-id: http://schema.org/subjectOf
+- $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/profiles/cdifProfile/cdifManifest/schema.yaml
 - properties:
     schema:additionalType:
       contains:
@@ -455,29 +509,13 @@ allOf:
       x-jsonld-id: http://schema.org/additionalType
     schema:hasPart:
       type: array
-      description: Members of the collection. Each must have a DDE resource type classification
-        and basic descriptive properties.
+      description: 'Members of the collection. The item shape comes from cdifManifest''s
+        resourcePartItem via the allOf above; this branch adds the DDE resource type
+        every member must carry. items, not contains: each member is classified, not
+        merely one of them.'
       minItems: 1
       items:
-        allOf:
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.yaml
-        - type: object
-          properties:
-            '@type':
-              type: array
-              items:
-                type: string
-              default:
-              - schema:CreativeWork
-            schema:name:
-              type: string
-              x-jsonld-id: http://schema.org/name
-            schema:description:
-              type: string
-              x-jsonld-id: http://schema.org/description
-          required:
-          - '@type'
-          - schema:name
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.yaml
       x-jsonld-id: http://schema.org/hasPart
     schema:temporalCoverage:
       description: Temporal extent of resource content.
@@ -505,7 +543,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDECollection
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-14'
+  dateOfLastChange: '2026-11-15'
 
 ```
 
@@ -534,6 +572,8 @@ Links to the schema:
     "spdx": "http://spdx.org/rdf/terms#",
     "time": "http://www.w3.org/2006/time#",
     "dqv": "http://www.w3.org/ns/dqv#",
+    "ada": "https://ada.astromat.org/metadata/",
+    "nxs": "https://manual.nexusformat.org/classes/",
     "@version": 1.1
   }
 }

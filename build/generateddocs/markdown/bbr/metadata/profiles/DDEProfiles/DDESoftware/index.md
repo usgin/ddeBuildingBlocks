@@ -3,7 +3,7 @@
 
 `dde.bbr.metadata.profiles.DDEProfiles.DDESoftware` *v0.1*
 
-DDE profile for software resources. Extends DDEDiscovery with resource type constraint.
+DDE profile for software resources. Extends ddeCore with resource type constraint.
 
 [*Status*](http://www.opengis.net/def/status): Under development
 
@@ -11,15 +11,33 @@ DDE profile for software resources. Extends DDEDiscovery with resource type cons
 
 ## DDE Software Profile
 
-DDE profile for software resources. Extends DDEDiscovery with a resource type constraint.
+DDE profile for software resources. Extends `ddeCore` with a resource type constraint.
 
 ### Resource type codes
 software
 
 ### Composed building blocks
 
-1. **DDEDiscovery** — Base DDE discovery profile
+1. **ddeCore** — DDE core properties: resource type from `dde:codelist/ResourceTypeCode`, topic category and acquisition type keywords, alternate names, optional browse graphics. `ddeCore` composes `cdifCore`, so CDIF's mandatory fields come in with it.
 2. **Resource type constraint** — `schema:termCode` must be `software`
+
+### Conformance
+
+A document instance claiming this profile declares it on the catalog record:
+
+```json
+"schema:subjectOf": {
+    "dcterms:conformsTo": [
+        {"@id": "https://w3id.org/cdif/core/1.1"},
+        {"@id": "https://w3id.org/cdif/dde/1.0/DDESoftware"}
+    ]
+}
+```
+
+`https://w3id.org/cdif/dde/1.0/DDESoftware` is required by this profile's schema, as a
+`contains` over `schema:subjectOf`/`dcterms:conformsTo`. The URI is on the profile
+because DDE profiles are what document instances conform to; the property building
+blocks they compose, `ddeCore` among them, declare none of their own.
 
 ## Examples
 
@@ -28,129 +46,126 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
 #### json
 ```json
 {
-  "@context": {
-    "schema": "http://schema.org/",
-    "dde": "https://www.ddeworld.org/resource/",
-    "cdif": "https://cdif.org/profile/",
-    "dcterms": "http://purl.org/dc/terms/",
-    "dcat": "http://www.w3.org/ns/dcat#",
-    "prov": "http://www.w3.org/ns/prov#"
-  },
-  "@id": "urn:dde:example-gplates",
-  "@type": [
-    "schema:Dataset"
-  ],
-  "schema:name": "GPlates Plate Reconstruction Software",
-  "schema:description": "Open-source desktop application for interactive visualization and manipulation of plate tectonic reconstructions. Enables users to load and combine digital plate models, create paleo-geographic maps, and export reconstructed geometries. Supports deep geological time reconstructions from the Archean to the present.",
-  "schema:identifier": "urn:earthbyte:gplates-2.5",
-  "schema:dateModified": "2024-01-20",
-  "schema:version": "2.5",
-  "schema:inLanguage": "eng",
-  "schema:license": [
-    {
-      "@type": [
-        "schema:CreativeWork"
-      ],
-      "schema:name": "GNU General Public License v2.0",
-      "schema:url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
-    }
-  ],
-  "schema:url": "https://www.gplates.org/",
-  "schema:subjectOf": {
-    "@id": "urn:uuid:dde-software-catalog-record",
+    "@context": {
+        "schema": "http://schema.org/",
+        "dde": "https://www.ddeworld.org/resource/",
+        "cdif": "https://cdif.org/profile/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "dcat": "http://www.w3.org/ns/dcat#",
+        "prov": "http://www.w3.org/ns/prov#"
+    },
+    "@id": "urn:dde:example-gplates",
     "@type": [
-      "schema:Dataset"
+        "schema:Dataset"
     ],
-    "schema:additionalType": [
-      {
-        "@id": "dcat:CatalogRecord"
-      }
+    "schema:name": "GPlates Plate Reconstruction Software",
+    "schema:description": "Open-source desktop application for interactive visualization and manipulation of plate tectonic reconstructions. Enables users to load and combine digital plate models, create paleo-geographic maps, and export reconstructed geometries. Supports deep geological time reconstructions from the Archean to the present.",
+    "schema:identifier": "urn:earthbyte:gplates-2.5",
+    "schema:dateModified": "2024-01-20",
+    "schema:version": "2.5",
+    "schema:inLanguage": "eng",
+    "schema:license": [
+        {
+            "@type": [
+                "schema:CreativeWork"
+            ],
+            "schema:name": "GNU General Public License v2.0",
+            "schema:url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.html"
+        }
     ],
-    "schema:about": {
-      "@id": "urn:dde:example-gplates"
-    },
-    "dcterms:conformsTo": [
-      {
-        "@id": "https://w3id.org/cdif/core/1.1"
-      },
-      {
-        "@id": "https://w3id.org/cdif/discovery/1.1"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
-      }
-    ],
-    "schema:sdDatePublished": "2024-01-20"
-  },
-  "schema:additionalType": [
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Software",
-      "schema:termCode": "software",
-      "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
-    }
-  ],
-  "schema:keywords": [
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Geoscientific Information",
-      "schema:termCode": "geoscientificInformation",
-      "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
-    },
-    {
-      "@type": [
-        "schema:DefinedTerm"
-      ],
-      "schema:name": "Data Integration Synthesis",
-      "schema:termCode": "dataIntegrationSynthesis",
-      "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
-    },
-    "plate tectonics",
-    "plate reconstruction",
-    "paleogeography",
-    "GPlates"
-  ],
-  "schema:image": [
-    {
-      "@type": [
-        "schema:ImageObject"
-      ],
-      "schema:contentUrl": "https://www.gplates.org/images/gplates-screenshot.png",
-      "schema:name": "GPlates application screenshot",
-      "schema:encodingFormat": "image/png"
-    }
-  ],
-  "schema:creator": {
-    "@list": [
-      {
+    "schema:url": "https://www.gplates.org/",
+    "schema:subjectOf": {
+        "@id": "urn:uuid:dde-software-catalog-record",
         "@type": [
-          "schema:Organization"
+            "schema:Dataset"
         ],
-        "schema:name": "EarthByte Group, University of Sydney",
-        "schema:url": "https://www.earthbyte.org/"
-      }
+        "schema:additionalType": [
+            {
+                "@id": "dcat:CatalogRecord"
+            }
+        ],
+        "schema:about": {
+            "@id": "urn:dde:example-gplates"
+        },
+        "dcterms:conformsTo": [
+            {
+                "@id": "https://w3id.org/cdif/core/1.1"
+            },
+            {
+                "@id": "https://w3id.org/cdif/discovery/1.1"
+            },
+            {
+                "@id": "https://w3id.org/cdif/dde/1.0/DDESoftware"
+            }
+        ],
+        "schema:sdDatePublished": "2024-01-20"
+    },
+    "schema:additionalType": [
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Software",
+            "schema:termCode": "software",
+            "schema:inDefinedTermSet": "dde:codelist/ResourceTypeCode"
+        }
+    ],
+    "schema:keywords": [
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Geoscientific Information",
+            "schema:termCode": "geoscientificInformation",
+            "schema:inDefinedTermSet": "dde:codelist/TopicCategoryCode"
+        },
+        {
+            "@type": [
+                "schema:DefinedTerm"
+            ],
+            "schema:name": "Data Integration Synthesis",
+            "schema:termCode": "dataIntegrationSynthesis",
+            "schema:inDefinedTermSet": "dde:codelist/AcquisitionTypeCode"
+        },
+        "plate tectonics",
+        "plate reconstruction",
+        "paleogeography",
+        "GPlates"
+    ],
+    "schema:image": [
+        {
+            "@type": [
+                "schema:ImageObject"
+            ],
+            "schema:contentUrl": "https://www.gplates.org/images/gplates-screenshot.png",
+            "schema:name": "GPlates application screenshot",
+            "schema:encodingFormat": "image/png"
+        }
+    ],
+    "schema:creator": {
+        "@list": [
+            {
+                "@type": [
+                    "schema:Organization"
+                ],
+                "schema:name": "EarthByte Group, University of Sydney",
+                "schema:url": "https://www.earthbyte.org/"
+            }
+        ]
+    },
+    "schema:distribution": [
+        {
+            "@type": [
+                "schema:DataDownload"
+            ],
+            "schema:name": "GPlates Desktop Installer",
+            "schema:description": "Platform-specific installers for Windows, macOS, and Linux",
+            "schema:contentUrl": "https://www.gplates.org/download/",
+            "schema:encodingFormat": [
+                "application/octet-stream"
+            ]
+        }
     ]
-  },
-  "schema:distribution": [
-    {
-      "@type": [
-        "schema:DataDownload"
-      ],
-      "schema:name": "GPlates Desktop Installer",
-      "schema:description": "Platform-specific installers for Windows, macOS, and Linux",
-      "schema:contentUrl": "https://www.gplates.org/download/",
-      "schema:encodingFormat": [
-        "application/octet-stream"
-      ]
-    }
-  ]
 }
 
 ```
@@ -218,10 +233,7 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
         "@id": "https://w3id.org/cdif/discovery/1.1"
       },
       {
-        "@id": "https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware"
-      },
-      {
-        "@id": "https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore"
+        "@id": "https://w3id.org/cdif/dde/1.0/DDESoftware"
       }
     ],
     "schema:sdDatePublished": "2024-01-20"
@@ -344,9 +356,8 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
     schema1:version "2.5" .
 
 <urn:uuid:dde-software-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore>,
-        <https://w3id.org/cdif/bbr/metadata/profiles/DDEProfiles/DDESoftware>,
-        <https://w3id.org/cdif/core/1.1>,
+    dcterms:conformsTo <https://w3id.org/cdif/core/1.1>,
+        <https://w3id.org/cdif/dde/1.0/DDESoftware>,
         <https://w3id.org/cdif/discovery/1.1> ;
     schema1:about <urn:dde:example-gplates> ;
     schema1:additionalType dcat:CatalogRecord ;
@@ -361,10 +372,24 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
 $schema: https://json-schema.org/draft/2020-12/schema
 type: object
 title: DDE Software profile
-description: DDE profile for software resources. Extends DDEDiscovery with resource
-  type constraint.
+description: DDE profile for software resources. Extends ddeCore with resource type
+  constraint.
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
+- properties:
+    schema:subjectOf:
+      properties:
+        dcterms:conformsTo:
+          contains:
+            type: object
+            required:
+            - '@id'
+            additionalProperties: false
+            properties:
+              '@id':
+                const: https://w3id.org/cdif/dde/1.0/DDESoftware
+          x-jsonld-id: http://purl.org/dc/terms/conformsTo
+      x-jsonld-id: http://schema.org/subjectOf
 - properties:
     schema:additionalType:
       contains:
@@ -400,7 +425,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDESoftware
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-14'
+  dateOfLastChange: '2026-11-15'
 
 ```
 

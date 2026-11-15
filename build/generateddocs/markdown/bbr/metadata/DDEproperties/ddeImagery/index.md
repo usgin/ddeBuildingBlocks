@@ -3,7 +3,7 @@
 
 `dde.bbr.metadata.DDEproperties.ddeImagery` *v0.1*
 
-Conditional extension for imagery resources using the CDIF provenance pattern (cdifProv). Maps DDE imagery acquisition metadata into prov:wasGeneratedBy activities: sensor, platform, equipment, and signalGenerator become typed instruments; collector becomes a participant with DataCollector role; startTime and endTime are activity temporal bounds. Wavelength and processedLevel remain as dataset-level schema:additionalProperty values. Defines properties: prov:wasGeneratedBy, schema:additionalProperty. Uses building blocks: instrument, agentInRole, person, organization, additionalProperty (schemaorgProperties).
+Conditional extension for imagery resources using the CDIF provenance pattern (cdifProv). Maps DDE imagery acquisition metadata into prov:wasGeneratedBy activities: sensor, platform, equipment, and signalGenerator become typed instruments; collector becomes a participant with DataCollector role; startTime and endTime are activity temporal bounds. Wavelength and processingLevel remain as dataset-level schema:additionalProperty values. Defines properties: prov:wasGeneratedBy, schema:additionalProperty. Uses building blocks: instrument, agentInRole, person, organization, additionalProperty (schemaorgProperties).
 
 [*Status*](http://www.opengis.net/def/status): Under development
 
@@ -32,7 +32,7 @@ Each imagery acquisition event is represented as a provenance activity following
 Properties that describe the image product itself (not the acquisition activity):
 
 - **`dde:wavelength`** — Wavelength range (e.g., "0.43-2.29 micrometers"). Value: string.
-- **`dde:processedLevel`** — Processing level. Value from `ProcessingLevelCode` enum: Level0, Level1, Level2, Level3, Level4.
+- **`dde:processingLevel`** — Processing level. Value from `ProcessingLevelCode` enum: Level0, Level1, Level2, Level3, Level4.
 
 ## Examples
 
@@ -147,7 +147,7 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
       ],
       "schema:propertyID": [
         {
-          "@id": "dde:processedLevel"
+          "@id": "dde:processingLevel"
         }
       ],
       "schema:name": "Processing Level",
@@ -274,7 +274,7 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
       ],
       "schema:propertyID": [
         {
-          "@id": "dde:processedLevel"
+          "@id": "dde:processingLevel"
         }
       ],
       "schema:name": "Processing Level",
@@ -292,17 +292,27 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
 @prefix wd: <https://www.wikidata.org/entity/> .
 
 [] schema1:additionalProperty [ a schema1:PropertyValue ;
+            schema1:name "Processing Level" ;
+            schema1:propertyID dde:processingLevel ;
+            schema1:value "Level2" ],
+        [ a schema1:PropertyValue ;
             schema1:name "Wavelength Range" ;
             schema1:propertyID dde:wavelength ;
-            schema1:value "0.43-2.29 micrometers" ],
-        [ a schema1:PropertyValue ;
-            schema1:name "Processing Level" ;
-            schema1:propertyID dde:processedLevel ;
-            schema1:value "Level2" ] ;
+            schema1:value "0.43-2.29 micrometers" ] ;
     prov:wasGeneratedBy [ a schema1:Action,
                 prov:Activity ;
             schema1:endTime "2023-06-15T03:45:12Z" ;
             schema1:instrument [ a schema1:Product,
+                        schema1:Thing ;
+                    schema1:additionalType dde:equipment,
+                        wd:Q3099911 ;
+                    schema1:name "Operational Land Imager (OLI)" ],
+                [ a schema1:Product,
+                        schema1:Thing ;
+                    schema1:additionalType dde:signalGenerator,
+                        wd:Q3099911 ;
+                    schema1:name "Passive solar" ],
+                [ a schema1:Product,
                         schema1:Thing ;
                     schema1:additionalType dde:platform,
                         wd:Q3099911 ;
@@ -311,17 +321,7 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
                         schema1:Thing ;
                     schema1:additionalType dde:sensorType,
                         wd:Q3099911 ;
-                    schema1:name "Multispectral" ],
-                [ a schema1:Product,
-                        schema1:Thing ;
-                    schema1:additionalType dde:signalGenerator,
-                        wd:Q3099911 ;
-                    schema1:name "Passive solar" ],
-                [ a schema1:Product,
-                        schema1:Thing ;
-                    schema1:additionalType dde:equipment,
-                        wd:Q3099911 ;
-                    schema1:name "Operational Land Imager (OLI)" ] ;
+                    schema1:name "Multispectral" ] ;
             schema1:name "Landsat-8 OLI imagery acquisition" ;
             schema1:participant [ a schema1:Role ;
                     schema1:contributor [ a schema1:Organization ;
@@ -341,8 +341,8 @@ description: Conditional extension for imagery resources. Maps DDE imagery acqui
   metadata into the CDIF provenance pattern (cdifProv). Sensor, platform, equipment,
   and signalGenerator become typed instruments (via schema:additionalType) under prov:wasGeneratedBy
   activities; collector becomes a schema:participant with DataCollector role; startTime
-  and endTime are temporal bounds on the activity. Wavelength and processedLevel remain
-  as dataset-level additionalProperty values. All properties are optional.
+  and endTime are temporal bounds on the activity. Wavelength and processingLevel
+  remain as dataset-level additionalProperty values. All properties are optional.
 type: object
 properties:
   prov:wasGeneratedBy:
@@ -354,12 +354,12 @@ properties:
       that cdifProvActivity requires, a data collector via schema:participant as an
       agentInRole, and temporal bounds via schema:startTime/schema:endTime.
     items:
-      $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifProvActivity/schema.yaml
+      $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeActivity/schema.yaml
     x-jsonld-id: http://www.w3.org/ns/prov#wasGeneratedBy
   schema:additionalProperty:
     type: array
     description: Dataset-level additional properties for imagery resources. Wavelength
-      and processedLevel describe the image product itself rather than the acquisition
+      and processingLevel describe the image product itself rather than the acquisition
       activity.
     items:
       anyOf:
@@ -402,7 +402,7 @@ $defs:
       schema:propertyID:
         type: array
         contains:
-          const: dde:processedLevel
+          const: dde:processingLevel
         minItems: 1
         x-jsonld-id: http://schema.org/propertyID
       schema:name:
@@ -429,7 +429,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.DDEproperties.ddeImagery
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-14'
+  dateOfLastChange: '2026-11-15'
 
 ```
 

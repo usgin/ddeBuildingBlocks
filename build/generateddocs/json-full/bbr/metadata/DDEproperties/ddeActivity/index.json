@@ -1,0 +1,122 @@
+
+
+{
+  "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeActivity",
+  "$schema": "metaschema.yaml",
+  "name": "DDE Acquisition Activity",
+  "abstract": "Narrows cdifProvActivity for DDE acquisition. Requires at least one instrument typed with a DDE acquisition category (dde:sensorType, dde:platform, dde:equipment, dde:signalGenerator) alongside the Wikidata measuring-instrument term cdifProvActivity already requires. A DataCollector participant is permitted but not required, because the DDE XSD has no collector element. Defines properties: schema:instrument, schema:participant. Uses building blocks: cdifProvActivity (cdifDataType).",
+  "status": "under-development",
+  "dateTimeAddition": "2026-11-15T00:00:00Z",
+  "itemClass": "schema",
+  "register": "dde-building-block-register",
+  "version": "0.1",
+  "dateOfLastChange": "2026-11-15",
+  "link": "https://github.com/opengeospatial/bblock-template",
+  "sources": [
+    {
+      "title": "DDE Metadata Standard",
+      "link": "https://www.ddeworld.org"
+    }
+  ],
+  "maturity": "draft",
+  "scope": "unstable",
+  "tags": [
+    "templates"
+  ],
+  "shaclShapes": {
+    "cdif.bbr.metadata.cdifDataType.cdifProvActivity": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifProvActivity/rules.shacl"
+    ],
+    "cdif.bbr.metadata.provProperties.generatedBy": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/provProperties/generatedBy/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.additionalProperty": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/additionalProperty/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.definedTerm": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/definedTerm/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.identifier": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/identifier/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.agentInRole": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/agentInRole/rules.shacl"
+    ],
+    "cdif.bbr.metadata.skosProperties.skosConcept": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/skosProperties/skosConcept/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.organization": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.person": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.instrument": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/instrument/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.labeledLink": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/labeledLink/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.linkRole": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/linkRole/rules.shacl"
+    ],
+    "cdif.bbr.metadata.schemaorgProperties.spatialExtent": [
+      "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/spatialExtent/rules.shacl"
+    ]
+  },
+  "dependsOn": [
+    "cdif.bbr.metadata.cdifDataType.cdifProvActivity",
+    "cdif.bbr.metadata.schemaorgProperties.organization",
+    "cdif.bbr.metadata.schemaorgProperties.person"
+  ],
+  "license": {
+    "url": "https://usgin.github.io/ddeBuildingBlocks/LICENSE"
+  },
+  "ldContext": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeActivity/context.jsonld",
+  "schema": {
+    "application/yaml": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeActivity/schema.yaml",
+    "application/json": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeActivity/schema.json"
+  },
+  "sourceSchema": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeActivity/schema.yaml",
+  "sourceLdContext": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeActivity/context.jsonld",
+  "resolvedSchemaProperties": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeActivity/resolvedProperties.json",
+  "sourceFiles": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeActivity/",
+  "validationPassed": true,
+  "testOutputs": "https://github.com/usgin/ddeBuildingBlocks/blob/main/build/tests/bbr/metadata/DDEproperties/ddeActivity/",
+  "description": "# DDE acquisition activity\n\nNarrows [cdifProvActivity](../../../cdifDataType/cdifProvActivity) for DDE\nacquisition. It adds two things and inherits everything else.\n\n## What it requires\n\n**At least one instrument typed with a DDE acquisition category.** The four\ncategories are:\n\n| category | DDE element |\n|---|---|\n| `dde:sensorType` | `sensor` |\n| `dde:platform` | `platform` |\n| `dde:equipment` | `equipment` |\n| `dde:signalGenerator` | `signalGenerator` |\n\n`cdifProvActivity` already requires an instrument described in place to carry the\nWikidata measuring-instrument term, so a DDE instrument's `schema:additionalType`\ncarries both:\n\n```json\n\"schema:additionalType\": [\n  { \"@id\": \"dde:sensorType\" },\n  { \"@id\": \"https://www.wikidata.org/entity/Q3099911\" }\n]\n```\n\nThe constraint uses `contains`, not `items`: an acquisition may list instruments\nthat are not DDE-categorised beside the ones that are, and `items` would reject\nthem. The four categories are separate `anyOf` branches rather than one `enum`, so\neach can be extended independently and a failure names which was expected.\n\n## What it does not require\n\n**A data collector.** The DDE XSD has no collector element \u2014 `MD_Imagery` is\n`sensor` [0..*], `platform`, `equipment`, `signalGenerator`, `wavelength` and\n`processingLevel`, every one `minOccurs=\"0\"` \u2014 so a `DataCollector` participant is\na convention rather than an obligation. `DataCollectorRole` in `$defs` records the\nshape DDE imagery conventionally uses, a `schema:Role` with `roleName`\n`DataCollector` wrapping a Person or an Organization, without imposing it.\nParticipants of any other shape `cdifProvActivity` permits remain valid.\n\n## What it inherits\n\n`schema:startTime`, `schema:endTime`, `schema:agent`, `schema:object`,\n`schema:result`, `schema:location`, `schema:actionProcess`,\n`schema:additionalProperty` and the rest come from `cdifProvActivity` unchanged,\nincluding its requirement that an activity carry at least one of\n`schema:instrument`, `schema:object` or `schema:actionProcess`.\n",
+  "examples": [
+    {
+      "title": "DDE acquisition activity.",
+      "content": "An imagery acquisition with two DDE-categorised instruments -- a sensor and a\nplatform -- each carrying the Wikidata measuring-instrument term that\ncdifProvActivity requires, plus the conventional DataCollector participant and\ntemporal bounds. The participant is optional: the DDE XSD has no collector\nelement.",
+      "prefixes": {
+        "schema": "http://schema.org/",
+        "dde": "https://www.ddeworld.org/resource/",
+        "prov": "http://www.w3.org/ns/prov#"
+      },
+      "snippets": [
+        {
+          "language": "json",
+          "ref": "https://usgin.github.io/ddeBuildingBlocks/_sources/DDEproperties/ddeActivity/exampleDdeActivity.json",
+          "url": "https://usgin.github.io/ddeBuildingBlocks/build/tests/bbr/metadata/DDEproperties/ddeActivity/example_1_1.json",
+          "sizeBytes": 1256,
+          "code": "{\n  \"@context\": {\n    \"schema\": \"http://schema.org/\",\n    \"dde\": \"https://www.ddeworld.org/resource/\",\n    \"prov\": \"http://www.w3.org/ns/prov#\"\n  },\n  \"@type\": [\n    \"schema:Action\",\n    \"prov:Activity\"\n  ],\n  \"schema:name\": \"Landsat 8 OLI multispectral acquisition\",\n  \"schema:startTime\": \"2024-03-01T10:15:00Z\",\n  \"schema:endTime\": \"2024-03-01T10:17:00Z\",\n  \"schema:instrument\": [\n    {\n      \"@type\": [\n        \"schema:Product\",\n        \"schema:Thing\"\n      ],\n      \"schema:name\": \"Multispectral\",\n      \"schema:additionalType\": [\n        {\n          \"@id\": \"dde:sensorType\"\n        },\n        {\n          \"@id\": \"https://www.wikidata.org/entity/Q3099911\"\n        }\n      ]\n    },\n    {\n      \"@type\": [\n        \"schema:Product\",\n        \"schema:Thing\"\n      ],\n      \"schema:name\": \"Landsat 8\",\n      \"schema:additionalType\": [\n        {\n          \"@id\": \"dde:platform\"\n        },\n        {\n          \"@id\": \"https://www.wikidata.org/entity/Q3099911\"\n        }\n      ]\n    }\n  ],\n  \"schema:participant\": [\n    {\n      \"@type\": [\n        \"schema:Role\"\n      ],\n      \"schema:roleName\": \"DataCollector\",\n      \"schema:contributor\": {\n        \"@type\": [\n          \"schema:Organization\"\n        ],\n        \"schema:name\": \"USGS / NASA\"\n      }\n    }\n  ]\n}\n"
+        },
+        {
+          "language": "jsonld",
+          "url": "https://usgin.github.io/ddeBuildingBlocks/build/tests/bbr/metadata/DDEproperties/ddeActivity/example_1_1.jsonld",
+          "sizeBytes": 1537,
+          "code": "{\n  \"@context\": [\n    {\n      \"schema\": \"http://schema.org/\",\n      \"dde\": \"https://www.ddeworld.org/resource/\",\n      \"prov\": \"http://www.w3.org/ns/prov#\"\n    },\n    \"https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeActivity/context.jsonld\",\n    {\n      \"schema\": \"http://schema.org/\",\n      \"dde\": \"https://www.ddeworld.org/resource/\",\n      \"prov\": \"http://www.w3.org/ns/prov#\"\n    }\n  ],\n  \"@type\": [\n    \"schema:Action\",\n    \"prov:Activity\"\n  ],\n  \"schema:name\": \"Landsat 8 OLI multispectral acquisition\",\n  \"schema:startTime\": \"2024-03-01T10:15:00Z\",\n  \"schema:endTime\": \"2024-03-01T10:17:00Z\",\n  \"schema:instrument\": [\n    {\n      \"@type\": [\n        \"schema:Product\",\n        \"schema:Thing\"\n      ],\n      \"schema:name\": \"Multispectral\",\n      \"schema:additionalType\": [\n        {\n          \"@id\": \"dde:sensorType\"\n        },\n        {\n          \"@id\": \"https://www.wikidata.org/entity/Q3099911\"\n        }\n      ]\n    },\n    {\n      \"@type\": [\n        \"schema:Product\",\n        \"schema:Thing\"\n      ],\n      \"schema:name\": \"Landsat 8\",\n      \"schema:additionalType\": [\n        {\n          \"@id\": \"dde:platform\"\n        },\n        {\n          \"@id\": \"https://www.wikidata.org/entity/Q3099911\"\n        }\n      ]\n    }\n  ],\n  \"schema:participant\": [\n    {\n      \"@type\": [\n        \"schema:Role\"\n      ],\n      \"schema:roleName\": \"DataCollector\",\n      \"schema:contributor\": {\n        \"@type\": [\n          \"schema:Organization\"\n        ],\n        \"schema:name\": \"USGS / NASA\"\n      }\n    }\n  ]\n}"
+        },
+        {
+          "language": "ttl",
+          "url": "https://usgin.github.io/ddeBuildingBlocks/build/tests/bbr/metadata/DDEproperties/ddeActivity/example_1_1.ttl",
+          "sizeBytes": 970,
+          "code": "@prefix dde: <https://www.ddeworld.org/resource/> .\n@prefix prov: <http://www.w3.org/ns/prov#> .\n@prefix schema1: <http://schema.org/> .\n@prefix wd: <https://www.wikidata.org/entity/> .\n\n[] a schema1:Action,\n        prov:Activity ;\n    schema1:endTime \"2024-03-01T10:17:00Z\" ;\n    schema1:instrument [ a schema1:Product,\n                schema1:Thing ;\n            schema1:additionalType dde:sensorType,\n                wd:Q3099911 ;\n            schema1:name \"Multispectral\" ],\n        [ a schema1:Product,\n                schema1:Thing ;\n            schema1:additionalType dde:platform,\n                wd:Q3099911 ;\n            schema1:name \"Landsat 8\" ] ;\n    schema1:name \"Landsat 8 OLI multispectral acquisition\" ;\n    schema1:participant [ a schema1:Role ;\n            schema1:contributor [ a schema1:Organization ;\n                    schema1:name \"USGS / NASA\" ] ;\n            schema1:roleName \"DataCollector\" ] ;\n    schema1:startTime \"2024-03-01T10:15:00Z\" .\n\n"
+        }
+      ]
+    }
+  ],
+  "annotatedSchema": "$schema: https://json-schema.org/draft/2020-12/schema\ntype: object\ntitle: DDE acquisition activity\ndescription: 'Narrows cdifProvActivity for DDE acquisition. Everything an acquisition\n  activity may carry -- schema:instrument, schema:participant, schema:startTime, schema:endTime,\n  schema:agent and the rest -- is inherited from cdifProvActivity rather than restated\n  here; this block adds only what is DDE-specific.\n\n  What it adds: at least one instrument typed with a DDE acquisition category. cdifProvActivity\n  already requires each described-in-place instrument to carry the Wikidata measuring-instrument\n  term, so a DDE instrument''s schema:additionalType carries both, for example [{\"@id\":\n  \"dde:sensorType\"}, {\"@id\": \"https://www.wikidata.org/entity/Q3099911\"}].\n\n  What it does not add: a required data collector. The DDE XSD has no collector element\n  -- MD_Imagery is sensor, platform, equipment, signalGenerator, wavelength and processingLevel,\n  all optional -- so a DataCollector participant is a convention, not an obligation.\n  DataCollectorRole below documents the shape without requiring it, and participants\n  of any other shape cdifProvActivity allows remain valid.'\nallOf:\n- $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifProvActivity/schema.yaml\n- type: object\n  properties:\n    schema:instrument:\n      description: 'At least one instrument carries a DDE acquisition category. \"contains\"\n        rather than \"items\" on purpose: an acquisition may legitimately list instruments\n        that are not DDE-categorised alongside the ones that are, and constraining\n        every item would reject them.'\n      contains:\n        $ref: '#/$defs/DdeTypedInstrument'\n      x-jsonld-id: http://schema.org/instrument\n    schema:participant:\n      description: Unconstrained beyond cdifProvActivity. DataCollectorRole records\n        the shape DDE imagery conventionally uses for the collecting agent; it is\n        referenced here only so the definition travels with the block, and imposes\n        nothing.\n      x-jsonld-id: http://schema.org/participant\n$defs:\n  DdeTypedInstrument:\n    type: object\n    description: An instrument whose schema:additionalType names a DDE acquisition\n      category. The four categories are listed as separate anyOf branches rather than\n      one enum so each can be extended independently later, and so a validation failure\n      names which category was expected.\n    properties:\n      schema:additionalType:\n        type: array\n        anyOf:\n        - contains:\n            type: object\n            required:\n            - '@id'\n            properties:\n              '@id':\n                const: dde:sensorType\n        - contains:\n            type: object\n            required:\n            - '@id'\n            properties:\n              '@id':\n                const: dde:platform\n        - contains:\n            type: object\n            required:\n            - '@id'\n            properties:\n              '@id':\n                const: dde:equipment\n        - contains:\n            type: object\n            required:\n            - '@id'\n            properties:\n              '@id':\n                const: dde:signalGenerator\n        x-jsonld-id: http://schema.org/additionalType\n    required:\n    - schema:additionalType\n  DataCollectorRole:\n    type: object\n    description: 'The conventional shape for the collecting agent: a schema:Role with\n      roleName DataCollector wrapping a Person or an Organization. Documented, not\n      required -- see the block description.'\n    properties:\n      '@type':\n        type: array\n        items:\n          type: string\n        contains:\n          const: schema:Role\n      schema:roleName:\n        const: DataCollector\n        x-jsonld-id: http://schema.org/roleName\n      schema:contributor:\n        anyOf:\n        - $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/person/schema.yaml\n        - $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/organization/schema.yaml\n        x-jsonld-id: http://schema.org/contributor\n    required:\n    - '@type'\n    - schema:roleName\nx-jsonld-prefixes:\n  schema: http://schema.org/\n  dde: https://www.ddeworld.org/resource/\n  prov: http://www.w3.org/ns/prov#\nx-bblocks-metadata:\n  itemIdentifier: dde.bbr.metadata.DDEproperties.ddeActivity\n  register: https://usgin.github.io/ddeBuildingBlocks/build/register.json\n  version: '0.1'\n  dateOfLastChange: '2026-11-15'\n",
+  "gitRepository": "https://github.com/usgin/ddeBuildingBlocks",
+  "gitPath": "_sources/DDEproperties/ddeActivity"
+}

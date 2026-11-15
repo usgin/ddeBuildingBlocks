@@ -1,16 +1,24 @@
 x-defs:
   dde.bbr.metadata.DDEproperties.ddeCore:
     title: DDE Mandatory metadata properties
-    description: Extends CDIF mandatory metadata with DDE-specific mandatory fields.
+    description: 'Extends CDIFCore metadata with DDE-specific mandatory fields: a
+      DDE resource type, keywords from the DDE TopicCategoryCode and AcquisitionTypeCode
+      codelists, alternate names and browse graphics.
+
+      This block declares no conformance URI. In DDE the profiles under profiles/DDEProfiles
+      are what a document instance conforms to -- each one composes this block, restricts
+      the resource type and adds extensions -- so each profile pins its own https://w3id.org/cdif/dde/1.0/{profileName},
+      and a record states the profile it follows rather than the property bundle inside
+      it. Until 2026-11-15 this block pinned https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore
+      through a ddeCatalogRecord wrapper, which named a register path with no version
+      and asserted conformance to a building block that is not a document profile.
+      schema:subjectOf is now inherited unchanged from cdifCore, which already requires
+      it and refs cdifCatalogRecord for its shape.'
     allOf:
-    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeCore/$defs/CdifMandatory
+    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeCore/$defs/CdifCore
     - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeResourceType
     - type: object
       properties:
-        schema:subjectOf:
-          x-jsonld-id: http://schema.org/subjectOf
-          allOf:
-          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeCore/$defs/DdeCatalogRecord
         schema:keywords:
           type: array
           description: Extends base CDIF keyword schema to require DefinedTerms from
@@ -51,18 +59,17 @@ x-defs:
             minContains: 1
           x-jsonld-id: http://schema.org/keywords
         schema:alternateName:
-          description: Alternative names or aliases for the resource.
-          anyOf:
-          - type: string
-          - type: array
-            items:
-              type: string
+          description: Alternative names or aliases for the resource. A list, per
+            the CDIF convention that any 0..* or 1..* property is always an array,
+            so a consumer never has to branch on the JSON type.
+          type: array
+          items:
+            type: string
           x-jsonld-id: http://schema.org/alternateName
         schema:image:
           type: array
-          description: Browse graphics for the resource. At least one ImageObject
-            is required for DDE metadata.
-          minItems: 1
+          description: Browse graphics for the resource. Optional, matching the DDE
+            XSD, where browseGraphic is minOccurs="0" maxOccurs="unbounded".
           items:
             type: object
             properties:
@@ -94,14 +101,11 @@ x-defs:
       required:
       - schema:additionalType
       - schema:keywords
-      - schema:image
     $defs:
-      CdifMandatory:
+      CdifCore:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifCore
       DefinedTerm:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
-      DdeCatalogRecord:
-        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeCatalogRecord
     x-jsonld-prefixes:
       schema: http://schema.org/
       dde: https://www.ddeworld.org/resource/
@@ -110,8 +114,296 @@ x-defs:
       itemIdentifier: dde.bbr.metadata.DDEproperties.ddeCore
       register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-14'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  cdif.bbr.metadata.profiles.cdifProfile.cdifManifest:
+    title: CDIF Manifest
+    description: "Profile module for packages: the resources that make up a dataset
+      and where to retrieve each of them. Marks the catalog record as conformant to
+      the CDIF manifest spec (https://w3id.org/cdif/manifest/1.1) and declares schema:hasPart
+      in the two places a package needs it \u2014 on the Dataset, for parts that are
+      independently accessible at their own addresses, and on a schema:distribution
+      item, for component files inside an archive (ZIP, etc.) that have no address
+      of their own. Both part shapes carry schema:about, so a part that describes
+      another \u2014 a codebook, a data dictionary, a metadata sidecar \u2014 can
+      say which one. The base schema:distribution anyOf [DataDownload, WebAPI] contributed
+      by cdifCore is preserved \u2014 this BB only adds property constraints, no new
+      anyOf branch. (Merged from the previous cdifProfile/cdifArchive BB, which held
+      only the $defs for ArchivePart; everything now lives here.)"
+    type: object
+    properties:
+      schema:subjectOf:
+        properties:
+          dcterms:conformsTo:
+            type: array
+            items:
+              description: uri for specifications that this metadata record conforms
+                to
+              allOf:
+              - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference
+            minItems: 1
+            contains:
+              type: object
+              required:
+              - '@id'
+              additionalProperties: false
+              properties:
+                '@id':
+                  enum:
+                  - https://w3id.org/cdif/manifest/1.1
+      schema:hasPart:
+        description: Component resources of a package whose parts are independently
+          accessible, each with its own distribution. Parts may differ in content
+          type, format and data structure. For component files inside an archive,
+          which have no address of their own, use schema:hasPart on the distribution
+          instead.
+        allOf:
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifManifest/$defs/resourcePartArray
+      schema:distribution:
+        type: array
+        items:
+          allOf:
+          - properties:
+              schema:hasPart:
+                description: For bundle/archive distributions (positively typed with
+                  schema:Collection in @type), describes the component files. Each
+                  component is typed as schema:MediaObject and may include CDIF data
+                  description extensions (cdifTabularData, cdifDataCube) to describe
+                  its internal structure.
+                allOf:
+                - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifManifest/$defs/archivePartArray
+          - if:
+              properties:
+                '@type':
+                  type: array
+                  contains:
+                    enum:
+                    - schema:Collection
+              required:
+              - '@type'
+            then:
+              required:
+              - schema:hasPart
+    $defs:
+      cdifConceptOrTermOrString:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString
+      resourcePartArray:
+        type: array
+        description: Array of the resources that make up a package. Each part is independently
+          retrievable, so unlike an archive part it may carry its own schema:distribution
+          and may be typed schema:DataDownload.
+        items:
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifManifest/$defs/resourcePartItem
+      resourcePartItem:
+        type: object
+        description: 'One independently accessible member of a package. Type it for
+          what it is: schema:Dataset for data, schema:CreativeWork for a codebook,
+          methods document or quality report, schema:MediaObject for a browse image.
+          Parts under separate stewardship should carry their own schema:provider,
+          schema:conditionsOfAccess and schema:dateModified, since those are what
+          differ.'
+        properties:
+          '@id':
+            type: string
+            description: Identifier for this part.
+          '@type':
+            type: array
+            description: What kind of resource this part is. Must include schema:CreativeWork
+              or one of its subclasses -- everything a package can contain is a creative
+              work of some kind, and saying which one is what lets a consumer tell
+              the data from the codebook from the browse image. Additional types beyond
+              that are free, so domain vocabularies (ada:otherFileType and the like)
+              sit alongside. Not constrained to schema:MediaObject as an archive part
+              is, because a part with its own address may well be a Dataset or a DataDownload.
+            items:
+              type: string
+            minItems: 1
+            contains:
+              type: string
+              pattern: ^(schema:|http://schema\.org/)(CreativeWork|Dataset|DataDownload|DataCatalog|MediaObject|ImageObject|VideoObject|AudioObject|3DModel|DigitalDocument|TextDigitalDocument|SpreadsheetDigitalDocument|PresentationDigitalDocument|NoteDigitalDocument|SoftwareApplication|WebApplication|SoftwareSourceCode|Article|ScholarlyArticle|TechArticle|Report|Book|Chapter|Thesis|Manuscript|Map|WebPage|WebSite|Collection|Course|HowTo|Guide|Legislation|Photograph|Painting|Drawing|Poster|Atlas|Periodical|PublicationIssue|PublicationVolume|CreativeWorkSeries|Review|Comment)$
+          schema:name:
+            type: string
+          schema:description:
+            type: string
+          schema:encodingFormat:
+            type: array
+            items:
+              type: string
+          schema:url:
+            type: string
+          schema:about:
+            type: array
+            description: The part this one is about. Use it on a part that describes
+              another -- a codebook, a data dictionary, a quality report, a metadata
+              sidecar -- so that a consumer can tell WHICH part it documents rather
+              than only that both are in the package. Equivalent in this use to cito:documents,
+              which is how OAI-ORE packages express the same relationship; schema:subjectOf
+              is the declared inverse.
+            items:
+              description: Reference to the @id of the part being described.
+              allOf:
+              - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference
+      archivePartArray:
+        type: array
+        description: Array describing the files contained in the archive. Each item
+          represents a component file that is part of the archive and is not independently
+          accessible.
+        items:
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifManifest/$defs/archivePartItem
+      archivePartItem:
+        allOf:
+        - type: object
+          properties:
+            '@id':
+              type: string
+              description: Identifier for this file, typically a hash-based anchor
+                (e.g. '#abc123'). Used for cross-references from schema:about in metadata
+                sidecar files.
+            '@type':
+              type: array
+              description: Must include schema:MediaObject. Must NOT include schema:DataDownload
+                since this file is not independently accessible. May include additional
+                types for categorization.
+              items:
+                type: string
+              contains:
+                enum:
+                - schema:MediaObject
+              not:
+                contains:
+                  enum:
+                  - schema:DataDownload
+              minItems: 1
+            schema:name:
+              type: string
+              description: Filename of the component file within the archive.
+            schema:description:
+              type: string
+              description: Description of the file content. May include checksum information.
+            schema:encodingFormat:
+              type: array
+              description: MIME type(s) for this file.
+              items:
+                type: string
+            schema:additionalType:
+              type: array
+              description: 'Domain-specific type classification for this member file:
+                what KIND of thing it is, beyond its MIME type. The @type above says
+                only that it is a schema:MediaObject, and using @type to carry a domain
+                classification conflates "what this node is" with "what it is about".
+                A plain string is accepted; a schema:DefinedTerm carrying schema:inDefinedTermSet
+                is preferred where the value comes from a controlled vocabulary.'
+              items:
+                $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifManifest/$defs/cdifConceptOrTermOrString
+            schema:size:
+              type: object
+              description: File size as a QuantitativeValue.
+              properties:
+                '@type':
+                  type: array
+                  items:
+                    type: string
+                  contains:
+                    enum:
+                    - schema:QuantitativeValue
+                  minItems: 1
+                schema:value:
+                  type: number
+                  description: Numeric size value.
+                schema:unitText:
+                  type: string
+                  description: Unit of measure for size (e.g. 'byte').
+            schema:width:
+              type: object
+              description: Pixel width of a raster file, as a QuantitativeValue. schema:width
+                has schema:MediaObject in its domain, which a part here is required
+                to be, so no more specific type such as schema:ImageObject is needed.
+                A QuantitativeValue rather than a bare number because the same property
+                carries physical dimensions elsewhere, so the unit has to be stated
+                -- and because schema:size beside it already takes this shape.
+              properties:
+                '@type':
+                  type: array
+                  items:
+                    type: string
+                  contains:
+                    enum:
+                    - schema:QuantitativeValue
+                  minItems: 1
+                schema:value:
+                  type: number
+                  description: Width in pixels.
+                schema:unitText:
+                  type: string
+                  description: Unit of measure (e.g. 'pixel').
+            schema:height:
+              type: object
+              description: Pixel height of a raster file, as a QuantitativeValue.
+                schema:height has schema:MediaObject in its domain, which a part here
+                is required to be, so no more specific type such as schema:ImageObject
+                is needed. A QuantitativeValue rather than a bare number because the
+                same property carries physical dimensions elsewhere, so the unit has
+                to be stated -- and because schema:size beside it already takes this
+                shape.
+              properties:
+                '@type':
+                  type: array
+                  items:
+                    type: string
+                  contains:
+                    enum:
+                    - schema:QuantitativeValue
+                  minItems: 1
+                schema:value:
+                  type: number
+                  description: Height in pixels.
+                schema:unitText:
+                  type: string
+                  description: Unit of measure (e.g. 'pixel').
+            schema:about:
+              type: array
+              description: For metadata sidecar files, references the data file this
+                metadata describes.
+              items:
+                description: Reference to the @id of the data file described by this
+                  sidecar.
+                allOf:
+                - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference
+            spdx:checksum:
+              type: object
+              description: Checksum for integrity verification of this component file.
+              properties:
+                '@type':
+                  type: array
+                  items:
+                    type: string
+                  contains:
+                    enum:
+                    - spdx:Checksum
+                  minItems: 1
+                spdx:algorithm:
+                  type: string
+                spdx:checksumValue:
+                  type: string
+              required:
+              - '@type'
+              - spdx:algorithm
+              - spdx:checksumValue
+          required:
+          - '@type'
+          - schema:name
+          - schema:encodingFormat
+        - anyOf:
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.cdifDataCube
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.cdifTabularData
+          - {}
+    x-bblocks-metadata:
+      itemIdentifier: cdif.bbr.metadata.profiles.cdifProfile.cdifManifest
+      register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
+      version: '0.1'
+      dateOfLastChange: '2026-11-15'
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/profiles/cdifProfile/cdifManifest/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   dde.bbr.metadata.DDEproperties.ddeResourceType:
     title: DDE Resource Type constraint
@@ -192,7 +484,7 @@ x-defs:
       itemIdentifier: dde.bbr.metadata.DDEproperties.ddeResourceType
       register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-14'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.temporalExtent:
@@ -400,7 +692,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.temporalExtent
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/temporalExtent/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.profiles.cdifProfile.cdifCore:
@@ -791,7 +1083,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.profiles.cdifProfile.cdifCore
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/profiles/cdifProfile/cdifCore/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.definedTerm:
@@ -858,39 +1150,8 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.definedTerm
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml
-    x-schema-version: https://json-schema.org/draft/2020-12/schema
-  dde.bbr.metadata.DDEproperties.ddeCatalogRecord:
-    type: object
-    allOf:
-    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.cdifCatalogRecord
-    - properties:
-        dcterms:conformsTo:
-          type: array
-          items:
-            type: object
-            properties:
-              '@id':
-                type: string
-          minItems: 1
-          contains:
-            type: object
-            properties:
-              '@id':
-                enum:
-                - https://w3id.org/cdif/bbr/metadata/DDEproperties/ddeCore
-            required:
-            - '@id'
-          minContains: 1
-    x-jsonld-prefixes:
-      schema: http://schema.org/
-    x-bblocks-metadata:
-      itemIdentifier: dde.bbr.metadata.DDEproperties.ddeCatalogRecord
-      register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
-      version: '0.1'
-      dateOfLastChange: '2026-11-14'
-    x-schema-source: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCatalogRecord/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.cdifDataType.objectReference:
     title: Object Reference
@@ -907,8 +1168,235 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.cdifDataType.objectReference
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/objectReference/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString:
+    title: CDIF Concept-or-Term-or-String
+    description: Shared shape for a CDIF property that carries either a controlled-vocabulary
+      value or a bare string label. Wraps cdifConceptOrTerm (SKOS-concept @id-ref,
+      schema:DefinedTerm, or inline cdif:Concept) with a plain-string alternative
+      used for legacy or single-word labels not yet bound to a vocabulary.
+    anyOf:
+    - type: string
+    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm
+    x-bblocks-metadata:
+      itemIdentifier: cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString
+      register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
+      version: '0.1'
+      dateOfLastChange: '2026-11-15'
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifConceptOrTermOrString/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  cdif.bbr.metadata.cdifDataType.cdifDataCube:
+    title: Data Cube Type
+    description: Multi-dimensional data cube structure using DDI-CDI. Typed as ada:dataCube
+      and cdi:StructuredDataSet per CDIF 2026 alignment.
+    type: object
+    properties:
+      '@type':
+        type: array
+        items:
+          type: string
+        allOf:
+        - contains:
+            enum:
+            - cdi:StructuredDataSet
+      cdif:hasPhysicalMapping:
+        type: array
+        description: Links variables to their physical representation in this dataset.
+        items:
+          allOf:
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.cdifPhysicalMapping
+          - type: object
+            properties:
+              cdi:locator:
+                type: string
+                description: String that can be used by software to locate values
+                  of the variable in this physical dataset (DDI-CDI LocatorMapping.locator).
+                x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/locator
+        x-jsonld-id: https://w3id.org/cdif/hasPhysicalMapping
+    x-jsonld-prefixes:
+      cdif: https://w3id.org/cdif/
+      schema: http://schema.org/
+      ada: https://ada.astromat.org/metadata/
+      cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/
+    x-bblocks-metadata:
+      itemIdentifier: cdif.bbr.metadata.cdifDataType.cdifDataCube
+      register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
+      version: '0.1'
+      dateOfLastChange: '2026-11-15'
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifDataCube/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  cdif.bbr.metadata.cdifDataType.cdifTabularData:
+    type: object
+    title: Tabular Data Type
+    description: Tabular data type aligned with CDIF 2026 schema using DDI-CDI and
+      CSVW properties. Typed as cdi:TabularTextDataSet.
+    properties:
+      '@type':
+        type: array
+        items:
+          type: string
+        minItems: 2
+        allOf:
+        - contains:
+            enum:
+            - cdi:TabularTextDataSet
+      cdi:arrayBase:
+        type: integer
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/arrayBase
+      cdi:commentPrefix:
+        type: string
+        description: Character(s) that mark a line as a comment.
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/commentPrefix
+      cdi:delimiter:
+        type: string
+        description: Field delimiter (e.g., "," or tab).
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/delimiter
+      cdi:hasHeader:
+        type: boolean
+        default: true
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/hasHeader
+      cdi:headerRowCount:
+        type: integer
+        default: 1
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/headerRowCount
+      cdi:isDelimited:
+        type: boolean
+        description: Schema constraint is that one of {'isDelimited','isFixedWidth'}
+          must be present with a True value; the other one may be present or omitted,
+          but if present must have a false value.
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/isDelimited
+      cdi:isFixedWidth:
+        type: boolean
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/isFixedWidth
+      cdi:lineTerminator:
+        type: array
+        items:
+          type: string
+        description: Allowed line terminators, in order (default [CRLF, LF]).
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/lineTerminator
+      cdi:quoteCharacter:
+        type: string
+        default: '"'
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/quoteCharacter
+      cdi:skipBlankRows:
+        type: boolean
+        default: false
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/skipBlankRows
+      cdi:skipDataColumns:
+        type: integer
+        default: 0
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/skipDataColumns
+      cdi:skipInitialSpace:
+        type: boolean
+        default: true
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/skipInitialSpace
+      cdi:skipRows:
+        type: integer
+        default: 0
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/skipRows
+      cdi:escapeCharacter:
+        type: string
+        description: The character used to escape special characters in the data.
+          From DDI-CDI PhysicalSegmentLayout.escapeCharacter.
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/escapeCharacter
+      cdi:headerIsCaseSensitive:
+        type: boolean
+        default: false
+        description: Whether column header names are case-sensitive. From DDI-CDI
+          PhysicalSegmentLayout.headerIsCaseSensitive.
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/headerIsCaseSensitive
+      cdi:treatConsecutiveDelimitersAsOne:
+        type: boolean
+        default: false
+        description: Whether consecutive delimiters should be treated as a single
+          delimiter. From DDI-CDI PhysicalSegmentLayout.treatConsecutiveDelimitersAsOne.
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/treatConsecutiveDelimitersAsOne
+      cdi:tableDirection:
+        type: string
+        default: Auto
+        enum:
+        - Auto
+        - Ltr
+        - Rtl
+        description: Direction in which columns are arranged in each row (DDI-CDI
+          TabularTextDataSet.tableDirection, TableDirectionValues enumeration).
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/tableDirection
+      cdi:textDirection:
+        type: string
+        enum:
+        - Auto
+        - Inherit
+        - Ltr
+        - Rtl
+        description: Reading order of text within cells (DDI-CDI TabularTextDataSet.textDirection,
+          TextDirectionValues enumeration).
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/textDirection
+      cdi:trim:
+        type: string
+        enum:
+        - Both
+        - End
+        - Neither
+        - Start
+        description: Which spaces to remove from a data value (DDI-CDI TabularTextDataSet.trim,
+          TrimValues enumeration).
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/trim
+      cdif:hasPhysicalMapping:
+        type: array
+        description: Links variables to their physical representation in this dataset.
+        items:
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.cdifPhysicalMapping
+        x-jsonld-id: https://w3id.org/cdif/hasPhysicalMapping
+      schema:additionalProperty:
+        description: Soft-typed extension properties. The row and column counts live
+          here rather than as bare properties, so that each carries a schema:propertyID
+          identifying the concept it quantifies - DDI Discovery caseQuantity for the
+          row count and variableQuantity for the column count. As bare unprefixed
+          `countRows`/`countColumns` they were the only two properties on this class
+          with no namespace and no definition, so nothing said what they meant or
+          tied them to a vocabulary.
+        type: array
+        items:
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.cdifTabularData/$defs/AdditionalProperty
+        x-jsonld-id: http://schema.org/additionalProperty
+    oneOf:
+    - properties:
+        cdi:isDelimited:
+          x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/isDelimited
+          enum:
+          - true
+        cdi:isFixedWidth:
+          x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/isFixedWidth
+      required:
+      - cdi:isDelimited
+    - properties:
+        cdi:isDelimited:
+          x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/isDelimited
+        cdi:isFixedWidth:
+          x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/isFixedWidth
+          enum:
+          - true
+      required:
+      - cdi:isFixedWidth
+    required:
+    - '@type'
+    - cdif:hasPhysicalMapping
+    $defs:
+      AdditionalProperty:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty
+    x-jsonld-prefixes:
+      cdif: https://w3id.org/cdif/
+      schema: http://schema.org/
+      ada: https://ada.astromat.org/metadata/
+      cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/
+    x-bblocks-metadata:
+      itemIdentifier: cdif.bbr.metadata.cdifDataType.cdifTabularData
+      register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
+      version: '0.1'
+      dateOfLastChange: '2026-11-15'
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifTabularData/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.linkRole:
     description: 'A typed link, implemented as a schema.org LinkRole: schema:linkRelationship
@@ -989,24 +1477,8 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.linkRole
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/linkRole/schema.yaml
-    x-schema-version: https://json-schema.org/draft/2020-12/schema
-  cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString:
-    title: CDIF Concept-or-Term-or-String
-    description: Shared shape for a CDIF property that carries either a controlled-vocabulary
-      value or a bare string label. Wraps cdifConceptOrTerm (SKOS-concept @id-ref,
-      schema:DefinedTerm, or inline cdif:Concept) with a plain-string alternative
-      used for legacy or single-word labels not yet bound to a vocabulary.
-    anyOf:
-    - type: string
-    - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm
-    x-bblocks-metadata:
-      itemIdentifier: cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString
-      register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
-      version: '0.1'
-      dateOfLastChange: '2026-11-13'
-    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifConceptOrTermOrString/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.labeledLink:
     description: 'Schema for a labeled link, a profile of schema.org/CreativeWork:
@@ -1172,7 +1644,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.labeledLink
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/labeledLink/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.identifier:
@@ -1236,7 +1708,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.identifier
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm:
@@ -1253,7 +1725,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifConceptOrTerm/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.dataDownload:
@@ -1434,7 +1906,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.dataDownload
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/dataDownload/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.webAPI:
@@ -1512,7 +1984,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.webAPI
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/webAPI/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.person:
@@ -1614,7 +2086,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.person
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/person/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.organization:
@@ -1699,7 +2171,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.organization
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/organization/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.agentInRole:
@@ -1745,7 +2217,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.agentInRole
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/agentInRole/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.monetaryGrant:
@@ -1807,7 +2279,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.monetaryGrant
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/monetaryGrant/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.provProperties.generatedBy:
@@ -1861,7 +2333,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.provProperties.generatedBy
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/provProperties/generatedBy/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.provProperties.derivedFrom:
@@ -1881,7 +2353,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.provProperties.derivedFrom
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/provProperties/derivedFrom/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.cdifDataType.cdifCatalogRecord:
@@ -2005,8 +2477,185 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.cdifDataType.cdifCatalogRecord
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.2'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifCatalogRecord/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  cdif.bbr.metadata.cdifDataType.cdifPhysicalMapping:
+    title: Physical Mapping Type
+    description: Defines implementation-specific properties for the representation
+      of a variable in a dataset. Aligned with CDIF 2026 schema using DDI-CDI flat
+      per-column mapping structure.
+    type: object
+    properties:
+      '@type':
+        type: array
+        items:
+          type: string
+        contains:
+          enum:
+          - cdif:PhysicalMapping
+          - cdif:TextMapping
+          - cdif:LocatorMapping
+        minItems: 1
+        description: Must include a physical-mapping family type. A plain physical
+          mapping uses cdif:PhysicalMapping; the cdifTextMapping / cdifLocatorMapping
+          specializations narrow this to cdif:TextMapping / cdif:LocatorMapping respectively
+          (they compose this schema via allOf, so the base accepts any of the family
+          rather than requiring the cdif:PhysicalMapping token).
+      cdif:index:
+        type: integer
+        minimum: 0
+        description: Non-negative integer that orders the fields in the data structure
+          (column number).
+        x-jsonld-id: https://w3id.org/cdif/index
+      cdif:format:
+        type: string
+        description: A format for number expressed as a string, or date format like
+          YYYY/MM or MM-DD-YY.
+        x-jsonld-id: https://w3id.org/cdif/format
+      cdif:physicalDataType:
+        description: identifier or name for the data type concept.
+        x-jsonld-id: https://w3id.org/cdif/physicalDataType
+        allOf:
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.cdifPhysicalMapping/$defs/cdifConceptOrTermOrString
+      cdi:numberPattern:
+        type: string
+        description: Number format pattern for the field (PhysicalMapping.numberPattern).
+          Text-format properties (column width, decimal/digit-group separators, display
+          label) live on cdifTextMapping.
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/numberPattern
+      cdi:nullSequence:
+        type: string
+        description: The value of this property becomes the null annotation for the
+          described column.
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/nullSequence
+      cdi:defaultValue:
+        type: string
+        description: A default string indicating the value to substitute for an empty
+          string.
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/defaultValue
+      cdi:scale:
+        type: integer
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/scale
+      cdi:decimalPositions:
+        type: integer
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/decimalPositions
+      cdi:minimumLength:
+        type: integer
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/minimumLength
+      cdi:maximumLength:
+        type: integer
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/maximumLength
+      cdi:isRequired:
+        type: boolean
+        default: false
+        x-jsonld-id: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/isRequired
+      cdif:formats_InstanceVariable:
+        description: Reference to a variable defined in schema:variableMeasured.
+        x-jsonld-id: https://w3id.org/cdif/formats_InstanceVariable
+        allOf:
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference
+    allOf:
+    - if:
+        required:
+        - '@type'
+        properties:
+          '@type':
+            contains:
+              enum:
+              - cdif:TextMapping
+      then:
+        required:
+        - cdif:index
+    - if:
+        required:
+        - '@type'
+        properties:
+          '@type':
+            contains:
+              enum:
+              - cdif:LocatorMapping
+      then:
+        required:
+        - cdi:locator
+    $defs:
+      cdifConceptOrTermOrString:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString
+      cdifConceptOrTerm:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm
+    x-jsonld-prefixes:
+      cdif: https://w3id.org/cdif/
+      schema: http://schema.org/
+      ada: https://ada.astromat.org/metadata/
+      cdi: http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/
+    x-bblocks-metadata:
+      itemIdentifier: cdif.bbr.metadata.cdifDataType.cdifPhysicalMapping
+      register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
+      version: '0.1'
+      dateOfLastChange: '2026-11-15'
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifPhysicalMapping/schema.yaml
+    x-schema-version: https://json-schema.org/draft/2020-12/schema
+  cdif.bbr.metadata.schemaorgProperties.additionalProperty:
+    type: object
+    title: additionalProperty PropertyValue
+    description: 'PropertyValue values required to define a soft-typed property with
+      a value. '
+    properties:
+      '@type':
+        type: array
+        items:
+          type: string
+        contains:
+          enum:
+          - schema:PropertyValue
+        minItems: 1
+      schema:propertyID:
+        type: array
+        items:
+          $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/propertyID_item
+        minItems: 1
+        description: identifier or name for the property concept quantified by the
+          values in this variable slot. Multiple values can specify the property at
+          different levels of granularity.
+        x-jsonld-id: http://schema.org/propertyID
+      schema:name:
+        type: string
+        x-jsonld-id: http://schema.org/name
+      schema:value:
+        anyOf:
+        - type: string
+        - type: number
+        - type: boolean
+        - type: object
+        x-jsonld-id: http://schema.org/value
+      schema:unitCode:
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/DefinedTerm
+        x-jsonld-id: http://schema.org/unitCode
+      schema:unitText:
+        type: string
+        x-jsonld-id: http://schema.org/unitText
+    required:
+    - schema:name
+    - schema:value
+    $defs:
+      DefinedTerm:
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.definedTerm
+      propertyID_item:
+        anyOf:
+        - type: string
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.additionalProperty/$defs/DefinedTerm
+    x-jsonld-prefixes:
+      schema: http://schema.org/
+      nxs: https://manual.nexusformat.org/classes/
+    x-bblocks-metadata:
+      itemIdentifier: cdif.bbr.metadata.schemaorgProperties.additionalProperty
+      register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
+      version: '0.1'
+      dateOfLastChange: '2026-11-15'
+    x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.skosProperties.skosConcept:
     title: SKOS Concept
@@ -2201,7 +2850,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.skosProperties.skosConcept
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/skosProperties/skosConcept/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.action:
@@ -2380,7 +3029,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.action
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/action/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.actionResult:
@@ -2432,16 +3081,46 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.actionResult
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-13'
+      dateOfLastChange: '2026-11-15'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/actionResult/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
 type: object
 title: DDE Collection profile
-description: DDE profile for collection resources (aggregate, collection, series,
-  learningResource, guide). Extends DDEDiscovery with resource type constraint and
-  requires schema:hasPart to describe collection members.
+description: 'DDE profile for collection resources (aggregate, collection, series,
+  learningResource, guide). Composes ddeCore with the CDIF manifest profile and adds
+  the DDE-specific constraints: the collection''s own resource type, a DDE resource
+  type on every member, and a temporal extent.
+
+  schema:hasPart comes from cdifManifest, so a member carries that profile''s resourcePartItem
+  shape -- @id, @type, schema:name, schema:description, schema:encodingFormat, schema:url,
+  schema:about -- and a DDE resource type in addition, the two composing through the
+  allOf below. Before this the block defined its own member shape with no way to say
+  where a member could be retrieved, which is the one thing a manifest exists to express.
+
+  Three conformance URIs land on the catalog record, each a separate "contains" over
+  the same dcterms:conformsTo array: cdif/core/1.1 from cdifCore, cdif/manifest/1.1
+  from cdifManifest, and this profile''s own cdif/dde/1.0/DDECollection. Manifest
+  conformance is against 1.1, matching what this repository vendors. Nothing here
+  restates that the array is required -- cdifCore requires schema:subjectOf and cdifCatalogRecord
+  requires dcterms:conformsTo, so a branch doing that by hand was removed 2026-11-15.'
 allOf:
 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeCore
+- properties:
+    schema:subjectOf:
+      properties:
+        dcterms:conformsTo:
+          contains:
+            type: object
+            required:
+            - '@id'
+            additionalProperties: false
+            properties:
+              '@id':
+                enum:
+                - https://w3id.org/cdif/dde/1.0/DDECollection
+          x-jsonld-id: http://purl.org/dc/terms/conformsTo
+      x-jsonld-id: http://schema.org/subjectOf
+- $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.profiles.cdifProfile.cdifManifest
 - properties:
     schema:additionalType:
       contains:
@@ -2470,29 +3149,13 @@ allOf:
       x-jsonld-id: http://schema.org/additionalType
     schema:hasPart:
       type: array
-      description: Members of the collection. Each must have a DDE resource type classification
-        and basic descriptive properties.
+      description: 'Members of the collection. The item shape comes from cdifManifest''s
+        resourcePartItem via the allOf above; this branch adds the DDE resource type
+        every member must carry. items, not contains: each member is classified, not
+        merely one of them.'
       minItems: 1
       items:
-        allOf:
-        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeResourceType
-        - type: object
-          properties:
-            '@type':
-              type: array
-              items:
-                type: string
-              default:
-              - schema:CreativeWork
-            schema:name:
-              type: string
-              x-jsonld-id: http://schema.org/name
-            schema:description:
-              type: string
-              x-jsonld-id: http://schema.org/description
-          required:
-          - '@type'
-          - schema:name
+        $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDECollection/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeResourceType
       x-jsonld-id: http://schema.org/hasPart
     schema:temporalCoverage:
       description: Temporal extent of resource content.
@@ -2520,5 +3183,5 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDECollection
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-14'
+  dateOfLastChange: '2026-11-15'
 x-schema-version: https://json-schema.org/draft/2020-12/schema
