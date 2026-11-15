@@ -8,5 +8,5 @@ image, photograph, explanatoryFigure, map
 ### Composed building blocks
 
 1. **DDEDiscovery** — Base DDE discovery profile
-2. **ddeImagery** — Optional imagery properties: sensor type, platform, equipment, collector, startTime, endTime, signalGenerator, wavelength, processedLevel
+2. **ddeImagery** — Optional imagery properties: sensor type, platform, equipment, collector, startTime, endTime, signalGenerator, wavelength, processingLevel
 3. **Resource type constraint** — `schema:termCode` must be one of the image group codes

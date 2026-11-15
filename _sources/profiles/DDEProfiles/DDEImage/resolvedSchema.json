@@ -1172,8 +1172,7 @@
     },
     "schema:image": {
       "type": "array",
-      "description": "Browse graphics for the resource. At least one ImageObject is required for DDE metadata.",
-      "minItems": 1,
+      "description": "Browse graphics for the resource. Optional, matching the DDE XSD, where browseGraphic is minOccurs=\"0\" maxOccurs=\"unbounded\".",
       "items": {
         "type": "object",
         "properties": {
@@ -3566,7 +3565,7 @@
     },
     "schema:additionalProperty": {
       "type": "array",
-      "description": "Dataset-level additional properties for imagery resources. Wavelength and processedLevel describe the image product itself rather than the acquisition activity.",
+      "description": "Dataset-level additional properties for imagery resources. Wavelength and processingLevel describe the image product itself rather than the acquisition activity.",
       "items": {
         "anyOf": [
           {
@@ -3606,7 +3605,7 @@
               "schema:propertyID": {
                 "type": "array",
                 "contains": {
-                  "const": "dde:processedLevel"
+                  "const": "dde:processingLevel"
                 },
                 "minItems": 1
               },
@@ -9008,8 +9007,7 @@
       "type": "object",
       "required": [
         "schema:additionalType",
-        "schema:keywords",
-        "schema:image"
+        "schema:keywords"
       ]
     },
     {

@@ -6,7 +6,7 @@ description: Conditional extension for imagery resources. Maps DDE imagery acqui
   and signalGenerator become typed instruments (via schema:additionalType) under
   prov:wasGeneratedBy activities; collector becomes a schema:participant with
   DataCollector role; startTime and endTime are temporal bounds on the activity.
-  Wavelength and processedLevel remain as dataset-level additionalProperty values.
+  Wavelength and processingLevel remain as dataset-level additionalProperty values.
   All properties are optional.
 type: object
 properties:
@@ -23,7 +23,7 @@ properties:
   'schema:additionalProperty':
     type: array
     description: Dataset-level additional properties for imagery resources.
-      Wavelength and processedLevel describe the image product itself rather
+      Wavelength and processingLevel describe the image product itself rather
       than the acquisition activity.
     items:
       anyOf:
@@ -63,7 +63,7 @@ $defs:
       'schema:propertyID':
         type: array
         contains:
-          const: 'dde:processedLevel'
+          const: 'dde:processingLevel'
         minItems: 1
       'schema:name':
         type: string
