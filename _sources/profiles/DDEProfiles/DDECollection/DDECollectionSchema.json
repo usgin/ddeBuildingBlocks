@@ -2,26 +2,35 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "object",
     "title": "DDE Collection profile",
-    "description": "DDE profile for collection resources (aggregate, collection, series, learningResource, guide). Composes ddeCore with the CDIF manifest profile and adds the DDE-specific constraints: the collection's own resource type, a DDE resource type on every member, and a temporal extent.\nschema:hasPart comes from cdifManifest, so a member carries that profile's resourcePartItem shape -- @id, @type, schema:name, schema:description, schema:encodingFormat, schema:url, schema:about -- and a DDE resource type in addition, the two composing through the allOf below. Before this the block defined its own member shape with no way to say where a member could be retrieved, which is the one thing a manifest exists to express.\nConformance is declared against manifest/1.1, matching what this repository vendors. cdifManifest does not require the declaration itself -- its contains only applies when dcterms:conformsTo is present -- so DDE requires it here.",
+    "description": "DDE profile for collection resources (aggregate, collection, series, learningResource, guide). Composes ddeCore with the CDIF manifest profile and adds the DDE-specific constraints: the collection's own resource type, a DDE resource type on every member, and a temporal extent.\nschema:hasPart comes from cdifManifest, so a member carries that profile's resourcePartItem shape -- @id, @type, schema:name, schema:description, schema:encodingFormat, schema:url, schema:about -- and a DDE resource type in addition, the two composing through the allOf below. Before this the block defined its own member shape with no way to say where a member could be retrieved, which is the one thing a manifest exists to express.\nThree conformance URIs land on the catalog record, each a separate \"contains\" over the same dcterms:conformsTo array: cdif/core/1.1 from cdifCore, cdif/manifest/1.1 from cdifManifest, and this profile's own cdif/dde/1.0/DDECollection. Manifest conformance is against 1.1, matching what this repository vendors. Nothing here restates that the array is required -- cdifCore requires schema:subjectOf and cdifCatalogRecord requires dcterms:conformsTo, so a branch doing that by hand was removed 2026-11-15.",
     "allOf": [
         {
             "$ref": "../../../DDEproperties/ddeCore/ddeCoreSchema.json"
         },
         {
-            "$ref": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifManifest/cdifManifestSchema.json"
-        },
-        {
             "properties": {
                 "schema:subjectOf": {
-                    "description": "The catalog record must declare manifest conformance. ddeCatalogRecord pins its own dcterms:conformsTo entry and cdifManifest pins the manifest URI; both are \"contains\" over the same array, so a DDE collection record carries both entries.",
-                    "required": [
-                        "dcterms:conformsTo"
-                    ]
+                    "properties": {
+                        "dcterms:conformsTo": {
+                            "contains": {
+                                "type": "object",
+                                "required": [
+                                    "@id"
+                                ],
+                                "additionalProperties": false,
+                                "properties": {
+                                    "@id": {
+                                        "const": "https://w3id.org/cdif/dde/1.0/DDECollection"
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-            },
-            "required": [
-                "schema:subjectOf"
-            ]
+            }
+        },
+        {
+            "$ref": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifManifest/cdifManifestSchema.json"
         },
         {
             "properties": {

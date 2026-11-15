@@ -7,6 +7,24 @@ description: DDE profile for functional resources (application, webApplication,
   a schema:relatedLink with linkRelationship "implementationSoftware".
 allOf:
 - $ref: ../../../DDEproperties/ddeCore/schema.yaml
+# Conformance URI for this profile. DDE profiles are the schemas that
+# document instances claim conformance to, so the URI belongs here rather
+# than on a property building block. Placement follows the CDIF profile
+# modules (cdifCore, cdifManifest, cdifProvenance): a bare "contains" over
+# schema:subjectOf/dcterms:conformsTo. Nothing else is restated, because
+# cdifCore already requires schema:subjectOf and cdifCatalogRecord already
+# requires dcterms:conformsTo and types its items as objectReference.
+- properties:
+    'schema:subjectOf':
+      properties:
+        'dcterms:conformsTo':
+          contains:
+            type: object
+            required: ['@id']
+            additionalProperties: false
+            properties:
+              '@id':
+                const: 'https://w3id.org/cdif/dde/1.0/DDEFunctionalResource'
 - properties:
     'schema:additionalType':
       contains:

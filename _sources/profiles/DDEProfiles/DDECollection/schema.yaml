@@ -15,23 +15,34 @@ description: >-
   defined its own member shape with no way to say where a member could be
   retrieved, which is the one thing a manifest exists to express.
 
-  Conformance is declared against manifest/1.1, matching what this repository
-  vendors. cdifManifest does not require the declaration itself -- its contains
-  only applies when dcterms:conformsTo is present -- so DDE requires it here.
+  Three conformance URIs land on the catalog record, each a separate
+  "contains" over the same dcterms:conformsTo array: cdif/core/1.1 from
+  cdifCore, cdif/manifest/1.1 from cdifManifest, and this profile's own
+  cdif/dde/1.0/DDECollection. Manifest conformance is against 1.1, matching
+  what this repository vendors. Nothing here restates that the array is
+  required -- cdifCore requires schema:subjectOf and cdifCatalogRecord requires
+  dcterms:conformsTo, so a branch doing that by hand was removed 2026-11-15.
 allOf:
 - $ref: ../../../DDEproperties/ddeCore/schema.yaml
-- $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifManifest/schema.yaml
+# Conformance URI for this profile. DDE profiles are the schemas that
+# document instances claim conformance to, so the URI belongs here rather
+# than on a property building block. Placement follows the CDIF profile
+# modules (cdifCore, cdifManifest, cdifProvenance): a bare "contains" over
+# schema:subjectOf/dcterms:conformsTo. Nothing else is restated, because
+# cdifCore already requires schema:subjectOf and cdifCatalogRecord already
+# requires dcterms:conformsTo and types its items as objectReference.
 - properties:
     'schema:subjectOf':
-      description: >-
-        The catalog record must declare manifest conformance. ddeCatalogRecord
-        pins its own dcterms:conformsTo entry and cdifManifest pins the manifest
-        URI; both are "contains" over the same array, so a DDE collection record
-        carries both entries.
-      required:
-      - 'dcterms:conformsTo'
-  required:
-  - 'schema:subjectOf'
+      properties:
+        'dcterms:conformsTo':
+          contains:
+            type: object
+            required: ['@id']
+            additionalProperties: false
+            properties:
+              '@id':
+                const: 'https://w3id.org/cdif/dde/1.0/DDECollection'
+- $ref: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/profiles/cdifProfile/cdifManifest/schema.yaml
 - properties:
     'schema:additionalType':
       contains:

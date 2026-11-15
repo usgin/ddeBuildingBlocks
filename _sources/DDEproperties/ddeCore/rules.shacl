@@ -7,7 +7,10 @@
 @prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
 @base <https://www.ogc.org/rules/template/> .
 
-# rules inherited from cdifCore, ddeCatalogRecord, ddeResourceType
+# rules inherited from cdifCore, ddeResourceType
+# No conformance rule here: DDE profiles carry their own
+# https://w3id.org/cdif/dde/1.0/{profileName}, and this block is a property
+# bundle, not a document profile.
 
 cdifd:DDERequiredDatasetShape a sh:NodeShape ;
     sh:target [
@@ -38,12 +41,6 @@ cdifd:DDERequiredDatasetShape a sh:NodeShape ;
         sh:path schema:keywords ;
         sh:minCount 2 ;
         sh:message "DDE metadata must include keywords from both DDE TopicCategoryCode and AcquisitionTypeCode codelists" ;
-    ] ;
-    sh:property [
-        sh:path schema:image ;
-        sh:minCount 1 ;
-        sh:class schema:ImageObject ;
-        sh:message "DDE metadata must include at least one browse graphic (schema:ImageObject) with a contentUrl" ;
     ] ;
     .
 
