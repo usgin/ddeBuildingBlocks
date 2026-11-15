@@ -1157,18 +1157,11 @@
       ]
     },
     "schema:alternateName": {
-      "description": "Alternative names or aliases for the resource.",
-      "anyOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      ]
+      "description": "Alternative names or aliases for the resource. A list, per the CDIF convention that any 0..* or 1..* property is always an array, so a consumer never has to branch on the JSON type.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     },
     "schema:image": {
       "type": "array",
