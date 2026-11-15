@@ -1,0 +1,125 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "DDE acquisition activity",
+    "description": "Narrows cdifProvActivity for DDE acquisition. Everything an acquisition activity may carry -- schema:instrument, schema:participant, schema:startTime, schema:endTime, schema:agent and the rest -- is inherited from cdifProvActivity rather than restated here; this block adds only what is DDE-specific.\nWhat it adds: at least one instrument typed with a DDE acquisition category. cdifProvActivity already requires each described-in-place instrument to carry the Wikidata measuring-instrument term, so a DDE instrument's schema:additionalType carries both, for example [{\"@id\": \"dde:sensorType\"}, {\"@id\": \"https://www.wikidata.org/entity/Q3099911\"}].\nWhat it does not add: a required data collector. The DDE XSD has no collector element -- MD_Imagery is sensor, platform, equipment, signalGenerator, wavelength and processingLevel, all optional -- so a DataCollector participant is a convention, not an obligation. DataCollectorRole below documents the shape without requiring it, and participants of any other shape cdifProvActivity allows remain valid.",
+    "allOf": [
+        {
+            "$ref": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/cdifDataType/cdifProvActivity/cdifProvActivitySchema.json"
+        },
+        {
+            "type": "object",
+            "properties": {
+                "schema:instrument": {
+                    "description": "At least one instrument carries a DDE acquisition category. \"contains\" rather than \"items\" on purpose: an acquisition may legitimately list instruments that are not DDE-categorised alongside the ones that are, and constraining every item would reject them.",
+                    "contains": {
+                        "$ref": "#/$defs/DdeTypedInstrument"
+                    }
+                },
+                "schema:participant": {
+                    "description": "Unconstrained beyond cdifProvActivity. DataCollectorRole records the shape DDE imagery conventionally uses for the collecting agent; it is referenced here only so the definition travels with the block, and imposes nothing."
+                }
+            }
+        }
+    ],
+    "$defs": {
+        "DdeTypedInstrument": {
+            "type": "object",
+            "description": "An instrument whose schema:additionalType names a DDE acquisition category. The four categories are listed as separate anyOf branches rather than one enum so each can be extended independently later, and so a validation failure names which category was expected.",
+            "properties": {
+                "schema:additionalType": {
+                    "type": "array",
+                    "anyOf": [
+                        {
+                            "contains": {
+                                "type": "object",
+                                "required": [
+                                    "@id"
+                                ],
+                                "properties": {
+                                    "@id": {
+                                        "const": "dde:sensorType"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "contains": {
+                                "type": "object",
+                                "required": [
+                                    "@id"
+                                ],
+                                "properties": {
+                                    "@id": {
+                                        "const": "dde:platform"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "contains": {
+                                "type": "object",
+                                "required": [
+                                    "@id"
+                                ],
+                                "properties": {
+                                    "@id": {
+                                        "const": "dde:equipment"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "contains": {
+                                "type": "object",
+                                "required": [
+                                    "@id"
+                                ],
+                                "properties": {
+                                    "@id": {
+                                        "const": "dde:signalGenerator"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "schema:additionalType"
+            ]
+        },
+        "DataCollectorRole": {
+            "type": "object",
+            "description": "The conventional shape for the collecting agent: a schema:Role with roleName DataCollector wrapping a Person or an Organization. Documented, not required -- see the block description.",
+            "properties": {
+                "@type": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "contains": {
+                        "const": "schema:Role"
+                    }
+                },
+                "schema:roleName": {
+                    "const": "DataCollector"
+                },
+                "schema:contributor": {
+                    "anyOf": [
+                        {
+                            "$ref": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/person/personSchema.json"
+                        },
+                        {
+                            "$ref": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/_sources/schemaorgProperties/organization/organizationSchema.json"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "@type",
+                "schema:roleName"
+            ]
+        }
+    }
+}
