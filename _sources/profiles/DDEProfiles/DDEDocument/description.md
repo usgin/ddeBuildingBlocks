@@ -1,13 +1,13 @@
 ## DDE Document Profile
 
-DDE profile for document resources. Extends DDEDiscovery with a resource type constraint.
+DDE profile for document resources. Extends `ddeCore` with a resource type constraint.
 
 ### Resource type codes
 document, article, thesis, book, poster, webPage
 
 ### Composed building blocks
 
-1. **DDEDiscovery** — Base DDE discovery profile
+1. **ddeCore** — DDE core properties: resource type from `dde:codelist/ResourceTypeCode`, topic category and acquisition type keywords, alternate names, optional browse graphics. `ddeCore` composes `cdifCore`, so CDIF's mandatory fields come in with it.
 2. **Resource type constraint** — `schema:termCode` must be one of the document group codes
 
 ### Conformance

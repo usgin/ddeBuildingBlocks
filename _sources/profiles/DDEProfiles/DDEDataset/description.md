@@ -1,10 +1,10 @@
 ## DDE Dataset Profile
 
-DDE profile for dataset resources. Extends DDEDiscovery with a resource type constraint requiring `schema:additionalType` to include a `schema:termCode` from: dataset, dataCatalog, geographicDataset, nonGeographicDataset.
+DDE profile for dataset resources. Extends `ddeCore` with a resource type constraint requiring `schema:additionalType` to include a `schema:termCode` from: dataset, dataCatalog, geographicDataset, nonGeographicDataset.
 
 ### Composed building blocks
 
-1. **DDEDiscovery** — Base DDE discovery profile (cdifCore + cdifOptional + ddeCore + ddeOptional)
+1. **ddeCore** — DDE core properties: resource type from `dde:codelist/ResourceTypeCode`, topic category and acquisition type keywords, alternate names, optional browse graphics. `ddeCore` composes `cdifCore`, so CDIF's mandatory fields come in with it.
 2. **Resource type constraint** — `schema:termCode` must be one of the dataset group codes
 
 ### Sub-profile: geographicDataset

@@ -1,0 +1,91 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/>.
+@prefix dcterms:     <http://purl.org/dc/terms/>.
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+# rules inherited from ddeCore (cdifCore, ddeResourceType) and the CDIF webAPI BB
+
+cdifd:DDEWebAPIConformanceShape a sh:NodeShape ;
+    sh:target [
+      a sh:SPARQLTarget ;
+      sh:prefixes (
+         [ sh:prefix "schema" ; sh:namespace "http://schema.org/" ]
+         [ sh:prefix "dcterms" ; sh:namespace "http://purl.org/dc/terms/" ]
+       );
+    sh:select """
+       PREFIX schema: <http://schema.org/>
+       PREFIX dcterms: <http://purl.org/dc/terms/>
+            SELECT ?this
+            WHERE {
+              ?this a schema:Dataset .
+              MINUS {
+                ?parent a schema:Dataset .
+                ?parent ?p ?this .
+                FILTER (?parent != ?this)
+                FILTER (?p != schema:about)
+              }
+            }
+          """ ;
+    ] ;
+    sh:property [
+        sh:path ( schema:subjectOf dcterms:conformsTo ) ;
+        sh:hasValue <https://w3id.org/cdif/dde/1.0/DDEWebAPI> ;
+        sh:severity sh:Warning ;
+        sh:message "DDEWebAPI profile: metadata record should declare conformance to https://w3id.org/cdif/dde/1.0/DDEWebAPI" ;
+    ] ;
+    sh:property [
+        sh:path schema:additionalType ;
+        sh:qualifiedValueShape [
+            sh:property [
+                sh:path schema:termCode ;
+                sh:in ( "service" "webAPI" "repository" ) ;
+            ] ;
+            sh:property [
+                sh:path schema:inDefinedTermSet ;
+                sh:hasValue "dde:codelist/ResourceTypeCode" ;
+            ] ;
+        ] ;
+        sh:qualifiedMinCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "DDEWebAPI profile: schema:additionalType must include at least one DDE ResourceTypeCode term of 'service', 'webAPI', or 'repository'" ;
+    ] ;
+    # The resource IS the service, so schema:WebAPI must be among its types.
+    # The JSON Schema requires this; SHACL reports it because an rdf:type is not
+    # reachable by the same path expression the schema uses.
+    sh:property [
+        sh:path rdf:type ;
+        sh:hasValue schema:WebAPI ;
+        sh:severity sh:Warning ;
+        sh:message "DDEWebAPI profile: @type must include schema:WebAPI, since the described resource is itself a service" ;
+    ] ;
+    sh:property [
+        sh:path schema:serviceType ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "DDEWebAPI profile: schema:serviceType should carry a term from dde:codelist/ServiceTypeCode" ;
+    ] ;
+    .
+
+# schema:serviceType is scoped by sh:targetObjectsOf rather than sh:targetClass:
+# the term is a schema:DefinedTerm like any other, so targeting the class would
+# fire this rule on every keyword and additionalType term in the record.
+cdifd:DDEServiceTypeShape
+    a sh:NodeShape ;
+    sh:targetObjectsOf schema:serviceType ;
+    sh:property [
+        sh:path schema:inDefinedTermSet ;
+        sh:hasValue "dde:codelist/ServiceTypeCode" ;
+        sh:severity sh:Warning ;
+        sh:message "a DDE serviceType term must come from dde:codelist/ServiceTypeCode" ;
+    ] ;
+    sh:property [
+        sh:path schema:termCode ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "a DDE serviceType term must carry a schema:termCode" ;
+    ] ;
+    .

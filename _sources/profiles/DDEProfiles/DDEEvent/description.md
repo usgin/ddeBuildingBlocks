@@ -1,13 +1,13 @@
 ## DDE Event Profile
 
-DDE profile for event resources. Extends DDEDiscovery with a resource type constraint and requires `schema:temporalCoverage` (mandatory temporal extent for events).
+DDE profile for event resources. Extends `ddeCore` with a resource type constraint and requires `schema:temporalCoverage` (mandatory temporal extent for events).
 
 ### Resource type codes
 initiative, fieldSession
 
 ### Composed building blocks
 
-1. **DDEDiscovery** — Base DDE discovery profile
+1. **ddeCore** — DDE core properties: resource type from `dde:codelist/ResourceTypeCode`, topic category and acquisition type keywords, alternate names, optional browse graphics. `ddeCore` composes `cdifCore`, so CDIF's mandatory fields come in with it.
 2. **Resource type constraint** — `schema:termCode` must be one of the event group codes
 3. **`schema:temporalCoverage`** (required) — Temporal extent of the event
 
