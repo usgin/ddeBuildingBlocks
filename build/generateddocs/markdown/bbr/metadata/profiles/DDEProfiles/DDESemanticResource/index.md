@@ -49,7 +49,7 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
     "@context": {
         "schema": "http://schema.org/",
         "dde": "https://www.ddeworld.org/resource/",
-        "cdif": "https://cdif.org/profile/",
+        "cdif": "https://w3id.org/cdif/",
         "dcterms": "http://purl.org/dc/terms/",
         "dcat": "http://www.w3.org/ns/dcat#",
         "prov": "http://www.w3.org/ns/prov#"
@@ -223,7 +223,7 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
     {
       "schema": "http://schema.org/",
       "dde": "https://www.ddeworld.org/resource/",
-      "cdif": "https://cdif.org/profile/",
+      "cdif": "https://w3id.org/cdif/",
       "dcterms": "http://purl.org/dc/terms/",
       "dcat": "http://www.w3.org/ns/dcat#",
       "prov": "http://www.w3.org/ns/prov#"
@@ -391,12 +391,12 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
 <urn:dde:example-chronostrat-chart> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Vocabulary" ;
-            schema1:termCode "vocabulary" ],
+            schema1:name "Defined Term Set" ;
+            schema1:termCode "definedTermSet" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Defined Term Set" ;
-            schema1:termCode "definedTermSet" ] ;
+            schema1:name "Vocabulary" ;
+            schema1:termCode "vocabulary" ] ;
     schema1:creator ( [ a schema1:Organization ;
                 schema1:name "International Commission on Stratigraphy" ;
                 schema1:url "https://stratigraphy.org/" ] ) ;
@@ -404,15 +404,15 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
     schema1:description "The International Chronostratigraphic Chart maintained by the International Commission on Stratigraphy (ICS). Defines the global standard nomenclature and boundary ages for geological time divisions (Eonothems/Eons, Erathems/Eras, Systems/Periods, Series/Epochs, Stages/Ages). Published as a controlled vocabulary with SKOS concept scheme encoding." ;
     schema1:distribution [ a schema1:DataDownload ;
             dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
+            schema1:contentUrl "https://stratigraphy.org/ICSchart/ChronostratChart2024-12.pdf" ;
+            schema1:encodingFormat "application/pdf" ;
+            schema1:name "Chronostratigraphic Chart PDF" ],
+        [ a schema1:DataDownload ;
+            dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
             schema1:contentUrl "https://resource.geosciml.org/classifierscheme/ics/ischart" ;
             schema1:description "Machine-readable SKOS concept scheme for geological time divisions" ;
             schema1:encodingFormat "application/rdf+xml" ;
-            schema1:name "Geological Time Scale RDF/SKOS" ],
-        [ a schema1:DataDownload ;
-            dcterms:conformsTo <http://www.opengis.net/def/nil/OGC/0/missing> ;
-            schema1:contentUrl "https://stratigraphy.org/ICSchart/ChronostratChart2024-12.pdf" ;
-            schema1:encodingFormat "application/pdf" ;
-            schema1:name "Chronostratigraphic Chart PDF" ] ;
+            schema1:name "Geological Time Scale RDF/SKOS" ] ;
     schema1:identifier [ a schema1:PropertyValue ;
             schema1:name "DOI" ;
             schema1:propertyID "schema:identifier" ;
@@ -515,7 +515,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDESemanticResource
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-15'
+  dateOfLastChange: '2026-11-16'
 
 ```
 

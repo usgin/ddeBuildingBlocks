@@ -49,7 +49,7 @@ DDE discovery metadata for a published research article on global plate tectonic
     "@context": {
         "schema": "http://schema.org/",
         "dde": "https://www.ddeworld.org/resource/",
-        "cdif": "https://cdif.org/profile/",
+        "cdif": "https://w3id.org/cdif/",
         "dcterms": "http://purl.org/dc/terms/",
         "dcat": "http://www.w3.org/ns/dcat#",
         "prov": "http://www.w3.org/ns/prov#"
@@ -206,7 +206,7 @@ DDE discovery metadata for a published research article on global plate tectonic
     {
       "schema": "http://schema.org/",
       "dde": "https://www.ddeworld.org/resource/",
-      "cdif": "https://cdif.org/profile/",
+      "cdif": "https://w3id.org/cdif/",
       "dcterms": "http://purl.org/dc/terms/",
       "dcat": "http://www.w3.org/ns/dcat#",
       "prov": "http://www.w3.org/ns/prov#"
@@ -487,7 +487,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEDocument
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-15'
+  dateOfLastChange: '2026-11-16'
 
 ```
 

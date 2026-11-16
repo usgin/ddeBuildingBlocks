@@ -50,7 +50,7 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
     "@context": {
         "schema": "http://schema.org/",
         "dde": "https://www.ddeworld.org/resource/",
-        "cdif": "https://cdif.org/profile/",
+        "cdif": "https://w3id.org/cdif/",
         "dcterms": "http://purl.org/dc/terms/",
         "dcat": "http://www.w3.org/ns/dcat#",
         "time": "http://www.w3.org/2006/time#",
@@ -297,7 +297,7 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
     {
       "schema": "http://schema.org/",
       "dde": "https://www.ddeworld.org/resource/",
-      "cdif": "https://cdif.org/profile/",
+      "cdif": "https://w3id.org/cdif/",
       "dcterms": "http://purl.org/dc/terms/",
       "dcat": "http://www.w3.org/ns/dcat#",
       "time": "http://www.w3.org/2006/time#",
@@ -538,13 +538,13 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
 
 <urn:dde:example-landsat8-tibet> a schema1:Dataset ;
     schema1:additionalProperty [ a schema1:PropertyValue ;
-            schema1:name "Wavelength Range" ;
-            schema1:propertyID dde:wavelength ;
-            schema1:value "0.43-2.29 micrometers" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Processing Level" ;
             schema1:propertyID dde:processingLevel ;
-            schema1:value "Level2" ] ;
+            schema1:value "Level2" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Wavelength Range" ;
+            schema1:propertyID dde:wavelength ;
+            schema1:value "0.43-2.29 micrometers" ] ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
             schema1:name "Image" ;
@@ -563,13 +563,13 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
             schema1:name "browse image" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Remote Sensing" ;
-            schema1:termCode "remoteSensing" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Remote Sensing" ;
+            schema1:termCode "remoteSensing" ],
         "Landsat-8",
         "Tibetan Plateau",
         "multispectral",
@@ -586,14 +586,9 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
             schema1:endTime "2023-06-15T03:45:12Z" ;
             schema1:instrument [ a schema1:Product,
                         schema1:Thing ;
-                    schema1:additionalType dde:sensorType,
+                    schema1:additionalType dde:platform,
                         wd:Q3099911 ;
-                    schema1:name "Multispectral" ],
-                [ a schema1:Product,
-                        schema1:Thing ;
-                    schema1:additionalType dde:signalGenerator,
-                        wd:Q3099911 ;
-                    schema1:name "Passive solar" ],
+                    schema1:name "Landsat-8" ],
                 [ a schema1:Product,
                         schema1:Thing ;
                     schema1:additionalType dde:equipment,
@@ -601,9 +596,14 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
                     schema1:name "Operational Land Imager (OLI)" ],
                 [ a schema1:Product,
                         schema1:Thing ;
-                    schema1:additionalType dde:platform,
+                    schema1:additionalType dde:sensorType,
                         wd:Q3099911 ;
-                    schema1:name "Landsat-8" ] ;
+                    schema1:name "Multispectral" ],
+                [ a schema1:Product,
+                        schema1:Thing ;
+                    schema1:additionalType dde:signalGenerator,
+                        wd:Q3099911 ;
+                    schema1:name "Passive solar" ] ;
             schema1:name "Landsat-8 OLI imagery acquisition" ;
             schema1:participant [ a schema1:Role ;
                     schema1:contributor [ a schema1:Organization ;
@@ -737,7 +737,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEImage
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-15'
+  dateOfLastChange: '2026-11-16'
 
 ```
 

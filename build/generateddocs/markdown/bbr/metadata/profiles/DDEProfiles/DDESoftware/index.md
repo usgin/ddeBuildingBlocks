@@ -49,7 +49,7 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
     "@context": {
         "schema": "http://schema.org/",
         "dde": "https://www.ddeworld.org/resource/",
-        "cdif": "https://cdif.org/profile/",
+        "cdif": "https://w3id.org/cdif/",
         "dcterms": "http://purl.org/dc/terms/",
         "dcat": "http://www.w3.org/ns/dcat#",
         "prov": "http://www.w3.org/ns/prov#"
@@ -186,7 +186,7 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
     {
       "schema": "http://schema.org/",
       "dde": "https://www.ddeworld.org/resource/",
-      "cdif": "https://cdif.org/profile/",
+      "cdif": "https://w3id.org/cdif/",
       "dcterms": "http://purl.org/dc/terms/",
       "dcat": "http://www.w3.org/ns/dcat#",
       "prov": "http://www.w3.org/ns/prov#"
@@ -336,13 +336,13 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
             schema1:name "GPlates application screenshot" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Geoscientific Information" ;
-            schema1:termCode "geoscientificInformation" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Data Integration Synthesis" ;
             schema1:termCode "dataIntegrationSynthesis" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Geoscientific Information" ;
+            schema1:termCode "geoscientificInformation" ],
         "GPlates",
         "paleogeography",
         "plate reconstruction",
@@ -425,7 +425,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDESoftware
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-15'
+  dateOfLastChange: '2026-11-16'
 
 ```
 

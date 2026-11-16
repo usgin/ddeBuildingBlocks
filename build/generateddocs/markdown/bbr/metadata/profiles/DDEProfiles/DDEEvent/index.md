@@ -50,7 +50,7 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
     "@context": {
         "schema": "http://schema.org/",
         "dde": "https://www.ddeworld.org/resource/",
-        "cdif": "https://cdif.org/profile/",
+        "cdif": "https://w3id.org/cdif/",
         "dcterms": "http://purl.org/dc/terms/",
         "dcat": "http://www.w3.org/ns/dcat#",
         "time": "http://www.w3.org/2006/time#",
@@ -208,7 +208,7 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
     {
       "schema": "http://schema.org/",
       "dde": "https://www.ddeworld.org/resource/",
-      "cdif": "https://cdif.org/profile/",
+      "cdif": "https://w3id.org/cdif/",
       "dcterms": "http://purl.org/dc/terms/",
       "dcat": "http://www.w3.org/ns/dcat#",
       "time": "http://www.w3.org/2006/time#",
@@ -374,13 +374,13 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
             schema1:name "Expedition 396 drill site locations" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Field Campaign Expedition" ;
-            schema1:termCode "fieldCampaignExpedition" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Field Campaign Expedition" ;
+            schema1:termCode "fieldCampaignExpedition" ],
         "IODP",
         "mid-Norwegian margin",
         "ocean drilling",
@@ -484,7 +484,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEEvent
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-15'
+  dateOfLastChange: '2026-11-16'
 
 ```
 
