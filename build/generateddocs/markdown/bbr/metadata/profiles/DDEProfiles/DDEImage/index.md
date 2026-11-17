@@ -287,7 +287,7 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
     {
       "schema": "http://schema.org/",
       "dde": "https://www.ddeworld.org/resource/",
-      "cdif": "https://cdif.org/profile/",
+      "cdif": "https://w3id.org/cdif/",
       "dcterms": "http://purl.org/dc/terms/",
       "dcat": "http://www.w3.org/ns/dcat#",
       "time": "http://www.w3.org/2006/time#",
@@ -586,6 +586,11 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
             schema1:endTime "2023-06-15T03:45:12Z" ;
             schema1:instrument [ a schema1:Product,
                         schema1:Thing ;
+                    schema1:additionalType dde:sensorType,
+                        wd:Q3099911 ;
+                    schema1:name "Multispectral" ],
+                [ a schema1:Product,
+                        schema1:Thing ;
                     schema1:additionalType dde:platform,
                         wd:Q3099911 ;
                     schema1:name "Landsat-8" ],
@@ -594,11 +599,6 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
                     schema1:additionalType dde:equipment,
                         wd:Q3099911 ;
                     schema1:name "Operational Land Imager (OLI)" ],
-                [ a schema1:Product,
-                        schema1:Thing ;
-                    schema1:additionalType dde:sensorType,
-                        wd:Q3099911 ;
-                    schema1:name "Multispectral" ],
                 [ a schema1:Product,
                         schema1:Thing ;
                     schema1:additionalType dde:signalGenerator,
@@ -737,7 +737,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEImage
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-16'
+  dateOfLastChange: '2026-11-17'
 
 ```
 

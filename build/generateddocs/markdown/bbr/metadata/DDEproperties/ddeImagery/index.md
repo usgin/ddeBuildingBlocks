@@ -292,13 +292,13 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
 @prefix wd: <https://www.wikidata.org/entity/> .
 
 [] schema1:additionalProperty [ a schema1:PropertyValue ;
-            schema1:name "Processing Level" ;
-            schema1:propertyID dde:processingLevel ;
-            schema1:value "Level2" ],
-        [ a schema1:PropertyValue ;
             schema1:name "Wavelength Range" ;
             schema1:propertyID dde:wavelength ;
-            schema1:value "0.43-2.29 micrometers" ] ;
+            schema1:value "0.43-2.29 micrometers" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Processing Level" ;
+            schema1:propertyID dde:processingLevel ;
+            schema1:value "Level2" ] ;
     prov:wasGeneratedBy [ a schema1:Action,
                 prov:Activity ;
             schema1:endTime "2023-06-15T03:45:12Z" ;
@@ -309,6 +309,11 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
                     schema1:name "Passive solar" ],
                 [ a schema1:Product,
                         schema1:Thing ;
+                    schema1:additionalType dde:equipment,
+                        wd:Q3099911 ;
+                    schema1:name "Operational Land Imager (OLI)" ],
+                [ a schema1:Product,
+                        schema1:Thing ;
                     schema1:additionalType dde:platform,
                         wd:Q3099911 ;
                     schema1:name "Landsat-8" ],
@@ -316,12 +321,7 @@ Shows additionalProperty entries with DDE propertyIDs for sensor type, platform,
                         schema1:Thing ;
                     schema1:additionalType dde:sensorType,
                         wd:Q3099911 ;
-                    schema1:name "Multispectral" ],
-                [ a schema1:Product,
-                        schema1:Thing ;
-                    schema1:additionalType dde:equipment,
-                        wd:Q3099911 ;
-                    schema1:name "Operational Land Imager (OLI)" ] ;
+                    schema1:name "Multispectral" ] ;
             schema1:name "Landsat-8 OLI imagery acquisition" ;
             schema1:participant [ a schema1:Role ;
                     schema1:contributor [ a schema1:Organization ;
@@ -429,7 +429,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.DDEproperties.ddeImagery
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-16'
+  dateOfLastChange: '2026-11-17'
 
 ```
 

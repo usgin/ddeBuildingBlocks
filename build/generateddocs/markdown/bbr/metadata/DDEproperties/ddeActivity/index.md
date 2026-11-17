@@ -217,14 +217,14 @@ element.
     schema1:endTime "2024-03-01T10:17:00Z" ;
     schema1:instrument [ a schema1:Product,
                 schema1:Thing ;
-            schema1:additionalType dde:sensorType,
-                wd:Q3099911 ;
-            schema1:name "Multispectral" ],
-        [ a schema1:Product,
-                schema1:Thing ;
             schema1:additionalType dde:platform,
                 wd:Q3099911 ;
-            schema1:name "Landsat 8" ] ;
+            schema1:name "Landsat 8" ],
+        [ a schema1:Product,
+                schema1:Thing ;
+            schema1:additionalType dde:sensorType,
+                wd:Q3099911 ;
+            schema1:name "Multispectral" ] ;
     schema1:name "Landsat 8 OLI multispectral acquisition" ;
     schema1:participant [ a schema1:Role ;
             schema1:contributor [ a schema1:Organization ;
@@ -347,7 +347,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.DDEproperties.ddeActivity
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-16'
+  dateOfLastChange: '2026-11-17'
 
 ```
 

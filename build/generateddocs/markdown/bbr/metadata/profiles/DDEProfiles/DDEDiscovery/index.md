@@ -291,7 +291,7 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
     {
       "schema": "http://schema.org/",
       "dde": "https://www.ddeworld.org/resource/",
-      "cdif": "https://cdif.org/profile/",
+      "cdif": "https://w3id.org/cdif/",
       "dcterms": "http://purl.org/dc/terms/",
       "dcat": "http://www.w3.org/ns/dcat#",
       "time": "http://www.w3.org/2006/time#",
@@ -524,12 +524,12 @@ DDE discovery metadata for the China 1:1M Bedrock Lithostratigraphy dataset from
 <urn:cgs:22e1d1ca752a7bc3ff4e90014e760e8a08947654> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Geographic Dataset" ;
-            schema1:termCode "geographicDataset" ],
+            schema1:name "Map" ;
+            schema1:termCode "map" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Map" ;
-            schema1:termCode "map" ] ;
+            schema1:name "Geographic Dataset" ;
+            schema1:termCode "geographicDataset" ] ;
     schema1:alternateName "Bedrock lithostratigraphic map of China",
         "中国基岩地层图" ;
     schema1:dateModified "2018-09-07" ;
@@ -994,7 +994,7 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
     {
       "schema": "http://schema.org/",
       "dde": "https://www.ddeworld.org/resource/",
-      "cdif": "https://cdif.org/profile/",
+      "cdif": "https://w3id.org/cdif/",
       "dcterms": "http://purl.org/dc/terms/",
       "dcat": "http://www.w3.org/ns/dcat#",
       "time": "http://www.w3.org/2006/time#",
@@ -1435,35 +1435,16 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
             schema1:url "https://doi.org/23609/53w7klh" ;
             schema1:value "doi:23609/53w7klh" ] ;
     schema1:image [ a schema1:ImageObject ;
-            schema1:contentUrl "http://azgs.az.gov/repository/browse/3757.jpg" ;
-            schema1:description "description of the browse image" ;
-            schema1:name "Quick view lithostratigraphic map of Arizona" ],
-        [ a schema1:ImageObject ;
             schema1:contentUrl "http://azgs.az.gov/repository/browse/2222.jpg" ;
             schema1:description "description of the browse image2" ;
             schema1:encodingFormat "image/png" ;
-            schema1:name "Another map of Arizona" ] ;
+            schema1:name "Another map of Arizona" ],
+        [ a schema1:ImageObject ;
+            schema1:contentUrl "http://azgs.az.gov/repository/browse/3757.jpg" ;
+            schema1:description "description of the browse image" ;
+            schema1:name "Quick view lithostratigraphic map of Arizona" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Digital Conversion from Published Source" ;
-            schema1:termCode "digitalConversionFromPublishedSource" ],
-        [ a schema1:DefinedTerm ;
-            schema1:identifier "https://edits.nationalmap.gov/apps/gaz-domestic/public/gaz-record/1779777" ;
-            schema1:name "Arizona" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Synthesis from Multiple Sources" ;
-            schema1:termCode "synthesisFromMultipleSources" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Environment" ;
-            schema1:termCode "environment" ],
-        [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
-            schema1:name "Paleontology" ;
-            schema1:termCode "GI_PO_paleontology" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
@@ -1471,6 +1452,25 @@ DDE discovery metadata for the Arizona 1:1M Lithostratigraphy dataset from the A
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Hydrogeology" ;
             schema1:termCode "GI_HG_hydrogeology" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Environment" ;
+            schema1:termCode "environment" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Synthesis from Multiple Sources" ;
+            schema1:termCode "synthesisFromMultipleSources" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
+            schema1:name "Paleontology" ;
+            schema1:termCode "GI_PO_paleontology" ],
+        [ a schema1:DefinedTerm ;
+            schema1:identifier "https://edits.nationalmap.gov/apps/gaz-domestic/public/gaz-record/1779777" ;
+            schema1:name "Arizona" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Digital Conversion from Published Source" ;
+            schema1:termCode "digitalConversionFromPublishedSource" ],
         "Geologic Map",
         "Geology",
         "United States" ;
@@ -1597,7 +1597,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEDiscovery
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-16'
+  dateOfLastChange: '2026-11-17'
 
 ```
 

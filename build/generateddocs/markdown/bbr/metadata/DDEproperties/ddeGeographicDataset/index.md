@@ -183,6 +183,14 @@ Shows spatialCoverage with GeoShape bounding box and additionalProperty entries 
 @prefix schema1: <http://schema.org/> .
 
 [] schema1:additionalProperty [ a schema1:PropertyValue ;
+            schema1:name "Reference System Type" ;
+            schema1:propertyID dde:referenceSystemType ;
+            schema1:value "geodeticGeographic2D" ],
+        [ a schema1:PropertyValue ;
+            schema1:name "Spatial Representation Type" ;
+            schema1:propertyID dde:spatialRepresentationType ;
+            schema1:value "vector" ],
+        [ a schema1:PropertyValue ;
             schema1:name "Coordinate Reference System" ;
             schema1:propertyID dde:referenceSystemIdentifier ;
             schema1:url "https://epsg.io/4326" ;
@@ -190,15 +198,7 @@ Shows spatialCoverage with GeoShape bounding box and additionalProperty entries 
         [ a schema1:PropertyValue ;
             schema1:name "Spatial Resolution" ;
             schema1:propertyID dde:spatialResolution ;
-            schema1:value "1:1000000" ],
-        [ a schema1:PropertyValue ;
-            schema1:name "Spatial Representation Type" ;
-            schema1:propertyID dde:spatialRepresentationType ;
-            schema1:value "vector" ],
-        [ a schema1:PropertyValue ;
-            schema1:name "Reference System Type" ;
-            schema1:propertyID dde:referenceSystemType ;
-            schema1:value "geodeticGeographic2D" ] ;
+            schema1:value "1:1000000" ] ;
     schema1:spatialCoverage [ a schema1:Place ;
             schema1:geo [ a schema1:GeoShape ;
                     schema1:box "18.1609 73.499 53.5585 135.08" ] ] .
@@ -395,7 +395,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.DDEproperties.ddeGeographicDataset
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-16'
+  dateOfLastChange: '2026-11-17'
 
 ```
 
