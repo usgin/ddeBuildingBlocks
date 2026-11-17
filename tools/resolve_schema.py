@@ -371,6 +371,30 @@ def _register_url_base(cache_path, parsed, url_path, host) -> None:
             _URL_BASE_REGISTRY[cache_prefix] = url_prefix
 
 
+def _should_refetch(file_path: Path) -> bool:
+    """True when an EXISTING $ref target must still go through the fetch path.
+
+    --refresh-remote is honoured in one place only, `_fetch_url_schema`. A $ref reached as a
+    RELATIVE path from a file already in vendor/remote never arrives there: the resolver turns
+    it into a cache path, the file is on disk, and the vendored copy is read as-is however old
+    it is. So a refresh silently skipped every block reached ONLY through another vendored
+    block -- a composite's modules, say -- while remote-lock.json still printed the full pinned
+    count and a second pass still reported "0 updated, N already current". A refresh that skips
+    a file was indistinguishable from one that finds it current.
+
+    Measured 2026-11-17 in the domain repos, where the mechanism is live (nothing in mBB
+    declares a URL $ref, so this is inert here and could not have surfaced locally).
+    ecrrBuildingBlocks reaches cdifCore and cdifDiscovery only through the CoreDiscovery
+    composite's relative refs, so --refresh-remote left its vendored cdifCore demanding
+    cdif/core/1.1 after mBB moved to 2.0 and an example failed a `contains` naming the very
+    URI it declared. ddeBuildingBlocks, which refs cdifCore directly by URL, still had 14 of
+    32 copies stale for the same reason one level down.
+
+    The workaround was to delete vendor/remote and re-vendor from empty.
+    """
+    return _ALLOW_FETCH and str(file_path).startswith(str(_URL_CACHE_DIR))
+
+
 def _fetch_relative_in_cache(file_path: Path) -> Path | None:
     """If file_path is inside the URL cache dir but doesn't exist, reconstruct
     the URL it would correspond to and fetch it.
@@ -910,13 +934,13 @@ def _resolve_ref(ref: str, base_dir: Path, defs: dict, seen: set) -> Any:
     else:
         file_path = (base_dir / file_part).resolve()
 
-    if not file_path.exists():
-        # If the path is inside the URL cache, the file just hasn't been
-        # fetched yet — reconstruct the URL and fetch it.
+    if not file_path.exists() or _should_refetch(file_path):
+        # Inside the URL cache the target may be absent (never fetched) or present but stale.
+        # Both go through the fetch path, the only place --refresh-remote applies.
         fetched = _fetch_relative_in_cache(file_path)
         if fetched is not None:
             file_path = fetched
-        else:
+        elif not file_path.exists():
             return {"$comment": f"file not found: {_display_source(file_path)}"}
 
     # For cross-file $defs fragment refs, resolve the defs from the raw schema
@@ -1300,11 +1324,11 @@ def _resolve_ref_structured(ref: str, base_dir: Path, local_defs: dict,
     else:
         file_path = (base_dir / file_part).resolve()
 
-    if not file_path.exists():
+    if not file_path.exists() or _should_refetch(file_path):
         fetched = _fetch_relative_in_cache(file_path)
         if fetched is not None:
             file_path = fetched
-        else:
+        elif not file_path.exists():
             return {"$comment": f"file not found: {_display_source(file_path)}"}
 
     # If the target file (without fragment) is a known $def, emit a $ref
