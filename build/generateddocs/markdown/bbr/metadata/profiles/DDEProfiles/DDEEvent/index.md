@@ -29,7 +29,7 @@ A document instance claiming this profile declares it on the catalog record:
 ```json
 "schema:subjectOf": {
     "dcterms:conformsTo": [
-        {"@id": "https://w3id.org/cdif/core/1.1"},
+        {"@id": "https://w3id.org/cdif/core/2.0"},
         {"@id": "https://w3id.org/cdif/dde/1.0/DDEEvent"}
     ]
 }
@@ -90,10 +90,10 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
         },
         "dcterms:conformsTo": [
             {
-                "@id": "https://w3id.org/cdif/core/1.1"
+                "@id": "https://w3id.org/cdif/core/2.0"
             },
             {
-                "@id": "https://w3id.org/cdif/discovery/1.1"
+                "@id": "https://w3id.org/cdif/discovery/2.0"
             },
             {
                 "@id": "https://w3id.org/cdif/dde/1.0/DDEEvent"
@@ -249,10 +249,10 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.1"
+        "@id": "https://w3id.org/cdif/core/2.0"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.1"
+        "@id": "https://w3id.org/cdif/discovery/2.0"
       },
       {
         "@id": "https://w3id.org/cdif/dde/1.0/DDEEvent"
@@ -402,9 +402,9 @@ DDE discovery metadata for IODP Expedition 396 (mid-Norwegian margin) as a field
     schema1:url "https://www.iodp.org/expedition396" .
 
 <urn:uuid:dde-event-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/core/1.1>,
+    dcterms:conformsTo <https://w3id.org/cdif/core/2.0>,
         <https://w3id.org/cdif/dde/1.0/DDEEvent>,
-        <https://w3id.org/cdif/discovery/1.1> ;
+        <https://w3id.org/cdif/discovery/2.0> ;
     schema1:about <urn:dde:example-iodp-expedition-396> ;
     schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2022-09-01" .

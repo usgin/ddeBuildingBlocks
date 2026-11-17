@@ -28,7 +28,7 @@ A document instance claiming this profile declares it on the catalog record:
 ```json
 "schema:subjectOf": {
     "dcterms:conformsTo": [
-        {"@id": "https://w3id.org/cdif/core/1.1"},
+        {"@id": "https://w3id.org/cdif/core/2.0"},
         {"@id": "https://w3id.org/cdif/dde/1.0/DDEDocument"}
     ]
 }
@@ -96,10 +96,10 @@ DDE discovery metadata for a published research article on global plate tectonic
         },
         "dcterms:conformsTo": [
             {
-                "@id": "https://w3id.org/cdif/core/1.1"
+                "@id": "https://w3id.org/cdif/core/2.0"
             },
             {
-                "@id": "https://w3id.org/cdif/discovery/1.1"
+                "@id": "https://w3id.org/cdif/discovery/2.0"
             },
             {
                 "@id": "https://w3id.org/cdif/dde/1.0/DDEDocument"
@@ -254,10 +254,10 @@ DDE discovery metadata for a published research article on global plate tectonic
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.1"
+        "@id": "https://w3id.org/cdif/core/2.0"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.1"
+        "@id": "https://w3id.org/cdif/discovery/2.0"
       },
       {
         "@id": "https://w3id.org/cdif/dde/1.0/DDEDocument"
@@ -357,12 +357,12 @@ DDE discovery metadata for a published research article on global plate tectonic
 <urn:dde:example-plate-tectonics-article> a schema1:Dataset ;
     schema1:additionalType [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Document" ;
-            schema1:termCode "document" ],
+            schema1:name "Article" ;
+            schema1:termCode "article" ],
         [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/ResourceTypeCode" ;
-            schema1:name "Article" ;
-            schema1:termCode "article" ] ;
+            schema1:name "Document" ;
+            schema1:termCode "document" ] ;
     schema1:creator ( [ a schema1:Person ;
                 schema1:affiliation [ a schema1:Organization ;
                         schema1:name "University of Sydney" ] ;
@@ -404,9 +404,9 @@ DDE discovery metadata for a published research article on global plate tectonic
     schema1:subjectOf <urn:uuid:dde-document-catalog-record> .
 
 <urn:uuid:dde-document-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/core/1.1>,
+    dcterms:conformsTo <https://w3id.org/cdif/core/2.0>,
         <https://w3id.org/cdif/dde/1.0/DDEDocument>,
-        <https://w3id.org/cdif/discovery/1.1> ;
+        <https://w3id.org/cdif/discovery/2.0> ;
     schema1:about <urn:dde:example-plate-tectonics-article> ;
     schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2021-02-15" .

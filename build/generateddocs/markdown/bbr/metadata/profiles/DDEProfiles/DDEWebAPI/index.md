@@ -58,7 +58,7 @@ A document instance claiming this profile declares it on the catalog record:
 ```json
 "schema:subjectOf": {
     "dcterms:conformsTo": [
-        {"@id": "https://w3id.org/cdif/core/1.1"},
+        {"@id": "https://w3id.org/cdif/core/2.0"},
         {"@id": "https://w3id.org/cdif/dde/1.0/DDEWebAPI"}
     ]
 }
@@ -201,10 +201,10 @@ terms of service, and capability document reference.
         },
         "dcterms:conformsTo": [
             {
-                "@id": "https://w3id.org/cdif/core/1.1"
+                "@id": "https://w3id.org/cdif/core/2.0"
             },
             {
-                "@id": "https://w3id.org/cdif/discovery/1.1"
+                "@id": "https://w3id.org/cdif/discovery/2.0"
             },
             {
                 "@id": "https://w3id.org/cdif/dde/1.0/DDEWebAPI"
@@ -344,10 +344,10 @@ terms of service, and capability document reference.
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.1"
+        "@id": "https://w3id.org/cdif/core/2.0"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.1"
+        "@id": "https://w3id.org/cdif/discovery/2.0"
       },
       {
         "@id": "https://w3id.org/cdif/dde/1.0/DDEWebAPI"
@@ -412,9 +412,9 @@ ex:dde-webapi-001 a schema1:Dataset,
     schema1:url "https://example.org/services/dde-geomap" .
 
 <urn:uuid:dde-webapi-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/core/1.1>,
+    dcterms:conformsTo <https://w3id.org/cdif/core/2.0>,
         <https://w3id.org/cdif/dde/1.0/DDEWebAPI>,
-        <https://w3id.org/cdif/discovery/1.1> ;
+        <https://w3id.org/cdif/discovery/2.0> ;
     schema1:about ex:dde-webapi-001 ;
     schema1:additionalType dcat:CatalogRecord .
 

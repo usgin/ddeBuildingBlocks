@@ -28,7 +28,7 @@ A document instance claiming this profile declares it on the catalog record:
 ```json
 "schema:subjectOf": {
     "dcterms:conformsTo": [
-        {"@id": "https://w3id.org/cdif/core/1.1"},
+        {"@id": "https://w3id.org/cdif/core/2.0"},
         {"@id": "https://w3id.org/cdif/dde/1.0/DDESoftware"}
     ]
 }
@@ -89,10 +89,10 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
         },
         "dcterms:conformsTo": [
             {
-                "@id": "https://w3id.org/cdif/core/1.1"
+                "@id": "https://w3id.org/cdif/core/2.0"
             },
             {
-                "@id": "https://w3id.org/cdif/discovery/1.1"
+                "@id": "https://w3id.org/cdif/discovery/2.0"
             },
             {
                 "@id": "https://w3id.org/cdif/dde/1.0/DDESoftware"
@@ -227,10 +227,10 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.1"
+        "@id": "https://w3id.org/cdif/core/2.0"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.1"
+        "@id": "https://w3id.org/cdif/discovery/2.0"
       },
       {
         "@id": "https://w3id.org/cdif/dde/1.0/DDESoftware"
@@ -336,13 +336,13 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
             schema1:name "GPlates application screenshot" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Data Integration Synthesis" ;
-            schema1:termCode "dataIntegrationSynthesis" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Data Integration Synthesis" ;
+            schema1:termCode "dataIntegrationSynthesis" ],
         "GPlates",
         "paleogeography",
         "plate reconstruction",
@@ -356,9 +356,9 @@ DDE discovery metadata for GPlates plate reconstruction software with creator or
     schema1:version "2.5" .
 
 <urn:uuid:dde-software-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/core/1.1>,
+    dcterms:conformsTo <https://w3id.org/cdif/core/2.0>,
         <https://w3id.org/cdif/dde/1.0/DDESoftware>,
-        <https://w3id.org/cdif/discovery/1.1> ;
+        <https://w3id.org/cdif/discovery/2.0> ;
     schema1:about <urn:dde:example-gplates> ;
     schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2024-01-20" .

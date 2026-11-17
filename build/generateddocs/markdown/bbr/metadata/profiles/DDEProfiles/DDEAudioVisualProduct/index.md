@@ -29,7 +29,7 @@ A document instance claiming this profile declares it on the catalog record:
 ```json
 "schema:subjectOf": {
     "dcterms:conformsTo": [
-        {"@id": "https://w3id.org/cdif/core/1.1"},
+        {"@id": "https://w3id.org/cdif/core/2.0"},
         {"@id": "https://w3id.org/cdif/dde/1.0/DDEAudioVisualProduct"}
     ]
 }
@@ -89,10 +89,10 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
         },
         "dcterms:conformsTo": [
             {
-                "@id": "https://w3id.org/cdif/core/1.1"
+                "@id": "https://w3id.org/cdif/core/2.0"
             },
             {
-                "@id": "https://w3id.org/cdif/discovery/1.1"
+                "@id": "https://w3id.org/cdif/discovery/2.0"
             },
             {
                 "@id": "https://w3id.org/cdif/dde/1.0/DDEAudioVisualProduct"
@@ -235,10 +235,10 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.1"
+        "@id": "https://w3id.org/cdif/core/2.0"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.1"
+        "@id": "https://w3id.org/cdif/discovery/2.0"
       },
       {
         "@id": "https://w3id.org/cdif/dde/1.0/DDEAudioVisualProduct"
@@ -358,13 +358,13 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
             schema1:name "video thumbnail" ] ;
     schema1:inLanguage "eng" ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Data Integration Synthesis" ;
-            schema1:termCode "dataIntegrationSynthesis" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Data Integration Synthesis" ;
+            schema1:termCode "dataIntegrationSynthesis" ],
         "continental drift",
         "earth science",
         "educational video",
@@ -377,9 +377,9 @@ DDE discovery metadata for an educational video on plate tectonics with ISO 8601
     schema1:url "https://example.org/videos/plate-tectonics-explained" .
 
 <urn:uuid:dde-audiovisual-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/core/1.1>,
+    dcterms:conformsTo <https://w3id.org/cdif/core/2.0>,
         <https://w3id.org/cdif/dde/1.0/DDEAudioVisualProduct>,
-        <https://w3id.org/cdif/discovery/1.1> ;
+        <https://w3id.org/cdif/discovery/2.0> ;
     schema1:about <urn:dde:example-plate-tectonics-video> ;
     schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2023-09-15" .

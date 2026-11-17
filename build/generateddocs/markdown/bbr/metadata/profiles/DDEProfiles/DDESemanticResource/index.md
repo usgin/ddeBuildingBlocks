@@ -28,7 +28,7 @@ A document instance claiming this profile declares it on the catalog record:
 ```json
 "schema:subjectOf": {
     "dcterms:conformsTo": [
-        {"@id": "https://w3id.org/cdif/core/1.1"},
+        {"@id": "https://w3id.org/cdif/core/2.0"},
         {"@id": "https://w3id.org/cdif/dde/1.0/DDESemanticResource"}
     ]
 }
@@ -97,10 +97,10 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
         },
         "dcterms:conformsTo": [
             {
-                "@id": "https://w3id.org/cdif/core/1.1"
+                "@id": "https://w3id.org/cdif/core/2.0"
             },
             {
-                "@id": "https://w3id.org/cdif/discovery/1.1"
+                "@id": "https://w3id.org/cdif/discovery/2.0"
             },
             {
                 "@id": "https://w3id.org/cdif/dde/1.0/DDESemanticResource"
@@ -272,10 +272,10 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.1"
+        "@id": "https://w3id.org/cdif/core/2.0"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.1"
+        "@id": "https://w3id.org/cdif/discovery/2.0"
       },
       {
         "@id": "https://w3id.org/cdif/dde/1.0/DDESemanticResource"
@@ -445,9 +445,9 @@ DDE discovery metadata for the International Chronostratigraphic Chart (ICS) voc
     schema1:version "2024/12" .
 
 <urn:uuid:dde-semres-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/core/1.1>,
+    dcterms:conformsTo <https://w3id.org/cdif/core/2.0>,
         <https://w3id.org/cdif/dde/1.0/DDESemanticResource>,
-        <https://w3id.org/cdif/discovery/1.1> ;
+        <https://w3id.org/cdif/discovery/2.0> ;
     schema1:about <urn:dde:example-chronostrat-chart> ;
     schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2024-12-01" .

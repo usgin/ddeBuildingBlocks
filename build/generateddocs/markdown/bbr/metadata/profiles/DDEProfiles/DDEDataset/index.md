@@ -29,7 +29,7 @@ A document instance claiming this profile declares it on the catalog record:
 ```json
 "schema:subjectOf": {
     "dcterms:conformsTo": [
-        {"@id": "https://w3id.org/cdif/core/1.1"},
+        {"@id": "https://w3id.org/cdif/core/2.0"},
         {"@id": "https://w3id.org/cdif/dde/1.0/DDEDataset"}
     ]
 }
@@ -84,10 +84,10 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
         },
         "dcterms:conformsTo": [
             {
-                "@id": "https://w3id.org/cdif/core/1.1"
+                "@id": "https://w3id.org/cdif/core/2.0"
             },
             {
-                "@id": "https://w3id.org/cdif/discovery/1.1"
+                "@id": "https://w3id.org/cdif/discovery/2.0"
             },
             {
                 "@id": "https://w3id.org/cdif/dde/1.0/DDEDataset"
@@ -301,10 +301,10 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.1"
+        "@id": "https://w3id.org/cdif/core/2.0"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.1"
+        "@id": "https://w3id.org/cdif/discovery/2.0"
       },
       {
         "@id": "https://w3id.org/cdif/dde/1.0/DDEDataset"
@@ -476,14 +476,14 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
 
 <urn:dde:example-hydrogeological-map> a schema1:Dataset ;
     schema1:additionalProperty [ a schema1:PropertyValue ;
+            schema1:name "Reference System Type" ;
+            schema1:propertyID dde:referenceSystemType ;
+            schema1:value "geodeticGeographic2D" ],
+        [ a schema1:PropertyValue ;
             schema1:name "Coordinate Reference System" ;
             schema1:propertyID dde:referenceSystemIdentifier ;
             schema1:url "https://epsg.io/4326" ;
             schema1:value "EPSG:4326" ],
-        [ a schema1:PropertyValue ;
-            schema1:name "Reference System Type" ;
-            schema1:propertyID dde:referenceSystemType ;
-            schema1:value "geodeticGeographic2D" ],
         [ a schema1:PropertyValue ;
             schema1:name "Spatial Resolution" ;
             schema1:propertyID dde:spatialResolution ;
@@ -539,9 +539,9 @@ DDE discovery metadata for a China 1:500K Hydrogeological Map as a geographic da
     schema1:url "http://en.cgs.gov.cn/" .
 
 <urn:uuid:dde-dataset-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/core/1.1>,
+    dcterms:conformsTo <https://w3id.org/cdif/core/2.0>,
         <https://w3id.org/cdif/dde/1.0/DDEDataset>,
-        <https://w3id.org/cdif/discovery/1.1> ;
+        <https://w3id.org/cdif/discovery/2.0> ;
     schema1:about <urn:dde:example-hydrogeological-map> ;
     schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2020-11-15" .

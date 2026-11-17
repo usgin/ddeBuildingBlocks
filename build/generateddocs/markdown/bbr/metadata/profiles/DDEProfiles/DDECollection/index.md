@@ -42,7 +42,7 @@ A document instance claiming this profile declares it on the catalog record:
 ```json
 "schema:subjectOf": {
     "dcterms:conformsTo": [
-        {"@id": "https://w3id.org/cdif/core/1.1"},
+        {"@id": "https://w3id.org/cdif/core/2.0"},
         {"@id": "https://w3id.org/cdif/dde/1.0/DDECollection"}
     ]
 }
@@ -103,16 +103,16 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
         },
         "dcterms:conformsTo": [
             {
-                "@id": "https://w3id.org/cdif/core/1.1"
+                "@id": "https://w3id.org/cdif/core/2.0"
             },
             {
-                "@id": "https://w3id.org/cdif/discovery/1.1"
+                "@id": "https://w3id.org/cdif/discovery/2.0"
             },
             {
                 "@id": "https://w3id.org/cdif/dde/1.0/DDECollection"
             },
             {
-                "@id": "https://w3id.org/cdif/manifest/1.1"
+                "@id": "https://w3id.org/cdif/manifest/2.0"
             }
         ],
         "schema:sdDatePublished": "2024-06-01"
@@ -268,16 +268,16 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
     },
     "dcterms:conformsTo": [
       {
-        "@id": "https://w3id.org/cdif/core/1.1"
+        "@id": "https://w3id.org/cdif/core/2.0"
       },
       {
-        "@id": "https://w3id.org/cdif/discovery/1.1"
+        "@id": "https://w3id.org/cdif/discovery/2.0"
       },
       {
         "@id": "https://w3id.org/cdif/dde/1.0/DDECollection"
       },
       {
-        "@id": "https://w3id.org/cdif/manifest/1.1"
+        "@id": "https://w3id.org/cdif/manifest/2.0"
       }
     ],
     "schema:sdDatePublished": "2024-06-01"
@@ -392,17 +392,17 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
     schema1:dateModified "2024-06-01" ;
     schema1:description "A curated collection of 1:1M scale geological maps contributed by national geological surveys through the OneGeology initiative. Each member map covers a single country or territory and uses harmonized symbology based on the GeoSciML Portrayal schema." ;
     schema1:hasPart [ a schema1:CreativeWork ;
-            schema1:description "National-scale surface geology map of Australia by Geoscience Australia" ;
-            schema1:name "Australia 1:1M Surface Geology" ;
-            schema1:url "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets" ],
-        [ a schema1:CreativeWork ;
             schema1:description "Bedrock geological map of the United Kingdom by the British Geological Survey" ;
             schema1:name "United Kingdom 1:625K Bedrock Geology" ;
             schema1:url "https://www.bgs.ac.uk/geological-data/" ],
         [ a schema1:CreativeWork ;
             schema1:description "Geological map of China compiled from 63 separate survey sheets" ;
             schema1:name "China 1:1M Bedrock Lithostratigraphy" ;
-            schema1:url "http://en.cgs.gov.cn/" ] ;
+            schema1:url "http://en.cgs.gov.cn/" ],
+        [ a schema1:CreativeWork ;
+            schema1:description "National-scale surface geology map of Australia by Geoscience Australia" ;
+            schema1:name "Australia 1:1M Surface Geology" ;
+            schema1:url "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets" ] ;
     schema1:identifier "urn:onegeology:global-collection-2024" ;
     schema1:image [ a schema1:ImageObject ;
             schema1:contentUrl "https://onegeology.org/images/global-map-preview.png" ;
@@ -432,10 +432,10 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
     schema1:url "https://onegeology.org/" .
 
 <urn:uuid:dde-collection-catalog-record> a schema1:Dataset ;
-    dcterms:conformsTo <https://w3id.org/cdif/core/1.1>,
+    dcterms:conformsTo <https://w3id.org/cdif/core/2.0>,
         <https://w3id.org/cdif/dde/1.0/DDECollection>,
-        <https://w3id.org/cdif/discovery/1.1>,
-        <https://w3id.org/cdif/manifest/1.1> ;
+        <https://w3id.org/cdif/discovery/2.0>,
+        <https://w3id.org/cdif/manifest/2.0> ;
     schema1:about <urn:dde:example-onegeology-collection> ;
     schema1:additionalType dcat:CatalogRecord ;
     schema1:sdDatePublished "2024-06-01" .
