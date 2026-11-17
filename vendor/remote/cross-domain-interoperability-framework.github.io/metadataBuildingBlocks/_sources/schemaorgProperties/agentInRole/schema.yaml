@@ -17,14 +17,8 @@ properties:
     $ref: '#/$defs/cdifConceptOrTermOrString'
   'schema:contributor':
     anyOf:
-      - type: object
-        additionalProperties: false
-        properties:
-          '@id':
-            type: string
-            description: IRI reference to a Person or Organization defined elsewhere
-        required:
-        - '@id'
+      - description: "IRI reference to a Person or Organization defined elsewhere"
+        $ref: ../../cdifDataType/objectReference/schema.yaml
       - $ref: ../person/schema.yaml
       - $ref: ../organization/schema.yaml
 required:

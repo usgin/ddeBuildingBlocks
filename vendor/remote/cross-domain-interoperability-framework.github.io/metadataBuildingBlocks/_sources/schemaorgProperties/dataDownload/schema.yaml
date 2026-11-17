@@ -110,27 +110,16 @@ properties:
     type: array
     minItems: 1
     items:
-      type: object
-      required: ['@id']
-      additionalProperties: false
-      properties:
-        '@id':
-          type: string
-          description: uri for specification that this distribution conforms to
+      description: "uri for specification that this distribution conforms to"
+      $ref: ../../cdifDataType/objectReference/schema.yaml
   'schema:provider':
     type: array
     description: Party who maintains this particular distribution option for the dataset. Use this property
       if there are multiple distributions from different providers
     items:
       anyOf:
-      - type: object
-        additionalProperties: false
-        properties:
-          '@id':
-            type: string
-            description: a identifier for an agent defined in this metadata, or externally; must be dereferenceable
-        required:
-        - '@id'
+      - description: "a identifier for an agent defined in this metadata, or externally; must be dereferenceable"
+        $ref: ../../cdifDataType/objectReference/schema.yaml
       - $ref: ../person/schema.yaml
       - $ref: ../organization/schema.yaml
 required:
