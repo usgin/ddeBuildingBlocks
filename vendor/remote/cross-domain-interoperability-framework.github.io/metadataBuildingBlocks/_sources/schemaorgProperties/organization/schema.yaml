@@ -31,8 +31,15 @@ properties:
     type: string
     description: string label for organization that is meaningful for human users
   'schema:alternateName':
-    type: string
-    description: other labels by which the organization might be known
+    description: >-
+      other labels by which the organization might be known. A list when there are
+      several; a single label may be a plain string, as JSON-LD framing writes a
+      one-item list.
+    anyOf:
+    - type: string
+    - type: array
+      items:
+        type: string
   'schema:description':
     type: string
     description: additional information about the agent or their relation to the described resource
@@ -47,12 +54,7 @@ properties:
     items:
       anyOf:
       - type: string
-      - type: object
-        required: ['@id']
-        additionalProperties: false
-        properties:
-          '@id':
-            type: string
+      - $ref: ../../cdifDataType/objectReference/schema.yaml
 allOf:
 - required:
   - '@type'

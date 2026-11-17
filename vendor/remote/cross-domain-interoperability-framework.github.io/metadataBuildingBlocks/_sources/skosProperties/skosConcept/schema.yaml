@@ -122,41 +122,17 @@ $defs:
       'skos:inScheme':
         description: Concept scheme(s) this concept belongs to.
         anyOf:
-        - type: object
-          additionalProperties: false
-          properties:
-            '@id':
-              type: string
-          required:
-          - '@id'
+        - $ref: ../../cdifDataType/objectReference/schema.yaml
         - type: array
           items:
-            type: object
-            additionalProperties: false
-            properties:
-              '@id':
-                type: string
-            required:
-            - '@id'
+            $ref: ../../cdifDataType/objectReference/schema.yaml
       'skos:topConceptOf':
         description: Concept scheme(s) for which this is a top concept.
         anyOf:
-        - type: object
-          additionalProperties: false
-          properties:
-            '@id':
-              type: string
-          required:
-          - '@id'
+        - $ref: ../../cdifDataType/objectReference/schema.yaml
         - type: array
           items:
-            type: object
-            additionalProperties: false
-            properties:
-              '@id':
-                type: string
-            required:
-            - '@id'
+            $ref: ../../cdifDataType/objectReference/schema.yaml
       'skos:broader':
         description: Broader (parent) concepts in the hierarchy. Items are inline
           concept objects or @id references.
@@ -179,15 +155,8 @@ $defs:
     - 'skos:definition'
     - 'skos:inScheme'
   ConceptRef:
-    type: object
-    additionalProperties: false
-    description: A reference to a SKOS Concept by URI.
-    properties:
-      '@id':
-        type: string
-        description: URI of the referenced concept.
-    required:
-    - '@id'
+    description: "A reference to a SKOS Concept by URI."
+    $ref: ../../cdifDataType/objectReference/schema.yaml
   LanguageTaggedValue:
     type: object
     description: An RDF literal value with a language tag, serialized as a

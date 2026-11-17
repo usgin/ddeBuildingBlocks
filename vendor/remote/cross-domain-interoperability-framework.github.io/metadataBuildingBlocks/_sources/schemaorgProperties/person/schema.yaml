@@ -23,8 +23,15 @@ properties:
     - $ref: ../identifier/schema.yaml
     - type: string
   'schema:alternateName':
-    type: string
-    description: other labels by which the person might be known
+    description: >-
+      other labels by which the person might be known. A list when there are
+      several; a single label may be a plain string, as JSON-LD framing writes a
+      one-item list.
+    anyOf:
+    - type: string
+    - type: array
+      items:
+        type: string
   'schema:affiliation':
     $ref: ../organization/schema.yaml
     description: if affiliation is present, value must be a schema:Organization.
@@ -60,12 +67,7 @@ properties:
     items:
       anyOf:
       - type: string
-      - type: object
-        required: ['@id']
-        additionalProperties: false
-        properties:
-          '@id':
-            type: string
+      - $ref: ../../cdifDataType/objectReference/schema.yaml
 allOf:
 - required:
   - '@type'

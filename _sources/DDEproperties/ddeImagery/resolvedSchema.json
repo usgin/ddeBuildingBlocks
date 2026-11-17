@@ -633,17 +633,19 @@
                                         "schema:contributor": {
                                           "anyOf": [
                                             {
+                                              "title": "Object Reference",
+                                              "description": "IRI reference to a Person or Organization defined elsewhere",
                                               "type": "object",
-                                              "additionalProperties": false,
                                               "properties": {
                                                 "@id": {
                                                   "type": "string",
-                                                  "description": "IRI reference to a Person or Organization defined elsewhere"
+                                                  "description": "resolvable @id of the referenced node"
                                                 }
                                               },
                                               "required": [
                                                 "@id"
-                                              ]
+                                              ],
+                                              "additionalProperties": false
                                             },
                                             {
                                               "description": "schema for cdif profile of schema.org/Person",
@@ -748,8 +750,18 @@
                                                   ]
                                                 },
                                                 "schema:alternateName": {
-                                                  "type": "string",
-                                                  "description": "other labels by which the person might be known"
+                                                  "description": "other labels by which the person might be known. A list when there are several; a single label may be a plain string, as JSON-LD framing writes a one-item list.",
+                                                  "anyOf": [
+                                                    {
+                                                      "type": "string"
+                                                    },
+                                                    {
+                                                      "type": "array",
+                                                      "items": {
+                                                        "type": "string"
+                                                      }
+                                                    }
+                                                  ]
                                                 },
                                                 "schema:affiliation": {
                                                   "type": "object",
@@ -797,8 +809,18 @@
                                                       "description": "string label for organization that is meaningful for human users"
                                                     },
                                                     "schema:alternateName": {
-                                                      "type": "string",
-                                                      "description": "other labels by which the organization might be known"
+                                                      "description": "other labels by which the organization might be known. A list when there are several; a single label may be a plain string, as JSON-LD framing writes a one-item list.",
+                                                      "anyOf": [
+                                                        {
+                                                          "type": "string"
+                                                        },
+                                                        {
+                                                          "type": "array",
+                                                          "items": {
+                                                            "type": "string"
+                                                          }
+                                                        }
+                                                      ]
                                                     },
                                                     "schema:description": {
                                                       "type": "string",
@@ -890,16 +912,19 @@
                                                             "type": "string"
                                                           },
                                                           {
+                                                            "title": "Object Reference",
+                                                            "description": "A reference to a node defined elsewhere, by its @id.",
                                                             "type": "object",
+                                                            "properties": {
+                                                              "@id": {
+                                                                "type": "string",
+                                                                "description": "resolvable @id of the referenced node"
+                                                              }
+                                                            },
                                                             "required": [
                                                               "@id"
                                                             ],
-                                                            "additionalProperties": false,
-                                                            "properties": {
-                                                              "@id": {
-                                                                "type": "string"
-                                                              }
-                                                            }
+                                                            "additionalProperties": false
                                                           }
                                                         ]
                                                       }
@@ -978,16 +1003,19 @@
                                                         "type": "string"
                                                       },
                                                       {
+                                                        "title": "Object Reference",
+                                                        "description": "A reference to a node defined elsewhere, by its @id.",
                                                         "type": "object",
+                                                        "properties": {
+                                                          "@id": {
+                                                            "type": "string",
+                                                            "description": "resolvable @id of the referenced node"
+                                                          }
+                                                        },
                                                         "required": [
                                                           "@id"
                                                         ],
-                                                        "additionalProperties": false,
-                                                        "properties": {
-                                                          "@id": {
-                                                            "type": "string"
-                                                          }
-                                                        }
+                                                        "additionalProperties": false
                                                       }
                                                     ]
                                                   }
@@ -1061,8 +1089,18 @@
                                                   "description": "string label for organization that is meaningful for human users"
                                                 },
                                                 "schema:alternateName": {
-                                                  "type": "string",
-                                                  "description": "other labels by which the organization might be known"
+                                                  "description": "other labels by which the organization might be known. A list when there are several; a single label may be a plain string, as JSON-LD framing writes a one-item list.",
+                                                  "anyOf": [
+                                                    {
+                                                      "type": "string"
+                                                    },
+                                                    {
+                                                      "type": "array",
+                                                      "items": {
+                                                        "type": "string"
+                                                      }
+                                                    }
+                                                  ]
                                                 },
                                                 "schema:description": {
                                                   "type": "string",
@@ -1154,16 +1192,19 @@
                                                         "type": "string"
                                                       },
                                                       {
+                                                        "title": "Object Reference",
+                                                        "description": "A reference to a node defined elsewhere, by its @id.",
                                                         "type": "object",
+                                                        "properties": {
+                                                          "@id": {
+                                                            "type": "string",
+                                                            "description": "resolvable @id of the referenced node"
+                                                          }
+                                                        },
                                                         "required": [
                                                           "@id"
                                                         ],
-                                                        "additionalProperties": false,
-                                                        "properties": {
-                                                          "@id": {
-                                                            "type": "string"
-                                                          }
-                                                        }
+                                                        "additionalProperties": false
                                                       }
                                                     ]
                                                   }
@@ -3150,8 +3191,18 @@
           ]
         },
         "schema:alternateName": {
-          "type": "string",
-          "description": "other labels by which the person might be known"
+          "description": "other labels by which the person might be known. A list when there are several; a single label may be a plain string, as JSON-LD framing writes a one-item list.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
         },
         "schema:affiliation": {
           "type": "object",
@@ -3199,8 +3250,18 @@
               "description": "string label for organization that is meaningful for human users"
             },
             "schema:alternateName": {
-              "type": "string",
-              "description": "other labels by which the organization might be known"
+              "description": "other labels by which the organization might be known. A list when there are several; a single label may be a plain string, as JSON-LD framing writes a one-item list.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "schema:description": {
               "type": "string",
@@ -3292,16 +3353,19 @@
                     "type": "string"
                   },
                   {
+                    "title": "Object Reference",
+                    "description": "A reference to a node defined elsewhere, by its @id.",
                     "type": "object",
+                    "properties": {
+                      "@id": {
+                        "type": "string",
+                        "description": "resolvable @id of the referenced node"
+                      }
+                    },
                     "required": [
                       "@id"
                     ],
-                    "additionalProperties": false,
-                    "properties": {
-                      "@id": {
-                        "type": "string"
-                      }
-                    }
+                    "additionalProperties": false
                   }
                 ]
               }
@@ -3380,16 +3444,19 @@
                 "type": "string"
               },
               {
+                "title": "Object Reference",
+                "description": "A reference to a node defined elsewhere, by its @id.",
                 "type": "object",
+                "properties": {
+                  "@id": {
+                    "type": "string",
+                    "description": "resolvable @id of the referenced node"
+                  }
+                },
                 "required": [
                   "@id"
                 ],
-                "additionalProperties": false,
-                "properties": {
-                  "@id": {
-                    "type": "string"
-                  }
-                }
+                "additionalProperties": false
               }
             ]
           }
@@ -3463,8 +3530,18 @@
           "description": "string label for organization that is meaningful for human users"
         },
         "schema:alternateName": {
-          "type": "string",
-          "description": "other labels by which the organization might be known"
+          "description": "other labels by which the organization might be known. A list when there are several; a single label may be a plain string, as JSON-LD framing writes a one-item list.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
         },
         "schema:description": {
           "type": "string",
@@ -3556,16 +3633,19 @@
                 "type": "string"
               },
               {
+                "title": "Object Reference",
+                "description": "A reference to a node defined elsewhere, by its @id.",
                 "type": "object",
+                "properties": {
+                  "@id": {
+                    "type": "string",
+                    "description": "resolvable @id of the referenced node"
+                  }
+                },
                 "required": [
                   "@id"
                 ],
-                "additionalProperties": false,
-                "properties": {
-                  "@id": {
-                    "type": "string"
-                  }
-                }
+                "additionalProperties": false
               }
             ]
           }
@@ -3794,17 +3874,19 @@
         "schema:contributor": {
           "anyOf": [
             {
+              "title": "Object Reference",
+              "description": "IRI reference to a Person or Organization defined elsewhere",
               "type": "object",
-              "additionalProperties": false,
               "properties": {
                 "@id": {
                   "type": "string",
-                  "description": "IRI reference to a Person or Organization defined elsewhere"
+                  "description": "resolvable @id of the referenced node"
                 }
               },
               "required": [
                 "@id"
-              ]
+              ],
+              "additionalProperties": false
             },
             {
               "description": "schema for cdif profile of schema.org/Person",
@@ -3909,8 +3991,18 @@
                   ]
                 },
                 "schema:alternateName": {
-                  "type": "string",
-                  "description": "other labels by which the person might be known"
+                  "description": "other labels by which the person might be known. A list when there are several; a single label may be a plain string, as JSON-LD framing writes a one-item list.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
                 },
                 "schema:affiliation": {
                   "type": "object",
@@ -3958,8 +4050,18 @@
                       "description": "string label for organization that is meaningful for human users"
                     },
                     "schema:alternateName": {
-                      "type": "string",
-                      "description": "other labels by which the organization might be known"
+                      "description": "other labels by which the organization might be known. A list when there are several; a single label may be a plain string, as JSON-LD framing writes a one-item list.",
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      ]
                     },
                     "schema:description": {
                       "type": "string",
@@ -4051,16 +4153,19 @@
                             "type": "string"
                           },
                           {
+                            "title": "Object Reference",
+                            "description": "A reference to a node defined elsewhere, by its @id.",
                             "type": "object",
+                            "properties": {
+                              "@id": {
+                                "type": "string",
+                                "description": "resolvable @id of the referenced node"
+                              }
+                            },
                             "required": [
                               "@id"
                             ],
-                            "additionalProperties": false,
-                            "properties": {
-                              "@id": {
-                                "type": "string"
-                              }
-                            }
+                            "additionalProperties": false
                           }
                         ]
                       }
@@ -4139,16 +4244,19 @@
                         "type": "string"
                       },
                       {
+                        "title": "Object Reference",
+                        "description": "A reference to a node defined elsewhere, by its @id.",
                         "type": "object",
+                        "properties": {
+                          "@id": {
+                            "type": "string",
+                            "description": "resolvable @id of the referenced node"
+                          }
+                        },
                         "required": [
                           "@id"
                         ],
-                        "additionalProperties": false,
-                        "properties": {
-                          "@id": {
-                            "type": "string"
-                          }
-                        }
+                        "additionalProperties": false
                       }
                     ]
                   }
@@ -4222,8 +4330,18 @@
                   "description": "string label for organization that is meaningful for human users"
                 },
                 "schema:alternateName": {
-                  "type": "string",
-                  "description": "other labels by which the organization might be known"
+                  "description": "other labels by which the organization might be known. A list when there are several; a single label may be a plain string, as JSON-LD framing writes a one-item list.",
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  ]
                 },
                 "schema:description": {
                   "type": "string",
@@ -4315,16 +4433,19 @@
                         "type": "string"
                       },
                       {
+                        "title": "Object Reference",
+                        "description": "A reference to a node defined elsewhere, by its @id.",
                         "type": "object",
+                        "properties": {
+                          "@id": {
+                            "type": "string",
+                            "description": "resolvable @id of the referenced node"
+                          }
+                        },
                         "required": [
                           "@id"
                         ],
-                        "additionalProperties": false,
-                        "properties": {
-                          "@id": {
-                            "type": "string"
-                          }
-                        }
+                        "additionalProperties": false
                       }
                     ]
                   }
@@ -5536,17 +5657,19 @@
                               "schema:contributor": {
                                 "anyOf": [
                                   {
+                                    "title": "Object Reference",
+                                    "description": "IRI reference to a Person or Organization defined elsewhere",
                                     "type": "object",
-                                    "additionalProperties": false,
                                     "properties": {
                                       "@id": {
                                         "type": "string",
-                                        "description": "IRI reference to a Person or Organization defined elsewhere"
+                                        "description": "resolvable @id of the referenced node"
                                       }
                                     },
                                     "required": [
                                       "@id"
-                                    ]
+                                    ],
+                                    "additionalProperties": false
                                   },
                                   {
                                     "description": "schema for cdif profile of schema.org/Person",
@@ -5651,8 +5774,18 @@
                                         ]
                                       },
                                       "schema:alternateName": {
-                                        "type": "string",
-                                        "description": "other labels by which the person might be known"
+                                        "description": "other labels by which the person might be known. A list when there are several; a single label may be a plain string, as JSON-LD framing writes a one-item list.",
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        ]
                                       },
                                       "schema:affiliation": {
                                         "type": "object",
@@ -5700,8 +5833,18 @@
                                             "description": "string label for organization that is meaningful for human users"
                                           },
                                           "schema:alternateName": {
-                                            "type": "string",
-                                            "description": "other labels by which the organization might be known"
+                                            "description": "other labels by which the organization might be known. A list when there are several; a single label may be a plain string, as JSON-LD framing writes a one-item list.",
+                                            "anyOf": [
+                                              {
+                                                "type": "string"
+                                              },
+                                              {
+                                                "type": "array",
+                                                "items": {
+                                                  "type": "string"
+                                                }
+                                              }
+                                            ]
                                           },
                                           "schema:description": {
                                             "type": "string",
@@ -5793,16 +5936,19 @@
                                                   "type": "string"
                                                 },
                                                 {
+                                                  "title": "Object Reference",
+                                                  "description": "A reference to a node defined elsewhere, by its @id.",
                                                   "type": "object",
+                                                  "properties": {
+                                                    "@id": {
+                                                      "type": "string",
+                                                      "description": "resolvable @id of the referenced node"
+                                                    }
+                                                  },
                                                   "required": [
                                                     "@id"
                                                   ],
-                                                  "additionalProperties": false,
-                                                  "properties": {
-                                                    "@id": {
-                                                      "type": "string"
-                                                    }
-                                                  }
+                                                  "additionalProperties": false
                                                 }
                                               ]
                                             }
@@ -5881,16 +6027,19 @@
                                               "type": "string"
                                             },
                                             {
+                                              "title": "Object Reference",
+                                              "description": "A reference to a node defined elsewhere, by its @id.",
                                               "type": "object",
+                                              "properties": {
+                                                "@id": {
+                                                  "type": "string",
+                                                  "description": "resolvable @id of the referenced node"
+                                                }
+                                              },
                                               "required": [
                                                 "@id"
                                               ],
-                                              "additionalProperties": false,
-                                              "properties": {
-                                                "@id": {
-                                                  "type": "string"
-                                                }
-                                              }
+                                              "additionalProperties": false
                                             }
                                           ]
                                         }
@@ -5964,8 +6113,18 @@
                                         "description": "string label for organization that is meaningful for human users"
                                       },
                                       "schema:alternateName": {
-                                        "type": "string",
-                                        "description": "other labels by which the organization might be known"
+                                        "description": "other labels by which the organization might be known. A list when there are several; a single label may be a plain string, as JSON-LD framing writes a one-item list.",
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        ]
                                       },
                                       "schema:description": {
                                         "type": "string",
@@ -6057,16 +6216,19 @@
                                               "type": "string"
                                             },
                                             {
+                                              "title": "Object Reference",
+                                              "description": "A reference to a node defined elsewhere, by its @id.",
                                               "type": "object",
+                                              "properties": {
+                                                "@id": {
+                                                  "type": "string",
+                                                  "description": "resolvable @id of the referenced node"
+                                                }
+                                              },
                                               "required": [
                                                 "@id"
                                               ],
-                                              "additionalProperties": false,
-                                              "properties": {
-                                                "@id": {
-                                                  "type": "string"
-                                                }
-                                              }
+                                              "additionalProperties": false
                                             }
                                           ]
                                         }
@@ -6737,8 +6899,27 @@
           }
         },
         "schema:actionProcess": {
-          "$ref": "#/$defs/HowTo",
-          "description": "Sub-procedure for this step, a nested schema:HowTo with its own ordered steps. Use it for a step whose internal procedure has several phases."
+          "description": "Sub-procedure for this step, a nested schema:HowTo with its own ordered steps. Use it for a step whose internal procedure has several phases. An {@id} reference names a HowTo described elsewhere in the document or outside it: a sub-procedure several steps share, or one a framed document cuts to its @id where the procedures refer to each other.",
+          "anyOf": [
+            {
+              "$ref": "#/$defs/HowTo"
+            },
+            {
+              "title": "Object Reference",
+              "description": "reference to a sub-procedure defined elsewhere",
+              "type": "object",
+              "properties": {
+                "@id": {
+                  "type": "string",
+                  "description": "resolvable @id of the referenced node"
+                }
+              },
+              "required": [
+                "@id"
+              ],
+              "additionalProperties": false
+            }
+          ]
         }
       },
       "required": [
@@ -7089,8 +7270,18 @@
           "description": "string label for organization that is meaningful for human users"
         },
         "schema:alternateName": {
-          "type": "string",
-          "description": "other labels by which the organization might be known"
+          "description": "other labels by which the organization might be known. A list when there are several; a single label may be a plain string, as JSON-LD framing writes a one-item list.",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
         },
         "schema:description": {
           "type": "string",
@@ -7182,16 +7373,19 @@
                 "type": "string"
               },
               {
+                "title": "Object Reference",
+                "description": "A reference to a node defined elsewhere, by its @id.",
                 "type": "object",
+                "properties": {
+                  "@id": {
+                    "type": "string",
+                    "description": "resolvable @id of the referenced node"
+                  }
+                },
                 "required": [
                   "@id"
                 ],
-                "additionalProperties": false,
-                "properties": {
-                  "@id": {
-                    "type": "string"
-                  }
-                }
+                "additionalProperties": false
               }
             ]
           }
@@ -7549,30 +7743,36 @@
           "description": "Concept scheme(s) this concept belongs to.",
           "anyOf": [
             {
+              "title": "Object Reference",
+              "description": "A reference to a node defined elsewhere, by its @id.",
               "type": "object",
-              "additionalProperties": false,
               "properties": {
                 "@id": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "resolvable @id of the referenced node"
                 }
               },
               "required": [
                 "@id"
-              ]
+              ],
+              "additionalProperties": false
             },
             {
               "type": "array",
               "items": {
+                "title": "Object Reference",
+                "description": "A reference to a node defined elsewhere, by its @id.",
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "@id": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "resolvable @id of the referenced node"
                   }
                 },
                 "required": [
                   "@id"
-                ]
+                ],
+                "additionalProperties": false
               }
             }
           ]
@@ -7581,30 +7781,36 @@
           "description": "Concept scheme(s) for which this is a top concept.",
           "anyOf": [
             {
+              "title": "Object Reference",
+              "description": "A reference to a node defined elsewhere, by its @id.",
               "type": "object",
-              "additionalProperties": false,
               "properties": {
                 "@id": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "resolvable @id of the referenced node"
                 }
               },
               "required": [
                 "@id"
-              ]
+              ],
+              "additionalProperties": false
             },
             {
               "type": "array",
               "items": {
+                "title": "Object Reference",
+                "description": "A reference to a node defined elsewhere, by its @id.",
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "@id": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "resolvable @id of the referenced node"
                   }
                 },
                 "required": [
                   "@id"
-                ]
+                ],
+                "additionalProperties": false
               }
             }
           ]
@@ -7615,18 +7821,19 @@
           "items": {
             "anyOf": [
               {
-                "type": "object",
-                "additionalProperties": false,
+                "title": "Object Reference",
                 "description": "A reference to a SKOS Concept by URI.",
+                "type": "object",
                 "properties": {
                   "@id": {
                     "type": "string",
-                    "description": "URI of the referenced concept."
+                    "description": "resolvable @id of the referenced node"
                   }
                 },
                 "required": [
                   "@id"
-                ]
+                ],
+                "additionalProperties": false
               },
               {
                 "$ref": "#/$defs/Concept"
@@ -7640,18 +7847,19 @@
           "items": {
             "anyOf": [
               {
-                "type": "object",
-                "additionalProperties": false,
+                "title": "Object Reference",
                 "description": "A reference to a SKOS Concept by URI.",
+                "type": "object",
                 "properties": {
                   "@id": {
                     "type": "string",
-                    "description": "URI of the referenced concept."
+                    "description": "resolvable @id of the referenced node"
                   }
                 },
                 "required": [
                   "@id"
-                ]
+                ],
+                "additionalProperties": false
               },
               {
                 "$ref": "#/$defs/Concept"
