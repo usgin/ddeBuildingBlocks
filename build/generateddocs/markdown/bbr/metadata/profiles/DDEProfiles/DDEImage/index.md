@@ -586,14 +586,14 @@ DDE discovery metadata for a Landsat-8 multispectral scene of the Tibetan Platea
             schema1:endTime "2023-06-15T03:45:12Z" ;
             schema1:instrument [ a schema1:Product,
                         schema1:Thing ;
-                    schema1:additionalType dde:platform,
-                        wd:Q3099911 ;
-                    schema1:name "Landsat-8" ],
-                [ a schema1:Product,
-                        schema1:Thing ;
                     schema1:additionalType dde:signalGenerator,
                         wd:Q3099911 ;
                     schema1:name "Passive solar" ],
+                [ a schema1:Product,
+                        schema1:Thing ;
+                    schema1:additionalType dde:platform,
+                        wd:Q3099911 ;
+                    schema1:name "Landsat-8" ],
                 [ a schema1:Product,
                         schema1:Thing ;
                     schema1:additionalType dde:equipment,
