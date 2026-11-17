@@ -1,0 +1,33 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/> .
+@prefix cdi:         <http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/> .
+@prefix cdif:        <https://w3id.org/cdif/> .
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+# Validates tabular data nodes typed as cdi:TabularTextDataSet.
+# JSON schema requires @type containing cdi:TabularTextDataSet, and
+# oneOf: isDelimited=true or isFixedWidth=true.
+cdifd:tabularDataShape
+    a sh:NodeShape ;
+    sh:targetClass cdi:TabularTextDataSet ;
+    # The cdif:hasPhysicalMapping minCount moved to
+    # cdifPhysicalMapping/rules.shacl on 2026-11-06, which is the only
+    # rules.shacl that both this block's consumer (cdifManifest) and
+    # cdifDataDescription reach. Kept here, the rule never entered a
+    # data-description bundle. See that file for the measurement.
+    sh:or (
+        [sh:property [
+            sh:path cdi:isDelimited ;
+            sh:hasValue true ;
+        ]]
+        [sh:property [
+            sh:path cdi:isFixedWidth ;
+            sh:hasValue true ;
+        ]]
+    ) ;
+    sh:message "A TabularTextDataSet must specify either cdi:isDelimited=true or cdi:isFixedWidth=true." ;
+    .

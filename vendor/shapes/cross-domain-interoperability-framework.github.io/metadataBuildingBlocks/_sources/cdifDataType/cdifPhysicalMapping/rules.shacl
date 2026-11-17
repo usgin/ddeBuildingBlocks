@@ -1,0 +1,74 @@
+@prefix rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh:          <http://www.w3.org/ns/shacl#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:      <http://schema.org/> .
+@prefix cdi:         <http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/> .
+@prefix cdif:        <https://w3id.org/cdif/> .
+@prefix cdifd: <https://cdif.org/validation/0.1/shacl#> .
+@base <https://www.ogc.org/rules/template/> .
+
+# Validates physical mapping nodes (values of cdif:hasPhysicalMapping).
+# JSON schema defines cdif:formats_InstanceVariable, cdif:index, cdif:format, etc.
+cdifd:physicalMappingShape
+    a sh:NodeShape ;
+    sh:target [
+        a sh:SPARQLTarget ;
+        sh:select """
+            PREFIX cdi: <http://ddialliance.org/Specification/DDI-CDI/1.0/RDF/>
+            PREFIX cdif: <https://w3id.org/cdif/>
+            SELECT ?this
+            WHERE {
+                ?parent cdif:hasPhysicalMapping ?this .
+            }
+        """ ;
+    ] ;
+    sh:property [
+        sh:path cdif:formats_InstanceVariable ;
+        sh:minCount 1 ;
+        sh:severity sh:Warning ;
+        sh:message "A physical mapping should reference the variable it formats (cdif:formats_InstanceVariable)." ;
+    ] ;
+    sh:message "Physical mapping nodes should link to their corresponding variable definition." ;
+    .
+
+
+# The PRESENCE half of cdif:hasPhysicalMapping, and it lives here rather than
+# with either dataset block because this is the only rules.shacl both paths
+# reach. It was cdifd:tabularDataShape's sh:property in
+# cdifTabularData/rules.shacl, a block only cdifManifest refs;
+# cdifDataDescription refs cdifTabularTextDataSet instead, and that block has
+# no rules.shacl, so a bundle gathered for a data-description profile never
+# picked the rule up. Measured 2026-11-06: tabularDataShape was present in the
+# cdifManifest and cdifComplete bundles and absent from cdifDataDescription,
+# DiscoveryDataDescription, DiscoveryDataDescriptionStructure and xasDocument,
+# while physicalMappingShape below was in all six. A Violation-severity rule
+# was sitting in bundles it could not act from while the records it was written
+# for went unchecked -- the dead-rule shape, where a green result means the
+# rule never ran.
+#
+# Duplicating it into cdifTabularTextDataSet/rules.shacl was the alternative
+# and is worse: cdifComplete composes both cdifManifest and
+# cdifDataDescription, so a single node would report the same violation twice.
+# That is the duplication that cost cdifd:actionNameProperty its place in
+# action/rules.shacl.
+#
+# Only the presence constraint moved. tabularDataShape keeps its sh:or on
+# cdi:isDelimited / cdi:isFixedWidth, because that mirrors cdifTabularData's
+# own `oneOf`, which cdifTabularTextDataSet does not have -- moving it would
+# impose on the data-description path a rule its schema never states.
+#
+# targetClass is safe here in a way it is not for a schema.org type: anything
+# typed cdi:TabularTextDataSet IS a delimited or fixed-width text dataset, and
+# both blocks' schemas now require the mappings for it. Measured the same day,
+# all 14 such nodes in the corpus already carry them.
+cdifd:tabularTextDataSetMappingsShape
+    a sh:NodeShape ;
+    sh:targetClass cdi:TabularTextDataSet ;
+    sh:property [
+        sh:path cdif:hasPhysicalMapping ;
+        sh:minCount 1 ;
+        sh:severity sh:Violation ;
+        sh:message "A TabularTextDataSet must have physical mappings (cdif:hasPhysicalMapping) linking variables to columns; required by the JSON Schema of both cdifTabularData and cdifTabularTextDataSet." ;
+    ] ;
+    .
