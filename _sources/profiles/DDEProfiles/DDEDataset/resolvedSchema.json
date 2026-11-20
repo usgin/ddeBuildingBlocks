@@ -7187,7 +7187,7 @@
       },
       "then": {
         "title": "DDE Geographic Dataset properties",
-        "description": "Conditional extension for geographic dataset resources. Implements MD_SpatialRepresentation entity (DDE spec Table 5) with spatialCoverage (mandatory), spatialRepresentationType (SpatialRepresentationTypeCode enum), spatialResolution (string), referenceSystemType (ReferenceSystemTypeCode enum), and referenceSystemIdentifier (MD_Identifier pattern).",
+        "description": "Conditional extension for geographic dataset resources. Implements MD_SpatialRepresentation entity (DDE spec Table 5) with spatialCoverage (mandatory), spatialRepresentationType (SpatialRepresentationTypeCode enum), spatialResolution (string), referenceSystemType (ReferenceSystemTypeCode enum), referenceSystemIdentifier (MD_Identifier pattern), and verticalExtent (EX_VerticalExtent - minimum and maximum value, units, vertical CRS).",
         "type": "object",
         "properties": {
           "schema:spatialCoverage": {
@@ -8135,6 +8135,125 @@
                 },
                 {
                   "type": "object",
+                  "description": "Vertical extent of the dataset (ISO 19115-3 EX_VerticalExtent; DDE elevation). schema:value is a schema:QuantitativeValue whose schema:minValue and schema:maxValue are the lowest and highest vertical coordinates, in the unit of its schema:unitCode (UCUM, e.g. \"m\"). schema:valueReference names the vertical coordinate reference system. Depths below a datum are negative values in a height CRS, or positive values in a depth CRS such as EPSG:5715. Give at least one bound; an open-ended range gives only the other. A PropertyValue whose propertyID is dde:verticalExtent must have this shape.",
+                  "properties": {
+                    "@type": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "contains": {
+                        "const": "schema:PropertyValue"
+                      }
+                    },
+                    "schema:propertyID": {
+                      "type": "array",
+                      "contains": {
+                        "$ref": "#/$defs/VerticalExtentID"
+                      },
+                      "minItems": 1
+                    },
+                    "schema:name": {
+                      "type": "string"
+                    },
+                    "schema:value": {
+                      "type": "object",
+                      "description": "The vertical range.",
+                      "properties": {
+                        "@type": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "contains": {
+                            "const": "schema:QuantitativeValue"
+                          }
+                        },
+                        "schema:minValue": {
+                          "type": "number",
+                          "description": "Lowest vertical coordinate (EX_VerticalExtent/minimumValue)."
+                        },
+                        "schema:maxValue": {
+                          "type": "number",
+                          "description": "Highest vertical coordinate (EX_VerticalExtent/maximumValue)."
+                        },
+                        "schema:unitCode": {
+                          "type": "string",
+                          "description": "Unit of the bounds, as a UCUM code (e.g. \"m\", \"km\", \"[ft_i]\")."
+                        },
+                        "schema:unitText": {
+                          "type": "string",
+                          "description": "Unit of the bounds as text, where there is no code."
+                        }
+                      },
+                      "allOf": [
+                        {
+                          "required": [
+                            "@type"
+                          ]
+                        },
+                        {
+                          "anyOf": [
+                            {
+                              "required": [
+                                "schema:minValue"
+                              ]
+                            },
+                            {
+                              "required": [
+                                "schema:maxValue"
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    "schema:valueReference": {
+                      "type": "object",
+                      "description": "The vertical coordinate reference system (EX_VerticalExtent/verticalCRSId), as a DefinedTerm whose termCode is the identifier code (e.g. \"EPSG:5714\") and whose schema:url is its resolvable form.",
+                      "properties": {
+                        "@type": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "contains": {
+                            "const": "schema:DefinedTerm"
+                          }
+                        },
+                        "schema:name": {
+                          "type": "string"
+                        },
+                        "schema:termCode": {
+                          "type": "string"
+                        },
+                        "schema:url": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "anyOf": [
+                        {
+                          "required": [
+                            "schema:termCode"
+                          ]
+                        },
+                        {
+                          "required": [
+                            "schema:url"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "schema:propertyID",
+                    "schema:name",
+                    "schema:value"
+                  ]
+                },
+                {
+                  "type": "object",
                   "title": "additionalProperty PropertyValue",
                   "description": "PropertyValue values required to define a soft-typed property with a value. ",
                   "properties": {
@@ -8508,7 +8627,140 @@
                     "schema:value"
                   ]
                 }
-              ]
+              ],
+              "if": {
+                "type": "object",
+                "properties": {
+                  "schema:propertyID": {
+                    "type": "array",
+                    "contains": {
+                      "$ref": "#/$defs/VerticalExtentID"
+                    }
+                  }
+                },
+                "required": [
+                  "schema:propertyID"
+                ]
+              },
+              "then": {
+                "type": "object",
+                "description": "Vertical extent of the dataset (ISO 19115-3 EX_VerticalExtent; DDE elevation). schema:value is a schema:QuantitativeValue whose schema:minValue and schema:maxValue are the lowest and highest vertical coordinates, in the unit of its schema:unitCode (UCUM, e.g. \"m\"). schema:valueReference names the vertical coordinate reference system. Depths below a datum are negative values in a height CRS, or positive values in a depth CRS such as EPSG:5715. Give at least one bound; an open-ended range gives only the other. A PropertyValue whose propertyID is dde:verticalExtent must have this shape.",
+                "properties": {
+                  "@type": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "contains": {
+                      "const": "schema:PropertyValue"
+                    }
+                  },
+                  "schema:propertyID": {
+                    "type": "array",
+                    "contains": {
+                      "$ref": "#/$defs/VerticalExtentID"
+                    },
+                    "minItems": 1
+                  },
+                  "schema:name": {
+                    "type": "string"
+                  },
+                  "schema:value": {
+                    "type": "object",
+                    "description": "The vertical range.",
+                    "properties": {
+                      "@type": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "contains": {
+                          "const": "schema:QuantitativeValue"
+                        }
+                      },
+                      "schema:minValue": {
+                        "type": "number",
+                        "description": "Lowest vertical coordinate (EX_VerticalExtent/minimumValue)."
+                      },
+                      "schema:maxValue": {
+                        "type": "number",
+                        "description": "Highest vertical coordinate (EX_VerticalExtent/maximumValue)."
+                      },
+                      "schema:unitCode": {
+                        "type": "string",
+                        "description": "Unit of the bounds, as a UCUM code (e.g. \"m\", \"km\", \"[ft_i]\")."
+                      },
+                      "schema:unitText": {
+                        "type": "string",
+                        "description": "Unit of the bounds as text, where there is no code."
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "required": [
+                          "@type"
+                        ]
+                      },
+                      {
+                        "anyOf": [
+                          {
+                            "required": [
+                              "schema:minValue"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "schema:maxValue"
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "schema:valueReference": {
+                    "type": "object",
+                    "description": "The vertical coordinate reference system (EX_VerticalExtent/verticalCRSId), as a DefinedTerm whose termCode is the identifier code (e.g. \"EPSG:5714\") and whose schema:url is its resolvable form.",
+                    "properties": {
+                      "@type": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "contains": {
+                          "const": "schema:DefinedTerm"
+                        }
+                      },
+                      "schema:name": {
+                        "type": "string"
+                      },
+                      "schema:termCode": {
+                        "type": "string"
+                      },
+                      "schema:url": {
+                        "type": "string",
+                        "format": "uri"
+                      }
+                    },
+                    "anyOf": [
+                      {
+                        "required": [
+                          "schema:termCode"
+                        ]
+                      },
+                      {
+                        "required": [
+                          "schema:url"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "schema:propertyID",
+                  "schema:name",
+                  "schema:value"
+                ]
+              }
             }
           }
         },
@@ -8519,6 +8771,25 @@
     }
   ],
   "$defs": {
+    "VerticalExtentID": {
+      "description": "The dde:verticalExtent propertyID, as a string or an @id reference.",
+      "anyOf": [
+        {
+          "const": "dde:verticalExtent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "const": "dde:verticalExtent"
+            }
+          },
+          "required": [
+            "@id"
+          ]
+        }
+      ]
+    },
     "Reference": {
       "description": "Schema for a labeled link, a profile of schema.org/CreativeWork: a resolvable URL with an optional name and description. Optionally carries the DCAT relation surface (dcat:hadRole, dcterms:relation) for a link that expresses a typed relationship rather than a plain reference.\nThose two properties were a separate block, cdifDataType/cdifReference, which was an allOf of this schema plus exactly those two optional properties and nothing else -- its dcat:Relationship co-type mandate had already been removed because it made every labeled link unsatisfiable and broke every schema:license example that followed schema.org's own advice. Since both are optional, folding them in here changes no document's validity while removing a block and five levels of $defs/Reference indirection. cdifReference was retired 2026-09-23.",
       "type": "object",
