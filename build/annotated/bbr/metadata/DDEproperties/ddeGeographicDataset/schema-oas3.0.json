@@ -257,7 +257,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.spatialExtent",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-17"
+        "dateOfLastChange": "2026-11-19"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/spatialExtent/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -355,7 +355,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.additionalProperty",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-17"
+        "dateOfLastChange": "2026-11-19"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -428,7 +428,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.identifier",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-17"
+        "dateOfLastChange": "2026-11-19"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -451,7 +451,7 @@
         "itemIdentifier": "cdif.bbr.metadata.cdifDataType.objectReference",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-17"
+        "dateOfLastChange": "2026-11-19"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/objectReference/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -471,7 +471,7 @@
         "itemIdentifier": "cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-17"
+        "dateOfLastChange": "2026-11-19"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifConceptOrTermOrString/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -559,7 +559,7 @@
         "itemIdentifier": "cdif.bbr.metadata.schemaorgProperties.definedTerm",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-17"
+        "dateOfLastChange": "2026-11-19"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -586,7 +586,7 @@
         "itemIdentifier": "cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-17"
+        "dateOfLastChange": "2026-11-19"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifConceptOrTerm/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
@@ -680,6 +680,56 @@
                 }
               ],
               "x-jsonld-id": "http://www.w3.org/2004/02/skos/core#prefLabel"
+            },
+            "skos:altLabel": {
+              "description": "Alternative lexical labels (acronyms, abbreviations, spelling variants).",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "x-jsonld-id": "http://www.w3.org/2004/02/skos/core#altLabel"
+            },
+            "skos:hiddenLabel": {
+              "description": "Labels accessible to free-text search but not displayed.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "x-jsonld-id": "http://www.w3.org/2004/02/skos/core#hiddenLabel"
             },
             "skos:notation": {
               "description": "Classification code for this concept within a scheme (a single notation string, consistent with CdifCodelistConcept).",
@@ -836,6 +886,31 @@
               ],
               "x-jsonld-id": "http://www.w3.org/2004/02/skos/core#editorialNote"
             },
+            "skos:example": {
+              "description": "Example of the use of this concept.",
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "x-jsonld-id": "http://www.w3.org/2004/02/skos/core#example"
+            },
             "skos:inScheme": {
               "description": "Concept scheme(s) this concept belongs to.",
               "anyOf": [
@@ -895,6 +970,96 @@
                 ]
               },
               "x-jsonld-id": "http://www.w3.org/2004/02/skos/core#narrower"
+            },
+            "skos:related": {
+              "description": "Associative (non-hierarchical) relations. Items are inline concept objects or @id references. Shaped like skos:broader/skos:narrower for consistency within this block. SKOS integrity condition S27 makes skos:related disjoint with the transitive closure of skos:broader; that is a graph-level constraint no JSON Schema can express, and rules.shacl does not yet assert it (it asserts only the reflexive skos:broader case).",
+              "type": "array",
+              "items": {
+                "anyOf": [
+                  {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
+                  },
+                  {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/Concept"
+                  }
+                ]
+              },
+              "x-jsonld-id": "http://www.w3.org/2004/02/skos/core#related"
+            },
+            "skos:exactMatch": {
+              "description": "Concepts in other schemes with equivalent meaning, by @id.",
+              "anyOf": [
+                {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
+                  }
+                }
+              ],
+              "x-jsonld-id": "http://www.w3.org/2004/02/skos/core#exactMatch"
+            },
+            "skos:closeMatch": {
+              "description": "Concepts in other schemes with sufficiently similar meaning to be interchangeable in some applications, by @id.",
+              "anyOf": [
+                {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
+                  }
+                }
+              ],
+              "x-jsonld-id": "http://www.w3.org/2004/02/skos/core#closeMatch"
+            },
+            "skos:broadMatch": {
+              "description": "Broader concepts in other schemes, by @id.",
+              "anyOf": [
+                {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
+                  }
+                }
+              ],
+              "x-jsonld-id": "http://www.w3.org/2004/02/skos/core#broadMatch"
+            },
+            "skos:narrowMatch": {
+              "description": "Narrower concepts in other schemes, by @id.",
+              "anyOf": [
+                {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
+                  }
+                }
+              ],
+              "x-jsonld-id": "http://www.w3.org/2004/02/skos/core#narrowMatch"
+            },
+            "skos:relatedMatch": {
+              "description": "Associatively related concepts in other schemes, by @id.",
+              "anyOf": [
+                {
+                  "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef"
+                  }
+                }
+              ],
+              "x-jsonld-id": "http://www.w3.org/2004/02/skos/core#relatedMatch"
             }
           },
           "required": [
@@ -938,14 +1103,14 @@
         "itemIdentifier": "cdif.bbr.metadata.skosProperties.skosConcept",
         "register": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json",
         "version": "0.1",
-        "dateOfLastChange": "2026-11-17"
+        "dateOfLastChange": "2026-11-19"
       },
       "x-schema-source": "https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/skosProperties/skosConcept/schema.json",
       "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
     }
   },
   "title": "DDE Geographic Dataset properties",
-  "description": "Conditional extension for geographic dataset resources. Implements MD_SpatialRepresentation entity (DDE spec Table 5) with spatialCoverage (mandatory), spatialRepresentationType (SpatialRepresentationTypeCode enum), spatialResolution (string), referenceSystemType (ReferenceSystemTypeCode enum), and referenceSystemIdentifier (MD_Identifier pattern).",
+  "description": "Conditional extension for geographic dataset resources. Implements MD_SpatialRepresentation entity (DDE spec Table 5) with spatialCoverage (mandatory), spatialRepresentationType (SpatialRepresentationTypeCode enum), spatialResolution (string), referenceSystemType (ReferenceSystemTypeCode enum), referenceSystemIdentifier (MD_Identifier pattern), and verticalExtent (EX_VerticalExtent - minimum and maximum value, units, vertical CRS).",
   "type": "object",
   "properties": {
     "schema:spatialCoverage": {
@@ -975,9 +1140,29 @@
             "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/$defs/ReferenceSystemIdentifierPV"
           },
           {
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/$defs/VerticalExtentPV"
+          },
+          {
             "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/$defs/AdditionalProperty"
           }
-        ]
+        ],
+        "if": {
+          "type": "object",
+          "properties": {
+            "schema:propertyID": {
+              "type": "array",
+              "contains": {
+                "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/$defs/VerticalExtentID"
+              }
+            }
+          },
+          "required": [
+            "schema:propertyID"
+          ]
+        },
+        "then": {
+          "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/$defs/VerticalExtentPV"
+        }
       },
       "x-jsonld-id": "http://schema.org/additionalProperty"
     }
@@ -1192,6 +1377,165 @@
           ]
         }
       ]
+    },
+    "VerticalExtentID": {
+      "description": "The dde:verticalExtent propertyID, as a string or an @id reference.",
+      "anyOf": [
+        {
+          "enum": [
+            "dde:verticalExtent"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "enum": [
+                "dde:verticalExtent"
+              ]
+            }
+          },
+          "required": [
+            "@id"
+          ]
+        }
+      ]
+    },
+    "VerticalExtentPV": {
+      "type": "object",
+      "description": "Vertical extent of the dataset (ISO 19115-3 EX_VerticalExtent; DDE elevation). schema:value is a schema:QuantitativeValue whose schema:minValue and schema:maxValue are the lowest and highest vertical coordinates, in the unit of its schema:unitCode (UCUM, e.g. \"m\"). schema:valueReference names the vertical coordinate reference system. Depths below a datum are negative values in a height CRS, or positive values in a depth CRS such as EPSG:5715. Give at least one bound; an open-ended range gives only the other. A PropertyValue whose propertyID is dde:verticalExtent must have this shape.",
+      "properties": {
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "enum": [
+              "schema:PropertyValue"
+            ]
+          }
+        },
+        "schema:propertyID": {
+          "type": "array",
+          "contains": {
+            "$ref": "https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema-oas3.0.json#/$defs/VerticalExtentID"
+          },
+          "minItems": 1,
+          "x-jsonld-id": "http://schema.org/propertyID"
+        },
+        "schema:name": {
+          "type": "string",
+          "x-jsonld-id": "http://schema.org/name"
+        },
+        "schema:value": {
+          "type": "object",
+          "description": "The vertical range.",
+          "properties": {
+            "@type": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "contains": {
+                "enum": [
+                  "schema:QuantitativeValue"
+                ]
+              }
+            },
+            "schema:minValue": {
+              "type": "number",
+              "description": "Lowest vertical coordinate (EX_VerticalExtent/minimumValue).",
+              "x-jsonld-id": "http://schema.org/minValue"
+            },
+            "schema:maxValue": {
+              "type": "number",
+              "description": "Highest vertical coordinate (EX_VerticalExtent/maximumValue).",
+              "x-jsonld-id": "http://schema.org/maxValue"
+            },
+            "schema:unitCode": {
+              "type": "string",
+              "description": "Unit of the bounds, as a UCUM code (e.g. \"m\", \"km\", \"[ft_i]\").",
+              "x-jsonld-id": "http://schema.org/unitCode"
+            },
+            "schema:unitText": {
+              "type": "string",
+              "description": "Unit of the bounds as text, where there is no code.",
+              "x-jsonld-id": "http://schema.org/unitText"
+            }
+          },
+          "allOf": [
+            {
+              "required": [
+                "@type"
+              ]
+            },
+            {
+              "anyOf": [
+                {
+                  "required": [
+                    "schema:minValue"
+                  ]
+                },
+                {
+                  "required": [
+                    "schema:maxValue"
+                  ]
+                }
+              ]
+            }
+          ],
+          "x-jsonld-id": "http://schema.org/value"
+        },
+        "schema:valueReference": {
+          "type": "object",
+          "description": "The vertical coordinate reference system (EX_VerticalExtent/verticalCRSId), as a DefinedTerm whose termCode is the identifier code (e.g. \"EPSG:5714\") and whose schema:url is its resolvable form.",
+          "properties": {
+            "@type": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "contains": {
+                "enum": [
+                  "schema:DefinedTerm"
+                ]
+              }
+            },
+            "schema:name": {
+              "type": "string",
+              "x-jsonld-id": "http://schema.org/name"
+            },
+            "schema:termCode": {
+              "type": "string",
+              "x-jsonld-id": "http://schema.org/termCode"
+            },
+            "schema:url": {
+              "type": "string",
+              "format": "uri",
+              "x-jsonld-id": "http://schema.org/url"
+            }
+          },
+          "anyOf": [
+            {
+              "required": [
+                "schema:termCode"
+              ]
+            },
+            {
+              "required": [
+                "schema:url"
+              ]
+            }
+          ],
+          "x-jsonld-id": "http://schema.org/valueReference"
+        }
+      },
+      "required": [
+        "schema:propertyID",
+        "schema:name",
+        "schema:value"
+      ]
     }
   },
   "x-jsonld-prefixes": {
@@ -1202,7 +1546,7 @@
     "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
     "register": "https://usgin.github.io/ddeBuildingBlocks/build/register.json",
     "version": "0.1",
-    "dateOfLastChange": "2026-11-17"
+    "dateOfLastChange": "2026-11-20"
   },
   "x-schema-version": "https://json-schema.org/draft/2020-12/schema"
 }

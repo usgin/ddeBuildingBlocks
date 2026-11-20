@@ -300,10 +300,6 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
             schema1:encodingFormat "application/xml" ;
             schema1:name "Quick view lithostratigraphic map of Arizona" ] ;
     schema1:keywords [ a schema1:DefinedTerm ;
-            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
-            schema1:name "Synthesis from Multiple Sources" ;
-            schema1:termCode "synthesisFromMultipleSources" ],
-        [ a schema1:DefinedTerm ;
             schema1:inDefinedTermSet "dde:codelist/TopicCategoryCode" ;
             schema1:name "Geoscientific Information" ;
             schema1:termCode "geoscientificInformation" ],
@@ -311,6 +307,10 @@ Shows a DDE geoscience metadata record with all DDE core fields: resource type, 
             schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
             schema1:name "Digital Conversion from Published Source" ;
             schema1:termCode "digitalConversionFromPublishedSource" ],
+        [ a schema1:DefinedTerm ;
+            schema1:inDefinedTermSet "dde:codelist/AcquisitionTypeCode" ;
+            schema1:name "Synthesis from Multiple Sources" ;
+            schema1:termCode "synthesisFromMultipleSources" ],
         "Arizona",
         "Geologic Map",
         "Geology",
@@ -445,7 +445,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.DDEproperties.ddeCore
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-17'
+  dateOfLastChange: '2026-11-20'
 
 ```
 

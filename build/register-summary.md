@@ -20,7 +20,7 @@ Constrains schema:additionalType to require at least one DefinedTerm from the DD
 
 **Type:** schema
 
-Conditional extension for geographic dataset resources. Implements MD_SpatialRepresentation (DDE spec Table 5): mandatory spatialCoverage, plus spatialRepresentationType, spatialResolution, referenceSystemType, and referenceSystemIdentifier. Defines properties: schema:spatialCoverage, schema:additionalProperty. Uses building blocks: spatialExtent (schemaorgProperties), additionalProperty (schemaorgProperties), identifier (schemaorgProperties).
+Conditional extension for geographic dataset resources. Implements MD_SpatialRepresentation (DDE spec Table 5): mandatory spatialCoverage, plus spatialRepresentationType, spatialResolution, referenceSystemType, referenceSystemIdentifier, and verticalExtent (EX_VerticalExtent). Defines properties: schema:spatialCoverage, schema:additionalProperty. Uses building blocks: spatialExtent (schemaorgProperties), additionalProperty (schemaorgProperties), identifier (schemaorgProperties).
 
 ### `dde.bbr.metadata.DDEproperties.ddeCore` — DDE Core metadata properties
 

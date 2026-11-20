@@ -396,13 +396,13 @@ DDE discovery metadata for the OneGeology Global Geological Map Collection with 
             schema1:name "Australia 1:1M Surface Geology" ;
             schema1:url "https://www.ga.gov.au/data-pubs/data-and-publications-search/datasets" ],
         [ a schema1:CreativeWork ;
-            schema1:description "Bedrock geological map of the United Kingdom by the British Geological Survey" ;
-            schema1:name "United Kingdom 1:625K Bedrock Geology" ;
-            schema1:url "https://www.bgs.ac.uk/geological-data/" ],
-        [ a schema1:CreativeWork ;
             schema1:description "Geological map of China compiled from 63 separate survey sheets" ;
             schema1:name "China 1:1M Bedrock Lithostratigraphy" ;
-            schema1:url "http://en.cgs.gov.cn/" ] ;
+            schema1:url "http://en.cgs.gov.cn/" ],
+        [ a schema1:CreativeWork ;
+            schema1:description "Bedrock geological map of the United Kingdom by the British Geological Survey" ;
+            schema1:name "United Kingdom 1:625K Bedrock Geology" ;
+            schema1:url "https://www.bgs.ac.uk/geological-data/" ] ;
     schema1:identifier "urn:onegeology:global-collection-2024" ;
     schema1:image [ a schema1:ImageObject ;
             schema1:contentUrl "https://onegeology.org/images/global-map-preview.png" ;
@@ -543,7 +543,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDECollection
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-17'
+  dateOfLastChange: '2026-11-20'
 
 ```
 

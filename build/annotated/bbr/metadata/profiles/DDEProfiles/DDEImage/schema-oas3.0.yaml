@@ -114,7 +114,7 @@ x-defs:
       itemIdentifier: dde.bbr.metadata.DDEproperties.ddeCore
       register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-20'
     x-schema-source: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeCore/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   dde.bbr.metadata.DDEproperties.ddeImagery:
@@ -217,7 +217,7 @@ x-defs:
       itemIdentifier: dde.bbr.metadata.DDEproperties.ddeImagery
       register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-20'
     x-schema-source: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeImagery/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   dde.bbr.metadata.DDEproperties.ddeGeographicDataset:
@@ -225,8 +225,9 @@ x-defs:
     description: Conditional extension for geographic dataset resources. Implements
       MD_SpatialRepresentation entity (DDE spec Table 5) with spatialCoverage (mandatory),
       spatialRepresentationType (SpatialRepresentationTypeCode enum), spatialResolution
-      (string), referenceSystemType (ReferenceSystemTypeCode enum), and referenceSystemIdentifier
-      (MD_Identifier pattern).
+      (string), referenceSystemType (ReferenceSystemTypeCode enum), referenceSystemIdentifier
+      (MD_Identifier pattern), and verticalExtent (EX_VerticalExtent - minimum and
+      maximum value, units, vertical CRS).
     type: object
     properties:
       schema:spatialCoverage:
@@ -248,7 +249,19 @@ x-defs:
           - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeGeographicDataset/$defs/SpatialResolutionPV
           - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeGeographicDataset/$defs/ReferenceSystemTypePV
           - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeGeographicDataset/$defs/ReferenceSystemIdentifierPV
+          - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeGeographicDataset/$defs/VerticalExtentPV
           - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeGeographicDataset/$defs/AdditionalProperty
+          if:
+            type: object
+            properties:
+              schema:propertyID:
+                type: array
+                contains:
+                  $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeGeographicDataset/$defs/VerticalExtentID
+            required:
+            - schema:propertyID
+          then:
+            $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeGeographicDataset/$defs/VerticalExtentPV
         x-jsonld-id: http://schema.org/additionalProperty
     required:
     - schema:spatialCoverage
@@ -409,6 +422,115 @@ x-defs:
             - schema:value
           - required:
             - schema:url
+      VerticalExtentID:
+        description: The dde:verticalExtent propertyID, as a string or an @id reference.
+        anyOf:
+        - enum:
+          - dde:verticalExtent
+        - type: object
+          properties:
+            '@id':
+              enum:
+              - dde:verticalExtent
+          required:
+          - '@id'
+      VerticalExtentPV:
+        type: object
+        description: Vertical extent of the dataset (ISO 19115-3 EX_VerticalExtent;
+          DDE elevation). schema:value is a schema:QuantitativeValue whose schema:minValue
+          and schema:maxValue are the lowest and highest vertical coordinates, in
+          the unit of its schema:unitCode (UCUM, e.g. "m"). schema:valueReference
+          names the vertical coordinate reference system. Depths below a datum are
+          negative values in a height CRS, or positive values in a depth CRS such
+          as EPSG:5715. Give at least one bound; an open-ended range gives only the
+          other. A PropertyValue whose propertyID is dde:verticalExtent must have
+          this shape.
+        properties:
+          '@type':
+            type: array
+            items:
+              type: string
+            contains:
+              enum:
+              - schema:PropertyValue
+          schema:propertyID:
+            type: array
+            contains:
+              $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/dde.bbr.metadata.DDEproperties.ddeGeographicDataset/$defs/VerticalExtentID
+            minItems: 1
+            x-jsonld-id: http://schema.org/propertyID
+          schema:name:
+            type: string
+            x-jsonld-id: http://schema.org/name
+          schema:value:
+            type: object
+            description: The vertical range.
+            properties:
+              '@type':
+                type: array
+                items:
+                  type: string
+                contains:
+                  enum:
+                  - schema:QuantitativeValue
+              schema:minValue:
+                type: number
+                description: Lowest vertical coordinate (EX_VerticalExtent/minimumValue).
+                x-jsonld-id: http://schema.org/minValue
+              schema:maxValue:
+                type: number
+                description: Highest vertical coordinate (EX_VerticalExtent/maximumValue).
+                x-jsonld-id: http://schema.org/maxValue
+              schema:unitCode:
+                type: string
+                description: Unit of the bounds, as a UCUM code (e.g. "m", "km", "[ft_i]").
+                x-jsonld-id: http://schema.org/unitCode
+              schema:unitText:
+                type: string
+                description: Unit of the bounds as text, where there is no code.
+                x-jsonld-id: http://schema.org/unitText
+            allOf:
+            - required:
+              - '@type'
+            - anyOf:
+              - required:
+                - schema:minValue
+              - required:
+                - schema:maxValue
+            x-jsonld-id: http://schema.org/value
+          schema:valueReference:
+            type: object
+            description: The vertical coordinate reference system (EX_VerticalExtent/verticalCRSId),
+              as a DefinedTerm whose termCode is the identifier code (e.g. "EPSG:5714")
+              and whose schema:url is its resolvable form.
+            properties:
+              '@type':
+                type: array
+                items:
+                  type: string
+                contains:
+                  enum:
+                  - schema:DefinedTerm
+              schema:name:
+                type: string
+                x-jsonld-id: http://schema.org/name
+              schema:termCode:
+                type: string
+                x-jsonld-id: http://schema.org/termCode
+              schema:url:
+                type: string
+                format: uri
+                x-jsonld-id: http://schema.org/url
+            anyOf:
+            - required:
+              - schema:termCode
+            - required:
+              - schema:url
+            x-jsonld-id: http://schema.org/valueReference
+        required:
+        - schema:propertyID
+        - schema:name
+        - schema:value
     x-jsonld-prefixes:
       schema: http://schema.org/
       dde: https://www.ddeworld.org/resource/
@@ -416,7 +538,7 @@ x-defs:
       itemIdentifier: dde.bbr.metadata.DDEproperties.ddeGeographicDataset
       register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-20'
     x-schema-source: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeGeographicDataset/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.definedTerm:
@@ -483,7 +605,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.definedTerm
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/definedTerm/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.variableMeasured:
@@ -582,7 +704,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.variableMeasured
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/variableMeasured/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.statisticalVariable:
@@ -654,7 +776,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.statisticalVariable
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/statisticalVariable/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.temporalExtent:
@@ -862,7 +984,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.temporalExtent
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/temporalExtent/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.qualityProperties.qualityMeasure:
@@ -905,7 +1027,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.qualityProperties.qualityMeasure
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/qualityProperties/qualityMeasure/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   dde.bbr.metadata.DDEproperties.ddeResourceType:
@@ -987,7 +1109,7 @@ x-defs:
       itemIdentifier: dde.bbr.metadata.DDEproperties.ddeResourceType
       register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-20'
     x-schema-source: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeResourceType/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.profiles.cdifProfile.cdifCore:
@@ -1378,7 +1500,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.profiles.cdifProfile.cdifCore
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/profiles/cdifProfile/cdifCore/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   dde.bbr.metadata.DDEproperties.ddeActivity:
@@ -1496,7 +1618,7 @@ x-defs:
       itemIdentifier: dde.bbr.metadata.DDEproperties.ddeActivity
       register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-20'
     x-schema-source: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/DDEproperties/ddeActivity/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.additionalProperty:
@@ -1558,7 +1680,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.additionalProperty
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/additionalProperty/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.spatialExtent:
@@ -1754,7 +1876,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.spatialExtent
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/spatialExtent/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.identifier:
@@ -1818,7 +1940,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.identifier
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/identifier/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.cdifDataType.objectReference:
@@ -1836,7 +1958,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.cdifDataType.objectReference
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/objectReference/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.labeledLink:
@@ -2003,7 +2125,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.labeledLink
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/labeledLink/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.linkRole:
@@ -2085,7 +2207,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.linkRole
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/linkRole/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString:
@@ -2101,7 +2223,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifConceptOrTermOrString/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm:
@@ -2118,7 +2240,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.cdifDataType.cdifConceptOrTerm
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifConceptOrTerm/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.dataDownload:
@@ -2299,7 +2421,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.dataDownload
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/dataDownload/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.webAPI:
@@ -2377,7 +2499,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.webAPI
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/webAPI/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.person:
@@ -2479,7 +2601,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.person
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/person/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.organization:
@@ -2564,7 +2686,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.organization
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/organization/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.agentInRole:
@@ -2572,7 +2694,11 @@ x-defs:
       schema:Role. The schema.org documentation does not state that the Role type
       is an expected data type of author, creator and contributor, but that is addressed
       in this blog post (http://blog.schema.org/2014/06/introducing-role.html). see
-      https://github.com/ESIPFed/science-on-schema.org/blob/develop/guides/Dataset.md#roles-of-people
+      https://github.com/ESIPFed/science-on-schema.org/blob/develop/guides/Dataset.md#roles-of-people.
+      The Role holds the agent under the property it sits under, as schema.org's Role
+      pattern and validator.schema.org require -- schema:contributor inside a contributor
+      Role, schema:agent inside an activity's agent Role, schema:participant inside
+      a participant Role. At least one is required.
     type: object
     properties:
       '@type':
@@ -2590,18 +2716,36 @@ x-defs:
         allOf:
         - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.agentInRole/$defs/cdifConceptOrTermOrString
       schema:contributor:
+        x-jsonld-id: http://schema.org/contributor
+        allOf:
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.agentInRole/$defs/RoleFiller
+      schema:agent:
+        x-jsonld-id: http://schema.org/agent
+        allOf:
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.agentInRole/$defs/RoleFiller
+      schema:participant:
+        x-jsonld-id: http://schema.org/participant
+        allOf:
+        - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.agentInRole/$defs/RoleFiller
+    required:
+    - '@type'
+    - schema:roleName
+    anyOf:
+    - required:
+      - schema:contributor
+    - required:
+      - schema:agent
+    - required:
+      - schema:participant
+    $defs:
+      RoleFiller:
+        description: The Person or Organization in this role.
         anyOf:
         - description: IRI reference to a Person or Organization defined elsewhere
           allOf:
           - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.objectReference
         - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.person
         - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.schemaorgProperties.organization
-        x-jsonld-id: http://schema.org/contributor
-    required:
-    - '@type'
-    - schema:roleName
-    - schema:contributor
-    $defs:
       cdifConceptOrTermOrString:
         $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.cdifConceptOrTermOrString
     x-jsonld-prefixes:
@@ -2610,7 +2754,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.agentInRole
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/agentInRole/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.monetaryGrant:
@@ -2672,7 +2816,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.monetaryGrant
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/monetaryGrant/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.provProperties.generatedBy:
@@ -2726,7 +2870,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.provProperties.generatedBy
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/provProperties/generatedBy/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.provProperties.derivedFrom:
@@ -2746,7 +2890,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.provProperties.derivedFrom
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/provProperties/derivedFrom/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.cdifDataType.cdifCatalogRecord:
@@ -2870,7 +3014,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.cdifDataType.cdifCatalogRecord
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.2'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifCatalogRecord/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.cdifDataType.cdifProvActivity:
@@ -2985,12 +3129,22 @@ x-defs:
           - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.cdifDataType.cdifProvActivity/$defs/ThingValue
         schema:actionStatus:
           type: string
-          description: Status of this activity
+          description: Status of this activity. Written as the CDIF CURIE (schema:CompletedActionStatus)
+            or the full schema.org IRI (http:// or https://schema.org/CompletedActionStatus);
+            the schema.org validator rejects the CURIE and accepts the full IRI.
           enum:
           - schema:CompletedActionStatus
           - schema:ActiveActionStatus
           - schema:PotentialActionStatus
           - schema:FailedActionStatus
+          - http://schema.org/CompletedActionStatus
+          - http://schema.org/ActiveActionStatus
+          - http://schema.org/PotentialActionStatus
+          - http://schema.org/FailedActionStatus
+          - https://schema.org/CompletedActionStatus
+          - https://schema.org/ActiveActionStatus
+          - https://schema.org/PotentialActionStatus
+          - https://schema.org/FailedActionStatus
           x-jsonld-id: http://schema.org/actionStatus
         schema:startTime:
           type: string
@@ -3410,7 +3564,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.cdifDataType.cdifProvActivity
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/cdifDataType/cdifProvActivity/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.skosProperties.skosConcept:
@@ -3472,6 +3626,29 @@ x-defs:
               items:
                 $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
             x-jsonld-id: http://www.w3.org/2004/02/skos/core#prefLabel
+          skos:altLabel:
+            description: Alternative lexical labels (acronyms, abbreviations, spelling
+              variants).
+            anyOf:
+            - type: string
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+            - type: array
+              items:
+                anyOf:
+                - type: string
+                - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+            x-jsonld-id: http://www.w3.org/2004/02/skos/core#altLabel
+          skos:hiddenLabel:
+            description: Labels accessible to free-text search but not displayed.
+            anyOf:
+            - type: string
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+            - type: array
+              items:
+                anyOf:
+                - type: string
+                - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+            x-jsonld-id: http://www.w3.org/2004/02/skos/core#hiddenLabel
           skos:notation:
             description: Classification code for this concept within a scheme (a single
               notation string, consistent with CdifCodelistConcept).
@@ -3543,6 +3720,17 @@ x-defs:
                 - type: string
                 - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
             x-jsonld-id: http://www.w3.org/2004/02/skos/core#editorialNote
+          skos:example:
+            description: Example of the use of this concept.
+            anyOf:
+            - type: string
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+            - type: array
+              items:
+                anyOf:
+                - type: string
+                - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/LanguageTaggedValue
+            x-jsonld-id: http://www.w3.org/2004/02/skos/core#example
           skos:inScheme:
             description: Concept scheme(s) this concept belongs to.
             anyOf:
@@ -3577,6 +3765,60 @@ x-defs:
               - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
               - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/Concept
             x-jsonld-id: http://www.w3.org/2004/02/skos/core#narrower
+          skos:related:
+            description: Associative (non-hierarchical) relations. Items are inline
+              concept objects or @id references. Shaped like skos:broader/skos:narrower
+              for consistency within this block. SKOS integrity condition S27 makes
+              skos:related disjoint with the transitive closure of skos:broader; that
+              is a graph-level constraint no JSON Schema can express, and rules.shacl
+              does not yet assert it (it asserts only the reflexive skos:broader case).
+            type: array
+            items:
+              anyOf:
+              - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+              - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/Concept
+            x-jsonld-id: http://www.w3.org/2004/02/skos/core#related
+          skos:exactMatch:
+            description: Concepts in other schemes with equivalent meaning, by @id.
+            anyOf:
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+            - type: array
+              items:
+                $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+            x-jsonld-id: http://www.w3.org/2004/02/skos/core#exactMatch
+          skos:closeMatch:
+            description: Concepts in other schemes with sufficiently similar meaning
+              to be interchangeable in some applications, by @id.
+            anyOf:
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+            - type: array
+              items:
+                $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+            x-jsonld-id: http://www.w3.org/2004/02/skos/core#closeMatch
+          skos:broadMatch:
+            description: Broader concepts in other schemes, by @id.
+            anyOf:
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+            - type: array
+              items:
+                $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+            x-jsonld-id: http://www.w3.org/2004/02/skos/core#broadMatch
+          skos:narrowMatch:
+            description: Narrower concepts in other schemes, by @id.
+            anyOf:
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+            - type: array
+              items:
+                $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+            x-jsonld-id: http://www.w3.org/2004/02/skos/core#narrowMatch
+          skos:relatedMatch:
+            description: Associatively related concepts in other schemes, by @id.
+            anyOf:
+            - $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+            - type: array
+              items:
+                $ref: https://usgin.github.io/ddeBuildingBlocks/build/annotated/bbr/metadata/profiles/DDEProfiles/DDEImage/schema-oas3.0.yaml#/x-defs/cdif.bbr.metadata.skosProperties.skosConcept/$defs/ConceptRef
+            x-jsonld-id: http://www.w3.org/2004/02/skos/core#relatedMatch
         required:
         - '@type'
         - skos:prefLabel
@@ -3606,7 +3848,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.skosProperties.skosConcept
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/skosProperties/skosConcept/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.action:
@@ -3785,7 +4027,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.action
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/action/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.instrument:
@@ -4158,7 +4400,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.instrument
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.2'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/instrument/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
   cdif.bbr.metadata.schemaorgProperties.actionResult:
@@ -4210,7 +4452,7 @@ x-defs:
       itemIdentifier: cdif.bbr.metadata.schemaorgProperties.actionResult
       register: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/register.json
       version: '0.1'
-      dateOfLastChange: '2026-11-17'
+      dateOfLastChange: '2026-11-19'
     x-schema-source: https://cross-domain-interoperability-framework.github.io/metadataBuildingBlocks/build/annotated/bbr/metadata/schemaorgProperties/actionResult/schema.yaml
     x-schema-version: https://json-schema.org/draft/2020-12/schema
 type: object
@@ -4328,5 +4570,5 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEImage
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-17'
+  dateOfLastChange: '2026-11-20'
 x-schema-version: https://json-schema.org/draft/2020-12/schema

@@ -487,7 +487,7 @@ x-bblocks-metadata:
   itemIdentifier: dde.bbr.metadata.profiles.DDEProfiles.DDEDocument
   register: https://usgin.github.io/ddeBuildingBlocks/build/register.json
   version: '0.1'
-  dateOfLastChange: '2026-11-17'
+  dateOfLastChange: '2026-11-20'
 
 ```
 

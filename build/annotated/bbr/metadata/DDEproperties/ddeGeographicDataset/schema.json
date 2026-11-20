@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "DDE Geographic Dataset properties",
-  "description": "Conditional extension for geographic dataset resources. Implements MD_SpatialRepresentation entity (DDE spec Table 5) with spatialCoverage (mandatory), spatialRepresentationType (SpatialRepresentationTypeCode enum), spatialResolution (string), referenceSystemType (ReferenceSystemTypeCode enum), and referenceSystemIdentifier (MD_Identifier pattern).",
+  "description": "Conditional extension for geographic dataset resources. Implements MD_SpatialRepresentation entity (DDE spec Table 5) with spatialCoverage (mandatory), spatialRepresentationType (SpatialRepresentationTypeCode enum), spatialResolution (string), referenceSystemType (ReferenceSystemTypeCode enum), referenceSystemIdentifier (MD_Identifier pattern), and verticalExtent (EX_VerticalExtent - minimum and maximum value, units, vertical CRS).",
   "type": "object",
   "properties": {
     "schema:spatialCoverage": {
@@ -31,9 +31,29 @@
             "$ref": "#/$defs/ReferenceSystemIdentifierPV"
           },
           {
+            "$ref": "#/$defs/VerticalExtentPV"
+          },
+          {
             "$ref": "#/$defs/AdditionalProperty"
           }
-        ]
+        ],
+        "if": {
+          "type": "object",
+          "properties": {
+            "schema:propertyID": {
+              "type": "array",
+              "contains": {
+                "$ref": "#/$defs/VerticalExtentID"
+              }
+            }
+          },
+          "required": [
+            "schema:propertyID"
+          ]
+        },
+        "then": {
+          "$ref": "#/$defs/VerticalExtentPV"
+        }
       },
       "x-jsonld-id": "http://schema.org/additionalProperty"
     }
@@ -232,6 +252,155 @@
           ]
         }
       ]
+    },
+    "VerticalExtentID": {
+      "description": "The dde:verticalExtent propertyID, as a string or an @id reference.",
+      "anyOf": [
+        {
+          "const": "dde:verticalExtent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "@id": {
+              "const": "dde:verticalExtent"
+            }
+          },
+          "required": [
+            "@id"
+          ]
+        }
+      ]
+    },
+    "VerticalExtentPV": {
+      "type": "object",
+      "description": "Vertical extent of the dataset (ISO 19115-3 EX_VerticalExtent; DDE elevation). schema:value is a schema:QuantitativeValue whose schema:minValue and schema:maxValue are the lowest and highest vertical coordinates, in the unit of its schema:unitCode (UCUM, e.g. \"m\"). schema:valueReference names the vertical coordinate reference system. Depths below a datum are negative values in a height CRS, or positive values in a depth CRS such as EPSG:5715. Give at least one bound; an open-ended range gives only the other. A PropertyValue whose propertyID is dde:verticalExtent must have this shape.",
+      "properties": {
+        "@type": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "contains": {
+            "const": "schema:PropertyValue"
+          }
+        },
+        "schema:propertyID": {
+          "type": "array",
+          "contains": {
+            "$ref": "#/$defs/VerticalExtentID"
+          },
+          "minItems": 1,
+          "x-jsonld-id": "http://schema.org/propertyID"
+        },
+        "schema:name": {
+          "type": "string",
+          "x-jsonld-id": "http://schema.org/name"
+        },
+        "schema:value": {
+          "type": "object",
+          "description": "The vertical range.",
+          "properties": {
+            "@type": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "contains": {
+                "const": "schema:QuantitativeValue"
+              }
+            },
+            "schema:minValue": {
+              "type": "number",
+              "description": "Lowest vertical coordinate (EX_VerticalExtent/minimumValue).",
+              "x-jsonld-id": "http://schema.org/minValue"
+            },
+            "schema:maxValue": {
+              "type": "number",
+              "description": "Highest vertical coordinate (EX_VerticalExtent/maximumValue).",
+              "x-jsonld-id": "http://schema.org/maxValue"
+            },
+            "schema:unitCode": {
+              "type": "string",
+              "description": "Unit of the bounds, as a UCUM code (e.g. \"m\", \"km\", \"[ft_i]\").",
+              "x-jsonld-id": "http://schema.org/unitCode"
+            },
+            "schema:unitText": {
+              "type": "string",
+              "description": "Unit of the bounds as text, where there is no code.",
+              "x-jsonld-id": "http://schema.org/unitText"
+            }
+          },
+          "allOf": [
+            {
+              "required": [
+                "@type"
+              ]
+            },
+            {
+              "anyOf": [
+                {
+                  "required": [
+                    "schema:minValue"
+                  ]
+                },
+                {
+                  "required": [
+                    "schema:maxValue"
+                  ]
+                }
+              ]
+            }
+          ],
+          "x-jsonld-id": "http://schema.org/value"
+        },
+        "schema:valueReference": {
+          "type": "object",
+          "description": "The vertical coordinate reference system (EX_VerticalExtent/verticalCRSId), as a DefinedTerm whose termCode is the identifier code (e.g. \"EPSG:5714\") and whose schema:url is its resolvable form.",
+          "properties": {
+            "@type": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "contains": {
+                "const": "schema:DefinedTerm"
+              }
+            },
+            "schema:name": {
+              "type": "string",
+              "x-jsonld-id": "http://schema.org/name"
+            },
+            "schema:termCode": {
+              "type": "string",
+              "x-jsonld-id": "http://schema.org/termCode"
+            },
+            "schema:url": {
+              "type": "string",
+              "format": "uri",
+              "x-jsonld-id": "http://schema.org/url"
+            }
+          },
+          "anyOf": [
+            {
+              "required": [
+                "schema:termCode"
+              ]
+            },
+            {
+              "required": [
+                "schema:url"
+              ]
+            }
+          ],
+          "x-jsonld-id": "http://schema.org/valueReference"
+        }
+      },
+      "required": [
+        "schema:propertyID",
+        "schema:name",
+        "schema:value"
+      ]
     }
   },
   "x-jsonld-prefixes": {
@@ -242,6 +411,6 @@
     "itemIdentifier": "dde.bbr.metadata.DDEproperties.ddeGeographicDataset",
     "register": "https://usgin.github.io/ddeBuildingBlocks/build/register.json",
     "version": "0.1",
-    "dateOfLastChange": "2026-11-17"
+    "dateOfLastChange": "2026-11-20"
   }
 }
